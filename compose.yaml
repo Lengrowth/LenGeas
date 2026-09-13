@@ -90,7 +90,7 @@ services:
     volumes:
       - redpanda-data:/var/lib/redpanda/data
     healthcheck:
-      test: ["CMD-SHELL", "rpk cluster health --api-urls 127.0.0.1:9644 | grep -q 'Healthy: true'"]
+      test: ["CMD", "rpk", "cluster", "health", "--api-urls", "127.0.0.1:9644", "--exit-when-healthy"]
       interval: 5s
       timeout: 5s
       retries: 30
