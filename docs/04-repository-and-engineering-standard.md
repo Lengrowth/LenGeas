@@ -59,8 +59,9 @@ No game directory exists before platform completion. Conformance definitions liv
 - `main` is protected and always releasable.
 - Work uses short-lived branches named `<type>/<task-id>-<slug>`.
 - Every commit references a phase task ID.
-- Pull requests require green checks, one domain owner review, and CODEOWNER review for schemas, infrastructure, security, or migrations.
-- Production deployment requires an immutable Git tag, signed image digests, and environment approval.
+- Pull requests require green automated checks. The repository owner may author, review, and merge the same change; no approving review or CODEOWNER approval count is required.
+- Role IDs and `CODEOWNERS` document responsibility and affected domains. They do not imply additional people or block the sole owner.
+- Production deployment requires an immutable Git tag, verified artifact digests, automated artifact provenance, and an explicit owner decision. Git commit and tag signatures are not required.
 - Direct pushes, force pushes, and merge commits to `main` are disabled. Squash merge is the only merge method.
 
 ## Task contract

@@ -31,7 +31,7 @@ docs/evidence/phase-12/
 - [ ] **P12-T03 — Schema authoring.** Generate accessible fields for every v0.1 schema, add domain widgets, immediate local validation, authoritative server validation, draft version, JSON Pointer errors, explicit patches, undo, structured diff, three-way conflict merge, and localization coverage. Depends on P12-T01 and Phase 04 generated types.
 - [ ] **P12-T04 — Visual editors.** Implement React Flow progression and story graphs, economy faucet/sink/curve view, timer editor, UTC LiveOps calendar, experiment editor, and module configuration. Persist graph layout only as presentation metadata. Depends on P12-T03.
 - [ ] **P12-T05 — Simulation and analytics.** Build run specification, start/cancel, live operation status, result/artifact comparison, balance assertions, saved governed queries, data-quality banners, experiment exposure/results/decision, and cost display. Depends on P12-T01 and Phase 11 APIs.
-- [ ] **P12-T06 — Publishing and packages.** Implement freeze, validation stages, migration rehearsal, staging assignment, two-person approval, canary metrics, progressive rollout, rollback, signed release report, package install/upgrade/revoke, and exact digest display. Depends on P12-T03 and Phase 08.
+- [ ] **P12-T06 — Publishing and packages.** Implement freeze, validation stages, migration rehearsal, staging assignment, explicit repository-owner approval, canary metrics, progressive rollout, rollback, signed artifact release report, package install/upgrade/revoke, and exact digest display. Depends on P12-T03 and Phase 08.
 - [ ] **P12-T07 — Support and operations.** Implement case-bound redacted player timeline, state/definition pin, receipt/ledger/entitlement/sync/match views, compensating transaction request, quarantine resolution, queue/event/timer health, alert links, and runbook links. Direct state editing is absent. Depends on P12-T02.
 - [ ] **P12-T08 — Frontend qualification.** Pass WCAG 2.2 AA, keyboard-only graphs/forms, screen-reader announcements, responsive breakpoints, English localization fallback, current/previous Chrome/Edge/Firefox/Safari, visual regression, CSP/CSRF/XSS checks, and performance budgets.
 - [ ] **P12-T09 — Asset, localization, and notification tools.** Implement upload/progress/scan/license/variant/reference/takedown views, localization matrix and ICU preview for every locale, notification template/channel preview, consent/frequency policies, send history, provider health, dead-letter retry, and audit. Depends on P12-T03, P08-T09, P10-T09.
@@ -45,8 +45,8 @@ Routes use game/environment IDs in URL segments and resolve permissions before d
 1. Owner creates studio membership, game, blueprint, and installs exact modules.
 2. Designer authors every primitive, resolves validation, handles a concurrent conflict, and freezes a draft.
 3. Analyst starts simulations, compares versions, observes failing assertion, and returns to edit.
-4. Independent reviewers stage, approve, canary, publish, observe forced health failure, roll back, and reconstruct audit.
-5. Support opens a case, views redacted history, requests compensation, receives second approval, and closes the case.
+4. The repository owner stages, explicitly approves, canaries, publishes, observes forced health failure, rolls back, and reconstructs the audit.
+5. The repository owner opens a support case, views redacted history, requests compensation, re-authenticates, records the correction reason, executes the compensating transaction, and closes the case.
 6. Forbidden-role, cross-studio ID, expired session, revoked permission, stale ETag, Worker failure, and API partial outage all fail safely.
 7. Designer uploads an asset through quarantine, observes scan/variant, references it, revokes it, validates locale fallback/RTL/plurals, previews every notification channel, and retries a provider dead letter.
 

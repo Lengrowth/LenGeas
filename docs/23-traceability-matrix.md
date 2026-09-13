@@ -27,7 +27,7 @@ This matrix maps product requirements to authoritative design documents, deliver
 | RQ-021 Observability/SRE/DR | 18 | 02, 10, 14, 15, 17 | SLO, alert, restore, DR reports |
 | RQ-022 Multi-language SDKs | 04, 09 | 07, 14, 15 | SDK conformance report |
 | RQ-023 Human/AI shared interfaces | 13, 16 | 12, 16 | Identical API audit |
-| RQ-024 Platform completion before first game | 00, 22 | 00, 17 | Signed completion record |
+| RQ-024 Platform completion before first game | 00, 22 | 00, 17 | Owner-approved completion record |
 | RQ-025 Assets, localization, notifications | 24 | 08, 10, 12 | Upload-to-delivery, locale, and provider-failover evidence |
 
 ## Maintenance rule
@@ -40,4 +40,4 @@ The Phase 00 generated register and audit view are [requirements.yaml](governanc
 
 ## Phase 00 generated baseline
 
-The machine-readable baseline is [docs/governance/requirements.yaml](governance/requirements.yaml), generated from [docs/governance/requirement-register.yaml](governance/requirement-register.yaml). The Phase 00 audit records source anchors, owner roles, verification methods, and evidence paths for all 25 matrix requirements. Human acceptance remains required.
+The machine-readable baseline is [docs/governance/requirements.yaml](governance/requirements.yaml), generated from [docs/governance/requirement-register.yaml](governance/requirement-register.yaml). The Phase 00 audit records source anchors, owner roles, verification methods, and evidence paths for all 25 matrix requirements. Explicit repository-owner acceptance remains required; no separate reviewer or signature is required.

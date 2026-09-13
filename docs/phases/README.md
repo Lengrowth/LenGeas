@@ -4,7 +4,7 @@
 
 Phases execute in numeric order. Work inside a phase can run concurrently only when task dependencies permit it. A later phase can begin discovery, but it cannot merge implementation that depends on an unaccepted prior gate. Every completed task links evidence using `../templates/task-record.md`.
 
-Every implementing agent must follow [AI Phase Execution Protocol](AI-EXECUTION-PROTOCOL.md) and begin from the [phase-agent prompt](../templates/phase-agent-prompt.md). A human reviewer uses the [phase review template](../templates/phase-review.md); an implementing agent cannot accept its own phase.
+Every implementing agent must follow [AI Phase Execution Protocol](AI-EXECUTION-PROTOCOL.md) and begin from the [phase-agent prompt](../templates/phase-agent-prompt.md). A review agent may independently verify the implementation with the [phase review template](../templates/phase-review.md), but only the repository owner accepts a phase. The owner may also be the sole implementer and reviewer; no additional person, signature, or approval count is required.
 
 ```text
 00 Charter

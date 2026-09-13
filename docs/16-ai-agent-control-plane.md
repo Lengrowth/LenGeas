@@ -34,7 +34,7 @@ Sensitive inputs are redacted before provider submission. Production player reco
 5. QA and Balance agents produce tests and simulations from the frozen draft.
 6. Director creates a structured proposal with diffs, assumptions, risks, evidence, and unresolved validation failures.
 7. A human author edits or submits the draft.
-8. Independent humans approve through the normal publishing pipeline.
+8. The repository owner approves or rejects through the normal publishing pipeline.
 
 An agent cannot review or approve its own output. Model confidence never replaces a gate.
 

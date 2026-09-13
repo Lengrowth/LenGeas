@@ -29,7 +29,7 @@ For every task ID, the agent performs this exact loop:
 8. Update traceability for every implemented requirement.
 9. Commit using `<task-id>: <imperative summary>` only after validation passes.
 
-An agent cannot mark its own phase `accepted`. It marks tasks `in_review`; the repository owner records acceptance. In a one-person company, the repository owner may hold every role and approve directly without a separate reviewer, meeting, or signature process.
+An agent cannot record the repository owner's acceptance. It marks tasks `in_review`; the repository owner records acceptance explicitly. The owner holds every role and may implement, review, and approve directly without a second person, meeting, signature, CODEOWNER review, or approval count. An independent AI review is a quality check, not a separate approval authority.
 
 ## Required evidence tree
 

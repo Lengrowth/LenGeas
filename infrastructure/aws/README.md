@@ -1,6 +1,6 @@
 # Phase 01 AWS server
 
-The Phase 01 server is an explicitly authorized, non-production EC2 host. The
+The Phase 01 server is an explicitly authorized, temporary non-production EC2 host in `us-east-1`. It is not the Phase 02 AWS topology or a production environment. The
 developer workstation never installs or runs Docker. `phase-01-user-data.sh`
 installs Docker Engine and Compose v2 on the server, consumes a source archive
 of the already-pushed commit, generates the server-only `.env`, runs the pinned
@@ -37,7 +37,9 @@ transfer if it is no longer needed.
 Create or update the exact `A` record `games.lengrowth.com` to the instance's
 public IPv4 address. Keep the record DNS-only while Caddy obtains its
 certificate, then enable the Cloudflare proxy only after HTTPS has been
-verified end to end.
+verified end to end. While the record remains DNS-only, clients reach the Caddy
+origin directly; this must not be described as Cloudflare-proxied origin
+protection.
 
 ## Operator verification
 

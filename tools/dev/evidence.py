@@ -126,8 +126,8 @@ def main() -> int:
             "Five low/moderate Dependabot advisories remain for future remediation",
         ],
         "next_phase_prerequisites": [
-            "Independent review and resolution of all blockers",
-            "Phase 01 acceptance",
+            "Review recommendation and resolution of all mandatory findings",
+            "Explicit repository-owner acceptance",
         ],
         "blockers": [],
     }

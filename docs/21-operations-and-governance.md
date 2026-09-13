@@ -4,13 +4,13 @@
 
 Each service, schema, package, collection, event, dashboard, alert, runbook, and cost center has one accountable owner role and one backup. CODEOWNERS reflects ownership. Orphaned components block release.
 
-For the current delivery model, the repository owner is the sole developer and covers every accountable and backup role. The role split remains a governance and traceability model; it does not imply multiple internal employees. External provider contacts and any policy requiring independent or two-person approval remain separate requirements.
+For the current delivery model, the repository owner is the sole developer and covers every accountable and backup role. The role split is a responsibility and traceability index, not a staffing or approval model. No separate internal reviewer, backup person, committee, meeting, signature, or two-person approval is required. Automated controls still fail closed, and actions that require a human decision must record the owner's explicit decision.
 
 ## Change classes
 
 - Standard: backward-compatible application or definition change using normal pipeline.
-- High-risk: schema, engine semantics, economy, entitlements, identity, authorization, infrastructure, data migration, multiplayer result, or AI tool policy. It requires domain review and staged canary.
-- Emergency: active incident mitigation. It requires incident commander approval, minimal scope, live evidence, rollback, and retrospective within two business days.
+- High-risk: schema, engine semantics, economy, entitlements, identity, authorization, infrastructure, data migration, multiplayer result, or AI tool policy. It requires passing domain-specific automated checks, an explicit owner decision, and a staged canary.
+- Emergency: active incident mitigation. It requires an explicit owner decision, minimal scope, live evidence, rollback, and a retrospective within two business days.
 
 ## ADR policy
 

@@ -1,11 +1,8 @@
-# LenGeas Phase 00 ownership baseline
+# LenGeas sole-owner responsibility map
 # The company and delivery team are one developer: the repository owner.
 # Role ownership and decision authority are recorded in
 # docs/governance/ownership.yaml. No team review or second approver exists.
-# GitHub branch protection can bind this file to the repository owner's account
-# when branch protection is enabled; the account handle is intentionally not
-# invented in project documentation.
+# CODEOWNERS is informational in the sole-developer workflow; branch protection
+# does not require a CODEOWNER review.
 
-# Owner binding remains intentionally unconfigured until the repository owner
-# supplies the real GitHub handle. Do not replace this comment with a guessed
-# account, team, or second approver.
+* @guerra2fernando

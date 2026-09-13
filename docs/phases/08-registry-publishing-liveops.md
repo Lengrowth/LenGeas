@@ -38,7 +38,7 @@ P08-T09 additionally creates `packages/domain/{assets,localization}/`, asset/loc
 
 Implement draft/testing/staging/published/deprecated/archived/rejected transitions with expected version. Expose draft CRUD/patch/freeze/validate, version read/diff, stage/promote/approve/publish/rollback, channel read, module release/install/revoke, remote override CRUD/kill, and LiveOps schedule APIs. Every command has idempotency, actor, reason, environment, and audit record.
 
-The publish workflow persists one operation resource with stage attempts and artifact digests. It resumes after worker failure without rerunning successful content-addressed stages. Approval is two-person and author/AI separation is enforced. Canary health reads named error/latency/integrity/economy metrics and automatically re-points the channel on breach.
+The publish workflow persists one operation resource with stage attempts and artifact digests. It resumes after worker failure without rerunning successful content-addressed stages. Production approval is an explicit repository-owner action; AI agents cannot approve or publish. Author/approver separation is not required for the sole human owner. Canary health reads named error/latency/integrity/economy metrics and automatically re-points the channel on breach.
 
 ### Required scenarios
 

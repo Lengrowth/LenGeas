@@ -4,7 +4,7 @@
 
 ## Mission
 
-Prove the entire v1 platform in production topology, close every mandatory finding, and produce the signed completion record that alone permits first-game planning.
+Prove the entire v1 platform in production topology, close every mandatory finding, and produce the owner-approved completion record that alone permits first-game planning.
 
 ## Required reading and entry
 
@@ -21,12 +21,12 @@ Phases 00–16 must be `accepted` with validated manifests and no mandatory foll
 - [ ] **P17-T07 — Operational qualification.** Exercise every Sev-1 runbook and pager, support case/compensation, privacy export/deletion, access recertification, key rotation, bad release, cost alert, vendor outage, security incident, communication, and postmortem process with named on-call owners.
 - [ ] **P17-T08 — Thirty-day soak.** Operate multiple synthetic studios/games with every package and required combination, offline devices, LiveOps schedules, experiments, monetization sandbox, simulations, AI proposals, async/realtime matches, continuous reconciliation/data quality, deploys, rotations, and canaries. Pass monthly SLOs.
 - [ ] **P17-T09 — No-orphan audit.** Enumerate requirements, tasks, evidence, owners/backups, code packages, services, routes, collections/indexes, events, tasks, timers, schemas, definitions, modules, SDKs, resources, dashboards, alerts, runbooks, retention rules, secrets, vendors, and costs. Every item maps bidirectionally and Terraform has zero unexplained drift.
-- [ ] **P17-T10 — Completion review.** Execute the 12 mandatory demonstrations in `22-platform-completion-contract.md`. Product, Architecture, Security, SRE, Data, Game Systems, Multiplayer, Studio, and QA independently sign the release tag and evidence digests. Publish `docs/evidence/platform-v1-completion.md` with `Platform Completion Review: PASS` only if every threshold passes.
+- [ ] **P17-T10 — Completion review.** Execute the 12 mandatory demonstrations in `22-platform-completion-contract.md`. The repository owner reviews the Product, Architecture, Security, SRE, Data, Game Systems, Multiplayer, Studio, and QA responsibility lenses and records one explicit decision over the release tag and evidence digests. Publish `docs/evidence/platform-v1-completion.md` with `Platform Completion Review: PASS` only if every threshold passes. No second signer or Git signature is required.
 - [ ] **P17-T11 — First-game planning unlock.** After P17-T10, create a separate discovery charter and requirements document. Do not create game code, assets, content definitions, or renderer in this phase.
 
 ## Exact final evidence
 
-`docs/evidence/phase-17/` contains raw and summarized security, supply-chain, performance, integrity, chaos, DR, operations, soak, and traceability reports; command logs; artifact/resource inventory; cost baseline; all reviewer signatures; and SHA-256 manifest. Large raw results live in private R2 and are referenced by immutable digest and signed URL policy.
+`docs/evidence/phase-17/` contains raw and summarized security, supply-chain, performance, integrity, chaos, DR, operations, soak, and traceability reports; command logs; artifact/resource inventory; cost baseline; the repository-owner decision; and SHA-256 manifest. Large raw results live in private R2 and are referenced by immutable digest and signed URL policy.
 
 ## Exit gate
 

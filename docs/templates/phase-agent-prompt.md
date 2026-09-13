@@ -15,4 +15,4 @@ For each task:
 7. Update contracts, generated reference, runbooks, and traceability in the same change.
 8. Mark the task `in_review` only when evidence validates.
 
-At phase end, run `task verify`, `task phase:gate PHASE=<XX>`, and `task evidence PHASE=<XX>`. Create `manifest.json` and `handoff.md`. Report completed task IDs, failed gates, exact blockers, artifact digests, and the first command for the next phase. Do not mark the phase `accepted`; the named human reviewer does that.
+At phase end, run `task verify`, `task phase:gate PHASE=<XX>`, and `task evidence PHASE=<XX>`. Create `manifest.json` and `handoff.md`. Report completed task IDs, failed gates, exact blockers, artifact digests, and the first command for the next phase. Do not mark the phase `accepted`; only the repository owner records that explicit decision. No second person or signature is required.

@@ -3,7 +3,7 @@
 - Phase document:
 - Candidate commit/tag:
 - Manifest digest:
-- Reviewer roles:
+- Reviewer: repository owner or designated review agent
 - Review UTC:
 
 ## Prerequisites
@@ -13,7 +13,7 @@
 - [ ] Every task is `in_review` with valid evidence.
 - [ ] Requirement/task/artifact/evidence links have no orphan.
 
-## Independent verification
+## Verification
 
 - [ ] Clean-clone bootstrap passes.
 - [ ] `task verify` passes.
@@ -32,4 +32,4 @@ List finding ID, severity, owner, evidence, and resolution. Critical/high or man
 
 `accepted | changes_required`
 
-Record each reviewer name, role, signature, UTC, and the final evidence digest. Acceptance authorizes only the next documented phase.
+Record the reviewer identity, UTC, final evidence digest, and recommendation. A review agent returns `ready_for_owner_approval` or `changes_required`; it does not accept the phase. The repository owner records `accepted` without a second reviewer or signature. Acceptance authorizes only the next documented phase.
