@@ -15,11 +15,11 @@
     },
     {
       "path": "docs/runbooks",
-      "sha256": "3a6c217800c3c2d359e7f9f291a90388e842024531e9ad95009ddd5f194a863b"
+      "sha256": "483478494c97247715e25cffcc2696f9a52a0a308411c2ee753d3b29c75fb680"
     },
     {
       "path": "docs/evidence/phase-02/tasks",
-      "sha256": "56054167aef6a41296bed7df0038f68467a94fc20059352e287d79b5fed2b6a1"
+      "sha256": "ebd818f33f146335db9606dadf5fad412d231437d9ccc745af8db408d32789ca"
     },
     {
       "path": "docs/evidence/phase-02/security",
@@ -31,7 +31,7 @@
     },
     {
       "path": "docs/evidence/phase-02/operations",
-      "sha256": "08d5f7427caa48d81b90c8f50013e588d9d738faa5601c14a8ca344c3a50788b"
+      "sha256": "3b013cc9bcb8d2cbe4c3fa12e3fe254900b6fe30952384a78f72e7fd5b736189"
     },
     {
       "path": "docs/phases/02-cloud-foundation.md",
@@ -51,8 +51,8 @@
     "P02-T08",
     "P02-T09"
   ],
-  "end_utc": "2026-09-13T18:47:48.018951Z",
-  "final_commit": "f7abda527081ffeac78ee32cda6f6dfb19bdaac5",
+  "end_utc": "2026-09-13T20:12:38.382367Z",
+  "final_commit": "f5249069bde53525d02460d4ae0798fdcb396148",
   "next_phase_prerequisites": [
     "Independent review and resolution of mandatory findings",
     "Explicit repository-owner acceptance"
