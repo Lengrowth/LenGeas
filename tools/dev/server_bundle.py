@@ -25,6 +25,9 @@ REQUIRED = (
     "infrastructure/docker/grafana/provisioning/datasources/datasource.yaml",
     "infrastructure/docker/README.md",
     "infrastructure/docker/SERVER-DEPLOYMENT.md",
+    "infrastructure/aws/Caddyfile",
+    "infrastructure/aws/README.md",
+    "infrastructure/aws/phase-01-user-data.sh",
 )
 
 

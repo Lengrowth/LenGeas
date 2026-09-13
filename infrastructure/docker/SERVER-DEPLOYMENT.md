@@ -1,6 +1,6 @@
 # Server deployment runbook
 
-This runbook prepares the Phase 01 local dependency stack for an authorized non-production server. It does not provision cloud resources, create credentials, or expose services publicly.
+This runbook prepares the Phase 01 local dependency stack for an authorized non-production server. The AWS bootstrap in `infrastructure/aws/phase-01-user-data.sh` is the reviewed server-only path for the temporary `games.lengrowth.com` endpoint.
 
 The developer workstation must not install or run Docker for this handoff. Use `tools/dev/server_bundle.py` to verify the transfer bundle; execute the Docker commands below only on the authorized server.
 
@@ -10,6 +10,12 @@ The developer workstation must not install or run Docker for this handoff. Use `
 - A reviewed checkout of the LenGeas repository and access to the server-side secret manager.
 - A server-only environment file derived from `.env.example`; credentials are injected by the host secret manager and are never committed.
 - Firewall rules limiting the loopback-bound ports in `compose.yaml` to the operator tunnel or server-local clients.
+
+For the authorized temporary AWS host, use the checked-in AWS bootstrap and
+`infrastructure/aws/Caddyfile`. It generates credentials on the host, installs
+Docker there, keeps Compose dependencies loopback-only, and exposes only the
+Caddy reverse proxy on TCP 80/443. Do not execute the bootstrap on the
+developer workstation.
 
 ## First command
 
