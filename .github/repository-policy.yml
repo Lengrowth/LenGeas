@@ -1,0 +1,57 @@
+schema_version: "1.0.0"
+export_type: local_repository_policy_intent
+repository:
+  remote_configured: false
+  live_github_state: unavailable
+  checked_commands:
+    - command: git remote -v
+      result: no configured remotes
+    - command: git remote get-url origin
+      exit_code: 2
+      result: "error: No such remote 'origin'"
+  blocker: A GitHub repository, owner handle, credentials, and API access are unavailable; this file is a local policy export, not live branch-protection evidence.
+ownership:
+  model: sole_developer_repository_owner
+  github_owner_binding: unavailable_without_owner_handle
+  second_approver_required: false
+  note: Role IDs remain governance lenses held by the same repository owner; no handle or team is invented.
+branch_protection:
+  target: main
+  required:
+    - pull_request_before_merge
+    - required_status_checks
+    - code_owner_review_when_bound
+    - linear_history
+    - signed_commits
+    - no_force_push
+    - no_deletion
+  pull_request:
+    required_approvals: 1
+    dismiss_stale_reviews: true
+    require_last_push_approval: true
+    allow_bypass: false
+  merge:
+    allowed_methods: [squash]
+    allow_merge_commit: false
+    allow_rebase_merge: false
+  status_checks:
+    strict: true
+    required_contexts:
+      - verify / verify
+      - dependency-review / dependency-review
+      - codeql / analyze
+  tag_policy:
+    release_pattern: "v*"
+    require_annotated_tag: true
+    require_signed_tag: true
+    require_verified_release_artifact: true
+automation:
+  dependabot_config: .github/dependabot.yml
+  pull_request_template: .github/PULL_REQUEST_TEMPLATE.md
+documentation:
+  signed_release_tags: .github/policies/signed-release-tags.md
+  ci_evidence_links: .github/policies/ci-evidence-links.md
+verification:
+  local_export_validated: true
+  live_branch_protection_validated: false
+  screenshot_available: false
