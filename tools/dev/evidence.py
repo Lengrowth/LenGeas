@@ -19,7 +19,12 @@ def digest(path: Path) -> str:
             for chunk in iter(lambda: handle.read(1024 * 1024), b""):
                 hasher.update(chunk)
     else:
-        for child in sorted(item for item in path.rglob("*") if item.is_file()):
+        excluded = {".git", ".venv", "node_modules", "__pycache__"}
+        for child in sorted(
+            item
+            for item in path.rglob("*")
+            if item.is_file() and not excluded.intersection(item.parts)
+        ):
             hasher.update(child.relative_to(path).as_posix().encode("utf-8"))
             hasher.update(bytes.fromhex(digest(child)))
     return hasher.hexdigest()
@@ -107,6 +112,25 @@ def main() -> int:
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
+    from jsonschema import Draft202012Validator, FormatChecker  # type: ignore[import-untyped]
+
+    schema = json.loads(
+        (ROOT / "packages" / "schemas" / "evidence" / "phase-manifest.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    errors = sorted(
+        Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(manifest),
+        key=str,
+    )
+    if errors:
+        raise SystemExit(
+            "evidence manifest schema validation failed: "
+            + "; ".join(error.message for error in errors)
+        )
+    for artifact in artifacts:
+        if artifact["sha256"] != digest(ROOT / str(artifact["path"])):
+            raise SystemExit(f"evidence artifact digest changed: {artifact['path']}")
     print(f"PASS evidence manifest generated: {manifest_path.relative_to(ROOT)}")
     return 0
 
