@@ -1,7 +1,7 @@
 {
   "artifact_type": "lengeas.release",
-  "commit": "cd1705ccec41274a9dc1a4fd52b3ab959666feab",
-  "created_utc": "2026-09-13T10:32:03.833612Z",
+  "commit": "cde35c63ad991ee2129e7f7a5366f855e39cf68e",
+  "created_utc": "2026-09-13T10:43:52.699910Z",
   "files": [
     {
       "path": ".editorconfig",
@@ -33,7 +33,7 @@
     },
     {
       "path": ".github/repository-policy.yml",
-      "sha256": "bea5d796fa346d8508a6fe93448fba975114f44090596f445e6f673d95f44828"
+      "sha256": "e9b3f93b304ea973e0c105bdf398514c2eaf40cda094a0a917baf00e9367c901"
     },
     {
       "path": ".github/workflows/codeql.yml",
@@ -49,7 +49,7 @@
     },
     {
       "path": ".github/workflows/verify.yml",
-      "sha256": "c6b012f039722e8097eb437411cbc194a5bd058db66c4e6daa51c499b56a508b"
+      "sha256": "2ecea9c6ca1e0be9f279322f2e06c92b2b57c173ed56b6471756f974baa6fb4b"
     },
     {
       "path": ".gitignore",
@@ -493,11 +493,11 @@
     },
     {
       "path": "docs/evidence/phase-01/blockers.md",
-      "sha256": "a8d6450607547a0569d5dca193f610149188c325d8f9e9a19f46500d8db8f304"
+      "sha256": "3bb3467b7b0024705cf3878eb79f963eb34d02fd2f9c3a1fa3e65e2a351fab61"
     },
     {
       "path": "docs/evidence/phase-01/commands.ndjson",
-      "sha256": "0cac1f5ca9f39f5d91ab1eafae9aebf19b13eb0616e870f1b7032ba11b9d9241"
+      "sha256": "ac6834c48e8f60e0962eb0a88ed2452236f05dcefb14c87b2143c5010cd54463"
     },
     {
       "path": "docs/evidence/phase-01/coverage.json",
@@ -513,7 +513,7 @@
     },
     {
       "path": "docs/evidence/phase-01/manifest.json",
-      "sha256": "43e4c6c5a4de00e4fa0a380a16eb61eae6821044f82df5c0ad6bf642691487d6"
+      "sha256": "2a6817ce576e4dcb18bcbc9bab25e84e539455584228832ec4e1056827c7da02"
     },
     {
       "path": "docs/evidence/phase-01/operations/README.md",
@@ -521,7 +521,7 @@
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
-      "sha256": "bf7c69271f0d9fd75cad9e0955392bb909f8c472599a57bf116000e113e17a4c"
+      "sha256": "c8933a1612c280cdecb41824f5bc21f1f1bc4c4722c625eb466ba9005fa807db"
     },
     {
       "path": "docs/evidence/phase-01/operations/service-map.md",
@@ -549,11 +549,11 @@
     },
     {
       "path": "docs/evidence/phase-01/security/release-manifest.json",
-      "sha256": "e30725e8464b7d487c9dca23616e4b292326a508e28d21b9100d2a13d25261da"
+      "sha256": "65b81a49cd8903a5f160d5354c3073f48c37fd1af0dd8ea4ab356341d24dfd90"
     },
     {
       "path": "docs/evidence/phase-01/security/source-sbom.spdx.json",
-      "sha256": "bfdd87db1590863790822d199031adff567a5aaa3b292097359c6ab5a461ccf2"
+      "sha256": "8c1a9abaa377caee7d4eb855728858782d680e8346de8529f84a540b5e36fdad"
     },
     {
       "path": "docs/evidence/phase-01/tasks/P01-T01.md",
@@ -569,7 +569,7 @@
     },
     {
       "path": "docs/evidence/phase-01/tasks/P01-T04.md",
-      "sha256": "df1042e8eb2be2387aae2f479fe08b1d5a658b25e196df50d1cc220c770e77e0"
+      "sha256": "dc13f5761b2dfb1594c1fa671a06921e3741b1b7b9840efee41bc4d453378d9e"
     },
     {
       "path": "docs/evidence/phase-01/tasks/P01-T05.md",
@@ -585,7 +585,7 @@
     },
     {
       "path": "docs/evidence/phase-01/tasks/P01-T08.md",
-      "sha256": "b87a974b371555dd512d5d09ec9b78ba3d70c0a1ba6efe8c1dc85f7224dbacf4"
+      "sha256": "dd61f2e51e6fdd360fc1a9e5e71b32a1583484753915dd9aba29fa1c9b887af2"
     },
     {
       "path": "docs/evidence/phase-01/test-report.xml",
@@ -1097,7 +1097,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "a7ffde5136c38d447a1a6ee877115ee6b3d36e82a7e8c2fb4562df11d21e4086"
+      "sha256": "8b5b57e5ecc218abd889f26260d9a0701d5b0c1c4eab051609f5dfc9aae65361"
     },
     {
       "path": "tools/dev/format.py",
@@ -1180,5 +1180,5 @@
   },
   "schema_version": "1.0.0",
   "tag": "phase-01-candidate",
-  "tree": "1cf9748a912a835ce4d84b01497971b08dadd37a"
+  "tree": "6798eab3951cb9896b6d2780af0dc8a112a96b34"
 }
