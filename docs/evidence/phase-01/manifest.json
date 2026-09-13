@@ -31,7 +31,7 @@
     },
     {
       "path": ".github",
-      "sha256": "451115734537aca26ee3055774592172ac96e486ebe241648b2085504d8343bb"
+      "sha256": "74622d35c86f7764eece6f2f86f16ac99868ce2b030d43a3a41e9c46933c992e"
     },
     {
       "path": "infrastructure/docker",
@@ -39,7 +39,7 @@
     },
     {
       "path": "infrastructure/aws",
-      "sha256": "0b120b63cec6dc5304bfbb52ad3d55b3c46c7af714c986a1e8226c97f75f9065"
+      "sha256": "5ccc2f31a16b31cfb6de9eff7a2d6123faa1636b3ab79c834fddd77f7967ae4d"
     },
     {
       "path": "packages/schemas/evidence/phase-manifest.schema.json",
@@ -51,7 +51,7 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "af19fc193de968649b63676131e78b785730dbfeb0dc4e1574c2350a8a702125"
+      "sha256": "b9fc6efb4f2e1d8168b06fcfadc161b05079ec192d0dc79cc99c47dabbf43698"
     },
     {
       "path": "tests",
@@ -78,11 +78,11 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T13:35:21.540853Z",
-  "final_commit": "3bd5eed3f07007cb1e39b0fa567ed7125dba5fed",
+  "end_utc": "2026-09-13T13:55:04.497291Z",
+  "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [
-    "Independent review and resolution of all blockers",
-    "Phase 01 acceptance"
+    "Review recommendation and resolution of all mandatory findings",
+    "Explicit repository-owner acceptance"
   ],
   "open_risks": [
     "Docker intentionally unavailable on developer workstation; server and hosted CI runtime passed",
