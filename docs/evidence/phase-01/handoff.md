@@ -6,7 +6,7 @@
 
 ## Operational state
 
-The repository contains a digest-pinned Compose stack for MongoDB replica-set transactions, Valkey, RabbitMQ, Redpanda, MinIO, Mailpit, OpenTelemetry Collector, Prometheus, Grafana, Jaeger, and an API health/version shell. Docker was not installed or run locally after the repository owner directed that local execution not occur. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md`.
+The repository contains a digest-pinned Compose stack for MongoDB replica-set transactions, Valkey, RabbitMQ, Redpanda, MinIO, Mailpit, OpenTelemetry Collector, Prometheus, Grafana, Jaeger, and an API health/version shell. Docker was not installed or run locally after the repository owner directed that local execution not occur. `tools/dev/server_bundle.py` creates a hash manifest for the server transfer set without invoking Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md`.
 
 ## Public interfaces and versions
 
@@ -35,10 +35,9 @@ See `blockers.md` for BLK-01 through BLK-04. They remain actionable and owned.
 ## Exact next command
 
 ```text
-task bootstrap
+python tools/dev/server_bundle.py --output docs/evidence/phase-01/operations/server-bundle-manifest.json
 ```
 
 ## Prohibited assumptions
 
 Do not treat local static validation as live service evidence, do not assume a GitHub remote or OIDC identity exists, do not run Docker on the developer workstation, do not expose the local services publicly, and do not start Phase 02 before Phase 01 is accepted.
-

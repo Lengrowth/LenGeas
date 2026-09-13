@@ -3,5 +3,4 @@ nodejs 22.16.0
 pnpm 11.20.0
 uv 0.11.29
 terraform 1.15.8
-task 3.45.4
-
+task 3.53.1

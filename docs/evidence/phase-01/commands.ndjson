@@ -21,4 +21,4 @@
 {"command":"task local:up","exit_code":201,"result":"Docker unavailable; underlying local command exit 1"}
 {"command":"task local:smoke","exit_code":201,"result":"Docker unavailable; underlying local command exit 1"}
 {"command":"task local:down","exit_code":201,"result":"Docker unavailable; underlying local command exit 1"}
-
+{"command":"uv run --frozen python tools/dev/server_bundle.py --output docs/evidence/phase-01/operations/server-bundle-manifest.json","exit_code":0,"result":"server transfer files hashed; all Compose image references verified digest-pinned; Docker not invoked"}

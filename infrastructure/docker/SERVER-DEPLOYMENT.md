@@ -2,6 +2,8 @@
 
 This runbook prepares the Phase 01 local dependency stack for an authorized non-production server. It does not provision cloud resources, create credentials, or expose services publicly.
 
+The developer workstation must not install or run Docker for this handoff. Use `tools/dev/server_bundle.py` to verify the transfer bundle; execute the Docker commands below only on the authorized server.
+
 ## Prerequisites
 
 - Linux host with Docker Engine and the Compose v2 plugin installed at approved versions.
@@ -33,4 +35,3 @@ python3 tools/dev/task_runner.py local-down
 ```
 
 The stack is non-production and disposable. If a pinned image fails health checks, stop the stack, retain the raw logs, and open an evidence blocker; do not replace a digest with a mutable tag.
-

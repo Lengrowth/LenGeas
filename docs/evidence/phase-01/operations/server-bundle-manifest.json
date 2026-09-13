@@ -1,0 +1,64 @@
+{
+  "bundle_type": "lengeas.phase-01.server-compose",
+  "execution_policy": "server-only; Docker is not invoked by this tool",
+  "files": [
+    {
+      "path": "compose.yaml",
+      "sha256": "6d94d17c01d4fef6be737a14e73af7d8253d2625f8f0315fed42d2f109bd4735"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "ac57da41f65e6ed82fcc9282852f044001b46036ed40238314572739f497172d"
+    },
+    {
+      "path": "infrastructure/docker/api-shell/Dockerfile",
+      "sha256": "8764093c4d5523946cba3cd4bf6608bd0a83ffb8e045d1bd92bc478f95bf1897"
+    },
+    {
+      "path": "infrastructure/docker/api-shell/api_shell.py",
+      "sha256": "3ca476d54c773875f80123301410921215c82e79bcaadd354a02fca568712e47"
+    },
+    {
+      "path": "infrastructure/docker/otel-collector-config.yaml",
+      "sha256": "397029cc5c63f831591213daa145ed7163f46e6516d044b63a4e39c9bc6f89b1"
+    },
+    {
+      "path": "infrastructure/docker/prometheus.yml",
+      "sha256": "34bc026fdc7d7ca1fba1d270f3f894283361f98585399dc57c702c442a3e3964"
+    },
+    {
+      "path": "infrastructure/docker/grafana/provisioning/datasources/datasource.yaml",
+      "sha256": "ce0bd69f3a72d7e42d085211153cbb1036e9a55cd7ae88de109fb3b5160bc300"
+    },
+    {
+      "path": "infrastructure/docker/README.md",
+      "sha256": "3418c70c2a294e20756f79dc75802750dc30cf7b9588f850f254d2137fed554f"
+    },
+    {
+      "path": "infrastructure/docker/SERVER-DEPLOYMENT.md",
+      "sha256": "9ed785f9a6027b6064f9b0fe983644002689754015b073fba18a1efb4045fa4c"
+    }
+  ],
+  "image_digests": [
+    "mongo@sha256:95a98776f273721a295b03098578b06bc10281bb56aa828c77e9f60ecc70b150",
+    "mongo@sha256:95a98776f273721a295b03098578b06bc10281bb56aa828c77e9f60ecc70b150",
+    "valkey/valkey@sha256:a19bebed6a91bd5e6e2106fef015f9602a3392deeb7c9ed47548378dcee3dfc2",
+    "rabbitmq@sha256:294b01e1796a8acede4619f32a1c394fae1f8021e57986ea01aad38dc2a4f502",
+    "redpandadata/redpanda@sha256:218469e5d088757bb2c3ff4c5e272f7eebdc4e94c933e6e15aff10b845cbcd07",
+    "quay.io/minio/minio@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e",
+    "quay.io/minio/mc@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727",
+    "axllent/mailpit@sha256:6abc8e633df15eaf785cfcf38bae48e66f64beecdc03121e249d0f9ec15f0707",
+    "jaegertracing/all-in-one@sha256:ab6f1a1f0fb49ea08bcd19f6b84f6081d0d44b364b6de148e1798eb5816bacac",
+    "otel/opentelemetry-collector-contrib@sha256:4a951ff0a9772f4fa8e9c7a326434370301b98b2b813933468dcb54aa6a6b5e5",
+    "prom/prometheus@sha256:76947e7ef22f8a698fc638f706685909be425dbe09bd7a2cd7aca849f79b5f64",
+    "grafana/grafana@sha256:74144189b38447facf737dfd0f3906e42e0776212bf575dc3334c3609183adf7"
+  ],
+  "schema_version": "1.0.0",
+  "source_commit": "fc46d8af68bef28efadc61e36bf7c8128eb2cb45",
+  "verification": [
+    "docker compose config --quiet",
+    "python tools/dev/task_runner.py local-up",
+    "python tools/dev/task_runner.py local-smoke",
+    "python tools/dev/task_runner.py local-down"
+  ]
+}
