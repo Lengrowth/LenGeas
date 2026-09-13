@@ -50,3 +50,4 @@
 {"command":"redpanda healthcheck replacement with native --exit-when-healthy; compose refresh","exit_code":0,"host":"i-0e826e65d7f5df890","result":"all 12 Compose services running; Redpanda healthy"}
 {"command":"gh run list --repo guerra2fernando/LenGeas --limit 8","exit_code":0,"result":"runs 34756975179, 34756796412, 34756682928, 34756212729, and 34756010652 all completed startup_failure with no jobs"}
 {"command":"Cloudflare DNS record update for games.lengrowth.com","exit_code":403,"result":"blocked: active Wrangler token lacks DNS Read/Write; public HTTPS validation intentionally not claimed"}
+{"command":"gh run view 34757300365 --repo guerra2fernando/LenGeas --verbose","exit_code":1,"commit":"16602a9fda3fc0878127f48f10322e5996cb1eb1","result":"post-push verification completed with startup_failure before any job"}
