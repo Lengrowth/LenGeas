@@ -8,4 +8,4 @@
 
 ## Decision
 
-`changes_required` — server-side runtime, integration, public HTTPS, and E2E evidence pass, but remote repository protection/CI and Sigstore verification remain blocked. Phase 01 is not accepted.
+`in_review` — server-side runtime, hosted integration/E2E, public HTTPS, live repository protection/CI, and keyless Sigstore verification pass. Phase 01 is not accepted; independent review is pending.

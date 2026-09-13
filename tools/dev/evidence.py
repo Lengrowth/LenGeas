@@ -65,11 +65,20 @@ def main() -> int:
         path = ROOT / value
         if path.exists():
             artifacts.append({"path": value, "sha256": digest(path)})
-    task_ids = ["P01-T01", "P01-T02", "P01-T03", "P01-T04", "P01-T06", "P01-T07"]
+    task_ids = [
+        "P01-T01",
+        "P01-T02",
+        "P01-T03",
+        "P01-T04",
+        "P01-T05",
+        "P01-T06",
+        "P01-T07",
+        "P01-T08",
+    ]
     manifest = {
         "schema_version": "1.0.0",
         "phase": "01",
-        "status": "blocked",
+        "status": "in_review",
         "start_utc": "2026-09-13T09:02:42Z",
         "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "base_commit": "28bd5d577c7f990854b364b4aa89a41fb144b4fa",
@@ -107,20 +116,20 @@ def main() -> int:
             "local policy checks",
             "server-side Compose smoke (passed; Docker was not run locally)",
             "server-side integration and server-local/public E2E harnesses (passed)",
-            "task verify (still blocked by remote policy and signing prerequisites)",
-            "task phase:gate PHASE=01 (blocked by BLK-03 and BLK-04)",
-            "GitHub verify workflow dispatch (startup_failure; no jobs)",
+            "GitHub hosted verify run 34759754929 (passed)",
+            "GitHub keyless release run 34760098397 for v0.1.1 (passed)",
+            "task phase:gate PHASE=01 (review gate; acceptance remains external)",
         ],
         "open_risks": [
-            "Docker unavailable on developer workstation; server runtime passed",
-            "GitHub remote and live branch policy unavailable",
-            "Sigstore signing unavailable",
+            "Docker intentionally unavailable on developer workstation; "
+            "server and hosted CI runtime passed",
+            "Five low/moderate Dependabot advisories remain for future remediation",
         ],
         "next_phase_prerequisites": [
             "Independent review and resolution of all blockers",
             "Phase 01 acceptance",
         ],
-        "blockers": ["BLK-03", "BLK-04"],
+        "blockers": [],
     }
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"

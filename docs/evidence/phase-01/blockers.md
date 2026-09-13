@@ -12,11 +12,11 @@ The server-side E2E harness passed with `LENGEAS_E2E_BASE_URL=http://127.0.0.1:8
 
 Owner: `qa_owner`; status: resolved; resolution: retain both server-local and public E2E checks.
 
-## BLK-03 — Remote repository protection and CI gate unavailable
+## BLK-03 — Remote repository protection and CI gate — resolved
 
-The remote is configured and pushed; `origin/main` is `d012034b829d1c8f2ee81f74a35c6c5c7bbc9b5b`. GitHub metadata now confirms public repository `guerra2fernando/LenGeas`, default branch `main`, owner admin permission, and Actions enabled with all actions allowed. The live branch read reports `protected: false` and required status-check enforcement `off`. The full verification dispatch run `34758013015` was accepted but the job was not started because the account is locked due to a billing issue. No successful CI run or live protection export can be claimed until billing is restored and `main` is protected. P01-T08 still contains the local policy intent and the observed live state.
+The remote is configured as `https://github.com/Lengrowth/LenGeas.git`. `main` is protected with strict `verify`, `dependency-review`, and CodeQL matrix checks, linear history, conversation resolution, and no force-push/deletion. The solo-developer policy intentionally requires no approving review and no signed commits. PR #14 verification run `34759754929` passed all required checks.
 
-Owner: `infrastructure_owner`; status: open; resolution: clear the GitHub billing lock, enable the required `main` protection, and attach a successful CI run without weakening the local policy.
+Owner: `infrastructure_owner`; status: resolved; resolution: transfer to `Lengrowth`, enable dependency graph/alerts, apply the live protection export, and pass the hosted verification workflow.
 
 ## BLK-05 — Public DNS/TLS cutover — resolved
 
@@ -24,8 +24,8 @@ Owner: `infrastructure_owner`; status: open; resolution: clear the GitHub billin
 
 Owner: `infrastructure_owner`; status: resolved; resolution: retain the DNS record and certificate, or optionally enable Cloudflare proxying with Full (strict).
 
-## BLK-04 — Sigstore sample verification unavailable
+## BLK-04 — Sigstore sample verification — resolved
 
-The release metadata and workflow require keyless Sigstore signing, but `cosign` and a CI OIDC identity are unavailable locally. The repository owner explicitly said signing is not needed for this temporary server deployment; that authorization is recorded, but it does not silently waive the Phase 01 mandatory signing gate. No signature is claimed.
+The keyless release workflow completed for `v0.1.1` in run `34760098397`. Buildx published the image with SBOM/provenance, Cosign signed it using GitHub OIDC, Cosign verified the expected workflow certificate identity and issuer, and the release manifest uploaded successfully. Git commit/tag signatures are not required by the sole-developer branch policy; published container artifacts remain signed.
 
-Owner: `release_manager`; status: open; resolution: run the release workflow or an equivalent ephemeral OIDC environment and attach verification output.
+Owner: `release_manager`; status: resolved; resolution: use the successful `v0.1.1` release evidence and retain the keyless artifact-signing workflow.

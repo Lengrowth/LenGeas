@@ -2,7 +2,7 @@
 
 ## Status
 
-`blocked` — the repository foundation, server runtime, and public HTTPS endpoint are implemented, but remote-protection/CI and Sigstore evidence remain unavailable. This handoff is for independent review and does not claim acceptance.
+`in_review` — the repository foundation, server runtime, public HTTPS endpoint, live CI gates, and keyless release evidence are implemented. This handoff is for independent review and does not claim acceptance.
 
 ## Operational state
 
@@ -32,12 +32,12 @@ No credentials are stored in Git or on the server source archive. The server boo
 
 ## Known blockers
 
-See `blockers.md` for BLK-01 through BLK-05. BLK-03 and BLK-04 remain actionable and owned.
+See `blockers.md` for BLK-01 through BLK-05. All recorded blockers are resolved; independent review remains pending.
 
 ## Exact next command
 
 ```text
-python tools/dev/server_bundle.py --output docs/evidence/phase-01/operations/server-bundle-manifest.json
+task phase:gate PHASE=01
 ```
 
 ## Prohibited assumptions
