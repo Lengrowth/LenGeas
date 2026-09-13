@@ -24,9 +24,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: sigstore/cosign-installer@v3.9.0
-      - run: docker buildx build --platform linux/arm64 --provenance=true --sbom=true --tag ghcr.io/${{ github.repository }}:${{ github.ref_name }} --push -f infrastructure/docker/api-shell/Dockerfile infrastructure/docker/api-shell
-      - run: cosign sign --yes ghcr.io/${{ github.repository }}:${{ github.ref_name }}
-      - run: cosign verify ghcr.io/${{ github.repository }}:${{ github.ref_name }} --certificate-identity-regexp='https://github.com/${{ github.repository }}/.github/workflows/release.yml@refs/tags/${{ github.ref_name }}' --certificate-oidc-issuer='https://token.actions.githubusercontent.com'
+      - name: Normalize image name
+        run: echo "IMAGE_REPOSITORY=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+      - run: docker buildx build --platform linux/arm64 --provenance=true --sbom=true --tag "$IMAGE_REPOSITORY:${{ github.ref_name }}" --push -f infrastructure/docker/api-shell/Dockerfile infrastructure/docker/api-shell
+      - run: cosign sign --yes "$IMAGE_REPOSITORY:${{ github.ref_name }}"
+      - run: cosign verify "$IMAGE_REPOSITORY:${{ github.ref_name }}" --certificate-identity-regexp='https://github.com/${{ github.repository }}/.github/workflows/release.yml@refs/tags/${{ github.ref_name }}' --certificate-oidc-issuer='https://token.actions.githubusercontent.com'
       - run: python tools/dev/release_manifest.py --tag "${{ github.ref_name }}" --output "release-manifest-${{ github.sha }}.json"
       - uses: actions/upload-artifact@v4.6.2
         with:
