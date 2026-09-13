@@ -60,7 +60,7 @@ jobs:
       - run: uv run --frozen python tools/dev/ci_checks.py openapi
       - run: uv run --frozen python tools/dev/ci_checks.py license-policy
       - run: task evidence PHASE=01
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v7.0.1
         with:
           name: phase-01-evidence-${{ github.sha }}
           path: docs/evidence/phase-01/
@@ -78,7 +78,7 @@ jobs:
             terraform -chdir="infrastructure/terraform/environments/${root}" init -backend=false -input=false
             terraform -chdir="infrastructure/terraform/environments/${root}" validate
           done
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v7.0.1
         with:
           name: phase-02-evidence-${{ github.sha }}
           path: docs/evidence/phase-02/
