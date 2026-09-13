@@ -292,12 +292,16 @@ def build_phase02_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "production-target module/root static policy",
             "production-target mandatory negative-control policy",
             "Terraform fmt and provider-backed validation of disabled reference modules",
-            "live production apply, failover, reachability, managed providers, and DR: deferred and not claimed",
+            "live production apply, failover, reachability, managed providers, "
+            "and DR: deferred and not claimed",
         ],
         "open_risks": [
-            "Development runs on one t3.medium in one availability zone with no production availability or DR guarantee.",
-            "The development root EBS volume is unencrypted; only synthetic non-sensitive data is permitted.",
-            "The development endpoint is DNS-only and reaches the public origin directly; no production edge protection is claimed.",
+            "Development runs on one t3.medium in one availability zone with no "
+            "production availability or DR guarantee.",
+            "The development root EBS volume is unencrypted; only synthetic "
+            "non-sensitive data is permitted.",
+            "The development endpoint is DNS-only and reaches the public origin "
+            "directly; no production edge protection is claimed.",
             "The instance has no IAM profile and detailed monitoring is disabled.",
             "Disabled production-target Terraform may drift and must be refreshed at rollout.",
         ],
