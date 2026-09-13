@@ -123,7 +123,16 @@ def main() -> int:
         "open_risks": [
             "Docker intentionally unavailable on developer workstation; "
             "server and hosted CI runtime passed",
-            "Five low/moderate Dependabot advisories remain for future remediation",
+            "Dependabot #7: pytest 8.4.2 moderate test-only risk; owner infrastructure_owner; "
+            "Dependabot PR #5 target 2026-09-20",
+            "Dependabot #6: turbo 2.5.6 moderate build-only risk; owner infrastructure_owner; "
+            "Dependabot PR #4 target 2026-09-20",
+            "Dependabot #5: turbo 2.5.6 low build-only risk; owner infrastructure_owner; "
+            "Dependabot PR #4 target 2026-09-20",
+            "Dependabot #4: turbo 2.5.6 moderate build-only risk; owner infrastructure_owner; "
+            "Dependabot PR #4 target 2026-09-20",
+            "Dependabot #3: turbo 2.5.6 low build-only risk; owner infrastructure_owner; "
+            "Dependabot PR #4 target 2026-09-20",
         ],
         "next_phase_prerequisites": [
             "Review recommendation and resolution of all mandatory findings",
