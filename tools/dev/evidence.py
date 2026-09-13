@@ -112,7 +112,7 @@ def main() -> int:
             "GitHub verify workflow dispatch (startup_failure; no jobs)",
         ],
         "open_risks": [
-            "Docker runtime intentionally unavailable on the developer workstation; server runtime passed",
+            "Docker unavailable on developer workstation; server runtime passed",
             "GitHub remote and live branch policy unavailable",
             "Sigstore signing unavailable",
         ],

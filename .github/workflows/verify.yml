@@ -15,6 +15,8 @@ jobs:
   verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    env:
+      LENGEAS_E2E_BASE_URL: http://127.0.0.1:8000
     steps:
       - uses: actions/checkout@v4.2.2
       - uses: astral-sh/setup-uv@v6.7.0
@@ -32,6 +34,8 @@ jobs:
           version: 3.53.1
       - run: task bootstrap
       - run: task generate
+      - name: Start dependency stack
+        run: task local:up
       - run: task verify
       - run: task format
       - run: task lint
@@ -73,3 +77,6 @@ jobs:
           path: .
           artifact-name: sbom-${{ github.sha }}.spdx.json
           output-file: sbom-${{ github.sha }}.spdx.json
+      - name: Stop dependency stack
+        if: always()
+        run: task local:down
