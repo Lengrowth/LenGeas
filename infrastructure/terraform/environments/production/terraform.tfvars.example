@@ -1,0 +1,7 @@
+enabled     = false
+region      = "eu-central-1"
+environment = "production"
+vpc_cidr    = "10.44.0.0/16"
+# cloudflare_account_id is non-secret and remains empty until inventory is complete.
+cloudflare_account_id = ""
+
