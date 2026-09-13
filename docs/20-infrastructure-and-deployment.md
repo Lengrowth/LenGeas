@@ -60,3 +60,8 @@ Every resource has owner, environment, service, cost-center, and data-class tags
 ## Infrastructure acceptance
 
 Terraform can create a new staging environment from empty accounts, deploy all services, run smoke tests, destroy the isolated exercise environment, and reproduce it without manual console changes. Disaster recovery is provisioned and tested from the same modules.
+
+Phase 02 implementation status is recorded separately in `docs/evidence/phase-02/`.
+Until the required account/vendor access and owner-approved cost gate are
+available, its roots are disabled-by-default and no persistent Phase 02 resource
+or production data may be applied.

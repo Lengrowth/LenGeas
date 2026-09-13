@@ -85,3 +85,9 @@ Each service owns a documented API and collections. A service cannot import anot
 ## Environments
 
 `development`, `testing`, `staging`, and `production` are separate logical environments. Staging and production use separate AWS accounts, Atlas projects/clusters, Supabase projects, Cloudflare Worker environments, R2 buckets, RabbitMQ brokers, MSK clusters, Valkey replication groups, encryption keys, and credentials. Production data never enters lower environments. Sanitized synthetic fixtures are the only supported test data.
+
+Phase 02 provisioning is represented by separate Terraform roots and remains
+disabled until account inventory, provider capabilities, and owner cost approval
+are recorded. The temporary Phase 01 direct-origin endpoint is not the Phase 02
+production topology and must remain in place until an authorized edge cutover is
+verified.

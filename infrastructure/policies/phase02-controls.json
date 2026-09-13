@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "phase": "02",
+  "controls": [
+    {"id": "P02-NEG-001", "name": "public-storage", "default": "deny"},
+    {"id": "P02-NEG-002", "name": "disabled-audit", "default": "deny"},
+    {"id": "P02-NEG-003", "name": "unencrypted-storage", "default": "deny"},
+    {"id": "P02-NEG-004", "name": "public-ecs-task", "default": "deny"},
+    {"id": "P02-NEG-005", "name": "ssh-or-public-bastion", "default": "deny"},
+    {"id": "P02-NEG-006", "name": "root-container", "default": "deny"},
+    {"id": "P02-NEG-007", "name": "cross-account-escalation", "default": "deny"},
+    {"id": "P02-NEG-008", "name": "broad-github-oidc-trust", "default": "deny"},
+    {"id": "P02-NEG-009", "name": "public-atlas-access", "default": "deny"},
+    {"id": "P02-NEG-010", "name": "missing-origin-authentication", "default": "deny"},
+    {"id": "P02-NEG-011", "name": "direct-origin-access", "default": "deny"},
+    {"id": "P02-NEG-012", "name": "cross-environment-state", "default": "deny"},
+    {"id": "P02-NEG-013", "name": "cross-environment-credentials", "default": "deny"}
+  ]
+}
