@@ -1,6 +1,12 @@
 # Technology Standard
 
-This document records the selected v1 stack. A replacement requires an accepted ADR.
+This document records the selected v1 target stack. A replacement requires an accepted ADR. Selection does not require premature deployment: ADR-0011 keeps Phase 02 on the existing single-host development stack and defers production infrastructure activation until a concrete rollout workload exists.
+
+## Activation stages
+
+- **Current development:** one `t3.medium` in `us-east-1a` runs the pinned Compose stack for synthetic platform development at the DNS-only `games.lengrowth.com` endpoint.
+- **Production target:** the technologies below remain the intended v1 production choices but are not active Phase 02 infrastructure.
+- **Rollout gate:** current provider validation, capacity and cost evidence, and an owner-approved rollout ADR must confirm or supersede regions and topology before production apply.
 
 ## Application stack
 

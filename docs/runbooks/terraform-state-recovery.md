@@ -1,5 +1,7 @@
 # Terraform state recovery
 
+This runbook applies only after the deferred production Terraform backend is activated. Phase 02 does not create that backend or claim a state-recovery exercise.
+
 ## Detect
 
 Stop all applies when a lock conflict, unexpected state version, or digest mismatch is observed. Page the infrastructure owner and preserve the exact backend key, commit, and command without copying state contents into chat or evidence.

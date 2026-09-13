@@ -2,24 +2,42 @@
 
 ## Status
 
-blocked — the repository contains a fail-closed Terraform foundation and review evidence. The owner has approved a vendor cost envelope, but required provider credentials, AWS Organizations bootstrap, and reconciliation of the no-new-AWS-machine constraint are still unavailable. This is not an acceptance record and no Phase 02 resource apply is claimed.
+`in_review` — ADR-0011 aligns the phase with the actual low-cost development environment. The existing host is inventoried and healthy, the endpoint is preserved, production-target Terraform remains disabled, and no production estate was created. This is not repository-owner acceptance.
 
 ## Operational state
 
-No Phase 02 persistent resource was applied. The Phase 01 us-east-1 EC2 host and DNS-only games.lengrowth.com endpoint remain untouched and temporary. A read-only AWS inventory is recorded in `operations/aws-inventory-2026-09-13.md`; the four environment roots default to enabled = false, with primary eu-central-1 and DR eu-west-1.
+`LenGeas-Phase01-Server` is a running `t3.medium` in AWS `us-east-1a`. It runs the Phase 01 digest-pinned Compose stack and serves `https://games.lengrowth.com`. Cloudflare is authoritative for DNS, but the record is DNS-only and public traffic reaches Caddy on the origin directly. `/health` and `/version` returned HTTP 200 during the Phase 02 scope review.
 
-## Interfaces and conventions
+The host remains development-only and may contain synthetic, non-sensitive data only. It is a single-AZ host with a public IP, unencrypted 40 GiB gp3 root volume, no instance profile, basic monitoring, public HTTP/HTTPS, and SSH restricted to the operator `/32`. Dependency services are configured to bind to loopback.
 
-Provider pins are AWS 6.62.0, Cloudflare 5.24.0, MongoDB Atlas 2.17.0, Supabase 1.10.1, and Terraform 1.15.8. Secret values are never Terraform variables/state; only secret names/ARNs are defined. Backend keys are environment-specific and use native S3 lockfiles.
+## Interfaces and versions
 
-## Planned-only resources
+- Public development endpoint: `https://games.lengrowth.com`.
+- Health: `/health`; version: `/version`.
+- Deployment and rollback: `infrastructure/aws/README.md`, `infrastructure/docker/SERVER-DEPLOYMENT.md`, and immutable source/image inputs.
+- Developer workstation: Docker remains unavailable and must not be installed or run for this phase.
+- Production-target provider pins and disabled roots remain under `infrastructure/terraform/` as reference material only.
 
-AWS Organizations/control plane, backend state bucket, OIDC roles, VPC/ECS/data/observability, Cloudflare edge/R2, Supabase, Resend, and reproduction resources are planned-only pending provider access and AWS-scope resolution. The owner authorization is recorded in `operations/owner-authorization.md`; no customer/player data exists in Phase 02.
+## Deferred production activation
 
-## First command after unblock
+No AWS Organization, new VPC, NAT gateway, ECS cluster, EC2 capacity, ALB, Atlas cluster, managed Valkey, Amazon MQ, MSK, managed telemetry, staging, production, DR, Supabase, Resend, or new Cloudflare paid capability was created for Phase 02.
 
+Before production rollout, the owner must accept a new rollout ADR that confirms or supersedes the candidate regions/topology using actual workload and cost evidence. The rollout must use reviewed infrastructure as code, encrypted state, restricted OIDC, live security/backup/failover/DR evidence, and a verified parallel cutover before this development endpoint is retired.
+
+## Current risks
+
+- Single host and single availability zone; no availability or DR guarantee.
+- DNS-only direct origin; no production origin isolation.
+- Unencrypted root storage; synthetic non-sensitive data only.
+- No instance profile and no detailed EC2 monitoring.
+- Disabled Terraform may drift before activation and must be refreshed.
+
+## Exact next command
+
+```text
 uv run --frozen python tools/dev/task_runner.py phase-gate 02
+```
 
 ## Prohibited assumptions
 
-Do not treat static Terraform validation as live evidence; do not run Docker locally; do not expose or retire the Phase 01 origin; do not publish origin names; do not apply production or create recurring-cost resources outside the recorded owner envelope and approved exercise scope.
+Do not describe this host as production, do not place customer/production data on it, do not claim Cloudflare proxy/origin protection, do not treat static Terraform as live infrastructure, do not run Docker locally, and do not apply deferred production resources without a rollout ADR and explicit owner cost approval.

@@ -1,8 +1,10 @@
 # Phase 02 decisions
 
-- Preserve the accepted AWS/Cloudflare/Atlas/ECS/MQ/MSK/OpenNext/Supabase/Terraform ADRs; no technology boundary changed.
-- Use disabled-by-default modules and separate state roots so code, plans, and policy checks can proceed without fabricating provider applies.
-- Keep Resend as DNS/webhook configuration without inventing a provider; secret values remain external.
-- Record the owner-approved envelope: Cloudflare and Atlas up to USD 500/month, Supabase and Resend basic plans, and no additional AWS machine capacity. Cost authorization does not substitute for provider credentials, AWS organization bootstrap, or live evidence.
-- Treat missing required vendor access and unresolved AWS foundation scope as mandatory blockers, not as successful planned infrastructure.
-- Preserve the temporary Phase 01 direct-origin endpoint until an owner-authorized Cloudflare cutover is verified.
+- The repository owner accepted ADR-0011 on 2026-09-13.
+- Adopt `LenGeas-Phase01-Server`, a running `t3.medium` in `us-east-1a`, as the active development foundation.
+- Preserve the DNS-only `games.lengrowth.com` endpoint for synthetic development traffic.
+- Add no VPC, NAT gateway, ECS capacity, managed database/cache/broker/stream, managed observability, staging, production, or DR resources in Phase 02.
+- Retain ADRs 0001–0005 and 0008–0010 as target v1 technology boundaries, not current deployed state.
+- Keep production-target Terraform disabled and require a new rollout ADR before any apply.
+- Production region choices are candidates to confirm or supersede at rollout; `eu-central-1` and `eu-west-1` do not describe the existing machine.
+- Record the current host's unencrypted root volume, missing instance profile, basic monitoring, public origin, single-AZ placement, and restricted SSH as development-only risks. Customer and production data are prohibited.

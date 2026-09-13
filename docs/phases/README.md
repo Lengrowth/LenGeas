@@ -9,7 +9,7 @@ Every implementing agent must follow [AI Phase Execution Protocol](AI-EXECUTION-
 ```text
 00 Charter
   -> 01 Engineering foundation
-  -> 02 Cloud foundation
+  -> 02 Development cloud foundation
   -> 03 Identity and tenancy
   -> 04 Definition schema
   -> 05 Runtime primitives
@@ -31,7 +31,7 @@ Every implementing agent must follow [AI Phase Execution Protocol](AI-EXECUTION-
 
 - [Phase 00 — Charter and architecture lock](00-charter-and-architecture-lock.md)
 - [Phase 01 — Engineering foundation](01-engineering-foundation.md)
-- [Phase 02 — Cloud foundation](02-cloud-foundation.md)
+- [Phase 02 — Development cloud foundation](02-cloud-foundation.md)
 - [Phase 03 — Identity, tenancy, authorization](03-identity-tenancy-authorization.md)
 - [Phase 04 — Definition Schema v0.1](04-definition-schema.md)
 - [Phase 05 — Runtime primitives](05-runtime-primitives.md)

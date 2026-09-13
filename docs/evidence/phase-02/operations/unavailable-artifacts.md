@@ -1,17 +1,16 @@
-# Phase 02 unavailable artifacts
+# Deferred production artifacts
 
-These artifacts are intentionally recorded as unavailable rather than fabricated. The owner has supplied a cost/execution envelope, but the phase remains blocked until provider access and the AWS foundation scope are resolved.
+These artifacts are unavailable because ADR-0011 intentionally defers production activation. Their absence does not block the development-foundation phase and must not be converted into a success claim.
 
-| Artifact | State | Smallest unblock action |
-|---|---|---|
-| Redacted Terraform plans for enabled environments | Not produced | Provide an authorized nonproduction/staging account and approved sizing; run `terraform plan -refresh=false` with the environment backend disabled for review output. |
-| Infracost result and consolidated monthly estimate | Not produced | Install the pinned Infracost tool and provide provider plan/sizing assumptions; owner-approved ceilings are recorded in `owner-authorization.md` but must be checked against the actual plan. |
-| AWS organization/control report | Not produced | Enable or delegate AWS Organizations, Control Tower, CloudTrail, Config, GuardDuty, and Security Hub administration. |
-| Reachability Analyzer evidence | Not produced | Supply authorized VPC/ENI identifiers and run the reviewed paths; AWS provider 6.62.0 has no Terraform resource for this analysis. |
-| Atlas PrivateLink and public-denial evidence | Not produced | Authorize Atlas project/network access and AWS endpoint creation, then exercise both private success and public failure. |
-| Cloudflare ruleset export, bot/Turnstile/Access and origin-auth rotation | Not produced | Provide Cloudflare API authentication and confirm plan entitlements; record only capabilities actually available. |
-| Supabase JWKS/signing and Resend DNS/webhook evidence | Not produced | Provide provider access and nonproduction domains; configure and exercise each integration without recording secret values. |
-| AMP/AMG/X-Ray/Sentry alert and trace evidence | Not produced | Provide AWS observability and Sentry access, then run a synthetic request through the declared trace path. |
-| Apply/destroy/recreate/zero-drift reproduction report | Not produced | Supply provider credentials, reconcile the AWS foundation with the no-new-capacity constraint, then apply only the isolated root, run tests, destroy that exact root, recreate it, and capture a zero-drift plan. |
+| Deferred artifact | Required activation action |
+|---|---|
+| Enabled production Terraform plans and Infracost | Accept rollout ADR, confirm topology/sizing, establish provider access, and approve cost ceiling. |
+| AWS organization/control report | Decide the production account structure and establish organization/security administration. |
+| Three-AZ Reachability Analyzer and Atlas PrivateLink | Provision the approved production network and Atlas project, then exercise private success/public failure. |
+| Cloudflare ruleset, origin-auth rotation, and direct-origin denial | Confirm plan capabilities and deploy the approved production edge/origin path. |
+| Supabase JWKS and Resend DNS/webhook | Activate environment-separated provider projects for the rollout. |
+| Managed telemetry, Sentry alert, and trace evidence | Provision the selected production observability stack and exercise a synthetic trace/page. |
+| Apply/destroy/recreate/zero-drift | Apply only an approved isolated rollout environment and complete the destructive exercise there. |
+| AZ and regional failover | Run during production qualification against the activated topology. |
 
-No customer/player data, credentials, state, account identifiers, or claimed live-success output is present in this tree.
+No customer/player data, credentials, state, account identifiers, or fabricated live-success output is present.

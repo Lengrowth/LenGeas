@@ -1,6 +1,6 @@
 # Cloudflare origin protection
 
-Cloudflare is the only public edge. The AWS ALB accepts Cloudflare source ranges and a rotating authenticated origin header; its DNS name is not advertised.
+In the target production topology, Cloudflare is the only public edge. The AWS ALB accepts Cloudflare source ranges and a rotating authenticated origin header; its DNS name is not advertised. This topology is not active in Phase 02: `games.lengrowth.com` is a documented DNS-only development exception.
 
 ## Verify
 

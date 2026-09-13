@@ -2,6 +2,8 @@
 
 ## Telemetry
 
+Phase 02 provides development health checks and local stack telemetry only. Production SLOs, paging, managed telemetry, backup guarantees, and regional recovery begin only after the ADR-0011 production activation gate; the current single host makes none of those claims.
+
 Cloudflare creates the edge request ID and W3C trace context. FastAPI, MongoDB calls, Valkey calls, Celery, MSK producers/consumers, R2 access, and realtime services propagate trace/correlation/causation IDs. Logs are structured JSON.
 
 Required fields are timestamp, environment, service, version, region, severity, request/trace/span IDs, studio/game/player pseudonymous IDs when relevant, action/event/task/match IDs, definition digest, duration, outcome, and stable error code.

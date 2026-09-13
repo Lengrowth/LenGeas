@@ -1,67 +1,66 @@
 # Infrastructure and Deployment
 
-## AWS accounts and region
+## Current Phase 02 development foundation
 
-AWS Organizations contains `management`, `security`, `log-archive`, `shared-services`, `nonproduction`, `staging`, and `production` accounts. AWS Control Tower guardrails, organization CloudTrail, GuardDuty, Security Hub, AWS Config, central log archive, IAM Identity Center, budgets, and SCPs apply from Phase 02.
+The active cloud environment is one EC2 instance:
 
-Primary production region is `eu-central-1`.
+- Name: `LenGeas-Phase01-Server`
+- Region and availability zone: AWS `us-east-1`, `us-east-1a`
+- Size: `t3.medium`
+- Purpose: synthetic platform development only
+- Endpoint: `games.lengrowth.com`
+- Edge state: Cloudflare-authoritative DNS, DNS-only; Caddy terminates public HTTPS on the origin
+- Runtime: the Phase 01 digest-pinned Compose stack
 
-Disaster recovery region is `eu-west-1`. Workloads span three availability zones in the primary region.
+This instance is sufficient while no game, production workload, customer traffic, or production data exists. Phase 02 keeps it running and does not move, resize, duplicate, or describe it as production.
 
-## Network
+The host is a single availability-zone failure domain. Its root EBS volume is currently unencrypted, it has no EC2 instance profile, detailed monitoring is disabled, HTTP/HTTPS are public, and SSH is restricted to the operator's recorded `/32`. These are accepted development-stage risks only while all data is synthetic and non-sensitive. Dependency services bind to loopback and are not publicly exposed.
 
-Each environment VPC has public ALB subnets, private application subnets, and isolated data/endpoint subnets across three AZs. ECS tasks have no public IP. NAT gateway and route table are AZ-local. VPC endpoints cover AWS control services. Atlas connects through PrivateLink. Security groups reference other security groups wherever possible.
+## Development delivery
 
-The ALB accepts HTTPS from Cloudflare address ranges. Administrative access uses Cloudflare Access and AWS Systems Manager; SSH and public bastions are forbidden.
+The repository's server bundle and `infrastructure/aws/phase-01-user-data.sh` remain the canonical development bootstrap. Source is transferred without placing GitHub credentials on the host. The server generates its private `.env` on-host. Rollback selects the prior source commit and immutable image digests.
 
-## Compute
+The developer workstation does not install or run Docker. Server-side commands and public health/version checks provide runtime evidence.
 
-ECS clusters use separate EC2 capacity providers:
+## Development operations and cost
 
-- `general`: `m7g.xlarge` On-Demand baseline plus Spot burst for stateless workers;
-- `simulation`: `c7g.2xlarge` mixed On-Demand/Spot with checkpointable jobs;
-- `realtime`: `c7g.xlarge` On-Demand only;
-- `critical-workers`: `m7g.large` On-Demand only.
+Operations cover public health/version checks, Compose service state, logs, disk/capacity checks, security-group review, restricted operator access, restart, redeployment, and rollback. The owner reviews the existing EC2 and data-transfer bill; Phase 02 adds no new recurring-cost infrastructure or vendor plan.
 
-Auto Scaling groups use the ECS-optimized Amazon Linux 2023 ARM64 AMI and managed instance draining. API, realtime, match, scheduler, and critical consumers place at least one task per AZ. Container filesystems are read-only, root users are forbidden, and task roles are service-specific.
+No production SLO, RTO, RPO, multi-AZ failover, origin isolation, managed backup, or regional disaster recovery is claimed for the development host. Customer and production data are prohibited.
 
-## Data services
+## Deferred production activation target
 
-- MongoDB Atlas dedicated production cluster in AWS `eu-central-1`, three electable nodes across availability zones, encryption, audit, PrivateLink, continuous backup, and tested `eu-west-1` restore.
-- ElastiCache for Valkey 8 replication groups use TLS, ACLs, Multi-AZ, automatic failover, and separate logical clusters for cache versus realtime ephemeral state.
-- Amazon MQ RabbitMQ uses Multi-AZ cluster deployment and private endpoints.
-- Amazon MSK Serverless uses private networking, IAM authentication, TLS, topic policies, and monitored retention.
-- R2 buckets are private and separated by data class and environment.
-- R2 asset storage uses separate quarantine and approved buckets. R2 Event Notifications feed a Cloudflare Queue; the authenticated consumer invokes the AWS asset worker. Cloudflare Images serves approved raster variants.
-- Analytics uses Cloudflare Pipelines into R2 Data Catalog Iceberg tables and R2 SQL through the governed query API. Raw export and catalog-rebuild procedures are mandatory because these Cloudflare analytics services are beta at the architecture baseline.
+The following is the candidate v1 production design, not current infrastructure:
 
-## Terraform
+- AWS Organizations accounts for management, security, log archive, shared services, nonproduction, staging, and production.
+- A candidate primary region of `eu-central-1` and DR region of `eu-west-1`.
+- Three availability zones with public ALB subnets, private application subnets, isolated data/endpoint subnets, AZ-local NAT, VPC endpoints, flow logs, and security-group references.
+- ECS on EC2 with general, simulation, realtime, and critical-worker capacity providers using ECS-optimized Amazon Linux 2023 ARM64 instances.
+- ECR, ALB, Cloud Map, autoscaling, task roles, read-only/non-root tasks, and Systems Manager administration.
+- MongoDB Atlas through PrivateLink, ElastiCache for Valkey, Amazon MQ RabbitMQ, MSK Serverless, KMS, Secrets Manager, and private Cloudflare R2.
+- Cloudflare-proxied DNS, TLS, WAF, DDoS, available bot controls, Turnstile, rate limits, Workers, authenticated origin routing, and direct-origin denial.
+- Supabase Auth, Resend, OpenTelemetry, CloudWatch, managed Prometheus/Grafana, tracing, Sentry, alert routing, backups, and disaster recovery.
 
-`infrastructure/terraform/bootstrap` creates the versioned KMS-encrypted S3 state bucket and CI roles through a controlled bootstrap process. Every environment uses a separate state key and `use_lockfile = true`. Providers are pinned. Plans run on pull requests; applies run from protected GitHub environments after approval. Nightly plans detect drift.
+ADRs 0001–0005 and 0008–0010 describe the target technology boundaries. ADR-0011 defers their live activation. A later rollout ADR must confirm or supersede the regions and topology against the actual workload and current provider capabilities.
 
-Reusable modules cover accounts/guardrails, network, ECS cluster/service, ALB, ECR, IAM, KMS/secrets, Atlas/PrivateLink, Valkey, RabbitMQ, MSK, observability, Cloudflare zone/Workers/R2/WAF, Supabase configuration, and Resend DNS.
+## Deferred Terraform
 
-## CI/CD
+`infrastructure/terraform/` contains provider-pinned, disabled-by-default reference modules and roots. They are design and static-policy artifacts, not applied infrastructure. Disabled plans may become stale and must be refreshed, costed, reviewed, and live-tested before rollout.
 
-1. GitHub Actions checks source, schemas, tests, Terraform, SBOM, vulnerabilities, and provenance.
-2. Docker BuildKit creates ARM64 images and pushes immutable digests to ECR.
-3. Keyless signing binds image, source commit, workflow, and SBOM.
-4. Staging deploys by digest and runs migrations in expand mode.
-5. Smoke and canary tests pass, followed by soak.
-6. Production approval promotes the same digest.
-7. ECS blue/green deployment shifts 1%, 10%, 50%, and 100% traffic against health gates.
-8. Failure returns traffic to the prior task set. Contract-compatible database changes remain.
-9. Cloudflare Worker deployment uses versioned gradual rollout and the same release record.
+Production activation requires:
 
-## Cost control
+1. A concrete workload and capacity forecast.
+2. Current provider and plan capability inventories.
+3. A consolidated cost estimate and explicit owner ceiling.
+4. An accepted rollout ADR confirming regions, accounts, data residency, topology, migration, and rollback.
+5. KMS-encrypted versioned state with native lockfiles and restricted GitHub OIDC roles.
+6. Live validation of private connectivity, backups, restore, origin denial, observability, failover, and zero drift.
+7. A parallel deployment and verified cutover before the development endpoint can be retired.
 
-Every resource has owner, environment, service, cost-center, and data-class tags. AWS Budgets and Cloudflare usage alerts page on forecast thresholds. Simulation jobs enforce per-studio quotas and Spot interruption checkpoints. Idle non-production services scale to documented minimums. Production capacity never relies exclusively on Spot.
+## Target production delivery
 
-## Infrastructure acceptance
+After activation, production releases use immutable image/Worker digests, automated provenance, staged smoke/canary/soak checks, and explicit owner promotion. ECS and Worker traffic shifts must preserve rollback to the prior compatible release. Production data never enters lower environments.
 
-Terraform can create a new staging environment from empty accounts, deploy all services, run smoke tests, destroy the isolated exercise environment, and reproduce it without manual console changes. Disaster recovery is provisioned and tested from the same modules.
+## Acceptance boundaries
 
-Phase 02 implementation status is recorded separately in `docs/evidence/phase-02/`.
-Until the required account/vendor access and owner-approved cost gate are
-available, its roots are disabled-by-default and no persistent Phase 02 resource
-or production data may be applied.
+Phase 02 accepts only the low-cost development foundation and the fail-closed production activation gate. Phase 17 cannot qualify the platform until the production topology is separately activated and every security, performance, backup, failover, and DR requirement is exercised live. Static Terraform and the development host cannot satisfy production completion.

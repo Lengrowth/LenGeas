@@ -11,3 +11,7 @@
 {"command":"terraform init -backend=false and validate (bootstrap, nonproduction, staging)","exit_code":0,"result":"pinned provider schemas validated; staging plugin cache was removed after validation to preserve workstation disk"}
 {"command":"terraform init -backend=false (production, dr)","exit_code":1,"result":"provider duplication exhausted workstation disk before validation; no cloud mutation"}
 {"command":"terraform apply","exit_code":null,"result":"not run; persistent resources remain planned-only"}
+{"command":"aws ec2 describe-instances --region us-east-1 --filters Name=tag:Name,Values=LenGeas-Phase01-Server","exit_code":0,"result":"read-only: running t3.medium in us-east-1a; identifiers and addresses redacted"}
+{"command":"aws ec2 describe-volumes and describe-security-groups for the development host","exit_code":0,"result":"read-only: 40 GiB unencrypted gp3 root; public 80/443; SSH restricted to one /32; identifiers redacted"}
+{"command":"Invoke-WebRequest https://games.lengrowth.com/health and /version","exit_code":0,"result":"both endpoints returned HTTP 200 at 2026-09-13T18:39:36Z"}
+{"command":"repository-owner architecture decision","exit_code":0,"result":"ADR-0011 accepted: existing us-east-1a t3.medium is the Phase 02 development foundation; production estate deferred"}

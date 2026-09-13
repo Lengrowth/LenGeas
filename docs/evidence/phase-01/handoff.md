@@ -8,7 +8,7 @@
 
 The repository contains a digest-pinned Compose stack for MongoDB replica-set transactions, Valkey, RabbitMQ, Redpanda, MinIO, Mailpit, OpenTelemetry Collector, Prometheus, Grafana, Jaeger, and an API health/version shell. Docker was not installed or run locally after the repository owner directed that local execution not occur. `tools/dev/server_bundle.py` creates a hash manifest for the server transfer set without invoking Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md`.
 
-The authorized AWS host `i-0e826e65d7f5df890` runs the digest-pinned stack and passed the complete server smoke, integration harness, server-local E2E harness, public HTTPS health/version checks, and public E2E harness. This `us-east-1` host is a temporary Phase 01 validation environment, not the Phase 02 production topology. Cloudflare manages the authoritative DNS record, which is currently DNS-only; public traffic reaches Caddy on the EC2 origin directly. The developer workstation did not install or run Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md` and `infrastructure/aws/README.md`.
+The authorized AWS host `i-0e826e65d7f5df890` runs the digest-pinned stack and passed the complete server smoke, integration harness, server-local E2E harness, public HTTPS health/version checks, and public E2E harness. ADR-0011 adopts this `us-east-1a` `t3.medium` as the Phase 02 development foundation; it is not a production topology. Cloudflare manages the authoritative DNS record, which is currently DNS-only, so public traffic reaches Caddy on the EC2 origin directly. The developer workstation did not install or run Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md` and `infrastructure/aws/README.md`.
 
 ## Public interfaces and versions
 
@@ -42,4 +42,4 @@ task phase:gate PHASE=01
 
 ## Prohibited assumptions
 
-Do not treat local static validation as live service evidence, do not run Docker on the developer workstation, do not expose local services publicly, and do not repurpose the temporary Phase 01 `us-east-1` host as the Phase 02 production topology. Phase 02 must inventory the existing GitHub, AWS, and Cloudflare state before making changes.
+Do not treat local static validation as live service evidence, do not run Docker on the developer workstation, do not expose local services publicly, and do not describe the `us-east-1` development host as production. Phase 02 inventories and preserves the existing GitHub, AWS, and Cloudflare state without adding the deferred production estate.

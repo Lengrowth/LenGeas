@@ -1,6 +1,14 @@
 # Phase 02 blockers
 
-- BLK-02-01 AWS organization/control-plane access: the authenticated profile is not in an AWS Organization and cannot administer Organizations, CloudTrail, GuardDuty, Security Hub, or Control Tower. Owner action: provide an approved management-account/bootstrap role or complete the account-control-plane setup and record the inventory.
-- BLK-02-02 Vendor access: Cloudflare authentication/capability inventory, Supabase, Resend, Atlas, and Sentry credentials are unavailable. The owner has now authorized Cloudflare and Atlas up to USD 500/month and the Supabase/Resend basic plans, but that approval does not create credentials or prove plan capabilities. Owner action: provide scoped provider credentials through supported environment/OIDC integrations and confirm the actual plan capabilities.
-- BLK-02-03 AWS foundation scope: the owner authorized the existing medium-machine envelope and no additional machine capacity, while the required Phase 02 foundation needs a separate three-AZ VPC, ECS capacity plane, and managed data services. The current account is not in an Organization and has no Phase 02 resources in `eu-central-1`. Owner action: provide the management-account/bootstrap role and explicitly reconcile the AWS foundation design with the approved capacity envelope.
-- BLK-02-04 CI delivery identity: GitHub is authenticated, but no Phase 02 Terraform plan/apply workflow or proven OIDC roles exist. Owner action: bootstrap the restricted roles and add the protected environment workflow after BLK-02-01.
+No mandatory blocker remains under the ADR-0011 development-first scope.
+
+The following are deferred production activation prerequisites, not Phase 02 blockers:
+
+- Accept a rollout ADR based on the actual workload, capacity, security, data-residency, migration, and rollback requirements.
+- Confirm or supersede the candidate `eu-central-1` primary and `eu-west-1` DR regions.
+- Approve a current consolidated production cost ceiling.
+- Establish required AWS Organizations and provider administration.
+- Configure restricted GitHub OIDC delivery roles and encrypted remote Terraform state.
+- Provision and live-test Cloudflare origin protection, ECS, managed data, identity/email, observability, backup, failover, and DR.
+
+None of those capabilities is claimed as current infrastructure.

@@ -6,6 +6,8 @@ LenGeas uses zero implicit trust across public clients, Studio users, services, 
 
 ## Edge and origin
 
+The controls below are production requirements. During the ADR-0011 development stage, `games.lengrowth.com` is a documented DNS-only direct-origin exception on a single host with no customer or production data. It must be labeled development, must not expose its dependency services, and cannot satisfy a production security gate. Production traffic cannot begin until Cloudflare proxy/origin authentication and direct-origin denial are live-tested.
+
 - Cloudflare DNS proxy, DDoS protection, managed WAF, custom rules, bot controls, Turnstile, request-size limits, and rate limits protect every public hostname.
 - The AWS origin uses TLS and accepts only Cloudflare source ranges plus an authenticated rotating origin header.
 - A scheduled job updates Cloudflare address ranges in AWS security groups and alerts on drift.
@@ -43,6 +45,8 @@ Fraud signals include impossible action rate, definition mismatch, replay, clock
 ## Data protection
 
 Data is encrypted in transit and at rest. PII is isolated, field-encrypted where required, minimized, classified, retained by schedule, and excluded from logs/events/analytics. Support access is case-bound. Export and deletion workflows are verified end to end.
+
+The current development host predates the production storage baseline and has an unencrypted root volume. Only synthetic, non-sensitive development data is permitted there. Production activation requires encrypted storage and a migration that does not copy development secrets or data into production.
 
 ## Security testing
 

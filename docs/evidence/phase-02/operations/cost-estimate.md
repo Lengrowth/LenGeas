@@ -1,15 +1,7 @@
-# Phase 02 monthly cost estimate
+# Phase 02 cost boundary
 
-Status: not final and not approved. Infracost is not installed, no cloud plan
-was applied, and several provider plans/capabilities and account sizes are
-unknown. A numeric estimate would be misleading and cannot authorize recurring
-spend.
+Phase 02 adds no recurring-cost infrastructure. It keeps the already-running `t3.medium` development host and its existing storage/network usage. The current bill remains the authoritative cost source; this evidence does not invent a numeric amount without billing access.
 
-The owner action is to provide the approved AWS account/vendor plan, requested
-instance/database sizes, NAT and data-transfer assumptions, Cloudflare plan,
-Atlas tier, Supabase tier, Resend volume, and Sentry tier. Then run the pinned
-Infracost workflow against redacted plans and record a consolidated monthly
-range plus a hard ceiling before enabling the isolated exercise environment.
+AWS Organizations, additional accounts, VPC/NAT, ECS, Atlas, Valkey, RabbitMQ, MSK, managed observability, staging, production, DR, and paid provider capabilities are outside the Phase 02 cost envelope and remain unprovisioned.
 
-Until that happens, every Phase 02 resource remains planned-only and the phase
-is blocked under the execution protocol.
+Before production activation, the owner must approve a consolidated current estimate based on measured workload, required capacity, data transfer, availability, provider tiers, and retention. The rollout ADR records the hard ceiling before any apply.
