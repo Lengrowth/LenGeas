@@ -43,13 +43,20 @@ def main() -> int:
     evidence = ROOT / "docs" / "evidence" / "phase-01"
     manifest_path = evidence / "manifest.json"
     artifact_paths = [
+        ".tool-versions",
         "Taskfile.yml",
+        "package.json",
+        "pnpm-lock.yaml",
+        "pyproject.toml",
+        "uv.lock",
         "compose.yaml",
-        ".github/workflows",
+        ".github",
+        "infrastructure/docker",
         "packages/schemas/evidence/phase-manifest.schema.json",
         "packages/shared-types/generated",
         "tools/dev",
         "tests",
+        "docs/evidence/phase-01/operations/server-bundle-manifest.json",
     ]
     artifacts = []
     for value in artifact_paths:
@@ -96,6 +103,8 @@ def main() -> int:
             "task typecheck",
             "dependency-free synthetic suites",
             "local policy checks",
+            "task verify (blocked by Docker and E2E prerequisites)",
+            "task phase:gate PHASE=01 (blocked by BLK-01 through BLK-04)",
         ],
         "open_risks": [
             "Docker runtime unavailable",

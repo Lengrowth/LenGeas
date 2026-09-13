@@ -54,7 +54,7 @@
     "grafana/grafana@sha256:74144189b38447facf737dfd0f3906e42e0776212bf575dc3334c3609183adf7"
   ],
   "schema_version": "1.0.0",
-  "source_commit": "c1274260dce81e06a2a7934a563fffdb3f7b9501",
+  "source_commit": "1d8b1eab9e029f020c1f03c6de019a4d7efdc0ba",
   "verification": [
     "docker compose config --quiet",
     "python tools/dev/task_runner.py local-up",

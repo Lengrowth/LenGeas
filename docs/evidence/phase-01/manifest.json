@@ -2,16 +2,40 @@
   "agent_identity": "Codex root phase agent",
   "artifacts": [
     {
+      "path": ".tool-versions",
+      "sha256": "33dfbf0923c9aca88d798b7d644936c137831a0abda857e9c2a9d9718ac3b031"
+    },
+    {
       "path": "Taskfile.yml",
       "sha256": "2ac103c55e806dcbbc000d70ed253ba3d001be34e5a26171214296b3e199c421"
+    },
+    {
+      "path": "package.json",
+      "sha256": "e2fdd040f231a7b5d471a1ec5acb714dae93aad7111c0388759735702ee58835"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "096d07803ea46d9234b067cd7143d81399b63d96a86d61074d5c7cf0b98ee5e7"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "83304120b6efb371ebe6b0cc4cfbe98c21f8a895ee68fe6c7397cf9ca0e21b6b"
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "7784adecabe92b53f9bdba608999d8a6e689dff11992c79bd434e5a5a3326ab4"
     },
     {
       "path": "compose.yaml",
       "sha256": "6d94d17c01d4fef6be737a14e73af7d8253d2625f8f0315fed42d2f109bd4735"
     },
     {
-      "path": ".github/workflows",
-      "sha256": "fefd4ec6d9829df03b30c740dc25379112e3f7037110bb39ef9ccd437c47d162"
+      "path": ".github",
+      "sha256": "859dfa3384bf586e352a86be10166b23468125c0223169b6e1d2377297b63e49"
+    },
+    {
+      "path": "infrastructure/docker",
+      "sha256": "b7e009094f67f57119c000753827168ddbe2505564c598a7fc0ac66b9b8ca407"
     },
     {
       "path": "packages/schemas/evidence/phase-manifest.schema.json",
@@ -23,11 +47,15 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "381bb85f46318bac9cfe074c727e88c8db1be90a2f0d568374259157fa37b5aa"
+      "sha256": "29e248ab0cafb6df4de1c64e6e7f0fb1e812583e7fea2e9560e75a31c47825ef"
     },
     {
       "path": "tests",
       "sha256": "3a5c17f3ad58602c31efb755f7ae914e8b281c45077f7e618a775b0e1c075f28"
+    },
+    {
+      "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
+      "sha256": "bf7c69271f0d9fd75cad9e0955392bb909f8c472599a57bf116000e113e17a4c"
     }
   ],
   "base_commit": "28bd5d577c7f990854b364b4aa89a41fb144b4fa",
@@ -43,8 +71,8 @@
     "P01-T04",
     "P01-T06"
   ],
-  "end_utc": "2026-09-13T10:25:36.057125Z",
-  "final_commit": "c1274260dce81e06a2a7934a563fffdb3f7b9501",
+  "end_utc": "2026-09-13T10:27:36.390169Z",
+  "final_commit": "1d8b1eab9e029f020c1f03c6de019a4d7efdc0ba",
   "next_phase_prerequisites": [
     "Independent review and resolution of all blockers",
     "Phase 01 acceptance"
@@ -76,7 +104,9 @@
     "task lint",
     "task typecheck",
     "dependency-free synthetic suites",
-    "local policy checks"
+    "local policy checks",
+    "task verify (blocked by Docker and E2E prerequisites)",
+    "task phase:gate PHASE=01 (blocked by BLK-01 through BLK-04)"
   ],
   "toolchain": {
     "docker": "unavailable",
