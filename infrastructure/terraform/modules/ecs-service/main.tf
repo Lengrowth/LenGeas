@@ -19,6 +19,20 @@ resource "terraform_data" "contract" {
   }
 }
 
+resource "aws_service_discovery_service" "api" {
+  count = var.enabled ? 1 : 0
+  name  = var.service_name
+  dns_config {
+    namespace_id   = var.service_discovery_namespace_id
+    routing_policy = "MULTIVALUE"
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+  }
+  tags = var.tags
+}
+
 resource "aws_ecs_task_definition" "this" {
   count                    = var.enabled ? 1 : 0
   family                   = "lengeas-${var.environment}-${var.service_name}"
@@ -73,6 +87,9 @@ resource "aws_ecs_service" "this" {
     target_group_arn = var.target_group_arn
     container_name   = var.service_name
     container_port   = 8080
+  }
+  service_registries {
+    registry_arn = aws_service_discovery_service.api[0].arn
   }
   lifecycle {
     ignore_changes = [desired_count]

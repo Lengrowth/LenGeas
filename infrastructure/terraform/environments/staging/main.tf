@@ -21,6 +21,7 @@ module "vpc" {
   controls    = local.controls
   tags        = var.tags
   vpc_cidr    = var.vpc_cidr
+  kms_key_arn = module.kms_secrets.kms_key_arn
 }
 module "endpoints" {
   source             = "../../modules/endpoints"
@@ -31,7 +32,7 @@ module "endpoints" {
   tags               = var.tags
   vpc_id             = module.vpc.vpc_id
   subnet_ids         = toset(module.vpc.isolated_subnet_ids)
-  security_group_ids = toset(compact([module.vpc.security_group_ids["ecs"]]))
+  security_group_ids = toset(compact([module.vpc.security_group_ids["endpoint"]]))
 }
 module "ecr" {
   source      = "../../modules/ecr"
@@ -49,22 +50,26 @@ module "ecs_cluster" {
   controls               = local.controls
   tags                   = var.tags
   capacity_provider_arns = var.capacity_provider_arns
+  private_subnet_ids     = toset(module.vpc.private_subnet_ids)
+  ami_id                 = var.ecs_ami_id
+  vpc_id                 = module.vpc.vpc_id
 }
 module "ecs_service" {
-  source             = "../../modules/ecs-service"
-  enabled            = var.enabled
-  environment        = var.environment
-  region             = var.region
-  controls           = local.controls
-  tags               = var.tags
-  cluster_name       = module.ecs_cluster.cluster_name
-  capacity_provider  = try(module.ecs_cluster.capacity_provider_names["general"], "")
-  image              = var.task_image
-  task_role_arn      = coalesce(module.iam.ecs_task_role_arn, var.task_role_arn)
-  execution_role_arn = coalesce(module.iam.ecs_execution_role_arn, var.execution_role_arn)
-  subnet_ids         = toset(module.vpc.private_subnet_ids)
-  security_group_ids = toset(compact([module.vpc.security_group_ids["ecs"]]))
-  target_group_arn   = module.alb.target_group_arn
+  source                         = "../../modules/ecs-service"
+  enabled                        = var.enabled
+  environment                    = var.environment
+  region                         = var.region
+  controls                       = local.controls
+  tags                           = var.tags
+  cluster_name                   = module.ecs_cluster.cluster_name
+  capacity_provider              = try(module.ecs_cluster.capacity_provider_names["general"], "")
+  image                          = var.task_image
+  task_role_arn                  = coalesce(module.iam.ecs_task_role_arn, var.task_role_arn)
+  execution_role_arn             = coalesce(module.iam.ecs_execution_role_arn, var.execution_role_arn)
+  subnet_ids                     = toset(module.vpc.private_subnet_ids)
+  security_group_ids             = toset(compact([module.vpc.security_group_ids["ecs"]]))
+  target_group_arn               = module.alb.target_group_arn
+  service_discovery_namespace_id = module.ecs_cluster.service_discovery_namespace_id
 }
 module "alb" {
   source             = "../../modules/alb"
@@ -94,12 +99,14 @@ module "kms_secrets" {
   tags        = var.tags
 }
 module "atlas" {
-  source      = "../../modules/atlas"
-  enabled     = var.enabled
-  environment = var.environment
-  region      = var.region
-  controls    = local.controls
-  tags        = var.tags
+  source           = "../../modules/atlas"
+  enabled          = var.enabled
+  environment      = var.environment
+  region           = var.region
+  controls         = local.controls
+  tags             = var.tags
+  organization_id  = var.atlas_organization_id
+  project_owner_id = var.atlas_project_owner_id
 }
 module "valkey" {
   source             = "../../modules/valkey"

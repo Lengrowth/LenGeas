@@ -34,3 +34,30 @@ variable "tags" {
   }
 }
 
+variable "organization_id" {
+  description = "MongoDB Atlas organization ID; non-secret."
+  type        = string
+  default     = ""
+  validation {
+    condition     = !var.enabled || var.organization_id != ""
+    error_message = "organization_id is required when Atlas is enabled."
+  }
+}
+
+variable "project_owner_id" {
+  description = "Optional Atlas project owner user ID; non-secret."
+  type        = string
+  default     = ""
+}
+
+variable "cluster_instance_size" {
+  description = "Atlas dedicated instance size."
+  type        = string
+  default     = "M10"
+}
+
+variable "atlas_region" {
+  description = "Atlas AWS region code for the primary replica set."
+  type        = string
+  default     = "EU_CENTRAL_1"
+}

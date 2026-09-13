@@ -8,3 +8,10 @@ output "enabled" {
   value       = var.enabled
 }
 
+output "project_id" {
+  value = try(mongodbatlas_project.this[0].id, null)
+}
+
+output "cluster_id" {
+  value = try(mongodbatlas_advanced_cluster.this[0].cluster_id, null)
+}

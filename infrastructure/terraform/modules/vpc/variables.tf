@@ -53,3 +53,40 @@ variable "enable_nat_gateways" {
   type    = bool
   default = true
 }
+
+variable "kms_key_arn" {
+  description = "KMS key used to encrypt VPC flow logs."
+  type        = string
+  default     = ""
+  validation {
+    condition     = !var.enabled || var.kms_key_arn != ""
+    error_message = "kms_key_arn is required when vpc is enabled."
+  }
+}
+
+variable "data_ingress_ports" {
+  description = "Approved private data-plane ports reachable from ECS."
+  type        = set(string)
+  default     = ["6379", "5671", "9098"]
+}
+
+variable "network_insights_enabled" {
+  description = "Create an explicit Reachability Analyzer path and analysis after reviewed ENI IDs are supplied."
+  type        = bool
+  default     = false
+}
+
+variable "reachability_source_id" {
+  type    = string
+  default = ""
+}
+
+variable "reachability_destination_id" {
+  type    = string
+  default = ""
+}
+
+variable "reachability_destination_port" {
+  type    = number
+  default = 6379
+}

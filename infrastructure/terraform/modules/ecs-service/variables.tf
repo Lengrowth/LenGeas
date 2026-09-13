@@ -117,3 +117,13 @@ variable "target_group_arn" {
     error_message = "target_group_arn is required when ecs-service is enabled."
   }
 }
+
+variable "service_discovery_namespace_id" {
+  description = "Private Cloud Map namespace for the service registry."
+  type        = string
+  default     = ""
+  validation {
+    condition     = !var.enabled || var.service_discovery_namespace_id != ""
+    error_message = "service_discovery_namespace_id is required when ecs-service is enabled."
+  }
+}

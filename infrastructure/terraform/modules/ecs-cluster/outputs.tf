@@ -19,3 +19,15 @@ output "capacity_provider_names" {
 output "general_capacity_provider_name" {
   value = try(aws_ecs_capacity_provider.this["general"].name, null)
 }
+
+output "capacity_asg_arns" {
+  value = { for name, group in aws_autoscaling_group.this : name => group.arn }
+}
+
+output "instance_profile_name" {
+  value = try(aws_iam_instance_profile.ecs[0].name, null)
+}
+
+output "service_discovery_namespace_id" {
+  value = try(aws_service_discovery_private_dns_namespace.this[0].id, null)
+}

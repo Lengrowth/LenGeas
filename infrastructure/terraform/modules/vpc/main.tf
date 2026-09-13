@@ -173,10 +173,68 @@ resource "aws_security_group" "data" {
   tags = var.tags
 }
 
+resource "aws_security_group" "endpoint" {
+  count       = var.enabled ? 1 : 0
+  name        = "lengeas-${var.environment}-endpoint"
+  description = "Interface endpoint ENIs; HTTPS only from ECS tasks."
+  vpc_id      = aws_vpc.this[0].id
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = var.tags
+}
+
+resource "aws_security_group_rule" "alb_to_ecs" {
+  count                    = var.enabled ? 1 : 0
+  type                     = "ingress"
+  security_group_id        = aws_security_group.ecs[0].id
+  source_security_group_id = aws_security_group.alb[0].id
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  description              = "ALB to private ECS service only"
+}
+
+resource "aws_security_group_rule" "ecs_to_data" {
+  for_each                 = var.enabled ? var.data_ingress_ports : toset([])
+  type                     = "ingress"
+  security_group_id        = aws_security_group.data[0].id
+  source_security_group_id = aws_security_group.ecs[0].id
+  from_port                = tonumber(each.value)
+  to_port                  = tonumber(each.value)
+  protocol                 = "tcp"
+  description              = "ECS to approved private data port ${each.value}"
+}
+
+resource "aws_security_group_rule" "ecs_to_endpoint" {
+  count                    = var.enabled ? 1 : 0
+  type                     = "ingress"
+  security_group_id        = aws_security_group.endpoint[0].id
+  source_security_group_id = aws_security_group.ecs[0].id
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  description              = "ECS to AWS interface endpoints over TLS"
+}
+
+resource "aws_route53_zone" "private" {
+  count = var.enabled ? 1 : 0
+  name  = "internal.lengeas"
+  vpc {
+    vpc_id     = aws_vpc.this[0].id
+    vpc_region = var.region
+  }
+  tags = var.tags
+}
+
 resource "aws_cloudwatch_log_group" "flow" {
   count             = var.enabled ? 1 : 0
   name              = "/aws/vpc/lengeas/${var.environment}/flow"
   retention_in_days = 90
+  kms_key_id        = var.kms_key_arn
   tags              = var.tags
 }
 
@@ -220,4 +278,4 @@ resource "aws_flow_log" "this" {
 # Provider resources are intentionally gated by var.enabled. The environment
 # roots remain plan-safe until account inventory, vendor access, and cost gates
 # are recorded in docs/evidence/phase-02.
-# Network contract: three AZs, AZ-local NAT routes, VPC flow logs, DNS, primary/DR connectivity, and Reachability Analyzer evidence.
+# Network contract: three AZs, AZ-local NAT routes, VPC flow logs, DNS, primary/DR connectivity, and Reachability Analyzer evidence. AWS provider 6.62.0 does not expose Reachability Analyzer as Terraform resources, so the reviewed ENI inputs remain an explicit evidence gate.

@@ -42,6 +42,22 @@ variable "capacity_provider_arns" {
   default     = {}
 }
 
+variable "ecs_ami_id" {
+  description = "Approved ECS-optimized Amazon Linux 2023 ARM64 AMI ID. Required when enabled."
+  type        = string
+  default     = ""
+}
+
+variable "atlas_organization_id" {
+  type    = string
+  default = ""
+}
+
+variable "atlas_project_owner_id" {
+  type    = string
+  default = ""
+}
+
 variable "task_image" {
   description = "Immutable ECR image digest for the platform service."
   type        = string

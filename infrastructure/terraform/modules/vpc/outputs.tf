@@ -26,8 +26,13 @@ output "isolated_subnet_ids" {
 
 output "security_group_ids" {
   value = {
-    alb  = try(aws_security_group.alb[0].id, null)
-    ecs  = try(aws_security_group.ecs[0].id, null)
-    data = try(aws_security_group.data[0].id, null)
+    alb      = try(aws_security_group.alb[0].id, null)
+    ecs      = try(aws_security_group.ecs[0].id, null)
+    data     = try(aws_security_group.data[0].id, null)
+    endpoint = try(aws_security_group.endpoint[0].id, null)
   }
+}
+
+output "private_zone_id" {
+  value = try(aws_route53_zone.private[0].zone_id, null)
 }
