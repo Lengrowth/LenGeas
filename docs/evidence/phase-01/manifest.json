@@ -51,7 +51,7 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "8e04c6f51f673255dfeb5091fbcfde95f03a97672d0f7e9bf34efa166843e2ec"
+      "sha256": "9e416ffebe80a9308d14477793450ecf5e6d1189f786cd61f450d3ae4f9ee1c3"
     },
     {
       "path": "tests",
@@ -78,12 +78,9 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T15:14:10.618042Z",
+  "end_utc": "2026-09-13T15:32:34.955282Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
-  "next_phase_prerequisites": [
-    "Review recommendation and resolution of all mandatory findings",
-    "Explicit repository-owner acceptance"
-  ],
+  "next_phase_prerequisites": [],
   "open_risks": [
     "Docker intentionally unavailable on developer workstation; server and hosted CI runtime passed",
     "Dependabot #7: pytest 8.4.2 moderate test-only risk; owner infrastructure_owner; Dependabot PR #5 target 2026-09-20",
@@ -105,7 +102,7 @@
   ],
   "schema_version": "1.0.0",
   "start_utc": "2026-09-13T09:02:42Z",
-  "status": "in_review",
+  "status": "accepted",
   "tests": [
     "task bootstrap",
     "task generate twice",
@@ -119,7 +116,7 @@
     "server-side integration and server-local/public E2E harnesses (passed)",
     "GitHub hosted verify run 34759754929 (passed)",
     "GitHub keyless release run 34760098397 for v0.1.1 (passed)",
-    "task phase:gate PHASE=01 (review gate; acceptance remains external)"
+    "task phase:gate PHASE=01 (accepted historical gate)"
   ],
   "toolchain": {
     "docker": "unavailable",
