@@ -56,7 +56,8 @@ def negative_control_checks(text: str) -> dict[str, bool]:
         "P02-NEG-005": "no-ssh" in lower and not re.search(r'from_port\s*=\s*22', lower),
         "P02-NEG-006": "readonlyrootfilesystem" in lower and 'user                   = "10001"' in lower,
         "P02-NEG-007": "denyprivilegeescalation" in lower and "cross-account" in lower,
-        "P02-NEG-008": "githubactionsrestrictedtrust" in lower and "sts.amazonaws.com" in lower,
+        "P02-NEG-008": "githubactionsrestrictedtrust" in lower
+        and re.search(r"sts[.]amazonaws[.]com", lower) is not None,
         "P02-NEG-009": "privatelink" in lower and "public-access" in lower,
         "P02-NEG-010": "origin-authentication" in lower and "x-lengeas-edge" in lower,
         "P02-NEG-011": "cloudflare_source_ranges" in lower and "proxied = true" in lower and len(backend_keys) == 4,
