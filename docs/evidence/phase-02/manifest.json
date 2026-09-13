@@ -3,7 +3,7 @@
   "artifacts": [
     {
       "path": "infrastructure/terraform",
-      "sha256": "15a318b3193d214a57e3553d181e02a57ea12826823c17cd7d0f6c358fdc3623"
+      "sha256": "e4eb7be62e5ee59b1286cad46cf95d29f9837a9a852febaa4a0d7e7d3a639e39"
     },
     {
       "path": "infrastructure/policies",
@@ -19,7 +19,7 @@
     },
     {
       "path": "docs/evidence/phase-02/tasks",
-      "sha256": "e28ef033b7b310c67b91d88d9b0bb91d24470d752a676d70ae7767b12f99cd32"
+      "sha256": "f06f516ab955fc3c74f697bf6fac7dc41dd653f8c88d3e71f3f2c950e170ed8e"
     },
     {
       "path": "docs/evidence/phase-02/security",
@@ -31,7 +31,7 @@
     },
     {
       "path": "docs/evidence/phase-02/operations",
-      "sha256": "6bb1a0e0e4e346e6cab8ecf92bd88fc1742a50e2190aaf81720a501ca55ab047"
+      "sha256": "bb3af0ae8198ebc089f875b1b43e74464554fd08c9840baef5c7011ca3e90730"
     },
     {
       "path": "docs/phases/02-cloud-foundation.md",
@@ -43,8 +43,8 @@
     "Required AWS Organizations/security access, Cloudflare access, Supabase/Resend access, and owner-approved recurring-cost ceiling are unavailable; all persistent resources remain planned-only."
   ],
   "completed_task_ids": [],
-  "end_utc": "2026-09-13T17:23:21.383186Z",
-  "final_commit": "22cad14cd0c4c6d51f7f229ce6d261c7e1cb39c8",
+  "end_utc": "2026-09-13T17:45:58.175552Z",
+  "final_commit": "053ccb115f617e4ef2f0396e4c175561040d4248",
   "next_phase_prerequisites": [
     "Resolve all mandatory blockers and rerun live evidence",
     "Independent review and explicit repository-owner acceptance"
