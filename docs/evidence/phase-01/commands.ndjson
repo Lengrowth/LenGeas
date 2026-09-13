@@ -36,3 +36,4 @@
 {"command":"gh workflow run ci-probe.yml --repo guerra2fernando/LenGeas --ref main","exit_code":0,"result":"run 34752687061 accepted"}
 {"command":"gh run view 34752687061 --repo guerra2fernando/LenGeas --verbose","exit_code":1,"result":"completed startup_failure before any job; minimal valid probe also cannot start"}
 {"command":"remove temporary ci-probe.yml","exit_code":0,"result":"diagnostic workflow removed from final tree"}
+{"command":"gh run view 34752755231 --repo guerra2fernando/LenGeas --verbose","exit_code":1,"result":"push run for audited commit 22f3698a6af4247f7c3054a214204fd07e3d4c2a completed startup_failure before any job"}

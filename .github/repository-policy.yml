@@ -56,6 +56,6 @@ verification:
   live_branch_protection_validated: false
   observed_branch_protection_enabled: false
   live_ci_validated: false
-  live_ci_observation: "run 34752687061 for temporary one-step ci-probe: startup_failure; no jobs"
+  live_ci_observation: "run 34752755231 for audited commit 22f3698a6af4247f7c3054a214204fd07e3d4c2a: startup_failure; no jobs"
   observed_commit_signature: "c07f38a5efef989481954b688c94723a8c313e02: unsigned"
   screenshot_available: false
