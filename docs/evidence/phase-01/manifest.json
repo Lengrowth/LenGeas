@@ -39,7 +39,7 @@
     },
     {
       "path": "infrastructure/aws",
-      "sha256": "a261bc536cdb45ac6f4fb92fa35487770f27e1f3e99dc3274eebc51ab9d371f5"
+      "sha256": "bd3ec83318bf64249a561603144e5aabbe0a0c36d0c5d9f9a3fe23d79467dd82"
     },
     {
       "path": "packages/schemas/evidence/phase-manifest.schema.json",
@@ -78,7 +78,7 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T18:50:25.787848Z",
+  "end_utc": "2026-09-13T20:14:48.739527Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [],
   "open_risks": [
