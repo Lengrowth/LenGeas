@@ -32,3 +32,7 @@
 {"command":"gh api repos/guerra2fernando/LenGeas/actions/permissions","exit_code":0,"result":"Actions enabled; allowed_actions=all"}
 {"command":"gh workflow run verify.yml --repo guerra2fernando/LenGeas --ref main","exit_code":0,"result":"run 34752392947 accepted for commit 3d598fd90a8cd631accc187192a901b27b05ff0a"}
 {"command":"gh run view 34752392947 --repo guerra2fernando/LenGeas --verbose","exit_code":1,"result":"completed startup_failure; no jobs; GitHub reports likely workflow file issue"}
+{"command":"temporary .github/workflows/ci-probe.yml with workflow_dispatch and one python --version step","exit_code":0,"result":"committed only for external Actions diagnosis; valid Docker-free probe"}
+{"command":"gh workflow run ci-probe.yml --repo guerra2fernando/LenGeas --ref main","exit_code":0,"result":"run 34752687061 accepted"}
+{"command":"gh run view 34752687061 --repo guerra2fernando/LenGeas --verbose","exit_code":1,"result":"completed startup_failure before any job; minimal valid probe also cannot start"}
+{"command":"remove temporary ci-probe.yml","exit_code":0,"result":"diagnostic workflow removed from final tree"}
