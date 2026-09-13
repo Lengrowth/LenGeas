@@ -70,9 +70,22 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           version: v0.74.0
-      - uses: gitleaks/gitleaks-action@v2.3.9
+      - name: Install Gitleaks
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_VERSION: 8.30.1
+        run: |
+          curl --fail --silent --show-error --location \
+            --output "$RUNNER_TEMP/gitleaks.tar.gz" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl --fail --silent --show-error --location \
+            --output "$RUNNER_TEMP/gitleaks_checksums.txt" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          cd "$RUNNER_TEMP"
+          grep "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" gitleaks_checksums.txt | sha256sum --check
+          tar -xzf gitleaks.tar.gz
+          ./gitleaks version
+      - name: Scan repository for secrets
+        run: "$RUNNER_TEMP/gitleaks detect --source . --no-banner --redact"
       - uses: anchore/sbom-action@v0.20.9
         with:
           path: .
