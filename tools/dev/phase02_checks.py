@@ -45,24 +45,32 @@ def negative_control_checks(text: str) -> dict[str, bool]:
     lower = text.lower()
     roots = [TERRAFORM / "environments" / name / "versions.tf" for name in sorted(ROOTS)]
     backend_keys = [
-        re.findall(r'key\s*=\s*"([^"]+)"', path.read_text(encoding="utf-8"))
-        for path in roots
+        re.findall(r'key\s*=\s*"([^"]+)"', path.read_text(encoding="utf-8")) for path in roots
     ]
     return {
         "P02-NEG-001": "block_public_acls" in lower and "restrict_public_buckets" in lower,
-        "P02-NEG-002": all(token in lower for token in ("cloudtrail", "guardduty", "securityhub", "config")),
-        "P02-NEG-003": all(token in lower for token in ("server_side_encryption", "kms_key", "enable_key_rotation")),
+        "P02-NEG-002": all(
+            token in lower for token in ("cloudtrail", "guardduty", "securityhub", "config")
+        ),
+        "P02-NEG-003": all(
+            token in lower for token in ("server_side_encryption", "kms_key", "enable_key_rotation")
+        ),
         "P02-NEG-004": "assign_public_ip = false" in lower and "no-public-ip" in lower,
-        "P02-NEG-005": "no-ssh" in lower and not re.search(r'from_port\s*=\s*22', lower),
-        "P02-NEG-006": "readonlyrootfilesystem" in lower and 'user                   = "10001"' in lower,
+        "P02-NEG-005": "no-ssh" in lower and not re.search(r"from_port\s*=\s*22", lower),
+        "P02-NEG-006": "readonlyrootfilesystem" in lower
+        and 'user                   = "10001"' in lower,
         "P02-NEG-007": "denyprivilegeescalation" in lower and "cross-account" in lower,
         "P02-NEG-008": "githubactionsrestrictedtrust" in lower
         and re.search(r"sts[.]amazonaws[.]com", lower) is not None,
         "P02-NEG-009": "privatelink" in lower and "public-access" in lower,
         "P02-NEG-010": "origin-authentication" in lower and "x-lengeas-edge" in lower,
-        "P02-NEG-011": "cloudflare_source_ranges" in lower and "proxied = true" in lower and len(backend_keys) == 4,
-        "P02-NEG-012": all(len(values) == 1 for values in backend_keys) and len({values[0] for values in backend_keys}) == 4,
-        "P02-NEG-013": all(f"lengeas/${{var.environment}}/" in lower for _ in [0]) and "secret values never enter terraform state" in lower,
+        "P02-NEG-011": "cloudflare_source_ranges" in lower
+        and "proxied = true" in lower
+        and len(backend_keys) == 4,
+        "P02-NEG-012": all(len(values) == 1 for values in backend_keys)
+        and len({values[0] for values in backend_keys}) == 4,
+        "P02-NEG-013": "lengeas/${var.environment}/" in lower
+        and "secret values never enter terraform state" in lower,
     }
 
 
@@ -125,12 +133,12 @@ def main() -> int:
         for item in controls:
             control_id = item["id"]
             if not results[control_id]:
-                return fail(f"negative control failed closed: {control_id} ({item.get('name', 'unnamed')})")
+                return fail(
+                    f"negative control failed closed: {control_id} ({item.get('name', 'unnamed')})"
+                )
         if re.search(r"(?im)^\s*(?:password|secret|token|api_key)\s*=", text):
             return fail("Terraform contains a secret-like assignment")
-        print(
-            f"PASS phase02-policy: {len(results)} inventory controls and secret policy present"
-        )
+        print(f"PASS phase02-policy: {len(results)} inventory controls and secret policy present")
         return 0
     print(
         f"PASS phase02-policy: {len(MODULES)} modules and "
