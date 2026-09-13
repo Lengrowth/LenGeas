@@ -1,7 +1,7 @@
 {
   "artifact_type": "lengeas.release",
-  "commit": "5f7e5bb572b7670f73fe663d2d38bbdfd8ba0933",
-  "created_utc": "2026-09-13T10:47:09.957915Z",
+  "commit": "638ea93b4e41d069a010fbd73f0036fbfdddfccc",
+  "created_utc": "2026-09-13T10:48:39.428912Z",
   "files": [
     {
       "path": ".editorconfig",
@@ -33,7 +33,7 @@
     },
     {
       "path": ".github/repository-policy.yml",
-      "sha256": "4c508df94c36e5547b432464e4c703a4577bdd22cd9e28340bb470b44be0a8b1"
+      "sha256": "2b92e8266cca00c7fdc2087a423440f1e18b6dc0b9788bc038b65a55013f264e"
     },
     {
       "path": ".github/workflows/codeql.yml",
@@ -493,11 +493,11 @@
     },
     {
       "path": "docs/evidence/phase-01/blockers.md",
-      "sha256": "85acba6d139fd49a621fdc4da50e222803810b9ffb76464187d42c37ff6ed18c"
+      "sha256": "ce02d0b29de32f0638b87b26e6fd3a53a65c0ad97be6aeabdb82765b38131f6e"
     },
     {
       "path": "docs/evidence/phase-01/commands.ndjson",
-      "sha256": "810412b7dd9ce9a71925480ec9780fb2df1cf237c5901d89cd599ce5d9cb5e74"
+      "sha256": "670f86c7934b039bd6f4773b1cd9463fb3d999ba918217019ba1953a72a23fce"
     },
     {
       "path": "docs/evidence/phase-01/coverage.json",
@@ -513,7 +513,7 @@
     },
     {
       "path": "docs/evidence/phase-01/manifest.json",
-      "sha256": "fe7c6a447e1f4c14b58ac114393f61751cdd9e8dc9715cae098cd2f803cde9d4"
+      "sha256": "8381deef99209e111d1a1605d96df0cc6023484acf9eea86071d290e76585098"
     },
     {
       "path": "docs/evidence/phase-01/operations/README.md",
@@ -549,11 +549,11 @@
     },
     {
       "path": "docs/evidence/phase-01/security/release-manifest.json",
-      "sha256": "d74c535cfb2361cade9fceb15a64a4ab00df0614a8f7586bc9aab30b1f7359e3"
+      "sha256": "58538c458be012ba48fd3fd0fc3d1bf7f08b393a366970cdba7efd7f912cebdd"
     },
     {
       "path": "docs/evidence/phase-01/security/source-sbom.spdx.json",
-      "sha256": "1ba3980336d045e726a2edad8af690c07c14a05cf00d86d2156147a07c18cfa1"
+      "sha256": "675eda4c017819d61724fa0bbb62fbd5e691abedd7ff1f1ab0a0e55a333c87c5"
     },
     {
       "path": "docs/evidence/phase-01/tasks/P01-T01.md",
@@ -1180,5 +1180,5 @@
   },
   "schema_version": "1.0.0",
   "tag": "phase-01-candidate",
-  "tree": "d2070b5edfd31182fe511fed8a175dadc8407788"
+  "tree": "20b67b7d2d69bd1cfaf9504f92f2d548119d94b9"
 }
