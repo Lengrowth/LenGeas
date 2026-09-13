@@ -2,9 +2,25 @@
 
 The Phase 01 server is an explicitly authorized, non-production EC2 host. The
 developer workstation never installs or runs Docker. `phase-01-user-data.sh`
-installs Docker Engine and Compose v2 on the server, clones `main`, generates
-the server-only `.env`, runs the pinned Compose stack, and configures Caddy for
-`games.lengrowth.com`.
+installs Docker Engine and Compose v2 on the server, consumes a source archive
+of the already-pushed commit, generates the server-only `.env`, runs the pinned
+Compose stack, and configures Caddy for `games.lengrowth.com`. The archive
+transfer keeps the private GitHub repository credential-free on the host.
+
+## Private source transfer
+
+From a clean checkout, create and upload the exact pushed commit, then upload
+the bootstrap script and run it on the server:
+
+```sh
+git archive --format=tar --output=lengeas-source.tar HEAD
+scp -i ~/.ssh/lenquant.pem lengeas-source.tar ubuntu@SERVER:/opt/lengeas-source.tar
+scp -i ~/.ssh/lenquant.pem infrastructure/aws/phase-01-user-data.sh ubuntu@SERVER:/opt/phase-01-user-data.sh
+ssh -i ~/.ssh/lenquant.pem ubuntu@SERVER sudo bash /opt/phase-01-user-data.sh
+```
+
+The archive is not committed and must be removed from the workstation after the
+transfer if it is no longer needed.
 
 ## Network boundary
 

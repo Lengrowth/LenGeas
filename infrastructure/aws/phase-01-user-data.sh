@@ -4,8 +4,8 @@ set -Eeuo pipefail
 exec > >(tee -a /var/log/lengeas-phase-01-bootstrap.log) 2>&1
 
 export DEBIAN_FRONTEND=noninteractive
-REPO_URL="https://github.com/guerra2fernando/LenGeas.git"
 REPO_DIR="/opt/lengeas"
+SOURCE_ARCHIVE="/opt/lengeas-source.tar"
 
 apt-get update
 apt-get install -y ca-certificates curl git gnupg openssl python3 rsync
@@ -33,16 +33,15 @@ apt-get update
 apt-get install -y caddy
 
 install -d -m 0755 /opt
-if [ ! -d "$REPO_DIR/.git" ]; then
-  git clone --branch main --depth 1 "$REPO_URL" "$REPO_DIR"
+if [ -f "$REPO_DIR/compose.yaml" ]; then
+  echo "Using the already-staged LenGeas source at $REPO_DIR"
+elif [ -f "$SOURCE_ARCHIVE" ]; then
+  install -d -m 0755 "$REPO_DIR"
+  tar -xf "$SOURCE_ARCHIVE" -C "$REPO_DIR"
+  rm -f "$SOURCE_ARCHIVE"
 else
-  git -C "$REPO_DIR" fetch origin main
-  if git -C "$REPO_DIR" diff --quiet && git -C "$REPO_DIR" diff --cached --quiet; then
-    git -C "$REPO_DIR" pull --ff-only origin main
-  else
-    echo "Refusing to overwrite a dirty server checkout: $REPO_DIR" >&2
-    exit 1
-  fi
+  echo "Stage a source archive at $SOURCE_ARCHIVE before running this bootstrap" >&2
+  exit 1
 fi
 
 # Keep the server environment out of Git and out of the public HTTP surface.
