@@ -1,0 +1,6 @@
+{
+  "fixture_id": "fixture_disaster_recovery",
+  "snapshot": {"state_version": 8, "balance": 41, "definition_digest": "fixture_digest"},
+  "rto_budget_seconds": 4,
+  "rpo_budget_minutes": 15
+}

@@ -1,0 +1,5 @@
+{
+  "fixture_id": "fixture_performance_bounds",
+  "iterations": 4000,
+  "max_seconds": 1.5
+}

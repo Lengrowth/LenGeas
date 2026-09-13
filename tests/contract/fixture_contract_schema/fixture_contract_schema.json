@@ -1,0 +1,5 @@
+{
+  "fixture_id": "fixture_contract_schema",
+  "event_type": "platform.state_changed.v1",
+  "error": {"code": "condition_failed", "retryable": false}
+}

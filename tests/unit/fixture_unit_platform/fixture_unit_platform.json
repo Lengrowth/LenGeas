@@ -1,0 +1,6 @@
+{
+  "fixture_id": "fixture_unit_platform",
+  "state": {"balance": 12, "state_version": 4},
+  "delta": 5,
+  "invalid_delta": 1.5
+}

@@ -1,0 +1,7 @@
+{
+  "fixture_id": "fixture_security_boundaries",
+  "actor_tenant": "fixture_tenant_a",
+  "other_tenant": "fixture_tenant_b",
+  "records": {"fixture_tenant_a": {"balance": 3}, "fixture_tenant_b": {"balance": 9}},
+  "log_event": {"token": "synthetic-secret", "action": "state_read"}
+}

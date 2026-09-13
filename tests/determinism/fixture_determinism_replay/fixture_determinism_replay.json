@@ -1,0 +1,5 @@
+{
+  "fixture_id": "fixture_determinism_replay",
+  "state": {"state_version": 4, "balance": 17, "studio_id": "fixture_studio"},
+  "seed": "00000000000000000000000000000011"
+}

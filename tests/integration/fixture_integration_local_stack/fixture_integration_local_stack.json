@@ -1,0 +1,5 @@
+{
+  "fixture_id": "fixture_integration_local_stack",
+  "required_services": ["mongo", "rabbitmq", "redpanda", "minio", "otel-collector"],
+  "checks": ["transaction", "publish_consume", "object_put_get", "trace_export"]
+}

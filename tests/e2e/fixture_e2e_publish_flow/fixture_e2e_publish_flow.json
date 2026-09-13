@@ -1,0 +1,5 @@
+{
+  "fixture_id": "fixture_e2e_publish_flow",
+  "workflow": ["draft", "validate", "publish", "action", "audit", "rollback"],
+  "health_path": "/health"
+}
