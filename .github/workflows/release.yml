@@ -23,7 +23,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: sigstore/cosign-installer@v3.9.0
+      - uses: sigstore/cosign-installer@v4.1.2
       - name: Normalize image name
         run: echo "IMAGE_REPOSITORY=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
       - run: docker buildx build --platform linux/arm64 --provenance=true --sbom=true --tag "$IMAGE_REPOSITORY:${{ github.ref_name }}" --push -f infrastructure/docker/api-shell/Dockerfile infrastructure/docker/api-shell
