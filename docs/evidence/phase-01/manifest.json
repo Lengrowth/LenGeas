@@ -47,11 +47,11 @@
     },
     {
       "path": "packages/shared-types/generated",
-      "sha256": "4c17f9b69b6979391081fdb83aa1fec6c321ec94d85a42d7cfe49341ec92943e"
+      "sha256": "9d53cf1ad5306d1857cda2200ae0807dddf0b9e77d9a7f21d161b94a81891519"
     },
     {
       "path": "tools/dev",
-      "sha256": "1c7ece21e9cae740e71092d11555e6d2bb35f6e58b4d2b7a324d191b978deca3"
+      "sha256": "8d554ae4369d69ece27549b3cfbf9be43dee922d45439a21b5b18b216bd1f89b"
     },
     {
       "path": "tests",
@@ -59,7 +59,7 @@
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
-      "sha256": "9129b095370780899adac9bba295259976ae80a40fb049c450ce8e7362f0ea14"
+      "sha256": "9688709c75c9865ea322c19d9f14797bb8f9d2f88677b3ad37abe4de4adb4839"
     },
     {
       "path": "docs/evidence/phase-01/operations/server-runtime.json",
@@ -78,7 +78,7 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T14:25:02.330465Z",
+  "end_utc": "2026-09-13T15:07:34.546912Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [
     "Review recommendation and resolution of all mandatory findings",
@@ -114,6 +114,7 @@
     "task typecheck",
     "dependency-free synthetic suites",
     "local policy checks",
+    "read-only manifest verification (zero mismatches)",
     "server-side Compose smoke (passed; Docker was not run locally)",
     "server-side integration and server-local/public E2E harnesses (passed)",
     "GitHub hosted verify run 34759754929 (passed)",
