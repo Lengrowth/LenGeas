@@ -37,3 +37,16 @@
 {"command":"gh run view 34752687061 --repo guerra2fernando/LenGeas --verbose","exit_code":1,"result":"completed startup_failure before any job; minimal valid probe also cannot start"}
 {"command":"remove temporary ci-probe.yml","exit_code":0,"result":"diagnostic workflow removed from final tree"}
 {"command":"gh run view 34752755231 --repo guerra2fernando/LenGeas --verbose","exit_code":1,"result":"push run for audited commit 22f3698a6af4247f7c3054a214204fd07e3d4c2a completed startup_failure before any job"}
+{"command":"aws sts get-caller-identity","exit_code":0,"result":"authorized AWS account 288947333598; configured region us-east-1"}
+{"command":"npx --yes wrangler@latest whoami","exit_code":0,"result":"Cloudflare account Lengrowth zone access; token has zone:read but no DNS write permission"}
+{"command":"aws ec2 create-security-group ... LenGeas-Phase01-Public","exit_code":0,"result":"sg-0c9996be5169956cb created in vpc-0733f72520271cbdf"}
+{"command":"aws ec2 authorize-security-group-ingress ...","exit_code":0,"result":"TCP 80/443 public; TCP 22 restricted to 212.58.102.127/32"}
+{"command":"aws ec2 run-instances ... --instance-type t3.medium --key-name lenquant --user-data phase-01-user-data.sh","exit_code":0,"result":"i-0e826e65d7f5df890 launched at 3.238.63.61; Docker was not invoked locally"}
+{"command":"scp git archive HEAD over SSH and run /opt/phase-01-user-data.sh","exit_code":0,"commit":"d9f6715f3f997487c5cb0075b518ecb60c1aaa9e","result":"server Docker Engine 29.8.0, Compose 5.5.1, and Caddy 2.11.4 installed; server-only credentials generated"}
+{"command":"sudo docker compose --project-name lengeas-local --env-file /opt/lengeas/.env --file /opt/lengeas/compose.yaml config --quiet","exit_code":0,"host":"i-0e826e65d7f5df890","evidence":"docs/evidence/phase-01/operations/server-runtime.json"}
+{"command":"sudo python3 /opt/lengeas/tools/dev/task_runner.py local-smoke","exit_code":0,"host":"i-0e826e65d7f5df890","result":"MongoDB transaction, RabbitMQ, Redpanda/Kafka, MinIO put/get, OTLP-to-Jaeger, and API health/version passed","evidence":"docs/evidence/phase-01/operations/server-runtime.json"}
+{"command":"sudo python3 /opt/lengeas/tools/dev/task_runner.py test integration","exit_code":0,"host":"i-0e826e65d7f5df890","result":"2 synthetic fixture checks; Docker and running Compose services detected"}
+{"command":"sudo env LENGEAS_E2E_BASE_URL=http://127.0.0.1:8000 python3 /opt/lengeas/tools/dev/task_runner.py test e2e","exit_code":0,"host":"i-0e826e65d7f5df890","result":"2 synthetic fixture checks; server-local endpoint set"}
+{"command":"redpanda healthcheck replacement with native --exit-when-healthy; compose refresh","exit_code":0,"host":"i-0e826e65d7f5df890","result":"all 12 Compose services running; Redpanda healthy"}
+{"command":"gh run list --repo guerra2fernando/LenGeas --limit 8","exit_code":0,"result":"runs 34756975179, 34756796412, 34756682928, 34756212729, and 34756010652 all completed startup_failure with no jobs"}
+{"command":"Cloudflare DNS record update for games.lengrowth.com","exit_code":403,"result":"blocked: active Wrangler token lacks DNS Read/Write; public HTTPS validation intentionally not claimed"}

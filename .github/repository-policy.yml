@@ -9,7 +9,7 @@ repository:
     - command: git remote get-url origin
       exit_code: 0
       result: "https://github.com/guerra2fernando/LenGeas.git"
-  blocker: The private GitHub repository and owner are confirmed, but the active integration cannot read live branch protection and the push verification run ended in startup_failure; this file remains a local policy export.
+  blocker: The private GitHub repository and owner are confirmed, but the active integration cannot read live branch protection and the latest push verification run ended in startup_failure; this file remains a local policy export.
 ownership:
   model: sole_developer_repository_owner
   github_owner_binding: guerra2fernando
@@ -56,6 +56,6 @@ verification:
   live_branch_protection_validated: false
   observed_branch_protection_enabled: false
   live_ci_validated: false
-  live_ci_observation: "run 34752755231 for audited commit 22f3698a6af4247f7c3054a214204fd07e3d4c2a: startup_failure; no jobs"
-  observed_commit_signature: "c07f38a5efef989481954b688c94723a8c313e02: unsigned"
+  live_ci_observation: "run 34756975179 for audited commit d9f6715f3f997487c5cb0075b518ecb60c1aaa9e: startup_failure; no jobs"
+  observed_commit_signature: "d9f6715f3f997487c5cb0075b518ecb60c1aaa9e: unsigned"
   screenshot_available: false

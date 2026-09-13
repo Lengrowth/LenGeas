@@ -27,15 +27,19 @@
     },
     {
       "path": "compose.yaml",
-      "sha256": "6d94d17c01d4fef6be737a14e73af7d8253d2625f8f0315fed42d2f109bd4735"
+      "sha256": "7d24bf85e441285f353cff2cf688a2d9bc50e8069d858b101c872f7125e03b6f"
     },
     {
       "path": ".github",
-      "sha256": "cfe64c578b5ff8c6c868f14642851838b8a63fe941f59c77a3415018b8b20464"
+      "sha256": "f4c82fd163608eeb570d9f61eb361b0961f94b5ea440d6fc267c082f0d125eb8"
     },
     {
       "path": "infrastructure/docker",
-      "sha256": "b7e009094f67f57119c000753827168ddbe2505564c598a7fc0ac66b9b8ca407"
+      "sha256": "2041ac54bec759bac3d7b59bcd398a8f3cd204d5156feba08cf6516bb53bef2b"
+    },
+    {
+      "path": "infrastructure/aws",
+      "sha256": "0b120b63cec6dc5304bfbb52ad3d55b3c46c7af714c986a1e8226c97f75f9065"
     },
     {
       "path": "packages/schemas/evidence/phase-manifest.schema.json",
@@ -47,7 +51,7 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "ab64db6e81736902abea0900ddcbe13a7dff67e10f7b5558d25dbe8e4a7eeb15"
+      "sha256": "0363990fd2fb22b88008e3ac800ee5af591830481dcb73566f2a71d9262fbab9"
     },
     {
       "path": "tests",
@@ -55,31 +59,36 @@
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
-      "sha256": "c8933a1612c280cdecb41824f5bc21f1f1bc4c4722c625eb466ba9005fa807db"
+      "sha256": "9129b095370780899adac9bba295259976ae80a40fb049c450ce8e7362f0ea14"
+    },
+    {
+      "path": "docs/evidence/phase-01/operations/server-runtime.json",
+      "sha256": "a47f8ca35148fccd10eaff0ad3cc7915e88f59268dfa3182412dee076a7e679b"
     }
   ],
   "base_commit": "28bd5d577c7f990854b364b4aa89a41fb144b4fa",
   "blockers": [
-    "BLK-01",
-    "BLK-02",
     "BLK-03",
-    "BLK-04"
+    "BLK-04",
+    "BLK-05"
   ],
   "completed_task_ids": [
     "P01-T01",
     "P01-T02",
+    "P01-T03",
     "P01-T04",
-    "P01-T06"
+    "P01-T06",
+    "P01-T07"
   ],
-  "end_utc": "2026-09-13T10:48:40.179000Z",
-  "final_commit": "638ea93b4e41d069a010fbd73f0036fbfdddfccc",
+  "end_utc": "2026-09-13T12:30:17.486237Z",
+  "final_commit": "d9f6715f3f997487c5cb0075b518ecb60c1aaa9e",
   "next_phase_prerequisites": [
     "Independent review and resolution of all blockers",
     "Phase 01 acceptance"
   ],
   "open_risks": [
-    "Docker runtime unavailable",
-    "E2E endpoint unavailable",
+    "Docker runtime intentionally unavailable on the developer workstation; server runtime passed",
+    "public DNS/TLS endpoint pending Cloudflare DNS-write access",
     "GitHub remote and live branch policy unavailable",
     "Sigstore signing unavailable"
   ],
@@ -105,8 +114,10 @@
     "task typecheck",
     "dependency-free synthetic suites",
     "local policy checks",
-    "task verify (blocked by Docker and E2E prerequisites)",
-    "task phase:gate PHASE=01 (blocked by BLK-01 through BLK-04)",
+    "server-side Compose smoke (passed; Docker was not run locally)",
+    "server-side integration and E2E harnesses (passed against the server-local endpoint)",
+    "task verify (still blocked by remote policy and signing prerequisites)",
+    "task phase:gate PHASE=01 (blocked by BLK-03 through BLK-05)",
     "GitHub verify workflow dispatch (startup_failure; no jobs)"
   ],
   "toolchain": {

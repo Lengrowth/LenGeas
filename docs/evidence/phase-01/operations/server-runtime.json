@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "environment": "authorized AWS non-production server",
+  "aws": {
+    "region": "us-east-1",
+    "availability_zone": "us-east-1a",
+    "instance_id": "i-0e826e65d7f5df890",
+    "instance_type": "t3.medium",
+    "ami_id": "ami-0c7217cdde317cfec",
+    "public_ipv4": "3.238.63.61",
+    "subnet_id": "subnet-0dd8a7f3f61f76b18",
+    "security_group_id": "sg-0c9996be5169956cb"
+  },
+  "source": {
+    "repository": "https://github.com/guerra2fernando/LenGeas.git",
+    "commit": "d9f6715f3f997487c5cb0075b518ecb60c1aaa9e",
+    "transfer_method": "git archive over SSH; no GitHub credential stored on host"
+  },
+  "server_toolchain": {
+    "docker_engine": "29.8.0",
+    "docker_compose": "5.5.1",
+    "caddy": "2.11.4"
+  },
+  "network_boundary": {
+    "public_ingress": [80, 443],
+    "ssh_source": "212.58.102.127/32",
+    "compose_bind_policy": "all Compose ports loopback-only; Caddy forwards only to 127.0.0.1:8000"
+  },
+  "runtime_validation": [
+    {
+      "command": "sudo docker compose --project-name lengeas-local --env-file /opt/lengeas/.env --file /opt/lengeas/compose.yaml config --quiet",
+      "exit_code": 0
+    },
+    {
+      "command": "sudo python3 /opt/lengeas/tools/dev/task_runner.py local-smoke",
+      "exit_code": 0,
+      "result": "MongoDB replica-set transaction, RabbitMQ, Redpanda/Kafka, MinIO S3 put/get, OTLP-to-Jaeger, and API health/version all passed"
+    },
+    {
+      "command": "sudo python3 /opt/lengeas/tools/dev/task_runner.py test integration",
+      "exit_code": 0,
+      "result": "2 synthetic fixture checks; Docker and running Compose dependencies detected"
+    },
+    {
+      "command": "sudo env LENGEAS_E2E_BASE_URL=http://127.0.0.1:8000 python3 /opt/lengeas/tools/dev/task_runner.py test e2e",
+      "exit_code": 0,
+      "result": "2 synthetic fixture checks; server-local E2E base URL set"
+    },
+    {
+      "command": "sudo systemctl is-active caddy",
+      "exit_code": 0,
+      "result": "active; public DNS cutover is pending Cloudflare DNS-write access"
+    }
+  ],
+  "public_endpoint": {
+    "hostname": "games.lengrowth.com",
+    "target_ipv4": "3.238.63.61",
+    "dns_cutover": "pending",
+    "https_validation": "not claimed until the exact A record is updated and certificate validation succeeds"
+  },
+  "services": {
+    "expected_running": 12,
+    "healthy_or_ready": ["api-shell", "grafana", "mailpit", "mongo", "prometheus", "rabbitmq", "redpanda", "valkey"],
+    "ready_without_container_healthcheck": ["jaeger", "minio", "otel-collector"],
+    "dependency_ports_publicly_exposed": false
+  }
+}

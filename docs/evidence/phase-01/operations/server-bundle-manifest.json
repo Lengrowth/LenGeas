@@ -4,7 +4,7 @@
   "files": [
     {
       "path": "compose.yaml",
-      "sha256": "6d94d17c01d4fef6be737a14e73af7d8253d2625f8f0315fed42d2f109bd4735"
+      "sha256": "7d24bf85e441285f353cff2cf688a2d9bc50e8069d858b101c872f7125e03b6f"
     },
     {
       "path": ".env.example",
@@ -36,7 +36,19 @@
     },
     {
       "path": "infrastructure/docker/SERVER-DEPLOYMENT.md",
-      "sha256": "9ed785f9a6027b6064f9b0fe983644002689754015b073fba18a1efb4045fa4c"
+      "sha256": "f072114ca42a3a25bf24b8fea12c3fa98acd1217dd8f7675b352bdc730d7cf7e"
+    },
+    {
+      "path": "infrastructure/aws/Caddyfile",
+      "sha256": "abde90399617137856f4feab59695b59434f27127281b50cbbfea03463b571ad"
+    },
+    {
+      "path": "infrastructure/aws/README.md",
+      "sha256": "53451a36dbaff72b491d0fd0cbac65b574f2da2db0e3b233f05342feff02c32a"
+    },
+    {
+      "path": "infrastructure/aws/phase-01-user-data.sh",
+      "sha256": "db355fbeb4610c5519448737efd6ce4cb30e115cde613b270784cfd23bf9371f"
     }
   ],
   "image_digests": [
@@ -54,7 +66,7 @@
     "grafana/grafana@sha256:74144189b38447facf737dfd0f3906e42e0776212bf575dc3334c3609183adf7"
   ],
   "schema_version": "1.0.0",
-  "source_commit": "cd1705ccec41274a9dc1a4fd52b3ab959666feab",
+  "source_commit": "d9f6715f3f997487c5cb0075b518ecb60c1aaa9e",
   "verification": [
     "docker compose config --quiet",
     "python tools/dev/task_runner.py local-up",

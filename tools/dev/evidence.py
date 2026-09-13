@@ -52,18 +52,20 @@ def main() -> int:
         "compose.yaml",
         ".github",
         "infrastructure/docker",
+        "infrastructure/aws",
         "packages/schemas/evidence/phase-manifest.schema.json",
         "packages/shared-types/generated",
         "tools/dev",
         "tests",
         "docs/evidence/phase-01/operations/server-bundle-manifest.json",
+        "docs/evidence/phase-01/operations/server-runtime.json",
     ]
     artifacts = []
     for value in artifact_paths:
         path = ROOT / value
         if path.exists():
             artifacts.append({"path": value, "sha256": digest(path)})
-    task_ids = ["P01-T01", "P01-T02", "P01-T04", "P01-T06"]
+    task_ids = ["P01-T01", "P01-T02", "P01-T03", "P01-T04", "P01-T06", "P01-T07"]
     manifest = {
         "schema_version": "1.0.0",
         "phase": "01",
@@ -103,13 +105,15 @@ def main() -> int:
             "task typecheck",
             "dependency-free synthetic suites",
             "local policy checks",
-            "task verify (blocked by Docker and E2E prerequisites)",
-            "task phase:gate PHASE=01 (blocked by BLK-01 through BLK-04)",
+            "server-side Compose smoke (passed; Docker was not run locally)",
+            "server-side integration and E2E harnesses (passed against the server-local endpoint)",
+            "task verify (still blocked by remote policy and signing prerequisites)",
+            "task phase:gate PHASE=01 (blocked by BLK-03 through BLK-05)",
             "GitHub verify workflow dispatch (startup_failure; no jobs)",
         ],
         "open_risks": [
-            "Docker runtime unavailable",
-            "E2E endpoint unavailable",
+            "Docker runtime intentionally unavailable on the developer workstation; server runtime passed",
+            "public DNS/TLS endpoint pending Cloudflare DNS-write access",
             "GitHub remote and live branch policy unavailable",
             "Sigstore signing unavailable",
         ],
@@ -117,7 +121,7 @@ def main() -> int:
             "Independent review and resolution of all blockers",
             "Phase 01 acceptance",
         ],
-        "blockers": ["BLK-01", "BLK-02", "BLK-03", "BLK-04"],
+        "blockers": ["BLK-03", "BLK-04", "BLK-05"],
     }
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"

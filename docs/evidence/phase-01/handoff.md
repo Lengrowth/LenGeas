@@ -2,11 +2,13 @@
 
 ## Status
 
-`blocked` — the repository foundation and server-ready local stack are implemented, but mandatory runtime, E2E, remote-protection, and Sigstore evidence remain unavailable. This handoff is for independent review and does not claim acceptance.
+`blocked` — the repository foundation and server runtime are implemented, but public DNS/TLS, remote-protection/CI, and Sigstore evidence remain unavailable. This handoff is for independent review and does not claim acceptance.
 
 ## Operational state
 
 The repository contains a digest-pinned Compose stack for MongoDB replica-set transactions, Valkey, RabbitMQ, Redpanda, MinIO, Mailpit, OpenTelemetry Collector, Prometheus, Grafana, Jaeger, and an API health/version shell. Docker was not installed or run locally after the repository owner directed that local execution not occur. `tools/dev/server_bundle.py` creates a hash manifest for the server transfer set without invoking Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md`.
+
+The authorized AWS host `i-0e826e65d7f5df890` runs the digest-pinned stack and passed the complete server smoke, integration harness, and server-local E2E harness. The developer workstation did not install or run Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md` and `infrastructure/aws/README.md`.
 
 ## Public interfaces and versions
 
@@ -26,7 +28,7 @@ Local Prometheus, Grafana, and Jaeger services are configured by Compose. Server
 
 ## Credentials and external setup
 
-No credentials are stored. Server setup may reference only secret names managed outside Git, including the names from the Phase 00 handoff. A non-production E2E URL must be supplied as `LENGEAS_E2E_BASE_URL` for the E2E suite.
+No credentials are stored in Git or on the server source archive. The server bootstrap generates its private `.env` on-host. Server-local E2E passed with `LENGEAS_E2E_BASE_URL=http://127.0.0.1:8000`; public hostname validation remains pending DNS/TLS cutover.
 
 ## Known blockers
 

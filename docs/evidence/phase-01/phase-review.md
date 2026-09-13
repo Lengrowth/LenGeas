@@ -8,5 +8,4 @@
 
 ## Decision
 
-`changes_required` — mandatory local runtime, E2E, remote repository protection, and Sigstore verification evidence remain blocked. Phase 01 is not accepted.
-
+`changes_required` — server-side runtime, integration, and E2E evidence pass, but remote repository protection/CI, Sigstore verification, and public DNS/TLS evidence remain blocked. Phase 01 is not accepted.
