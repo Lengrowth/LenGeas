@@ -2,7 +2,7 @@
 
 ## Status
 
-`in_review` — the repository foundation, server runtime, public HTTPS endpoint, live CI gates, and keyless release evidence are implemented. This handoff is for review and does not claim repository-owner acceptance.
+`accepted` — the designated review agent returned `ready_for_owner_approval` with no mandatory findings, PR #18 was merged, and the repository owner explicitly accepted Phase 01 on 2026-09-13 at 15:28:46 UTC. Phase 02 may begin from this handoff.
 
 ## Operational state
 
@@ -32,7 +32,7 @@ No credentials are stored in Git or on the server source archive. The server boo
 
 ## Known blockers
 
-See `blockers.md` for BLK-01 through BLK-05. The implementing agent records them as resolved; the review agent must independently verify that the temporary direct-origin endpoint, local Docker constraint, and remaining dependency advisories do not violate the Phase 01 gate. Review and explicit repository-owner acceptance remain pending.
+See `blockers.md` for BLK-01 through BLK-05. The implementing agent recorded them as resolved, and the designated review agent independently verified that the temporary direct-origin endpoint, local Docker constraint, and remaining dependency advisories do not violate the Phase 01 gate. No Phase 01 blocker remains.
 
 ## Exact next command
 
@@ -42,4 +42,4 @@ task phase:gate PHASE=01
 
 ## Prohibited assumptions
 
-Do not treat local static validation as live service evidence, do not assume a GitHub remote or OIDC identity exists, do not run Docker on the developer workstation, do not expose the local services publicly, and do not start Phase 02 before Phase 01 is accepted.
+Do not treat local static validation as live service evidence, do not run Docker on the developer workstation, do not expose local services publicly, and do not repurpose the temporary Phase 01 `us-east-1` host as the Phase 02 production topology. Phase 02 must inventory the existing GitHub, AWS, and Cloudflare state before making changes.
