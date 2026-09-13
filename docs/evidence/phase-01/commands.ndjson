@@ -26,3 +26,5 @@
 {"command":"GitHub repository metadata: guerra2fernando/LenGeas","exit_code":0,"result":"private repository; default branch main; owner permission admin"}
 {"command":"GitHub Actions verification run for 14c6316ae1da4b4fa01de60176aff27b81dbbe1b","exit_code":0,"result":"run 34751926936 completed with startup_failure; no jobs or check-runs"}
 {"command":"GitHub branch protection and ruleset reads","exit_code":403,"result":"branch protection inaccessible to integration; rulesets unavailable for this private repository plan; no live policy export claimed"}
+{"command":"GitHub branch metadata for main at c07f38a5efef989481954b688c94723a8c313e02","exit_code":0,"result":"protected=false; required status-check enforcement=off; commit verification=unsigned"}
+{"command":"GitHub Actions verification run for c07f38a5efef989481954b688c94723a8c313e02","exit_code":0,"result":"run 34752110824 completed with startup_failure; no jobs or check-runs"}

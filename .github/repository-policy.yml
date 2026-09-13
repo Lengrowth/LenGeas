@@ -54,6 +54,8 @@ documentation:
 verification:
   local_export_validated: true
   live_branch_protection_validated: false
+  observed_branch_protection_enabled: false
   live_ci_validated: false
-  live_ci_observation: "run 34751926936 for commit 14c6316ae1da4b4fa01de60176aff27b81dbbe1b: startup_failure"
+  live_ci_observation: "run 34752110824 for commit c07f38a5efef989481954b688c94723a8c313e02: startup_failure"
+  observed_commit_signature: "c07f38a5efef989481954b688c94723a8c313e02: unsigned"
   screenshot_available: false

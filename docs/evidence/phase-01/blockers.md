@@ -14,9 +14,9 @@ Owner: `qa_owner`; status: open; resolution: provide a documented non-production
 
 ## BLK-03 — Remote repository protection and CI gate unavailable
 
-The remote is now configured and pushed: `origin/main` resolves to `14c6316ae1da4b4fa01de60176aff27b81dbbe1b`. GitHub metadata confirms private repository `guerra2fernando/LenGeas`, default branch `main`, and owner admin permission. The push-triggered verification run `34751926936` completed with `startup_failure`, no jobs, and no check-runs. The authenticated integration returned `403 Resource not accessible by integration` for branch protection and `403 Upgrade to GitHub Pro or make this repository public` for rulesets, so no live protection export is claimed. P01-T08 still contains only a locally verifiable policy export.
+The remote is configured and pushed: `origin/main` resolves to `c07f38a5efef989481954b688c94723a8c313e02`. GitHub metadata confirms private repository `guerra2fernando/LenGeas`, default branch `main`, and owner admin permission. The live branch read reports `protected: false` and required status-check enforcement `off`. The push-triggered verification run `34752110824` for the current commit completed with `startup_failure`, no jobs, and no check-runs. The authenticated integration returned `403 Resource not accessible by integration` for branch protection and `403 Upgrade to GitHub Pro or make this repository public` for rulesets, so no live protection configuration can be changed or exported through this connection. P01-T08 still contains the local policy intent and the observed live state.
 
-Owner: `infrastructure_owner`; status: open; resolution: use the repository owner's GitHub settings/API access to export live protected-branch settings, resolve the Actions startup failure, and attach a successful CI run without weakening the local policy.
+Owner: `infrastructure_owner`; status: open; resolution: use the repository owner's GitHub settings/API access to enable the required `main` protection, resolve the Actions startup failure, and attach a successful CI run without weakening the local policy.
 
 ## BLK-04 — Sigstore sample verification unavailable
 
