@@ -2,7 +2,7 @@
 
 ## Status
 
-`in_review` — ADR-0011 aligns the phase with the actual low-cost development environment. The existing host is inventoried and healthy, the endpoint is preserved, production-target Terraform remains disabled, and no production estate was created. This is not repository-owner acceptance.
+`accepted` — ADR-0011 aligns the phase with the actual low-cost development environment. Independent review confirmed the required provider activation and development-operations evidence, and the repository owner accepted Phase 02 on 2026-09-14 with no blockers. The existing host is inventoried and healthy, the endpoint is preserved, production-target Terraform remains disabled, and no production estate was created.
 
 ## Operational state
 

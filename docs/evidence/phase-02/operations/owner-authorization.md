@@ -8,4 +8,11 @@ Recorded 2026-09-13 from the repository owner's explicit architecture decision:
 - Defer production-grade infrastructure until an actual rollout workload exists.
 - At rollout, approve a new ADR and current cost/capacity model before applying production resources.
 
-This instruction accepts ADR-0011 and authorizes the Phase 02 scope adjustment. It is not final Phase 02 acceptance; the independent review and explicit owner phase decision remain separate.
+This instruction accepts ADR-0011 and authorizes the Phase 02 scope adjustment.
+
+On 2026-09-14, after independent review confirmed that the P02-T07 provider
+activation matrix and P02-T08 development-host backup, recovery, and incident
+procedures are complete, the repository owner explicitly accepts Phase 02.
+Phase 02 is approved with the documented development-only risks and no
+blockers. Production rollout remains subject to a separate rollout ADR and
+fresh qualification evidence.
