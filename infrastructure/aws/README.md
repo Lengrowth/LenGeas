@@ -53,3 +53,11 @@ sudo docker compose --project-name lengeas-local --env-file /opt/lengeas/.env --
 curl --fail https://games.lengrowth.com/health
 curl --fail https://games.lengrowth.com/version
 ```
+
+## Backup and incident boundary
+
+For current development-host backup expectations, recovery boundaries, and
+incident handling, use `docs/runbooks/development-host-backup.md` and
+`docs/runbooks/development-host-incident.md`. The host is synthetic-only; no
+managed backup, production RPO/RTO, forensic retention, or regional recovery is
+claimed.
