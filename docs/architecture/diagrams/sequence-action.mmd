@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant C as Client
+  participant E as Edge Gateway
+  participant A as platform-api
+  participant R as Pure runtime
+  participant M as MongoDB Atlas
+  participant O as Outbox publisher
+  C->>E: Intent + idempotency key
+  E->>A: Authenticated request with request ID
+  A->>A: Verify token, tenancy, action schema
+  A->>M: Load definition/state/idempotency
+  A->>R: Evaluate with logical time and seed
+  R-->>A: Immutable execution plan or denial
+  A->>M: Commit state, ledger, receipt, audit, outbox
+  A-->>C: Receipt, state version, event IDs
+  O->>M: Read pending outbox
+  O-->>C: No direct delivery; consumers receive MSK event

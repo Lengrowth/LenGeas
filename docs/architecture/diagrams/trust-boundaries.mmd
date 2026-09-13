@@ -1,0 +1,12 @@
+flowchart LR
+  Internet[Public clients and providers] --> Edge[Cloudflare edge boundary]
+  Edge --> Origin[AWS origin boundary]
+  Origin --> Services[Scoped ECS services]
+  Services --> Data[Durable data boundary]
+  Services --> Ephemeral[Ephemeral state boundary]
+  Agent[AI agent boundary] --> DefinitionAPI[Definition API and draft pipeline]
+  DefinitionAPI --> Services
+  Analytics[Governed analytics API] --> Data
+  style Edge fill:#eef,stroke:#335
+  style Origin fill:#efe,stroke:#353
+  style Data fill:#fee,stroke:#533

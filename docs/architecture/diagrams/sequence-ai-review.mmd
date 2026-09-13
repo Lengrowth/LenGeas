@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant U as Human author
+  participant D as AI Director
+  participant A as Scoped agent
+  participant API as Definition API
+  participant V as Validator/simulator
+  participant R as Human reviewer
+  U->>D: Approved brief and bounded scope
+  D->>A: Assign schema-targeted draft work
+  A->>API: Patch isolated draft
+  API->>V: Validate after patch batch
+  V-->>A: Findings and simulation links
+  D->>R: Proposal, diff, risks, evidence, unresolved issues
+  R->>API: Edit, submit, or reject
+  Note over A,R: Agent cannot publish or approve its own output

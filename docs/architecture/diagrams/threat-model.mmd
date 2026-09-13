@@ -1,0 +1,12 @@
+flowchart TD
+  C[Client intent] --> E[Edge controls]
+  E --> A[Origin authentication]
+  A --> Z[Authorization context]
+  Z --> T[Studio and game scope filters]
+  T --> R[Pure runtime and bounded definitions]
+  R --> M[Atomic state ledger receipt outbox]
+  M --> P[Idempotent projections and providers]
+  X[AI output] --> D[Draft-only API]
+  D --> V[Validation and simulation]
+  V --> H[Independent human approval]
+  H --> M

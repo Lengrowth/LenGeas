@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lengeas.local/schemas/governance/vendor-register.schema.json",
+  "type": "object",
+  "required": ["schema_version", "register_id", "status", "review_policy", "vendors"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "register_id": {"type": "string", "const": "vendor-register"},
+    "status": {"type": "string", "enum": ["in_review", "accepted"]},
+    "review_policy": {"type": "string", "minLength": 1},
+    "vendors": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "service_scope", "owner_role", "backup_role", "security_review", "dpa_review", "status_page", "exit_plan", "secret_names", "review_cadence"], "properties": {"id": {"type": "string", "pattern": "^[a-z0-9-]+$"}, "service_scope": {"type": "string", "minLength": 1}, "owner_role": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"}, "backup_role": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"}, "security_review": {"type": "string", "minLength": 1}, "dpa_review": {"type": "string", "minLength": 1}, "status_page": {"type": "string", "minLength": 1}, "exit_plan": {"type": "string", "minLength": 1}, "secret_names": {"type": "array", "items": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]+$"}, "minItems": 1, "uniqueItems": true}, "review_cadence": {"type": "string", "enum": ["quarterly", "annual"]}}, "additionalProperties": false}}
+  },
+  "additionalProperties": false
+}

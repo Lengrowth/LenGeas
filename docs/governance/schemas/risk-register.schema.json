@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lengeas.local/schemas/governance/risk-register.schema.json",
+  "type": "object",
+  "required": ["schema_version", "register_id", "status", "review_date", "risks"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "register_id": {"type": "string", "const": "risk-register"},
+    "status": {"type": "string", "enum": ["in_review", "accepted"]},
+    "review_date": {"type": "string", "format": "date"},
+    "risks": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "category", "statement", "owner_role", "trigger", "mitigation", "review_date", "status"], "properties": {"id": {"type": "string", "pattern": "^RISK-[0-9]{3}$"}, "category": {"type": "string", "minLength": 1}, "statement": {"type": "string", "minLength": 1}, "owner_role": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"}, "trigger": {"type": "string", "minLength": 1}, "mitigation": {"type": "string", "minLength": 1}, "review_date": {"type": "string", "format": "date"}, "status": {"type": "string", "enum": ["open", "accepted", "closed"]}}, "additionalProperties": false}}
+  },
+  "additionalProperties": false
+}

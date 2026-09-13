@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant D as Device
+  participant API as Sync API
+  participant M as MongoDB Atlas
+  participant Q as Quarantine
+  D->>API: Save checkpoint and ordered action journal
+  API->>M: Load current version and definition pin
+  API->>API: Validate journal and conflict policy
+  alt authoritative replay succeeds
+    API->>M: Commit replayed actions and checkpoint
+    API-->>D: Accepted sequence and canonical patch
+  else suspicious or conflicting state
+    API->>Q: Store redacted quarantine case
+    API-->>D: Rebase, rejection codes, and migration requirements
+  end

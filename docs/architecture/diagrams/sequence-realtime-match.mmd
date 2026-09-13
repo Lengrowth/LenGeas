@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant C as Client
+  participant E as Cloudflare/ALB
+  participant G as realtime-gateway
+  participant H as Match host
+  participant V as Valkey
+  participant DB as MongoDB/R2
+  C->>E: WebSocket handshake
+  E->>G: Authenticated connection
+  G->>V: Route and presence lease
+  C->>G: Sequenced signed input
+  G->>H: Validated input
+  H->>H: Fixed 20 Hz authoritative tick
+  H-->>C: 10 Hz snapshot or immediate critical event
+  H->>DB: Periodic checkpoint and final history

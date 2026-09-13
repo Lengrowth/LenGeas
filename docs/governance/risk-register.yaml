@@ -1,0 +1,101 @@
+schema_version: "1.0.0"
+register_id: risk-register
+status: accepted
+review_date: "2026-09-13"
+risks:
+  - id: RISK-001
+    category: architecture
+    statement: Cloudflare edge, AWS origin, and private data-service boundaries may drift from the documented request and trust flows.
+    owner_role: architecture_owner
+    trigger: Any route, origin, trust-header, or private-link change without an updated diagram and review.
+    mitigation: Keep C4, deployment, data-flow, and trust-boundary diagrams versioned with boundary tests and ADR review.
+    review_date: "2026-10-01"
+    status: open
+  - id: RISK-002
+    category: vendor
+    statement: A beta Cloudflare analytics dependency may change behavior or availability before qualification.
+    owner_role: analytics_owner
+    trigger: Export failure, catalog incompatibility, feature deprecation, or recovery exercise failure.
+    mitigation: Retain raw exports, run catalog rebuild drills, and preserve a governed recovery path in R2.
+    review_date: "2026-10-15"
+    status: open
+  - id: RISK-003
+    category: vendor
+    statement: Managed provider outage or quota change may degrade authentication, email, storage, database, or event delivery.
+    owner_role: vendor_manager
+    trigger: Provider incident, quota alert, contract change, or failed provider health check.
+    mitigation: Maintain provider runbooks, scoped contracts, status-page monitoring, and exit procedures.
+    review_date: "2026-10-01"
+    status: open
+  - id: RISK-004
+    category: cost
+    statement: Simulation, realtime capacity, and multi-region durability may exceed the cost baseline.
+    owner_role: finance_owner
+    trigger: Monthly forecast variance above 10%, quota saturation, or 12-month capacity projection above budget.
+    mitigation: Per-studio quotas, capacity-provider policy, budgets, cost allocation, and quarterly projections.
+    review_date: "2026-10-01"
+    status: open
+  - id: RISK-005
+    category: security
+    statement: A tenant, game, support, or AI scope escape could expose data or authoritative mutation paths.
+    owner_role: security_owner
+    trigger: Authorization test failure, suspicious access signal, red-team finding, or audit mismatch.
+    mitigation: Central policy decision point, scoped repositories/tools, tenant-escape suites, audit, and incident runbooks.
+    review_date: "2026-09-27"
+    status: open
+  - id: RISK-006
+    category: security
+    statement: Definition content, assets, prompts, or retrieval data may smuggle executable behavior, secrets, PII, or unsafe formulas.
+    owner_role: security_owner
+    trigger: Scanner finding, validation bypass, prompt-injection result, or unsafe upload sample.
+    mitigation: Bounded schemas and ASTs, quarantine and scanning, output scanners, redaction, and independent review.
+    review_date: "2026-09-27"
+    status: open
+  - id: RISK-007
+    category: performance
+    statement: The documented latency, realtime tick, and event publication objectives may not hold at qualification scale.
+    owner_role: sre_owner
+    trigger: Load test regression, queue age breach, p99 breach, or telemetry cardinality growth.
+    mitigation: Dedicated capacity providers, budgets, backpressure, load tests, and SLO burn-rate alerts.
+    review_date: "2026-10-08"
+    status: open
+  - id: RISK-008
+    category: data
+    statement: Duplicate delivery or uncertain persistence could create value duplication or unreconciled state.
+    owner_role: data_owner
+    trigger: Ledger imbalance, duplicate grant, idempotency collision, or operation-status-unknown surge.
+    mitigation: Transactional outbox, permanent business keys, idempotent consumers, reconciliation, and quarantine.
+    review_date: "2026-10-01"
+    status: open
+  - id: RISK-009
+    category: disaster-recovery
+    statement: Regional recovery may exceed the declared RTO/RPO or fail to restore a coherent definition, state, and event set.
+    owner_role: sre_owner
+    trigger: Restore drill misses RTO/RPO, digest mismatch, missing dependency, or failed smoke test.
+    mitigation: Terraform reproduction, Atlas PITR, R2 versioning, event replay, quarterly drills, and integrity gates.
+    review_date: "2026-10-15"
+    status: open
+  - id: RISK-010
+    category: staffing
+    statement: Operational alert routing or account binding may be incomplete before deployed environments exist.
+    owner_role: platform_technical_lead
+    trigger: A deployed environment lacks a tested alert route or repository access binding.
+    mitigation: Configure the repository owner's account binding and alert route as part of the relevant implementation phase.
+    review_date: "2026-09-20"
+    status: open
+  - id: RISK-011
+    category: governance
+    statement: A technology or boundary change could bypass the accepted-ADR and traceability controls.
+    owner_role: platform_technical_lead
+    trigger: Contract diff without ADR link, changed SLO, new store/provider/region, or orphan traceability row.
+    mitigation: Protected review gates, ADR index audit, generated traceability, and phase review checklist.
+    review_date: "2026-09-20"
+    status: open
+  - id: RISK-012
+    category: supply-chain
+    statement: Unpinned dependencies, images, providers, or deployment identities could weaken reproducibility or provenance.
+    owner_role: security_owner
+    trigger: Lockfile drift, unsigned artifact, failed SBOM/provenance check, or OIDC trust drift.
+    mitigation: Phase 01 exact pinning, CI signature checks, SBOM, secret scanning, and protected deployment environments.
+    review_date: "2026-10-01"
+    status: open

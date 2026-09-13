@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lengeas.local/schemas/ownership.schema.json",
+  "title": "LenGeas Ownership Matrix",
+  "type": "object",
+  "required": ["schema_version", "register_id", "status", "assignment_policy", "roles", "items"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "register_id": {"const": "ownership"},
+    "status": {"enum": ["in_review", "accepted"]},
+    "assignment_policy": {"type": "string"},
+    "roles": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "object", "required": ["accountable", "backup"], "properties": {"accountable": {"type": "string"}, "backup": {"type": "string"}}, "additionalProperties": false}},
+    "items": {"type": "object", "required": ["services", "domains", "packages", "schemas", "phases", "slos", "vendors"], "additionalProperties": {"type": "array"}}
+  },
+  "additionalProperties": false
+}

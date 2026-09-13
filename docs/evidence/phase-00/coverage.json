@@ -1,0 +1,16 @@
+{
+  "phase": "00",
+  "status": "accepted",
+  "scope": "documentation-and-governance",
+  "requirements_mapped": {"total": 25, "mapped": 25, "unmapped": 0},
+  "mandatory_controls_mapped": {"total": 24, "mapped": 24, "unmapped": 0},
+  "matrix_phase_alignment": {"total": 25, "aligned": 25, "misaligned": 0},
+  "phase_tasks_with_records": {"total": 8, "recorded": 8, "missing": 0},
+  "required_yaml_records_with_schemas": {"total": 6, "recorded": 6, "missing": 0},
+  "required_adr_records": {"total": 10, "recorded": 10, "accepted": 10, "in_review": 0},
+  "standalone_phase_gate": {"command": "pwsh -NoProfile -File docs/evidence/phase-00/phase-00-gate.ps1", "exit_code": 0, "status": "pass"},
+  "task_runner_checks": {"status": "unavailable", "reason": "go-task and Taskfile.yml are Phase 01 prerequisites"},
+  "runtime_code_coverage": null,
+  "owner_approval": "sole developer / repository owner approved directly",
+  "external_validation": "not claimed"
+}

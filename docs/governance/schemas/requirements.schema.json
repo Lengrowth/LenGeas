@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lengeas.local/schemas/requirements.schema.json",
+  "title": "LenGeas generated traceability requirements",
+  "type": "object",
+  "required": ["schema_version", "record_type", "phase", "task", "status", "generated_from", "source_matrix", "requirements", "audit"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "record_type": {"const": "generated_traceability"},
+    "phase": {"const": "00"},
+    "task": {"const": "P00-T06"},
+    "status": {"enum": ["in_review", "accepted"]},
+    "generated_from": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "source_matrix": {"type": "string", "minLength": 1},
+    "requirements": {"type": "array", "minItems": 25, "items": {"type": "object", "required": ["id", "statement", "contract", "phase_tasks", "verification_gate", "evidence"], "properties": {"id": {"type": "string", "pattern": "^RQ-[0-9]{3}$"}, "statement": {"type": "string", "minLength": 1}, "contract": {"type": "string", "minLength": 1}, "phase_tasks": {"type": "array", "items": {"type": "string", "pattern": "^P[0-9]{2}-T[0-9]{2}$"}, "minItems": 1}, "verification_gate": {"type": "string", "minLength": 1}, "evidence": {"type": "string", "pattern": "^docs/evidence/phase-[0-9]{2}/.+$"}}, "additionalProperties": false}},
+    "audit": {"type": "object", "required": ["duplicate_ids", "orphan_requirements", "orphan_phase_rows", "owner_role_present", "verification_method_present", "evidence_path_present", "owner_approval"], "properties": {"duplicate_ids": {"type": "string"}, "orphan_requirements": {"type": "string"}, "orphan_phase_rows": {"type": "string"}, "owner_role_present": {"const": true}, "verification_method_present": {"const": true}, "evidence_path_present": {"const": true}, "owner_approval": {"type": "string"}}, "additionalProperties": false}
+  },
+  "additionalProperties": false
+}

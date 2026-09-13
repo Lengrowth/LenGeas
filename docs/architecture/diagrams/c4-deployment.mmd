@@ -1,0 +1,33 @@
+C4Deployment
+title LenGeas deployment
+Deployment_Node(cf, "Cloudflare", "Global edge") {
+  Container(edge, "DNS / TLS / WAF / DDoS / Bot / Gateway Workers", "Cloudflare")
+  Container(studio, "studio.lengeas.com", "OpenNext on Workers")
+  ContainerDb(r2, "Private R2 buckets", "R2")
+}
+Deployment_Node(aws, "AWS eu-central-1", "Production account") {
+  Deployment_Node(vpc, "VPC", "Three AZs") {
+    Container(alb, "Application Load Balancer", "HTTPS from Cloudflare only")
+    Container(ecs, "ECS on EC2 capacity providers", "Private subnets; general, simulation, realtime, critical-workers")
+    Container(realtime, "realtime-gateway", "ECS service")
+    Container(match, "match-service", "ECS service")
+    ContainerDb(atlas, "MongoDB Atlas", "PrivateLink")
+    ContainerDb(valkey, "ElastiCache Valkey", "TLS, ACL, Multi-AZ")
+    ContainerQueue(rabbit, "Amazon MQ RabbitMQ", "Multi-AZ")
+    ContainerQueue(msk, "Amazon MSK Serverless", "Private IAM/TLS")
+  }
+}
+Deployment_Node(dr, "AWS eu-west-1", "DR account/target") {
+  Container(recovery, "Terraform-recreated recovery stack", "Activated only after restore and integrity checks")
+}
+Rel(edge, alb, "Origin-authenticated HTTPS")
+Rel(studio, edge, "Worker route")
+Rel(alb, ecs, "Routes")
+Rel(ecs, realtime, "Hosts")
+Rel(ecs, match, "Hosts")
+Rel(ecs, atlas, "PrivateLink")
+Rel(ecs, valkey, "Private TLS")
+Rel(ecs, rabbit, "Private TLS")
+Rel(ecs, msk, "Private IAM/TLS")
+Rel(r2, ecs, "Scoped artifact access")
+Rel(dr, recovery, "Terraform and restore procedure")

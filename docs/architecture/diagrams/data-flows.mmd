@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant C as Client
+  participant E as Cloudflare Edge
+  participant A as platform-api
+  participant R as Runtime
+  participant M as MongoDB
+  participant O as Outbox
+  participant K as MSK
+  C->>E: Intent + idempotency key
+  E->>A: Authenticated request ID
+  A->>M: Load scoped state and definition
+  A->>R: Evaluate deterministic plan
+  R-->>A: Plan or denial
+  A->>M: Commit state, receipt, ledger, audit, outbox
+  A-->>C: Receipt and new version
+  O->>K: Publish committed event

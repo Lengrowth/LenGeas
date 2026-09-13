@@ -1,0 +1,62 @@
+schema_version: "1.0.0"
+record_type: scope_register
+phase: "00"
+task: P00-T01
+status: accepted
+product: LenGeas
+mission: >-
+  Enable teams and approved AI agents to define, validate, simulate, publish,
+  operate, and analyze multiple focused games through one secure platform.
+product_model:
+  - id: system
+    meaning: reusable platform capability
+  - id: mechanic
+    meaning: optional rules package
+  - id: content
+    meaning: versioned game-owned data
+scope:
+  in_scope:
+    - documentation and governance records required by Phase 00
+    - shared platform contracts and architecture lock represented by the authoritative documentation set
+    - requirement, ownership, risk, vendor, and evidence traceability
+  out_of_scope:
+    - first-party game
+    - playable content catalog
+    - art pipeline
+    - game client renderer
+    - product code before Phase 00 approval
+    - all capabilities assigned to later phases
+exclusions:
+  - first-party game or release content
+  - FPS physics, rollback-netcode, anti-cheat kernel driver, voice-chat, or large-world MMO engine
+  - public self-service SaaS billing for external studios
+  - arbitrary user code, scripts, or AI-authored production code in definitions
+  - cryptocurrency, tradable assets, gambling, or cash-out economies
+  - public mechanics marketplace
+no_game_rule:
+  source: README.md#non-negotiable-release-rule
+  state: binding
+  evidence: docs/evidence/phase-00/tasks/P00-T01.md
+success_metrics:
+  definition_reproducibility: same digest, seed, input state, and action stream produce byte-equivalent canonical output
+  cross_game_isolation: automated authorization suite proves zero undeclared cross-game reads or writes
+  content_agility: definition-only changes reach staging without an API image rebuild
+  runtime_reuse: every v1 mechanics package uses core action, condition, effect, event, timer, and transaction interfaces
+  api_availability: "99.95% monthly"
+  studio_availability: "99.9% monthly"
+  regional_rto: "4 hours"
+  persistent_data_rpo: "15 minutes"
+  public_api_latency: "p95 <= 250 ms; p99 <= 750 ms"
+  integrity: duplicate execution grants no duplicate value
+  operability: every Sev-1 alert links to an exercised runbook and named owner
+  extensibility: a contract-test module can register without editing core domain implementation
+owner_decision:
+  owner: sole developer / repository owner
+  approved_utc: "2026-09-13"
+  decision: accepted
+  separate_review_required: false
+prohibited_content:
+  - credentials
+  - external validation claims
+  - first-party game code
+  - game renderer code

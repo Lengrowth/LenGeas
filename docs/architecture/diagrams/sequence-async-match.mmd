@@ -1,0 +1,11 @@
+sequenceDiagram
+  participant C as Client
+  participant M as Match service
+  participant DB as MongoDB Atlas
+  participant T as Scheduler
+  C->>M: Submit turn with expected number/digest
+  M->>DB: Validate version and persist immutable replay event
+  M-->>C: Canonical snapshot and next actor
+  T->>M: Due deadline task
+  M->>DB: Apply default/forfeit once
+  M-->>C: Result or next turn

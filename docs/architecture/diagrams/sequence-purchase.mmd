@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant C as Client
+  participant API as Purchase API
+  participant P as Provider verifier
+  participant L as Ledger
+  participant N as Notification/outbox
+  C->>API: Purchase receipt + provider transaction ID
+  API->>P: Verify receipt
+  P-->>API: Verified or rejected
+  API->>API: Reserve permanent idempotency key
+  API->>L: Commit entitlement and balanced ledger transaction
+  API->>N: Emit purchase fact
+  API-->>C: Entitlement status and receipt
+  Note over API,L: Refunds and chargebacks compensate; ledger history is not edited

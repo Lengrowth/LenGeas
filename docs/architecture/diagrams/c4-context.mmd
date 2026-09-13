@@ -1,0 +1,13 @@
+C4Context
+title LenGeas context
+Person(player, "Player")
+Person(studio, "Studio user")
+Person(operator, "Platform operator")
+System(platform, "LenGeas platform")
+System_Ext(auth, "Supabase Auth")
+System_Ext(providers, "External providers")
+Rel(player, platform, "Sends intent")
+Rel(studio, platform, "Authors and operates")
+Rel(operator, platform, "Deploys and supports")
+Rel(platform, auth, "Verifies identity")
+Rel(platform, providers, "Uses scoped integrations")

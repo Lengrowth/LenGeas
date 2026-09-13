@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "phase": "00",
+  "status": "accepted",
+  "start_utc": "2026-09-13T07:06:42.6658456Z",
+  "end_utc": "2026-09-13T09:02:41Z",
+  "base_commit": "4b755251e79ce5fba6da182fe5281c517e23b1b6",
+  "final_commit": "e757aa433d69bd05b64900f172dc2ea92a96dd72",
+  "agent_identity": "Codex root phase agent",
+  "toolchain": {
+    "powershell": "7.6.5",
+    "python_observed": "3.12.10",
+    "node_observed": "22.16.0",
+    "git": "2.49.0.windows.1",
+    "binding_pin_targets": ["Python 3.13", "Next.js 16", "FastAPI", "Pydantic 2", "uv", "Ruff", "mypy strict", "pytest", "pnpm workspaces", "Turborepo", "Terraform", "go-task"]
+  },
+  "completed_task_ids": ["P00-T01", "P00-T02", "P00-T03", "P00-T04", "P00-T05", "P00-T06", "P00-T07", "P00-T08"],
+  "requirement_ids": ["RQ-001", "RQ-002", "RQ-003", "RQ-004", "RQ-005", "RQ-006", "RQ-007", "RQ-008", "RQ-009", "RQ-010", "RQ-011", "RQ-012", "RQ-013", "RQ-014", "RQ-015", "RQ-016", "RQ-017", "RQ-018", "RQ-019", "RQ-020", "RQ-021", "RQ-022", "RQ-023", "RQ-024", "RQ-025"],
+  "artifacts": [
+    {"path": "docs/governance", "sha256": "3e2b056ee3dbe31a4cde8a4a9b84a1857c0d39dc6bd620e2b419476439173eb8", "hash_scope": "15 files; SHA-256 of sorted relative-path plus file-hash lines"},
+    {"path": "docs/architecture", "sha256": "623cd55731ef6034cdd82fbbc4f4a25185ad0596b766df9c29b029c033125ba7", "hash_scope": "19 files; SHA-256 of sorted relative-path plus file-hash lines"},
+    {"path": "docs/decisions", "sha256": "ba19822b3830491f58fc89792de2b37cd8d2f04122311c80261ef4dc6e4adc04", "hash_scope": "11 files; SHA-256 of sorted relative-path plus file-hash lines"},
+    {"path": "docs/evidence/phase-00", "sha256": "b5f17e49f799fc73345b8d0ac82c39bab6250280f95462e0738f33e07e270cbc", "hash_scope": "30 files excluding manifest.json; SHA-256 of sorted relative-path plus file-hash lines"},
+    {"path": "CODEOWNERS", "sha256": "ba5c001965bad547fa8a784333f04324980ceb2202880a6e32949f948a41ee4f"},
+    {"path": "on-call-roles.md", "sha256": "abfd55a6cc746ea0539f89f9bc8ff68cf0a0945dafb28a5bf819974790547929"},
+    {"path": "docs/23-traceability-matrix.md", "sha256": "9f428691b4696f846bbe7e3068d39972ca754fc7c7e3043b6acb6fc5a0134526"}
+  ],
+  "tests": [
+    "required artifact presence",
+    "governance YAML against JSON Schemas",
+    "JSON evidence and schema parsing",
+    "local Markdown link resolution",
+    "requirement, task, ADR, and diagram ID checks",
+    "architecture diagram declaration check",
+    "no product code, game, renderer, credentials, or unresolved work-marker scan"
+  ],
+  "open_risks": ["RISK-001", "RISK-002", "RISK-003", "RISK-004", "RISK-005", "RISK-006", "RISK-007", "RISK-008", "RISK-009", "RISK-010", "RISK-011", "RISK-012"],
+  "next_phase_prerequisites": ["Phase 01 exact toolchain lock and Taskfile creation"],
+  "owner_approval": {"owner": "sole developer / repository owner", "approved_utc": "2026-09-13", "decision": "accepted", "separate_review_required": false},
+  "prohibited_next_actions": ["create product code outside Phase 01", "create a first-party game or renderer", "change an authoritative boundary without a proposed and accepted ADR"]
+}

@@ -1,0 +1,85 @@
+schema_version: "1.0.0"
+register_id: vendor-register
+status: accepted
+review_policy: Each vendor has an owner, backup, security/DPA review, status integration, exit plan, secret-name references, and annual review.
+vendors:
+  - id: aws
+    service_scope: ECS, EC2, ALB, Atlas connectivity, Valkey, RabbitMQ, MSK, SNS, KMS, Secrets Manager, CloudTrail, observability
+    owner_role: infrastructure_owner
+    backup_role: sre_owner
+    security_review: required before production
+    dpa_review: required before production
+    status_page: https://health.aws.amazon.com/health/status
+    exit_plan: Preserve Terraform modules and restore durable data into the documented DR target or successor provider.
+    secret_names: [AWS_DEPLOYMENT_ROLE, AWS_SECRETS_MANAGER_RUNTIME]
+    review_cadence: annual
+  - id: cloudflare
+    service_scope: DNS, TLS, WAF, DDoS, Workers, R2, Images, Pipelines, Queues, R2 SQL
+    owner_role: infrastructure_owner
+    backup_role: security_owner
+    security_review: required before production
+    dpa_review: required before production
+    status_page: https://www.cloudflarestatus.com/
+    exit_plan: Export definitions/assets/analytics, retain DNS and origin runbooks, and move edge/object responsibilities through an ADR.
+    secret_names: [CLOUDFLARE_DEPLOYMENT_TOKEN, CLOUDFLARE_ORIGIN_AUTH]
+    review_cadence: annual
+  - id: mongodb-atlas
+    service_scope: Durable MongoDB documents, indexes, transactions, backups, PrivateLink
+    owner_role: data_owner
+    backup_role: infrastructure_owner
+    security_review: required before production
+    dpa_review: required before production
+    status_page: https://status.mongodb.com/
+    exit_plan: Use Atlas exports/PITR and documented migration tooling to a reviewed durable store under an ADR.
+    secret_names: [MONGODB_ATLAS_RUNTIME_URI, MONGODB_ATLAS_ADMIN_URI]
+    review_cadence: annual
+  - id: supabase
+    service_scope: Authentication, asymmetric JWKS, provider sign-in
+    owner_role: identity_owner
+    backup_role: security_owner
+    security_review: required before production
+    dpa_review: required before production
+    status_page: https://status.supabase.com/
+    exit_plan: Preserve internal identities and migrate provider verification/linking under a reviewed ADR.
+    secret_names: [SUPABASE_JWKS_URL, SUPABASE_SERVICE_ROLE]
+    review_cadence: annual
+  - id: resend
+    service_scope: Transactional email delivery and webhook reconciliation
+    owner_role: asset_localization_owner
+    backup_role: platform_operations_owner
+    security_review: required before production
+    dpa_review: required before production
+    status_page: https://status.resend.com/
+    exit_plan: Queue and reconcile through a replacement provider without changing notification contracts.
+    secret_names: [RESEND_API_KEY, RESEND_WEBHOOK_SECRET]
+    review_cadence: annual
+  - id: github
+    service_scope: Source control, protected trunk, Actions, OIDC, CODEOWNERS
+    owner_role: release_manager
+    backup_role: security_owner
+    security_review: required before production
+    dpa_review: required before production
+    status_page: https://www.githubstatus.com/
+    exit_plan: Export repositories, workflows, release records, and provenance to a reviewed source-control provider.
+    secret_names: [GITHUB_ACTIONS_OIDC_ROLE]
+    review_cadence: annual
+  - id: sentry
+    service_scope: Error tracking with PII scrubbing
+    owner_role: sre_owner
+    backup_role: security_owner
+    security_review: required before production
+    dpa_review: required before production
+    status_page: https://status.sentry.io/
+    exit_plan: Retain structured logs and traces in the primary observability stack and export issue history.
+    secret_names: [SENTRY_DSN, SENTRY_AUTH_TOKEN]
+    review_cadence: annual
+  - id: model-providers
+    service_scope: AI inference used only by the bounded agent control plane
+    owner_role: ai_control_plane_owner
+    backup_role: security_owner
+    security_review: required before production
+    dpa_review: required before production
+    status_page: provider-specific status integration required
+    exit_plan: Provider adapter, redaction, budgets, and stored run records allow provider replacement without changing public Definition API.
+    secret_names: [AI_PROVIDER_API_KEY]
+    review_cadence: annual

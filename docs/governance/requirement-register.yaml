@@ -1,0 +1,360 @@
+schema_version: "1.0.0"
+record_type: requirement_register
+phase: "00"
+task: P00-T02
+status: accepted
+register_id: requirement-register-phase-00
+source_matrix: docs/23-traceability-matrix.md
+extraction_rule: >-
+  The register preserves every product requirement row and records source anchors
+  for v1 charter bullets, invariant statements, normative contract statements,
+  and Phase 00 governance gates. It does not introduce new product requirements.
+requirements:
+  - id: RQ-001
+    title: Systems/mechanics/content separation
+    owner_role: architecture_owner
+    source_anchors: [docs/00-product-charter.md#product-model, docs/01-principles-and-invariants.md#platform-invariants]
+    phase_tasks: [P00-T01, P00-T02, P00-T03, P00-T06, P04-T01, P12-T01, P13-T01]
+    verification_method: blueprint isolation and module namespace conformance
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-002
+    title: Data-driven definitions
+    owner_role: game_systems_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/05-game-definition-schema-v0.1.md#authority-and-packaging]
+    phase_tasks: [P00-T01, P00-T06, P04-T01, P08-T01]
+    verification_method: schema validation and publish reports
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-003
+    title: Deterministic universal runtime
+    owner_role: runtime_owner
+    source_anchors: [docs/01-principles-and-invariants.md#determinism-contract, docs/06-runtime-and-rules.md#runtime-layers]
+    phase_tasks: [P00-T02, P00-T06, P05-T01]
+    verification_method: deterministic replay across supported architectures
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-004
+    title: Economy transaction integrity
+    owner_role: economy_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/07-data-and-persistence.md#economy-ledger]
+    phase_tasks: [P00-T01, P00-T02, P00-T06, P06-T01]
+    verification_method: ledger reconciliation and idempotency suite
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-005
+    title: Progression, quests, and achievements
+    owner_role: game_systems_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/05-game-definition-schema-v0.1.md#progressionnode]
+    phase_tasks: [P00-T01, P00-T06, P07-T01]
+    verification_method: graph and event conformance
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-006
+    title: Universal identity and guests
+    owner_role: identity_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/08-identity-tenancy-authorization.md#identity-model]
+    phase_tasks: [P00-T01, P00-T06, P03-T01]
+    verification_method: identity and merge end-to-end report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-007
+    title: Tenant and game isolation
+    owner_role: identity_owner
+    source_anchors: [docs/01-principles-and-invariants.md#platform-invariants, docs/07-data-and-persistence.md#mongodb-tenancy]
+    phase_tasks: [P00-T02, P00-T06, P03-T04, P17-T01]
+    verification_method: tenant escape and object authorization suite
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-008
+    title: Saves, migrations, and offline synchronization
+    owner_role: data_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/11-saves-offline-sync.md#sync-protocol]
+    phase_tasks: [P00-T01, P00-T06, P09-T01]
+    verification_method: multi-device conflict and migration report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-009
+    title: Immutable versioning and publishing
+    owner_role: release_manager
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/10-versioning-publishing-liveops.md#publishing-state-machine]
+    phase_tasks: [P00-T01, P00-T06, P08-T01]
+    verification_method: rollback and re-promotion report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-010
+    title: Events, jobs, and timers
+    owner_role: platform_operations_owner
+    source_anchors: [docs/01-principles-and-invariants.md#platform-invariants, docs/09-api-events-jobs-timers.md#event-envelope]
+    phase_tasks: [P00-T02, P00-T06, P05-T08, P10-T01]
+    verification_method: duplicate-delivery and backlog report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-011
+    title: Simulation and balance
+    owner_role: simulation_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/12-simulation-balance-experiments-analytics.md#headless-simulation]
+    phase_tasks: [P00-T01, P00-T06, P10-T06]
+    verification_method: deterministic simulation report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-012
+    title: Experiments and analytics
+    owner_role: analytics_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/12-simulation-balance-experiments-analytics.md#analytics-contract]
+    phase_tasks: [P00-T01, P00-T06, P10-T07, P11-T04]
+    verification_method: sample-ratio, data-quality, and decision report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-013
+    title: LiveOps, monetization, and entitlements
+    owner_role: economy_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/17-security-and-abuse-prevention.md#economy-and-purchase-integrity]
+    phase_tasks: [P00-T01, P00-T06, P11-T05]
+    verification_method: purchase and kill-switch report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-014
+    title: Game Studio
+    owner_role: studio_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/13-game-studio.md#purpose]
+    phase_tasks: [P00-T01, P00-T06, P12-T01]
+    verification_method: author-to-publish end-to-end report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-015
+    title: Solo mechanics packages
+    owner_role: game_systems_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/14-mechanics-packages.md#required-v1-packages]
+    phase_tasks: [P00-T01, P00-T06, P13-T01]
+    verification_method: package release reports
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-016
+    title: Social and asynchronous multiplayer
+    owner_role: multiplayer_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/15-multiplayer.md#v1-services]
+    phase_tasks: [P00-T01, P00-T06, P14-T01]
+    verification_method: asynchronous lifecycle and load report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-017
+    title: Real-time multiplayer
+    owner_role: multiplayer_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/15-multiplayer.md#realtime-protocol]
+    phase_tasks: [P00-T01, P00-T06, P15-T01]
+    verification_method: WebSocket and match load report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-018
+    title: AI agent platform
+    owner_role: ai_control_plane_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/16-ai-agent-control-plane.md#tool-boundary]
+    phase_tasks: [P00-T01, P00-T06, P16-T01]
+    verification_method: scope red-team and proposal report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-019
+    title: AWS and Cloudflare production infrastructure
+    owner_role: infrastructure_owner
+    source_anchors: [docs/02-system-architecture.md#deployment-topology, docs/20-infrastructure-and-deployment.md#infrastructure-acceptance]
+    phase_tasks: [P00-T03, P00-T04, P00-T06, P02-T01, P17-T09]
+    verification_method: Terraform reproduction report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-020
+    title: Security, privacy, and abuse prevention
+    owner_role: security_owner
+    source_anchors: [docs/01-principles-and-invariants.md#platform-invariants, docs/17-security-and-abuse-prevention.md#security-testing]
+    phase_tasks: [P00-T02, P00-T03, P00-T06, P03-T08, P06-T08, P09-T07, P11-T07, P15-T07, P16-T08, P17-T01]
+    verification_method: penetration, privacy, and abuse reports
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-021
+    title: Observability, SRE, and disaster recovery
+    owner_role: sre_owner
+    source_anchors: [docs/18-observability-sre-disaster-recovery.md#slos, docs/18-observability-sre-disaster-recovery.md#disaster-recovery]
+    phase_tasks: [P00-T03, P00-T05, P00-T06, P02-T08, P10-T08, P14-T08, P15-T08, P17-T06]
+    verification_method: SLO, alert, restore, and DR reports
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-022
+    title: Multi-language SDKs
+    owner_role: sdk_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/04-repository-and-engineering-standard.md#target-monorepo]
+    phase_tasks: [P00-T01, P00-T06, P07-T08, P14-T08, P15-T05]
+    verification_method: SDK conformance report
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-023
+    title: Human and AI shared interfaces
+    owner_role: architecture_owner
+    source_anchors: [docs/01-principles-and-invariants.md#platform-invariants, docs/16-ai-agent-control-plane.md#principle]
+    phase_tasks: [P00-T02, P00-T06, P12-T01, P16-T07]
+    verification_method: identical API audit
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: RQ-024
+    title: Platform completion before first game
+    owner_role: platform_technical_lead
+    source_anchors: [README.md#non-negotiable-release-rule, docs/22-platform-completion-contract.md#prohibited-completion-shortcuts]
+    phase_tasks: [P00-T01, P00-T06, P00-T08, P17-T10]
+    verification_method: signed completion record and no-game scan
+    evidence_path: docs/evidence/phase-00/tasks/P00-T08.md
+  - id: RQ-025
+    title: Assets, localization, and notifications
+    owner_role: asset_localization_owner
+    source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/24-assets-localization-notifications.md#required-controls]
+    phase_tasks: [P00-T01, P00-T06, P08-T09, P10-T09, P12-T09]
+    verification_method: upload-to-delivery, locale, and provider-failover evidence
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+mandatory_controls:
+  - id: MC-001
+    statement: Backend is authoritative for authenticated online state, economy value, inventory, entitlements, published definitions, competitive results, and cross-game rewards.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: architecture_owner
+    phase_task: P00-T02
+    verification_method: authorization, ledger, and replay suites
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-002
+    statement: Clients send intent and never authoritative resulting balances, rewards, damage, entitlements, ratings, or match outcomes.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: game_systems_owner
+    phase_task: P00-T02
+    verification_method: forged-result negative tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-003
+    statement: Published definitions are immutable and content-addressed; corrections create a new version.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: game_systems_owner
+    phase_task: P00-T02
+    verification_method: publish immutability and digest tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-004
+    statement: Every state mutation runs through a named action and produces an auditable mutation record.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: runtime_owner
+    phase_task: P00-T02
+    verification_method: action receipt and audit tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-005
+    statement: Every value transfer runs in one economy transaction with balanced ledger entries and an idempotency key.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: data_owner
+    phase_task: P00-T02
+    verification_method: ledger reconciliation and duplicate tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-006
+    statement: Runtime execution is deterministic for the declared execution tuple.
+    source_anchor: docs/01-principles-and-invariants.md#determinism-contract
+    owner_role: runtime_owner
+    phase_task: P00-T02
+    verification_method: cross-platform replay suite
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-007
+    statement: Runtime logic receives logical UTC time and does not read wall-clock time directly.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: runtime_owner
+    phase_task: P00-T02
+    verification_method: clock isolation tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-008
+    statement: Runtime logic uses only seeded random sources.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: runtime_owner
+    phase_task: P00-T02
+    verification_method: seed and unseeded-random-source scans
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-009
+    statement: Formulas and conditions use the bounded LenGeas expression AST; arbitrary code and eval are forbidden.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: security_owner
+    phase_task: P00-T02
+    verification_method: formula resource-exhaustion and code-boundary tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-010
+    statement: Authoritative state and money math uses integers or fixed-precision decimals; IEEE-754 floating point is forbidden.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: data_owner
+    phase_task: P00-T02
+    verification_method: numeric conformance tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-011
+    statement: Persisted documents carry studio_id and appropriate game_id; authorization filters both before access.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: identity_owner
+    phase_task: P00-T02
+    verification_method: tenant-escape suite
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-012
+    statement: Cross-game access requires a published contract naming source, target, data, purpose, and reward mapping.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: identity_owner
+    phase_task: P00-T02
+    verification_method: cross-game contract tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-013
+    statement: Modules read and write only manifest-declared state namespaces.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: game_systems_owner
+    phase_task: P00-T02
+    verification_method: module isolation tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-014
+    statement: Domain events are past-tense facts; consumers do not mutate another domain collection directly.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: platform_operations_owner
+    phase_task: P00-T02
+    verification_method: event and repository boundary tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-015
+    statement: External delivery is at least once and consumers are idempotent.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: platform_operations_owner
+    phase_task: P00-T02
+    verification_method: duplicate delivery tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-016
+    statement: API, event, save, definition, and package versions evolve independently under compatibility rules.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: architecture_owner
+    phase_task: P00-T02
+    verification_method: compatibility matrix and migration tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-017
+    statement: Humans and AI agents use the same public Definition API and validation/publishing pipeline.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: studio_owner
+    phase_task: P00-T02
+    verification_method: identical API audit
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-018
+    statement: AI output begins as a draft and cannot approve its own publication.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: ai_control_plane_owner
+    phase_task: P00-T02
+    verification_method: self-approval and tool-scope tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-019
+    statement: PII is stored outside game state and never emitted in analytics payloads.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: security_owner
+    phase_task: P00-T02
+    verification_method: privacy and analytics redaction tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-020
+    statement: Logs, traces, metrics, and audit records contain no credentials or raw authentication tokens.
+    source_anchor: docs/01-principles-and-invariants.md#platform-invariants
+    owner_role: sre_owner
+    phase_task: P00-T02
+    verification_method: secret scanning and telemetry tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-021
+    statement: Canonical JSON uses UTF-8, lexicographically sorted object keys, normalized decimals, UTC Z timestamps, and SHA-256 digests.
+    source_anchor: docs/01-principles-and-invariants.md#determinism-contract
+    owner_role: runtime_owner
+    phase_task: P00-T02
+    verification_method: canonical serialization vectors
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-022
+    statement: Module manifests declare dependencies, conflicts, schemas, namespaces, registrations, permissions, and budgets; dependency cycles fail and initialization order is deterministic.
+    source_anchor: docs/01-principles-and-invariants.md#module-isolation-contract
+    owner_role: game_systems_owner
+    phase_task: P00-T02
+    verification_method: manifest validation and topological-order tests
+    evidence_path: docs/evidence/phase-00/tasks/P00-T02.md
+  - id: MC-023
+    statement: Every mandatory requirement has a stable requirement ID, phase task, and verification gate in traceability.
+    source_anchor: docs/01-principles-and-invariants.md#documentation-invariant
+    owner_role: architecture_owner
+    phase_task: P00-T06
+    verification_method: bidirectional traceability audit
+    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+  - id: MC-024
+    statement: Phase 00 exits only when all task evidence is reviewable, no unresolved decision marker remains, the traceability audit has no orphan requirements, and Architecture records PASS.
+    source_anchor: docs/phases/00-charter-and-architecture-lock.md#exit-gate
+    owner_role: platform_technical_lead
+    phase_task: P00-T08
+    verification_method: independent phase review checklist
+    evidence_path: docs/evidence/phase-00/tasks/P00-T08.md
+review:
+  owners_assigned_by_role: true
+  owner_approval: accepted by sole developer / repository owner
+  orphan_requirements: none identified in baseline matrix

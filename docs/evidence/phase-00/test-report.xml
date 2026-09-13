@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="LenGeas Phase 00 documentation validation" tests="9" failures="0" errors="0" skipped="0" time="0">
+  <testcase classname="phase00.artifacts" name="required_artifact_paths"/>
+  <testcase classname="phase00.schemas" name="yaml_records_match_governance_schemas"/>
+  <testcase classname="phase00.schemas" name="json_evidence_parses"/>
+  <testcase classname="phase00.architecture" name="adr_index_is_complete"/>
+  <testcase classname="phase00.architecture" name="required_diagrams_are_present"/>
+  <testcase classname="phase00.traceability" name="requirement_ids_are_unique_and_mapped"/>
+  <testcase classname="phase00.links" name="repository_links_resolve"/>
+  <testcase classname="phase00.scope" name="no_product_code_or_first_party_game"/>
+  <testcase classname="phase00.safety" name="no_credentials_or_fabricated_approval"/>
+</testsuite>

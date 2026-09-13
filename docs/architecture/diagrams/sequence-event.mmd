@@ -1,0 +1,12 @@
+sequenceDiagram
+  participant Tx as MongoDB transaction
+  participant O as Outbox
+  participant P as Publisher
+  participant K as MSK
+  participant C as Idempotent consumer
+  Tx->>O: Commit fact and pending event atomically
+  P->>O: Claim pending event
+  P->>K: Publish event with stable delivery key
+  K-->>C: At-least-once delivery
+  C->>C: Check delivery idempotency
+  C->>C: Run named follow-up action

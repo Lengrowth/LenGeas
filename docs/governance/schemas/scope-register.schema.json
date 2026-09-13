@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lengeas.local/schemas/scope-register.schema.json",
+  "title": "LenGeas Scope Register",
+  "type": "object",
+  "required": ["schema_version", "phase", "task", "status", "product", "scope", "exclusions", "owner_decision"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "record_type": {"const": "scope_register"},
+    "phase": {"const": "00"},
+    "task": {"const": "P00-T01"},
+    "status": {"enum": ["in_review", "accepted"]},
+    "product": {"type": "string", "minLength": 1},
+    "mission": {"type": "string", "minLength": 1},
+    "product_model": {"type": "array", "items": {"type": "object", "required": ["id", "meaning"], "properties": {"id": {"type": "string"}, "meaning": {"type": "string"}}, "additionalProperties": false}},
+    "scope": {"type": "object", "required": ["in_scope", "out_of_scope"], "properties": {"in_scope": {"type": "array", "items": {"type": "string"}}, "out_of_scope": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": false},
+    "exclusions": {"type": "array", "items": {"type": "string"}},
+    "no_game_rule": {"type": "object"},
+    "success_metrics": {"type": "object", "additionalProperties": {"type": "string"}},
+    "owner_decision": {"type": "object", "required": ["owner", "approved_utc", "decision", "separate_review_required"], "properties": {"owner": {"type": "string", "minLength": 1}, "approved_utc": {"type": "string", "format": "date"}, "decision": {"const": "accepted"}, "separate_review_required": {"const": false}}, "additionalProperties": false},
+    "prohibited_content": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

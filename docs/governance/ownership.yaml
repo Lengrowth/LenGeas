@@ -1,0 +1,110 @@
+schema_version: "1.0.0"
+register_id: ownership
+status: accepted
+assignment_policy: Every item has one accountable role and one same-person fallback role. The current company is one developer, the repository owner, who owns every role and makes every decision; role IDs are internal responsibility labels, not separate people or approval gates.
+roles:
+  platform_technical_lead: {accountable: "architecture and phase gates", backup: architecture_owner}
+  product_owner: {accountable: "charter and product scope", backup: studio_owner}
+  architecture_owner: {accountable: "system boundaries and cross-service contracts", backup: platform_technical_lead}
+  security_owner: {accountable: "security, privacy, abuse, and threat models", backup: platform_technical_lead}
+  data_owner: {accountable: "persistence, data governance, ledger, and restore", backup: sre_owner}
+  game_systems_owner: {accountable: "definitions, runtime, and mechanics contracts", backup: runtime_owner}
+  runtime_owner: {accountable: "deterministic evaluator and action execution", backup: game_systems_owner}
+  economy_owner: {accountable: "economy, inventory, purchases, and entitlements", backup: data_owner}
+  identity_owner: {accountable: "identity, tenancy, and authorization", backup: security_owner}
+  api_owner: {accountable: "API and event contracts", backup: architecture_owner}
+  infrastructure_owner: {accountable: "Terraform, AWS, Cloudflare, and environments", backup: sre_owner}
+  platform_operations_owner: {accountable: "operations, jobs, timers, and runbooks", backup: sre_owner}
+  sre_owner: {accountable: "observability, SLOs, capacity, and DR", backup: platform_operations_owner}
+  studio_owner: {accountable: "Game Studio and frontend", backup: api_owner}
+  sdk_owner: {accountable: "generated SDKs and client contracts", backup: api_owner}
+  multiplayer_owner: {accountable: "social, async, realtime, and match integrity", backup: sre_owner}
+  simulation_owner: {accountable: "simulation, balance, and experiments", backup: analytics_owner}
+  analytics_owner: {accountable: "governed analytics and data quality", backup: data_owner}
+  ai_control_plane_owner: {accountable: "agent tools, scopes, evaluation, and review", backup: security_owner}
+  asset_localization_owner: {accountable: "assets, localization, and notifications", backup: studio_owner}
+  qa_owner: {accountable: "verification, conformance, and evidence", backup: release_manager}
+  release_manager: {accountable: "release records, promotion, canary, and rollback", backup: qa_owner}
+  vendor_manager: {accountable: "external providers, assessments, and exit plans", backup: platform_operations_owner}
+  finance_owner: {accountable: "cost allocation, budgets, and variance", backup: platform_operations_owner}
+  support_owner: {accountable: "case-bound support and compensating workflows", backup: security_owner}
+items:
+  services:
+    - {id: platform-api, owner_role: api_owner, backup_role: architecture_owner}
+    - {id: realtime-gateway, owner_role: multiplayer_owner, backup_role: sre_owner}
+    - {id: match-service, owner_role: multiplayer_owner, backup_role: game_systems_owner}
+    - {id: celery-worker-general, owner_role: platform_operations_owner, backup_role: sre_owner}
+    - {id: celery-worker-simulation, owner_role: simulation_owner, backup_role: sre_owner}
+    - {id: event-projector, owner_role: platform_operations_owner, backup_role: analytics_owner}
+    - {id: scheduler, owner_role: platform_operations_owner, backup_role: sre_owner}
+    - {id: analytics-ingest, owner_role: analytics_owner, backup_role: data_owner}
+    - {id: asset-worker, owner_role: asset_localization_owner, backup_role: security_owner}
+    - {id: notification-service, owner_role: asset_localization_owner, backup_role: platform_operations_owner}
+  domains:
+    - {id: definitions, owner_role: game_systems_owner, backup_role: runtime_owner}
+    - {id: runtime, owner_role: runtime_owner, backup_role: game_systems_owner}
+    - {id: persistence, owner_role: data_owner, backup_role: sre_owner}
+    - {id: identity-tenancy, owner_role: identity_owner, backup_role: security_owner}
+    - {id: economy, owner_role: economy_owner, backup_role: data_owner}
+    - {id: events-jobs-timers, owner_role: platform_operations_owner, backup_role: api_owner}
+    - {id: simulation-analytics, owner_role: simulation_owner, backup_role: analytics_owner}
+    - {id: studio, owner_role: studio_owner, backup_role: api_owner}
+    - {id: mechanics-packages, owner_role: game_systems_owner, backup_role: runtime_owner}
+    - {id: multiplayer, owner_role: multiplayer_owner, backup_role: sre_owner}
+    - {id: ai-control-plane, owner_role: ai_control_plane_owner, backup_role: security_owner}
+    - {id: security-abuse, owner_role: security_owner, backup_role: sre_owner}
+    - {id: observability-dr, owner_role: sre_owner, backup_role: platform_operations_owner}
+    - {id: assets-localization-notifications, owner_role: asset_localization_owner, backup_role: studio_owner}
+  packages:
+    - {id: idle, owner_role: game_systems_owner, backup_role: runtime_owner}
+    - {id: prestige, owner_role: game_systems_owner, backup_role: runtime_owner}
+    - {id: story, owner_role: game_systems_owner, backup_role: studio_owner}
+    - {id: rpg, owner_role: game_systems_owner, backup_role: runtime_owner}
+    - {id: cards, owner_role: game_systems_owner, backup_role: multiplayer_owner}
+    - {id: merge, owner_role: game_systems_owner, backup_role: runtime_owner}
+    - {id: tower-defense, owner_role: game_systems_owner, backup_role: multiplayer_owner}
+    - {id: crafting, owner_role: game_systems_owner, backup_role: economy_owner}
+    - {id: management, owner_role: game_systems_owner, backup_role: economy_owner}
+    - {id: async-multiplayer, owner_role: multiplayer_owner, backup_role: game_systems_owner}
+    - {id: realtime-session, owner_role: multiplayer_owner, backup_role: game_systems_owner}
+  schemas:
+    - {id: definition-v0.1, owner_role: game_systems_owner, backup_role: api_owner}
+    - {id: api-openapi, owner_role: api_owner, backup_role: architecture_owner}
+    - {id: event-envelope, owner_role: api_owner, backup_role: platform_operations_owner}
+    - {id: save-envelope, owner_role: data_owner, backup_role: runtime_owner}
+    - {id: package-manifest, owner_role: game_systems_owner, backup_role: runtime_owner}
+    - {id: realtime-protobuf, owner_role: multiplayer_owner, backup_role: api_owner}
+  phases:
+    - {id: "00", owner_role: platform_technical_lead, backup_role: qa_owner}
+    - {id: "01", owner_role: infrastructure_owner, backup_role: platform_operations_owner}
+    - {id: "02", owner_role: infrastructure_owner, backup_role: sre_owner}
+    - {id: "03", owner_role: identity_owner, backup_role: security_owner}
+    - {id: "04", owner_role: game_systems_owner, backup_role: api_owner}
+    - {id: "05", owner_role: runtime_owner, backup_role: game_systems_owner}
+    - {id: "06", owner_role: economy_owner, backup_role: data_owner}
+    - {id: "07", owner_role: sdk_owner, backup_role: game_systems_owner}
+    - {id: "08", owner_role: release_manager, backup_role: game_systems_owner}
+    - {id: "09", owner_role: data_owner, backup_role: runtime_owner}
+    - {id: "10", owner_role: platform_operations_owner, backup_role: analytics_owner}
+    - {id: "11", owner_role: simulation_owner, backup_role: economy_owner}
+    - {id: "12", owner_role: studio_owner, backup_role: api_owner}
+    - {id: "13", owner_role: game_systems_owner, backup_role: runtime_owner}
+    - {id: "14", owner_role: multiplayer_owner, backup_role: game_systems_owner}
+    - {id: "15", owner_role: multiplayer_owner, backup_role: sre_owner}
+    - {id: "16", owner_role: ai_control_plane_owner, backup_role: security_owner}
+    - {id: "17", owner_role: platform_technical_lead, backup_role: qa_owner}
+  slos:
+    - {id: player-api-availability, target: "99.95% monthly", owner_role: sre_owner, backup_role: api_owner}
+    - {id: studio-availability, target: "99.9% monthly", owner_role: sre_owner, backup_role: studio_owner}
+    - {id: player-api-latency, target: "p95 <= 250 ms; p99 <= 750 ms", owner_role: sre_owner, backup_role: api_owner}
+    - {id: action-integrity, target: "99.9999% receipts reconcile", owner_role: data_owner, backup_role: economy_owner}
+    - {id: regional-recovery, target: "RTO <= 4 hours; RPO <= 15 minutes", owner_role: sre_owner, backup_role: data_owner}
+  vendors:
+    - {id: aws, owner_role: infrastructure_owner, backup_role: sre_owner}
+    - {id: cloudflare, owner_role: infrastructure_owner, backup_role: security_owner}
+    - {id: mongodb-atlas, owner_role: data_owner, backup_role: infrastructure_owner}
+    - {id: supabase, owner_role: identity_owner, backup_role: security_owner}
+    - {id: resend, owner_role: asset_localization_owner, backup_role: platform_operations_owner}
+    - {id: github, owner_role: release_manager, backup_role: security_owner}
+    - {id: sentry, owner_role: sre_owner, backup_role: security_owner}
+    - {id: model-providers, owner_role: ai_control_plane_owner, backup_role: security_owner}
