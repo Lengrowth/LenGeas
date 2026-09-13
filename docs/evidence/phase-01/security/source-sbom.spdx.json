@@ -84,7 +84,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "e9b3f93b304ea973e0c105bdf398514c2eaf40cda094a0a917baf00e9367c901"
+          "checksumValue": "4c508df94c36e5547b432464e4c703a4577bdd22cd9e28340bb470b44be0a8b1"
         }
       ],
       "fileName": ".github/repository-policy.yml"
@@ -1234,7 +1234,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "3bb3467b7b0024705cf3878eb79f963eb34d02fd2f9c3a1fa3e65e2a351fab61"
+          "checksumValue": "85acba6d139fd49a621fdc4da50e222803810b9ffb76464187d42c37ff6ed18c"
         }
       ],
       "fileName": "docs/evidence/phase-01/blockers.md"
@@ -1244,7 +1244,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "ac6834c48e8f60e0962eb0a88ed2452236f05dcefb14c87b2143c5010cd54463"
+          "checksumValue": "810412b7dd9ce9a71925480ec9780fb2df1cf237c5901d89cd599ce5d9cb5e74"
         }
       ],
       "fileName": "docs/evidence/phase-01/commands.ndjson"
@@ -1284,7 +1284,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "2a6817ce576e4dcb18bcbc9bab25e84e539455584228832ec4e1056827c7da02"
+          "checksumValue": "fe7c6a447e1f4c14b58ac114393f61751cdd9e8dc9715cae098cd2f803cde9d4"
         }
       ],
       "fileName": "docs/evidence/phase-01/manifest.json"
@@ -1374,7 +1374,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "d74c535cfb2361cade9fceb15a64a4ab00df0614a8f7586bc9aab30b1f7359e3"
+          "checksumValue": "58538c458be012ba48fd3fd0fc3d1bf7f08b393a366970cdba7efd7f912cebdd"
         }
       ],
       "fileName": "docs/evidence/phase-01/security/release-manifest.json"
@@ -1384,7 +1384,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "8c1a9abaa377caee7d4eb855728858782d680e8346de8529f84a540b5e36fdad"
+          "checksumValue": "1ba3980336d045e726a2edad8af690c07c14a05cf00d86d2156147a07c18cfa1"
         }
       ],
       "fileName": "docs/evidence/phase-01/security/source-sbom.spdx.json"
@@ -1424,7 +1424,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "dc13f5761b2dfb1594c1fa671a06921e3741b1b7b9840efee41bc4d453378d9e"
+          "checksumValue": "c0f1cf45af8fc3d6821d82ecb81bcf29368a5cf0d46990d037390c7b44d8dd19"
         }
       ],
       "fileName": "docs/evidence/phase-01/tasks/P01-T04.md"
