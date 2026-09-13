@@ -2,7 +2,7 @@
 
 - Phase document: `docs/phases/01-engineering-foundation.md`
 - Candidate commit: recorded in `manifest.json`
-- Manifest digest: `848824708417ef621b8a4d88f418957d2e4408e428c9903795dd26d8b2671017` (SHA-256 of the LF-normalized committed `manifest.json`)
+- Manifest digest: `88c49952303a42aed2802f5269ed7efde01d0b72c19822c37b433baf6a29c6a9` (SHA-256 of the LF-normalized committed `manifest.json`)
 - Reviewer: designated review agent; all responsibility roles are held by the repository owner
 - Review UTC: pending review
 

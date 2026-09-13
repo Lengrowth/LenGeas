@@ -58,16 +58,23 @@ def normalized_file_bytes(path: Path) -> bytes:
     return data
 
 
+def tracked_files(path: Path) -> list[Path]:
+    relative = path.relative_to(ROOT).as_posix()
+    output = subprocess.check_output(["git", "ls-files", "-z", "--", relative], cwd=ROOT)
+    return [
+        ROOT / value.decode("utf-8")
+        for value in output.split(b"\0")
+        if value and (ROOT / value.decode("utf-8")).is_file()
+    ]
+
+
 def digest(path: Path) -> str:
     hasher = hashlib.sha256()
     if path.is_file():
         hasher.update(normalized_file_bytes(path))
     else:
-        excluded = {".git", ".venv", "node_modules", "__pycache__"}
         for child in sorted(
-            item
-            for item in path.rglob("*")
-            if item.is_file() and not excluded.intersection(item.parts)
+            tracked_files(path), key=lambda item: item.relative_to(path).as_posix()
         ):
             hasher.update(child.relative_to(path).as_posix().encode("utf-8"))
             hasher.update(bytes.fromhex(digest(child)))

@@ -31,15 +31,15 @@
     },
     {
       "path": ".github",
-      "sha256": "74622d35c86f7764eece6f2f86f16ac99868ce2b030d43a3a41e9c46933c992e"
+      "sha256": "cc1c497e383d64836766834ff7b2b8b12daed4e58c7e9361d0e5e57046f79cac"
     },
     {
       "path": "infrastructure/docker",
-      "sha256": "2041ac54bec759bac3d7b59bcd398a8f3cd204d5156feba08cf6516bb53bef2b"
+      "sha256": "7008fc96016cfc916265b4d73851dec666a7d137d411192591ec3a9e55613fa0"
     },
     {
       "path": "infrastructure/aws",
-      "sha256": "5ccc2f31a16b31cfb6de9eff7a2d6123faa1636b3ab79c834fddd77f7967ae4d"
+      "sha256": "6aebb03e0faf9e30cb3f1121a21494d0582f18ae2a0606240a707bf7c9ab03ec"
     },
     {
       "path": "packages/schemas/evidence/phase-manifest.schema.json",
@@ -51,11 +51,11 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "8d554ae4369d69ece27549b3cfbf9be43dee922d45439a21b5b18b216bd1f89b"
+      "sha256": "8e04c6f51f673255dfeb5091fbcfde95f03a97672d0f7e9bf34efa166843e2ec"
     },
     {
       "path": "tests",
-      "sha256": "3a5c17f3ad58602c31efb755f7ae914e8b281c45077f7e618a775b0e1c075f28"
+      "sha256": "e5f7c73131961acb32c88d1b7e4b6a2a618e1b010100978f7235cf4d8844407f"
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
@@ -78,7 +78,7 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T15:07:34.546912Z",
+  "end_utc": "2026-09-13T15:14:10.618042Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [
     "Review recommendation and resolution of all mandatory findings",
