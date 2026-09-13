@@ -3,14 +3,17 @@
   "private": true,
   "version": "0.1.0",
   "packageManager": "pnpm@11.20.0",
-  "engines": {"node": ">=22.16.0 <23"},
+  "engines": {
+    "node": "22.16.0"
+  },
   "scripts": {
     "lint": "pnpm exec prettier --check .",
-    "typecheck": "pnpm exec tsc --noEmit"
+    "typecheck": "pnpm exec tsc --noEmit",
+    "version-report": "uv run --frozen --python 3.13.5 python tools/dev/version_report.py"
   },
   "devDependencies": {
     "prettier": "3.6.2",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "turbo": "2.5.6"
   }
 }
-
