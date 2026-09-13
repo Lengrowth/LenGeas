@@ -1,0 +1,62 @@
+name: verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write
+  id-token: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: astral-sh/setup-uv@v6.7.0
+        with:
+          version: 0.11.29
+      - uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22.16.0
+          cache: pnpm
+      - uses: pnpm/action-setup@v4.1.0
+        with:
+          version: 11.20.0
+      - uses: go-task/setup-task@v0.5.0
+        with:
+          version: 3.53.1
+      - run: task bootstrap
+      - run: task generate
+      - run: task verify
+      - run: uv run --frozen python tools/dev/ci_checks.py workflow-policy
+      - run: uv run --frozen python tools/dev/ci_checks.py terraform-policy
+      - run: uv run --frozen python tools/dev/ci_checks.py docs-links
+      - run: uv run --frozen python tools/dev/ci_checks.py schema
+      - run: uv run --frozen python tools/dev/ci_checks.py openapi
+      - run: uv run --frozen python tools/dev/ci_checks.py license-policy
+      - run: task evidence PHASE=01
+      - uses: actions/upload-artifact@v4.6.2
+        with:
+          name: phase-01-evidence-${{ github.sha }}
+          path: docs/evidence/phase-01/
+          if-no-files-found: error
+      - uses: aquasecurity/trivy-action@0.31.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          severity: CRITICAL,HIGH
+          exit-code: '1'
+          ignore-unfixed: true
+      - uses: gitleaks/gitleaks-action@v2.3.9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: anchore/sbom-action@v0.20.9
+        with:
+          path: .
+          artifact-name: sbom-${{ github.sha }}.spdx.json
+          output-file: sbom-${{ github.sha }}.spdx.json
+
