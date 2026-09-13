@@ -381,7 +381,17 @@ def _s3_put_get(values: dict[str, str]) -> None:
         f"printf '%s' {json.dumps(payload)} | mc pipe \"local/$MINIO_BUCKET/{object_key}\"; "
         f'got=$(mc cat "local/$MINIO_BUCKET/{object_key}"); test "$got" = {json.dumps(payload)}'
     )
-    result = _compose("run", "--rm", "--no-deps", "minio-init", "sh", "-ec", shell, capture=True)
+    result = _compose(
+        "run",
+        "--rm",
+        "--no-deps",
+        "--entrypoint",
+        "/bin/sh",
+        "minio-init",
+        "-ec",
+        shell,
+        capture=True,
+    )
     if result.returncode:
         raise LocalStackError(f"MinIO S3 put/get failed: {result.stderr.strip()}")
     print("PASS MinIO S3-compatible put/get: object round trip")
