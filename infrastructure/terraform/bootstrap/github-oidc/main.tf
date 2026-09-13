@@ -20,7 +20,7 @@ resource "aws_iam_openid_connect_provider" "github" {
   tags            = var.tags
 }
 
-data "aws_iam_policy_document" "trust" {
+data "aws_iam_policy_document" "trust_plan" {
   statement {
     sid     = "GitHubActionsRestrictedTrust"
     effect  = "Allow"
@@ -42,17 +42,39 @@ data "aws_iam_policy_document" "trust" {
   }
 }
 
+data "aws_iam_policy_document" "trust_apply" {
+  statement {
+    sid     = "GitHubActionsProtectedEnvironmentOnly"
+    effect  = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+    principals {
+      type        = "Federated"
+      identifiers = [try(aws_iam_openid_connect_provider.github[0].arn, "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com")]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+    condition {
+      test     = "StringLike"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:${var.repository}:environment:${var.environment}"]
+    }
+  }
+}
+
 resource "aws_iam_role" "plan" {
   count              = var.enabled ? 1 : 0
   name               = "lengeas-${var.environment}-github-plan"
-  assume_role_policy = data.aws_iam_policy_document.trust.json
+  assume_role_policy = data.aws_iam_policy_document.trust_plan.json
   tags               = var.tags
 }
 
 resource "aws_iam_role" "apply" {
   count              = var.enabled ? 1 : 0
   name               = "lengeas-${var.environment}-github-apply"
-  assume_role_policy = data.aws_iam_policy_document.trust.json
+  assume_role_policy = data.aws_iam_policy_document.trust_apply.json
   tags               = var.tags
 }
 

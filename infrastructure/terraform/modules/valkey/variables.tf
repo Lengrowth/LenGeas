@@ -34,3 +34,25 @@ variable "tags" {
   }
 }
 
+variable "subnet_ids" {
+  type    = set(string)
+  default = []
+  validation {
+    condition     = !var.enabled || length(var.subnet_ids) >= 3
+    error_message = "Enabled Valkey requires isolated subnets in three AZs."
+  }
+}
+
+variable "security_group_ids" {
+  type    = set(string)
+  default = []
+  validation {
+    condition     = !var.enabled || length(var.security_group_ids) >= 1
+    error_message = "Enabled Valkey requires a data security group."
+  }
+}
+
+variable "boundary_names" {
+  type    = set(string)
+  default = ["cache", "realtime"]
+}

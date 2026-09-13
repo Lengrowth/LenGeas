@@ -70,6 +70,153 @@ resource "aws_internet_gateway" "this" {
   tags   = var.tags
 }
 
+resource "aws_eip" "nat" {
+  for_each = var.enabled && var.enable_nat_gateways ? toset(var.availability_zones) : toset([])
+  domain   = "vpc"
+  tags     = merge(var.tags, { Name = "lengeas-${var.environment}-nat-eip-${each.value}" })
+}
+
+resource "aws_nat_gateway" "this" {
+  for_each      = var.enabled && var.enable_nat_gateways ? toset(var.availability_zones) : toset([])
+  allocation_id = aws_eip.nat[each.value].id
+  subnet_id     = aws_subnet.public_alb[each.value].id
+  depends_on    = [aws_internet_gateway.this]
+  tags          = merge(var.tags, { Name = "lengeas-${var.environment}-nat-${each.value}" })
+}
+
+resource "aws_route_table" "public" {
+  count  = var.enabled ? 1 : 0
+  vpc_id = aws_vpc.this[0].id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.this[0].id
+  }
+  tags = merge(var.tags, { Name = "lengeas-${var.environment}-public" })
+}
+
+resource "aws_route_table_association" "public" {
+  for_each       = var.enabled ? toset(var.availability_zones) : toset([])
+  subnet_id      = aws_subnet.public_alb[each.value].id
+  route_table_id = aws_route_table.public[0].id
+}
+
+resource "aws_route_table" "private" {
+  for_each = var.enabled ? toset(var.availability_zones) : toset([])
+  vpc_id   = aws_vpc.this[0].id
+  dynamic "route" {
+    for_each = var.enable_nat_gateways ? [each.value] : []
+    content {
+      cidr_block     = "0.0.0.0/0"
+      nat_gateway_id = aws_nat_gateway.this[route.value].id
+    }
+  }
+  tags = merge(var.tags, { Name = "lengeas-${var.environment}-private-${each.value}" })
+}
+
+resource "aws_route_table_association" "private" {
+  for_each       = var.enabled ? toset(var.availability_zones) : toset([])
+  subnet_id      = aws_subnet.private_app[each.value].id
+  route_table_id = aws_route_table.private[each.value].id
+}
+
+resource "aws_route_table" "isolated" {
+  for_each = var.enabled ? toset(var.availability_zones) : toset([])
+  vpc_id   = aws_vpc.this[0].id
+  tags     = merge(var.tags, { Name = "lengeas-${var.environment}-isolated-${each.value}" })
+}
+
+resource "aws_route_table_association" "isolated" {
+  for_each       = var.enabled ? toset(var.availability_zones) : toset([])
+  subnet_id      = aws_subnet.isolated[each.value].id
+  route_table_id = aws_route_table.isolated[each.value].id
+}
+
+resource "aws_security_group" "alb" {
+  count       = var.enabled ? 1 : 0
+  name        = "lengeas-${var.environment}-alb"
+  description = "Cloudflare origin traffic only; source ranges are managed separately."
+  vpc_id      = aws_vpc.this[0].id
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = var.tags
+}
+
+resource "aws_security_group" "ecs" {
+  count       = var.enabled ? 1 : 0
+  name        = "lengeas-${var.environment}-ecs"
+  description = "ECS tasks; ingress is security-group referenced."
+  vpc_id      = aws_vpc.this[0].id
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = var.tags
+}
+
+resource "aws_security_group" "data" {
+  count       = var.enabled ? 1 : 0
+  name        = "lengeas-${var.environment}-data"
+  description = "Data plane; no public ingress and no SSH."
+  vpc_id      = aws_vpc.this[0].id
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = var.tags
+}
+
+resource "aws_cloudwatch_log_group" "flow" {
+  count             = var.enabled ? 1 : 0
+  name              = "/aws/vpc/lengeas/${var.environment}/flow"
+  retention_in_days = 90
+  tags              = var.tags
+}
+
+resource "aws_iam_role" "flow" {
+  count = var.enabled ? 1 : 0
+  name  = "lengeas-${var.environment}-vpc-flow-logs"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = { Service = "vpc-flow-logs.amazonaws.com" }
+      Action    = "sts:AssumeRole"
+    }]
+  })
+  tags = var.tags
+}
+
+resource "aws_iam_role_policy" "flow" {
+  count = var.enabled ? 1 : 0
+  role  = aws_iam_role.flow[0].id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["logs:CreateLogStream", "logs:DescribeLogStreams", "logs:PutLogEvents"]
+      Resource = "${aws_cloudwatch_log_group.flow[0].arn}:*"
+    }]
+  })
+}
+
+resource "aws_flow_log" "this" {
+  count                = var.enabled ? 1 : 0
+  vpc_id               = aws_vpc.this[0].id
+  traffic_type         = "ALL"
+  iam_role_arn         = aws_iam_role.flow[0].arn
+  log_destination_type = "cloud-watch-logs"
+  log_destination      = aws_cloudwatch_log_group.flow[0].arn
+  tags                 = var.tags
+}
+
 # Provider resources are intentionally gated by var.enabled. The environment
 # roots remain plan-safe until account inventory, vendor access, and cost gates
 # are recorded in docs/evidence/phase-02.

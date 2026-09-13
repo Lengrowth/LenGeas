@@ -11,3 +11,7 @@ output "enabled" {
 output "task_definition_arn" {
   value = try(aws_ecs_task_definition.this[0].arn, null)
 }
+
+output "service_name" {
+  value = try(aws_ecs_service.this[0].name, null)
+}

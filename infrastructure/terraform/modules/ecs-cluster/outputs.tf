@@ -15,3 +15,7 @@ output "cluster_name" {
 output "capacity_provider_names" {
   value = { for name, provider in aws_ecs_capacity_provider.this : name => provider.name }
 }
+
+output "general_capacity_provider_name" {
+  value = try(aws_ecs_capacity_provider.this["general"].name, null)
+}

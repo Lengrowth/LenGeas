@@ -31,7 +31,7 @@
     },
     {
       "path": ".github",
-      "sha256": "cc1c497e383d64836766834ff7b2b8b12daed4e58c7e9361d0e5e57046f79cac"
+      "sha256": "1542090b2a55599c604ef689a9c57f4a03e8a1891ca42367c69f4c4b6c17f505"
     },
     {
       "path": "infrastructure/docker",
@@ -51,7 +51,7 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "f9906247d8e0f34f283e386f51795e92f2bace54320dd7b5b2bb86975aef98df"
+      "sha256": "6fb6e9bb193ccd680961706858fd28b3e7950d402f69f3d2d67c7255e487ce95"
     },
     {
       "path": "tests",
@@ -78,7 +78,7 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T16:33:50.416727Z",
+  "end_utc": "2026-09-13T17:16:50.629541Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [],
   "open_risks": [

@@ -38,3 +38,13 @@ variable "log_retention_days" {
   type    = number
   default = 90
 }
+
+variable "kms_key_arn" {
+  description = "KMS key for CloudWatch log encryption."
+  type        = string
+  default     = ""
+  validation {
+    condition     = !var.enabled || var.kms_key_arn != ""
+    error_message = "kms_key_arn is required when observability is enabled."
+  }
+}

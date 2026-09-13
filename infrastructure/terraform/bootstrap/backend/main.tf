@@ -34,6 +34,9 @@ resource "aws_s3_bucket" "state" {
   count  = var.enabled ? 1 : 0
   bucket = var.bucket_name
   tags   = var.tags
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_versioning" "state" {
@@ -70,13 +73,23 @@ resource "aws_s3_bucket_policy" "state" {
   bucket = aws_s3_bucket.state[0].id
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{
-      Sid       = "DenyInsecureTransport"
-      Effect    = "Deny"
-      Principal = "*"
-      Action    = "s3:*"
-      Resource  = [aws_s3_bucket.state[0].arn, "${aws_s3_bucket.state[0].arn}/*"]
-      Condition = { Bool = { "aws:SecureTransport" = "false" } }
-    }]
+    Statement = [
+      {
+        Sid       = "DenyInsecureTransport"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource  = [aws_s3_bucket.state[0].arn, "${aws_s3_bucket.state[0].arn}/*"]
+        Condition = { Bool = { "aws:SecureTransport" = "false" } }
+      },
+      {
+        Sid       = "DenyUnencryptedState"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = ["s3:PutObject"]
+        Resource  = "${aws_s3_bucket.state[0].arn}/*"
+        Condition = { StringNotEquals = { "s3:x-amz-server-side-encryption" = "aws:kms" } }
+      }
+    ]
   })
 }

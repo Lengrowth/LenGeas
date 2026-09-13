@@ -23,3 +23,11 @@ output "private_subnet_ids" {
 output "isolated_subnet_ids" {
   value = [for subnet in aws_subnet.isolated : subnet.id]
 }
+
+output "security_group_ids" {
+  value = {
+    alb  = try(aws_security_group.alb[0].id, null)
+    ecs  = try(aws_security_group.ecs[0].id, null)
+    data = try(aws_security_group.data[0].id, null)
+  }
+}

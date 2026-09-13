@@ -1,6 +1,7 @@
 terraform {
   required_version = "= 1.15.8"
   backend "s3" {
+    key          = "lengeas/nonproduction/terraform.tfstate"
     use_lockfile = true
   }
   required_providers {
@@ -33,4 +34,3 @@ provider "aws" {
 provider "cloudflare" {}
 provider "mongodbatlas" {}
 provider "supabase" {}
-

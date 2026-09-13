@@ -34,3 +34,20 @@ variable "tags" {
   }
 }
 
+variable "subnet_ids" {
+  type    = set(string)
+  default = []
+  validation {
+    condition     = !var.enabled || length(var.subnet_ids) >= 3
+    error_message = "Enabled MSK Serverless requires isolated subnets in three AZs."
+  }
+}
+
+variable "security_group_ids" {
+  type    = set(string)
+  default = []
+  validation {
+    condition     = !var.enabled || length(var.security_group_ids) >= 1
+    error_message = "Enabled MSK Serverless requires a data security group."
+  }
+}

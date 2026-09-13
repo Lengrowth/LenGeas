@@ -23,7 +23,7 @@ resource "aws_cloudwatch_log_group" "application" {
   count             = var.enabled ? 1 : 0
   name              = "/aws/lengeas/${var.environment}/application"
   retention_in_days = var.log_retention_days
-  kms_key_id        = null
+  kms_key_id        = var.kms_key_arn
   tags              = var.tags
 }
 

@@ -19,6 +19,26 @@ resource "terraform_data" "contract" {
   }
 }
 
+resource "aws_msk_serverless_cluster" "this" {
+  count        = var.enabled ? 1 : 0
+  cluster_name = "lengeas-${var.environment}-events"
+  client_authentication {
+    sasl {
+      iam {
+        enabled = true
+      }
+    }
+  }
+  vpc_config {
+    subnet_ids         = var.subnet_ids
+    security_group_ids = var.security_group_ids
+  }
+  tags = var.tags
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 # Provider resources are intentionally gated by var.enabled. The environment
 # roots remain plan-safe until account inventory, vendor access, and cost gates
 # are recorded in docs/evidence/phase-02.

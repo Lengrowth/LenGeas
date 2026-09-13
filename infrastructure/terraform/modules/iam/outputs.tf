@@ -8,3 +8,10 @@ output "enabled" {
   value       = var.enabled
 }
 
+output "ecs_execution_role_arn" {
+  value = try(aws_iam_role.ecs_execution[0].arn, null)
+}
+
+output "ecs_task_role_arn" {
+  value = try(aws_iam_role.ecs_task[0].arn, null)
+}

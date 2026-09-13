@@ -8,3 +8,6 @@ output "enabled" {
   value       = var.enabled
 }
 
+output "endpoints" {
+  value = { for name, group in aws_elasticache_replication_group.this : name => group.primary_endpoint_address }
+}

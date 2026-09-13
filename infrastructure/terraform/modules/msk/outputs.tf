@@ -8,3 +8,6 @@ output "enabled" {
   value       = var.enabled
 }
 
+output "cluster_arn" {
+  value = try(aws_msk_serverless_cluster.this[0].arn, null)
+}

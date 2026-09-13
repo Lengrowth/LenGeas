@@ -15,3 +15,7 @@ output "dns_name" {
 output "arn" {
   value = try(aws_lb.this[0].arn, null)
 }
+
+output "target_group_arn" {
+  value = try(aws_lb_target_group.api[0].arn, null)
+}

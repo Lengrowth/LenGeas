@@ -44,3 +44,28 @@ variable "worker_name" {
   type    = string
   default = "lengeas-edge-gateway"
 }
+
+variable "zone_id" {
+  description = "Cloudflare zone ID used to attach the API route."
+  type        = string
+  default     = ""
+  validation {
+    condition     = !var.enabled || var.zone_id != ""
+    error_message = "zone_id is required when the edge gateway is enabled."
+  }
+}
+
+variable "zone_name" {
+  type    = string
+  default = "lengeas.com"
+}
+
+variable "origin_base_url" {
+  description = "Non-secret HTTPS origin URL; origin authentication remains a secret-store binding."
+  type        = string
+  default     = ""
+  validation {
+    condition     = !var.enabled || can(regex("^https://", var.origin_base_url))
+    error_message = "Enabled edge gateways require an HTTPS origin_base_url."
+  }
+}

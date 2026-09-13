@@ -8,3 +8,10 @@ output "enabled" {
   value       = var.enabled
 }
 
+output "audit_trail_arn" {
+  value = try(aws_cloudtrail.organization[0].arn, null)
+}
+
+output "guardduty_detector_id" {
+  value = try(aws_guardduty_detector.this[0].id, null)
+}

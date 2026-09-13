@@ -30,6 +30,34 @@ variable "cloudflare_zone_name" {
   default = "lengeas.com"
 }
 
+variable "origin_base_url" {
+  description = "HTTPS origin URL used by the edge gateway."
+  type        = string
+  default     = ""
+}
+
+variable "capacity_provider_arns" {
+  description = "Approved ECS-optimized ARM64 ASG ARNs keyed by capacity-provider class."
+  type        = map(string)
+  default     = {}
+}
+
+variable "task_image" {
+  description = "Immutable ECR image digest for the platform service."
+  type        = string
+  default     = ""
+}
+
+variable "task_role_arn" {
+  type    = string
+  default = ""
+}
+
+variable "execution_role_arn" {
+  type    = string
+  default = ""
+}
+
 variable "tags" {
   type = map(string)
   default = {
@@ -42,4 +70,3 @@ variable "tags" {
     DataClass   = "platform"
   }
 }
-
