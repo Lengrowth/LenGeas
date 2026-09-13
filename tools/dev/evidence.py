@@ -286,15 +286,17 @@ def build_phase02_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "task": "3.53.1 (not on PATH; python runner used)",
             "docker": "unavailable and not installed per Phase 01 constraint",
         },
-        "completed_task_ids": [f"P02-T0{number}" for number in range(1, 10)],
+        # A blocked phase may have design artifacts and reviewable contracts, but
+        # task completion is reserved for task records explicitly marked accepted.
+        "completed_task_ids": [],
         "requirement_ids": ["RQ-019", "RQ-020", "RQ-021"],
         "artifacts": artifacts,
         "tests": [
             "Phase 01 accepted gate: uv run --frozen python tools/dev/task_runner.py phase-gate 01",
             "Phase 02 static module/root contract policy",
             "Phase 02 mandatory negative-control policy",
-            "terraform fmt/validate and module terraform test: planned in CI; live "
-            "provider init not run without owner access gate",
+            "Terraform fmt and provider-backed validation of the changed modules; "
+            "full-root validation is CI-only and no apply was run",
             "redacted AWS/GitHub inventory: read-only and limited",
             "live Phase 02 apply, failover, reachability, Cloudflare, Supabase, "
             "Resend, and reproduction scenarios: not run",
