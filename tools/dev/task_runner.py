@@ -81,6 +81,7 @@ def verify() -> None:
         "schema",
         "openapi",
         "license-policy",
+        "phase02-policy",
     ):
         if tool_script("ci_checks", check_name, check=False):
             failures.append(f"ci:{check_name}")

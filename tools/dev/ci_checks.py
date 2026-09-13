@@ -6,6 +6,7 @@ import argparse
 import importlib.util
 import json
 import re
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -112,13 +113,25 @@ def terraform_policy() -> int:
             return fail(f"Terraform provider {name!r} must be pinned to {version}")
     if 'backend "s3"' not in text or "use_lockfile = true" not in text:
         return fail("ADR-0010 S3 backend must enable native use_lockfile")
-    if re.search(r"(?im)^\s*(resource|module|data)\s+\"", text):
+    phase02 = ROOT / "docs" / "evidence" / "phase-02"
+    if phase02.exists():
+        checker = ROOT / "tools" / "dev" / "phase02_checks.py"
+        completed = subprocess.run(
+            [sys.executable, str(checker), "contract"], cwd=ROOT, check=False
+        )
+        if completed.returncode:
+            return fail("Phase 02 Terraform contract checks failed")
+    elif re.search(r"(?im)^\s*(resource|module|data)\s+\"", text):
         return fail("Phase 01 Terraform policy must not provision live resources")
     if re.search(r"(?i)(access_key|secret_key|api[_-]?key|password|token)\s*=", text):
         return fail("Terraform configuration must not contain credentials")
     print(
         f"PASS terraform-policy: {len(files)} HCL files, exact provider pins, "
-        "no resources or credentials"
+        + (
+            "Phase 02 contract and no credentials"
+            if phase02.exists()
+            else "no resources or credentials"
+        )
     )
     return 0
 
@@ -250,6 +263,14 @@ def license_policy() -> int:
     return 0
 
 
+def phase02_policy() -> int:
+    return subprocess.run(
+        [sys.executable, str(ROOT / "tools" / "dev" / "phase02_checks.py"), "contract"],
+        cwd=ROOT,
+        check=False,
+    ).returncode
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -261,6 +282,7 @@ def main() -> int:
             "schema",
             "openapi",
             "license-policy",
+            "phase02-policy",
         ),
     )
     check = parser.parse_args().check
@@ -271,6 +293,7 @@ def main() -> int:
         "schema": schema_check,
         "openapi": openapi_check,
         "license-policy": license_policy,
+        "phase02-policy": phase02_policy,
     }[check]()
 
 

@@ -1,0 +1,8 @@
+{"command":"uv run --frozen python tools/dev/task_runner.py phase-gate 01","exit_code":0,"result":"Phase 01 accepted with no blockers"}
+{"command":"git fetch origin; git rev-parse main; git rev-parse origin/main","exit_code":0,"result":"main and origin/main matched 4902c6fbdd099e6b31402aedfc23faed7b3039dd"}
+{"command":"aws sts get-caller-identity --query '{authenticated:true}' --output json","exit_code":0,"result":"authenticated limited profile; account identity redacted"}
+{"command":"aws organizations describe-organization","exit_code":1,"result":"AWSOrganizationsNotInUseException; no organization"}
+{"command":"python tools/dev/phase02_checks.py contract","exit_code":0,"result":"required modules and environment roots compose"}
+{"command":"python tools/dev/phase02_checks.py negative","exit_code":0,"result":"mandatory negative-control policy vocabulary present"}
+{"command":"terraform init -backend=false","exit_code":null,"result":"not run before owner/provider access gate; no live provider apply claimed"}
+{"command":"terraform apply","exit_code":null,"result":"not run; persistent resources remain planned-only"}
