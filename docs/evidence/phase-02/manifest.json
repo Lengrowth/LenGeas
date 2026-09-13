@@ -3,7 +3,7 @@
   "artifacts": [
     {
       "path": "infrastructure/terraform",
-      "sha256": "93e11a57f586adf643b1c2f16fa57ce08b29f461acfb275c10362946f4ea2533"
+      "sha256": "15a318b3193d214a57e3553d181e02a57ea12826823c17cd7d0f6c358fdc3623"
     },
     {
       "path": "infrastructure/policies",
@@ -11,7 +11,7 @@
     },
     {
       "path": "tools/dev/phase02_checks.py",
-      "sha256": "6d7003804092521a9ae7e313a60456196864a22337c8d97a07e6a6e9a0abbbf5"
+      "sha256": "6242c04f6c8f9e9fc8e1fb2cddecd8b557e65c77daf8b30456afd49b9adb6da4"
     },
     {
       "path": "docs/runbooks",
@@ -42,19 +42,9 @@
   "blockers": [
     "Required AWS Organizations/security access, Cloudflare access, Supabase/Resend access, and owner-approved recurring-cost ceiling are unavailable; all persistent resources remain planned-only."
   ],
-  "completed_task_ids": [
-    "P02-T01",
-    "P02-T02",
-    "P02-T03",
-    "P02-T04",
-    "P02-T05",
-    "P02-T06",
-    "P02-T07",
-    "P02-T08",
-    "P02-T09"
-  ],
-  "end_utc": "2026-09-13T16:36:19.286363Z",
-  "final_commit": "a5ec601af33efa430789b460e9822309a6357ccf",
+  "completed_task_ids": [],
+  "end_utc": "2026-09-13T17:18:16.025964Z",
+  "final_commit": "363dc254fda9f9dc883d9722b0daebe23e68ff15",
   "next_phase_prerequisites": [
     "Resolve all mandatory blockers and rerun live evidence",
     "Independent review and explicit repository-owner acceptance"
@@ -77,7 +67,7 @@
     "Phase 01 accepted gate: uv run --frozen python tools/dev/task_runner.py phase-gate 01",
     "Phase 02 static module/root contract policy",
     "Phase 02 mandatory negative-control policy",
-    "terraform fmt/validate and module terraform test: planned in CI; live provider init not run without owner access gate",
+    "Terraform fmt and provider-backed validation of the changed modules; full-root validation is CI-only and no apply was run",
     "redacted AWS/GitHub inventory: read-only and limited",
     "live Phase 02 apply, failover, reachability, Cloudflare, Supabase, Resend, and reproduction scenarios: not run"
   ],
