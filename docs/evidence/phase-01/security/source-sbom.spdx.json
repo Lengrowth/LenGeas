@@ -1,0 +1,2895 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "creationInfo": {
+    "created": "1970-01-01T00:00:00Z",
+    "creators": [
+      "Tool: lengeas-sbom"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://sbom.lengeas.com/source",
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-00001",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fd0b5a24cac315c1a6b6f6d19d5292e34124a00d7d6180f277f1602e5a7451aa"
+        }
+      ],
+      "fileName": ".editorconfig"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00002",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ac57da41f65e6ed82fcc9282852f044001b46036ed40238314572739f497172d"
+        }
+      ],
+      "fileName": ".env.example"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00003",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0db1f92b58b4abc299f64546f26e641cc77603a87f32d0ed17555f275c97d9f7"
+        }
+      ],
+      "fileName": ".gitattributes"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00004",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0cad4a9809537f1854b6fd739deada4e790c2875e716ef9769c1c0a6a5f78d2e"
+        }
+      ],
+      "fileName": ".github/PULL_REQUEST_TEMPLATE.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00005",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b619408464eeea2dca2b68d5e100eae18dbfb9be4441d4067cbd778afd45f715"
+        }
+      ],
+      "fileName": ".github/dependabot.yml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00006",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "af320322a08654684d4256e5770c8dc86dfbc26e4d3c684eb6382678c1ac383f"
+        }
+      ],
+      "fileName": ".github/policies/ci-evidence-links.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00007",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7429d8edffc1ad155cd64c363c8a0021ae3c6e46cd508e7a7e70e6a19a4f3fa5"
+        }
+      ],
+      "fileName": ".github/policies/signed-release-tags.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00008",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6e4309d3d18b72e76e7b0663055f61e12fde60d81ba11ff1be5eb80c6cc3c182"
+        }
+      ],
+      "fileName": ".github/repository-policy.yml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00009",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "907ad5d1dce4e7ce93cb85af922eef2cd5dbe0c25fe1b6efe3878d96b77e0e20"
+        }
+      ],
+      "fileName": ".github/workflows/codeql.yml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00010",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "38238f564a678eab49f11e99fb4112c27b3a51c5136dbead04b6acce5496899d"
+        }
+      ],
+      "fileName": ".github/workflows/dependency-review.yml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00011",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9e1d36a8d1ba4d3bb0410989885df78870bd4970b490141ebfe48511c016f70e"
+        }
+      ],
+      "fileName": ".github/workflows/release.yml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00012",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c6b012f039722e8097eb437411cbc194a5bd058db66c4e6daa51c499b56a508b"
+        }
+      ],
+      "fileName": ".github/workflows/verify.yml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00013",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "00dc025b61d39e40f0066b519aba7dcd0e8eb1575da2ca247c3af892bf2f50cb"
+        }
+      ],
+      "fileName": ".gitignore"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00014",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d68a08d73d92f00e9808ad335d5a622f6980839897f8495217647979391c3672"
+        }
+      ],
+      "fileName": ".tool-versions"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00015",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "14c67a09ea58e988d3af0868e5da3ed30bbca555f383b4771a0e10506a997e81"
+        }
+      ],
+      "fileName": "CODEOWNERS"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00016",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a85fbd2bc804cafff7e138238175f9d620cb1641a484c2bd71c732c626aab2bb"
+        }
+      ],
+      "fileName": "README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00017",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2ac103c55e806dcbbc000d70ed253ba3d001be34e5a26171214296b3e199c421"
+        }
+      ],
+      "fileName": "Taskfile.yml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00018",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6cf4c15a36b214591d9edcb47814723444a8e50498a794a36153964149d2ff7d"
+        }
+      ],
+      "fileName": "apps/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00019",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "85812713d007f0170f3f6e7551f4ac19cb7e768738f7c0329ad94e852e7aa96d"
+        }
+      ],
+      "fileName": "apps/api/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00020",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "11f575bd071dc06a197d18d229cbe9c86d732072cfca453b8066ae429d1a87c6"
+        }
+      ],
+      "fileName": "apps/api/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00021",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "af3032bbdbe98fbc362c27ab19f114e91067b42afb312bb315f0015ddafbaa3e"
+        }
+      ],
+      "fileName": "apps/api/app.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00022",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6348b0e26647711c5240fbbcdbcf9191c237fe3e1981c7e5645ab5297342b487"
+        }
+      ],
+      "fileName": "apps/match-service/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00023",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9b90e9e78c5384a32c1d310614b2485ddec9d4d469daf2df3332ad8a4d274920"
+        }
+      ],
+      "fileName": "apps/match-service/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00024",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0516ca75e62860a05f1e8ee31199336a64d3cafb3733be89371afee35e3a993e"
+        }
+      ],
+      "fileName": "apps/match-service/app.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00025",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "af6564991ffc1c3244a6333b84c190fe8c215b7659b5adcf04d97c7b9241af54"
+        }
+      ],
+      "fileName": "apps/realtime-gateway/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00026",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c13f7841121ef6dcc6bbe535c7a646eba7baa840c9606f2e0f28fc4a0ef9cf47"
+        }
+      ],
+      "fileName": "apps/realtime-gateway/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00027",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "33d4aadbfe2304a89074569d2e72b2b14949894e8f3e37ce9be0602167e9a330"
+        }
+      ],
+      "fileName": "apps/realtime-gateway/app.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00028",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f5865e19137f1a3ac0281ac7a439ba980c66863e6feabf58efb3e26bee644366"
+        }
+      ],
+      "fileName": "apps/studio/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00029",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bd607c7e7957a7aab4e146e553da5fd5773f067e992783727fce03c52dc7b01f"
+        }
+      ],
+      "fileName": "apps/studio/package.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00030",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3ee50f5ed0b1e4408cc45f04c26fa8a02b6c4883932409a3dfe95e75f019a686"
+        }
+      ],
+      "fileName": "apps/studio/src/index.ts"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00031",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "333a90aa440a1e163ed5caabe25b40e2ee33e1ca54c0c6a9e99ec47d6f0b1640"
+        }
+      ],
+      "fileName": "apps/studio/tsconfig.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00032",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "72d9dd33c60e033d8fd954903dc1aa7d3ccc339b131e6b920c4f74b4b8b2413d"
+        }
+      ],
+      "fileName": "apps/workers/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00033",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "000b100ff71016a81b3fdd5fd4ef15b2d012b74b9afd67de24b7a39817ab9e50"
+        }
+      ],
+      "fileName": "apps/workers/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00034",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e66e3af9488a1a198bf74f56b5e8fafba9e406e07757d75e0ff723bd06a76e86"
+        }
+      ],
+      "fileName": "apps/workers/app.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00035",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6d94d17c01d4fef6be737a14e73af7d8253d2625f8f0315fed42d2f109bd4735"
+        }
+      ],
+      "fileName": "compose.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00036",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "14347cd047643bab029fb9ed09f57ed5303030096a0c096c6f0ec0d0d93cbffa"
+        }
+      ],
+      "fileName": "docs/00-product-charter.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00037",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "eb4316e2cc03e88b2571f6b61ffbf0fb9670d86fb72f2d51252be00b48174787"
+        }
+      ],
+      "fileName": "docs/01-principles-and-invariants.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00038",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7b13dd27d3b82491fe01f3fa471ac480b59965e98a0c07224a9118775c500c63"
+        }
+      ],
+      "fileName": "docs/02-system-architecture.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00039",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "accd23758e55bebe1650f68a3882de8d0b9c5786a8f8b2bf4ec72ea9a7196e97"
+        }
+      ],
+      "fileName": "docs/03-technology-standard.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00040",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a15638e0c4c8393d429a199b666e29274679dbfeb54356f7871f71e648dce730"
+        }
+      ],
+      "fileName": "docs/04-repository-and-engineering-standard.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00041",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e4f06fffa1129a7bc59b58dabb7670a28b675ead256030df3ad3d1ad7df203e1"
+        }
+      ],
+      "fileName": "docs/05-game-definition-schema-v0.1.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00042",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fe40e9f6c60ed043be346247e85745f3d4bcd3db0376d9bdfb564cd762927822"
+        }
+      ],
+      "fileName": "docs/06-runtime-and-rules.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00043",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "02f93ef0a12ce82c74f19e634bb77fcca9d0c524b909a498357f7bfe916825dd"
+        }
+      ],
+      "fileName": "docs/07-data-and-persistence.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00044",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "daa36137bcc437200eab6b65eb6642d0fdcda53157ad28a654e84661e2f49be6"
+        }
+      ],
+      "fileName": "docs/08-identity-tenancy-authorization.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00045",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "cca16b4b82b607c415a763694f1b9d4b3c252fdd791dbc77e26206bd98e851a0"
+        }
+      ],
+      "fileName": "docs/09-api-events-jobs-timers.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00046",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8ce6bc646306187d6c662cdc0f90bea192b3b9d2e93f827f13a3d6a6f86d7aa6"
+        }
+      ],
+      "fileName": "docs/10-versioning-publishing-liveops.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00047",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ccfbec34557777bfb44bb3d541b472ffc4d2f2d4ebc6edb32ad64497017a0720"
+        }
+      ],
+      "fileName": "docs/11-saves-offline-sync.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00048",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1d3c51dcf1307079fea805222f0189f8c4fd8b8e3b03d473ad33ad0c27cfd9a1"
+        }
+      ],
+      "fileName": "docs/12-simulation-balance-experiments-analytics.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00049",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bc8d24af2de9dba0e6f11208d0f962d34fc16371ebbdc5ee08ab58c2451f0e97"
+        }
+      ],
+      "fileName": "docs/13-game-studio.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00050",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f2cb99cba3dd4496305810e0156c0c5242dc7da4e047ebc78c61baa5532530d5"
+        }
+      ],
+      "fileName": "docs/14-mechanics-packages.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00051",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1befff3024ec5a321688ee69f6431faa4b070cecb51a277b6bd9f12b41001103"
+        }
+      ],
+      "fileName": "docs/15-multiplayer.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00052",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8df1e67cc48cf12f2ac9f2f2acb6190181ca520d33f0cc981d4d00ac566ec8bb"
+        }
+      ],
+      "fileName": "docs/16-ai-agent-control-plane.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00053",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "86ca6b55948de6fe3fa323affee716da6d054e01aa5a1683d926b0fe81a1da1e"
+        }
+      ],
+      "fileName": "docs/17-security-and-abuse-prevention.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00054",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0a98b7a1395a6b9b1681b608846cabce89a30d5ef94f03b20239924ffce0cf7b"
+        }
+      ],
+      "fileName": "docs/18-observability-sre-disaster-recovery.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00055",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "37bada0b86e00147fab564c0846f823cf324510009dd30447a14d2a2f3a41ca1"
+        }
+      ],
+      "fileName": "docs/19-testing-and-quality-gates.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00056",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "48f1721ce52de0eb6b01dd5d2a235a854d2db4a68b21d45de1ae1ae8387fc31f"
+        }
+      ],
+      "fileName": "docs/20-infrastructure-and-deployment.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00057",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b9a36083c1d77d1e2b2cebc5259be656980e20bb5683513b6b4a10131c119697"
+        }
+      ],
+      "fileName": "docs/21-operations-and-governance.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00058",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c3d130987ea4ecd574652b4c1ded12cc48f647850be59f4f0487d264f3655993"
+        }
+      ],
+      "fileName": "docs/22-platform-completion-contract.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00059",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9f428691b4696f846bbe7e3068d39972ca754fc7c7e3043b6acb6fc5a0134526"
+        }
+      ],
+      "fileName": "docs/23-traceability-matrix.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00060",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "75f07bae81dca35ed31b19725ecf92cba7c0ac74f2ca52efab80034df75d48e6"
+        }
+      ],
+      "fileName": "docs/24-assets-localization-notifications.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00061",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "94f8ce8f2d46fdefc7e774c09d9eab6dc524ddfdd5b8a0da7a71f66c13fc1d0d"
+        }
+      ],
+      "fileName": "docs/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00062",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "64c8611c7c187551b46aafe47219746a5e12c6c5cc7520fc8d57d0304c7cd868"
+        }
+      ],
+      "fileName": "docs/architecture/container.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00063",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2dc5ea313270f94bc6af28da6b4633728a70309a12b6838dc83e7c795eaf0d43"
+        }
+      ],
+      "fileName": "docs/architecture/context.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00064",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ed45f7999eb1d6504feb4faa8a0b4bf02a88f605e4f740020e483401d42ec4b9"
+        }
+      ],
+      "fileName": "docs/architecture/data-flows.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00065",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "dc81854c0a6be6102f6a689ce108fe8ac0fa0376f3da19a3b63b37416a39e3f5"
+        }
+      ],
+      "fileName": "docs/architecture/deployment.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00066",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "759b371f81553715b308d0a5a9146792a7163502735b927016b8e04ee1bbd31d"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/c4-container.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00067",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "64368ec52ab04a45d94845f0332699826c867f47f7f6e43cf8d5e5a1c2ee1c80"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/c4-context.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00068",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "280663b2dbfd98d4e47f2134325fefe1d78ecb27447f32e6f6d547dcad45b92f"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/c4-deployment.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00069",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "933ab2bda655e6b8969b89d11a080003ed604b2142872dd071d2ff5bf35b585e"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/data-flows.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00070",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5ecb05e6cfb025c219ef8f57a0a2e2d5307873e414f72831b07c2cd1754dbb3e"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/sequence-action.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00071",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3f98fbeb0faa15c4f6f6edda6eac959b35b6452b18572fa07a4dc968f3e50dee"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/sequence-ai-review.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00072",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ca147a2779380e1fc7e96f99145282dffe6158df122a3584d85f88cc4fb6bd24"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/sequence-async-match.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00073",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "96353967bdfc0d0a6f937decf9cea3cb31bcf74e65a8b197c2bb0ee3ad5b1ce5"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/sequence-event.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00074",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e9c8c7da0c25aab21ebc01c6d4d0eae1f416db47a503b46be6c597fce3bce169"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/sequence-publish.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00075",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "091702243bcd3be299a73a8d14cee21bdf53d868687daba611a4d395deb463f6"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/sequence-purchase.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00076",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ea6a38b67b7fa4f5c0a3c3fd75c2bfb60df73e3aa1b7e85f820e751793323970"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/sequence-realtime-match.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00077",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "07d6b5defb417014379a36fd186ccba8f7f71b3e0b190b8453870d57b3a14dc8"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/sequence-sync.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00078",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6a2eda43a546b6b1ccb7f2a95c7aec68194ebf44c75395658c2499772d2cd046"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/threat-model.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00079",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bf7645c69b852869e7a37e19c166e6e5c47b11c1eeb8775161de5ff838ae5d36"
+        }
+      ],
+      "fileName": "docs/architecture/diagrams/trust-boundaries.mmd"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00080",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2f6d2cefc524974c1ac3450da67751c74abf817baf01def8ac31628969cc859e"
+        }
+      ],
+      "fileName": "docs/architecture/trust-boundaries.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00081",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2d41b205391adc8f72c05d1b97c538ef00907879d9160c5b34ab8e23c2fab793"
+        }
+      ],
+      "fileName": "docs/decisions/0001-cloudflare-aws-responsibility-split.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00082",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "89ff7ba931179c8b7e784b5006188f04123d8bf0e197c8289e4c247a9ab0c2e1"
+        }
+      ],
+      "fileName": "docs/decisions/0002-mongodb-atlas-document-storage.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00083",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "296b7523c9f48d7ed0b944acbf84762a619373ccf2e5594bf7852ce091e35643"
+        }
+      ],
+      "fileName": "docs/decisions/0003-ecs-ec2-container-runtime.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00084",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b257184b6ea52909a8d426263e37df5ad95ea3be246bc6abbbdf202e217e943d"
+        }
+      ],
+      "fileName": "docs/decisions/0004-celery-amazon-mq-background-work.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00085",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1e07d2306c549ae69d70fb9c52f73ccbb9f01019b3664ed64d7ca220bfd067a1"
+        }
+      ],
+      "fileName": "docs/decisions/0005-msk-domain-event-stream.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00086",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b1c9beb175631a139e73ee0cce2bf8cdabd4cfe0e8ca730015dda63b9b2c440e"
+        }
+      ],
+      "fileName": "docs/decisions/0006-json-schema-definition-contract.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00087",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "27a48966f8faf520565e4a31c12c72bf8efcfaa3d17da89b9ce66783d7f5397b"
+        }
+      ],
+      "fileName": "docs/decisions/0007-deterministic-expression-ast.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00088",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "471e53b3b5ebd5e7af8f462f35b767f636eaf7d8efdfa4220f0886ddfcc70b51"
+        }
+      ],
+      "fileName": "docs/decisions/0008-nextjs-opennext-cloudflare-workers.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00089",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2ec8b366063eefa22b2554aff12147ed8f7628c7c1dad62fade0acfb194e04c6"
+        }
+      ],
+      "fileName": "docs/decisions/0009-supabase-auth-internal-identity.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00090",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c0ba403eeef89aa88a3b5e03f1ebf843d9ccb1a1fa799c6c5650508a4c75b66d"
+        }
+      ],
+      "fileName": "docs/decisions/0010-terraform-github-actions-delivery.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00091",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7413ad0d4029c1116b750081ca85ffaea850aa9ef890b44ac37cb02a8011e13b"
+        }
+      ],
+      "fileName": "docs/decisions/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00092",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0c519bfad121e03bbb0380cbbb8fad2d94048d683064f23b492c43dc261f8254"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/architecture-review-minutes.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00093",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f47c0272463ad7272b01acbe2804ee036c79153ad60d85ac29cfdb87a5b216be"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/blockers.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00094",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "93ae6218e65121d92b0ca1e47d1f4a859500c2983387b144a66acd1d3bf34f93"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/commands.ndjson"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00095",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6f3920751b68429ea3b83399ae2b034b3a7824a55e7e078c7a4ae72d693c3d00"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/coverage.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00096",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0b3b3d0f7d21f6518ddd90fe555ebe7edd50d231b7fa39a65bda5df1b9b5b426"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/decisions.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00097",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "93ed1498fa4d1be1aaedbb47f8bf8fcee9348c69c2708adfb9a24eda7d177c16"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/handoff.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00098",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "98a4d934f2388979627ba3567faca969638efa7ad6de6698d01dc9360730c122"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/manifest.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00099",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "89ea27c70d873b2dd53e1505d5e079eb97ae1bbf95d8a0a0ccb037b3434ee6d1"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/operations/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00100",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8bbba127edbd8987dbe1711050f4759b0c6efa66a5ced50f58f97c4adf11b28a"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/operations/operations-baseline.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00101",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "28daaab2ea7e339a1126a5869c5d6247cf6c27e1227b463709ab560fa739a4c7"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/operations/phase-00-runbook-index.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00102",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "dc5524def3f21859f711f09d2769ac17ea51382814a43d03111a8e544deb55b4"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/operations/runbook-index.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00103",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2bbf3ee357905c35f37164e9982cdfe1e146e742898bcb698ac631d5f8a74c36"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/performance/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00104",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f3a4fbc5b22665d2a36ad53f47cfeb667bd88ab77b8204c756157437e8227206"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/performance/baseline.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00105",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1b77664c2afc06517fcd66abea8a18140f42a02f5a43030187992cf1cafb4197"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/performance/design-baseline.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00106",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "333a62429f4c49c6566ea92bcdbd21950f809a2648d498d21881f9ca19dcf229"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/performance/phase-00-baseline.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00107",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7ee380c6f3141fb071c3104f787121a757ef1752beb8523566e5fd50b801159c"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/phase-00-gate.ps1"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00108",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d18e0900cbbd90da2319a7553b2342947566029b71700cbd469cc7b93ea380bd"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/security/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00109",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c04e88e2f6aa55b080f67055aaa878a6cbe395142d30a69374c4b2a038565409"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/security/phase-00-threat-model.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00110",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "106f15f100e477b6481048b22fa5084394508de37d18bd0366792fb77fffa130"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/security/security-review.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00111",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "31e578e37895ad22e103ed7b04df5c799774af2c4cdedcb517b61edf0d307ad0"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/security/threat-model-digest.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00112",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "36bbff054b46fa159965ca2185290d28a5b17af004f892612989bb91549b11f8"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/signatory-record.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00113",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c60b46a500136d618ac205d29cb02905be2829d91022f7936396f5518940e3c5"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/tasks/P00-T01.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00114",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b77f7e86742acb8106b4bc1fee3b660397133d3cf1988e4f0c4d353cadd822aa"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/tasks/P00-T02.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00115",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "afc109974e7901af0f3f2839202080daeb5f6ee5d4d928d41dd14fb33a13b371"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/tasks/P00-T03.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00116",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "50ef2dfbd7622c53c0ed937fd17c1d7e8f756c457d1cf500d297dcbb596a4530"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/tasks/P00-T04.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00117",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "18971d61e92c6427197adf0d16c4b74a25ea6bbe8454751c3e55c3497127f8d4"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/tasks/P00-T05.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00118",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5f5c950a26fdc6567fe2b52bba91157b8ae2885546cb658f4e6107a436dd13ed"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/tasks/P00-T06.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00119",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "684a37d54f1a6552a05115f47f59446a54136aed078112d6375f77e6387c2ff0"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/tasks/P00-T07.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00120",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "feddbbac640571c4ae59c2b7a72230c9eee8825c7fe53f27567fae1707651b81"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/tasks/P00-T08.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00121",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "116ac5843289f13d463c10d0ee285cc8aacb016057743087f3ca3a5078f82975"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/test-report.xml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00122",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "660856cb7c1611e97bbff0707bc988a0cfc12998a14a3932f0b378fb34276bde"
+        }
+      ],
+      "fileName": "docs/evidence/phase-00/validation-report.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00123",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ee98cdb8bf456fd7ec309c3f457248f83e66f6ecb589500d22fedf16e9b91e3d"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/blockers.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00124",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "609f632839a664392552e420c6f08aa87e78ab799e80f0ac3393f45d8b4ed572"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/commands.ndjson"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00125",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "87bf9b87a399097d27f401dfa65a114d4ce972d9f78e03e3ef13034acf908ba3"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/coverage.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00126",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "13ee458aaefe0ef9698096d122350d65719ba4ce002a944fa547f0c3bab43fe5"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/decisions.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00127",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b74414dc311158e3ad91cc61790efe37257e8bd0e5ecf9f9a01afb198e11a1a2"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/handoff.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00128",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "095bdc9ced302e3e4522b17723a1dde6a922602eeba0bee8b4a94622dcde88c1"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/manifest.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00129",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5df7456e11b627be1876ecbc31d4b5c85b6daa92a6a2d7c00dd731c0173d9f40"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/operations/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00130",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4cab7d91d9a615e8a21d8d4f51502b5a6593fb343d98808067bae5215ca18c01"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/operations/service-map.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00131",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f0a29f64904d9b713e01d971dd285e120fefb0d47fd9a282c83561869f60a4d3"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/performance/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00132",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "805b04380d7204101a589339499674d273969d5d637c3b8569daef90ccdf307b"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/performance/bounds.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00133",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7aef8e47834c0597ab2827377242d06b057b92dcf4335d3a90e56927338cc998"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/phase-review.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00134",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a0784ef86045243eea2e4c951e16de1810d96bd00440b254aaff46ac28b1a110"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/security/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00135",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0bc13ec0d30bbe3f429c3e6190898c2a32eb51d3845d1f1bb3357236f3e9ccdf"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/security/policy-scan.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00136",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8aa6fb16b881555e9950cc8c6d4b3afa05c7e42dd33cf4f4d6f417c6bbac7ef5"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/tasks/P01-T01.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00137",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c2c07d03cc50a36f34c11bfdc897f1cd13506527e7e2547177f6c8992dee2dce"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/tasks/P01-T02.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00138",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fbfb997f2821319b4ef7aa5256c0b3cb9f26c398e7d886a07a8308f36dbd733f"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/tasks/P01-T03.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00139",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "44f59843a2b5b948ce3ce823946a3fc0f732ae52aaa9c5535a4eea9c8b2d3b4e"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/tasks/P01-T04.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00140",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0dd73ca9b7a79670920f1b190e13f7de5860b9dbb1f29ba560f03909c09f6a89"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/tasks/P01-T05.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00141",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "070c2dc8536a18e193a5eade8728f61889e29d8d850050f5b5870c14130a8e4a"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/tasks/P01-T06.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00142",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bf545fe23ddfaa3ceec1175c24649cfa2e7390d0845f677e516d62867a6107a6"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/tasks/P01-T07.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00143",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "63d1ee7fe70c97d40bb37e1b7fe7d31852d163342fb242b10e1cd0fd32b84a1a"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/tasks/P01-T08.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00144",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9ec12fd6ff04de8bc4c902b26d1cf5cd8754974d0c29989a436e4d426812d4e3"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/test-report.xml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00145",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ff12cd501f931eea578cdc339eee80badf2b79643297e5529942c0abb8c8a6dd"
+        }
+      ],
+      "fileName": "docs/governance/invariant-review.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00146",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "45201e82d9ff373be8a5ed69d37068661f02756d35cda6dcded78b273570fd66"
+        }
+      ],
+      "fileName": "docs/governance/ownership.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00147",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "97e6951477acc867a4a19505a4f41c6c832a856776c32aacde581847895e5f09"
+        }
+      ],
+      "fileName": "docs/governance/product-charter-approval.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00148",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "35ea4a54aa059d46a8f4caac1b81f481bac3b92efc34d84c42f0a6786a671e83"
+        }
+      ],
+      "fileName": "docs/governance/requirement-register.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00149",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1abede628f7d8c3427e068d2827e2bdf4a0c1988eee62c4072a879b340d07a5b"
+        }
+      ],
+      "fileName": "docs/governance/requirements.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00150",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bce698a8297b515173685f9471d94f85b7eac55eeda33591beb195513b93b867"
+        }
+      ],
+      "fileName": "docs/governance/risk-register.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00151",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "68d89abfe55b6470f07288a181e211c7c254eea0d34958185ce68d92e376687c"
+        }
+      ],
+      "fileName": "docs/governance/schemas/ownership.schema.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00152",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "654fc26c7f500d2543c111fdfa54ccfa15c2638e14a0e60fe039cf5f008bcfc1"
+        }
+      ],
+      "fileName": "docs/governance/schemas/requirement-register.schema.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00153",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "163528d3938336492d71b492abfa75d75928b5749533f515f622796498795e7b"
+        }
+      ],
+      "fileName": "docs/governance/schemas/requirements.schema.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00154",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b8e9e1390bfbe23dc8be3a1238ac2e431515358eaf6c7d8fc6e26ceabbc46a51"
+        }
+      ],
+      "fileName": "docs/governance/schemas/risk-register.schema.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00155",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f33cc88196cf357ecf49eac7e878f22951c20d7b23d65af8ce6491e0ea5d97e2"
+        }
+      ],
+      "fileName": "docs/governance/schemas/scope-register.schema.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00156",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8ab8d58c5c2a250f2173cf4fa688d2558dad70e76c52a5f3b5e87ba5d21aeefc"
+        }
+      ],
+      "fileName": "docs/governance/schemas/vendor-register.schema.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00157",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "52eaf94277b8729dde805992fdeb6311ae7a7a0dfc3a2b32900995604f4b455c"
+        }
+      ],
+      "fileName": "docs/governance/scope-register.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00158",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "07fd3b3cc895097626fecdca4ce4e779c3c3625cb4f8eb8d1e59fe3b44cbc5e1"
+        }
+      ],
+      "fileName": "docs/governance/traceability-matrix.generated.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00159",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0ea42fa42f9e3b60fe08f8e5ec8e022c07ea0e3431f5b137de36accadc88b38d"
+        }
+      ],
+      "fileName": "docs/governance/vendor-register.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00160",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fc24ea9748ce4003497d7351b44a61073cf72c7820feca35f983525856ed7266"
+        }
+      ],
+      "fileName": "docs/phases/00-charter-and-architecture-lock.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00161",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "cbfa4fcae9d2e74d4f964db56b89b8667fca7656a4a6037a4081ebcfbf3fdc54"
+        }
+      ],
+      "fileName": "docs/phases/01-engineering-foundation.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00162",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "11c272f12e8d866760139a859d4d0b045fd4a537ff6a616dea0d7ff032db28e6"
+        }
+      ],
+      "fileName": "docs/phases/02-cloud-foundation.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00163",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4f7550567b9527d8a2a59c2e13de3a6fdc8c0e1fcf24006025e27a82b5b48ebe"
+        }
+      ],
+      "fileName": "docs/phases/03-identity-tenancy-authorization.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00164",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d6b7d310bad086d74d0df06335d1bc5225ccd0f1d1c0d2a761b019850f095318"
+        }
+      ],
+      "fileName": "docs/phases/04-definition-schema.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00165",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1eb9cf479764c2dca867448ee68e08369cd94f9a0db31d53fef4be2a33fe5c16"
+        }
+      ],
+      "fileName": "docs/phases/05-runtime-primitives.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00166",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4eb70fe71c2e9b68f35b1a1b9a257d85d5a34e357083e2a256948e0167bb90c7"
+        }
+      ],
+      "fileName": "docs/phases/06-state-economy-inventory.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00167",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "22ba8dcdd5b7118898d5b2535d03c62e97e4f144be30fd5b5a02cd1a04238640"
+        }
+      ],
+      "fileName": "docs/phases/07-progression-and-sdks.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00168",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "50e8aa346a084bd8f6769884545947445830a296c6c2d377b8893d3012af5fa6"
+        }
+      ],
+      "fileName": "docs/phases/08-registry-publishing-liveops.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00169",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1c0dbf8e0bc8ffe881c1653245484766db3dbdc569dd7208288ecc6aaacc8942"
+        }
+      ],
+      "fileName": "docs/phases/09-saves-and-offline-sync.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00170",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7ba30dfaa07aa60593985087500415348cb30e2fcd44145c77bb701bc7b43c3a"
+        }
+      ],
+      "fileName": "docs/phases/10-events-jobs-timers-analytics.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00171",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b27a9f89b0ee14959204a402f4957b879707b07a899e87c77d17b0667797fa86"
+        }
+      ],
+      "fileName": "docs/phases/11-simulation-experiments-monetization.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00172",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "82d371eae7284598b6e79c6969f8fb52b843f15f5a1a12fd95c7d0b55f125a86"
+        }
+      ],
+      "fileName": "docs/phases/12-game-studio.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00173",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "72a52d5b97e22a5df3f98a6f878cebdd7e5385fdc8e70373b7a4ee871a12d1b7"
+        }
+      ],
+      "fileName": "docs/phases/13-solo-mechanics-packages.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00174",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8194532b525e897117ab76edbfad581e64e61b1a1e16674be9c87844e5222536"
+        }
+      ],
+      "fileName": "docs/phases/14-social-and-async-multiplayer.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00175",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "373046dc826d83ae085675a4bcc2b9f5276667beff1e3fdce58df3986d1613b0"
+        }
+      ],
+      "fileName": "docs/phases/15-realtime-multiplayer.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00176",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1f39490f45614f4846a261ef44df3841f73d502bc40fad87117b9599c3ed2096"
+        }
+      ],
+      "fileName": "docs/phases/16-ai-agent-control-plane.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00177",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2a58a68b07ef73231d7f37483e67212d5dfb752628c6e078c3793c9817817dc8"
+        }
+      ],
+      "fileName": "docs/phases/17-production-qualification.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00178",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7cd79d7ebc9e117a75b11fc63b264abf59371761083e32d10d8ecea73bd11b47"
+        }
+      ],
+      "fileName": "docs/phases/AI-EXECUTION-PROTOCOL.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00179",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e735c40444b84b7589470e1e167742935f6bea911e19aca12232071c0f794a9c"
+        }
+      ],
+      "fileName": "docs/phases/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00180",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "56d21150a9bd2fa280b3f559f0ebe68c7e476b7eb549f01127d548217418569b"
+        }
+      ],
+      "fileName": "docs/templates/adr.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00181",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fb934dbd12cf4651ac952853371a5c1986a840e1fea6517a35c193535f49b41b"
+        }
+      ],
+      "fileName": "docs/templates/phase-agent-prompt.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00182",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "025d89be91df50082f4fbb3ed7e82c944a28c698e4c218be70d7aa1cfeb9ae39"
+        }
+      ],
+      "fileName": "docs/templates/phase-review.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00183",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d7c69c94f62b09c724e572b9055fb8450722cb7e880dd428a8cc66094fcd770a"
+        }
+      ],
+      "fileName": "docs/templates/task-record.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00184",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3418c70c2a294e20756f79dc75802750dc30cf7b9588f850f254d2137fed554f"
+        }
+      ],
+      "fileName": "infrastructure/docker/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00185",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9fc448f852f0beef2dde2e31fe57701dac5b184ae051e92b8a2993ecb4318b66"
+        }
+      ],
+      "fileName": "infrastructure/docker/SERVER-DEPLOYMENT.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00186",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8764093c4d5523946cba3cd4bf6608bd0a83ffb8e045d1bd92bc478f95bf1897"
+        }
+      ],
+      "fileName": "infrastructure/docker/api-shell/Dockerfile"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00187",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3ca476d54c773875f80123301410921215c82e79bcaadd354a02fca568712e47"
+        }
+      ],
+      "fileName": "infrastructure/docker/api-shell/api_shell.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00188",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ce0bd69f3a72d7e42d085211153cbb1036e9a55cd7ae88de109fb3b5160bc300"
+        }
+      ],
+      "fileName": "infrastructure/docker/grafana/provisioning/datasources/datasource.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00189",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "397029cc5c63f831591213daa145ed7163f46e6516d044b63a4e39c9bc6f89b1"
+        }
+      ],
+      "fileName": "infrastructure/docker/otel-collector-config.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00190",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "34bc026fdc7d7ca1fba1d270f3f894283361f98585399dc57c702c442a3e3964"
+        }
+      ],
+      "fileName": "infrastructure/docker/prometheus.yml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00191",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8dabf9af5218ce9badfc418046c7bfb511241d8e7670bcc2a980159b8da9974f"
+        }
+      ],
+      "fileName": "infrastructure/policies/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00192",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d6d4fb18222041c6b9d4726f131fd90f34da8d936ffe1d7ca56c687cacda769a"
+        }
+      ],
+      "fileName": "infrastructure/terraform/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00193",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8b041923ad8635ebebda6612213a13f82f128c7a2b1184022f179b17ee3b0999"
+        }
+      ],
+      "fileName": "infrastructure/terraform/bootstrap/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00194",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b8e3f4490493e58230502447fd2997bda276ba83b6831c17b8c8ff5486aeaf64"
+        }
+      ],
+      "fileName": "infrastructure/terraform/environments/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00195",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3c4dd6231be5d39392ae0ae4f4b56066c8d9d632117ff07d4f6c88c77919a6a7"
+        }
+      ],
+      "fileName": "infrastructure/terraform/modules/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00196",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2cf516d359f5eafd1d65304e802d5b17476d79bd70e4c1ad4f157a0059a3ade8"
+        }
+      ],
+      "fileName": "infrastructure/terraform/versions.tf"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00197",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "55863d91357d104bb8b23a870d70b992290b0023259576ec3deeec32d8dfafb5"
+        }
+      ],
+      "fileName": "mechanics/async-multiplayer/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00198",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ae108052137c99259d39861d15eae7995b731e7bae77f061a3b7cdaf8999c54c"
+        }
+      ],
+      "fileName": "mechanics/cards/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00199",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fb0de41bf0b8ef6255913b5ecfaf7453f16a0c57e90226da2f06cb791dfb9826"
+        }
+      ],
+      "fileName": "mechanics/crafting/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00200",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "67cd14640175c28bc5a0eef1de506ec50b68f3c95b3101842eb9c43dee4343b4"
+        }
+      ],
+      "fileName": "mechanics/idle/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00201",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ca0d82d83047a4feef82ea1601ec75217a3ee935a5fe53c57f7a196401897bf8"
+        }
+      ],
+      "fileName": "mechanics/management/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00202",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "519001ed7c23f6b7aef72fb7505387f8e9bbb06af85c5253723196f90b0531ab"
+        }
+      ],
+      "fileName": "mechanics/merge/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00203",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8b96ec3f2ad3d4729bfee973647261628ea80c2f152d01d83339d054d6cfce0d"
+        }
+      ],
+      "fileName": "mechanics/prestige/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00204",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ee4ad992629ae3090ba3d513a1218383cb2bcad38a9290405ab7df262278a4bd"
+        }
+      ],
+      "fileName": "mechanics/realtime-session/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00205",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1adb5f1ca6dc900e0e113ba1c4b53a44518cde64601d9200ea68b52e935fa66c"
+        }
+      ],
+      "fileName": "mechanics/rpg/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00206",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "63cd396abe416d3fa5b23a55c4184e32fb3b32681ed0fee10afc3a3a28cff976"
+        }
+      ],
+      "fileName": "mechanics/story/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00207",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8ab0ba0cef3fec49ee6e5a6504b02834723f34341ca79be6c173ad093a292e56"
+        }
+      ],
+      "fileName": "mechanics/tower-defense/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00208",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "abfd55a6cc746ea0539f89f9bc8ff68cf0a0945dafb28a5bf819974790547929"
+        }
+      ],
+      "fileName": "on-call-roles.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00209",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e2fdd040f231a7b5d471a1ec5acb714dae93aad7111c0388759735702ee58835"
+        }
+      ],
+      "fileName": "package.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00210",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c7fae8ef88556c52e3875d21773f3a76327a147660dc4f48bf72db18f371e0fd"
+        }
+      ],
+      "fileName": "packages/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00211",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5905a52f7b0927f53218e6373114bf8fa52f89d5a3a6e19853158dd1f70692a2"
+        }
+      ],
+      "fileName": "packages/domain/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00212",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fb9f70eb8a6c79b19ead597dd888110523a11ec0314425538305d6130f09e6cd"
+        }
+      ],
+      "fileName": "packages/domain/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00213",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8b5600452255cffb173a51e338ed2c7e9f2b3fe3ca3503a2cb13d7f8364d8daa"
+        }
+      ],
+      "fileName": "packages/persistence/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00214",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "02e30cdf1139f02b37d79a968fff1c66099360a6e188de820bf5772c66f50df4"
+        }
+      ],
+      "fileName": "packages/persistence/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00215",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e2bd7bd40cc0d3756e6ecd1d2f5c94af948bb3929ff242114b16af1996ec3b95"
+        }
+      ],
+      "fileName": "packages/runtime/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00216",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b5335a1ce1d7d8d1fd0a137cbb896f81cd5fa6770f090138ec733c63fc672af3"
+        }
+      ],
+      "fileName": "packages/runtime/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00217",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b6786af574f60e803b815dab2bc547ba57a3e7c0f143af81681d26699f17c5a3"
+        }
+      ],
+      "fileName": "packages/schemas/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00218",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b9d6c57cd4f56392e0fe84e883ac277da93cb0d9b37cd4e17c7a71f9f3b54af6"
+        }
+      ],
+      "fileName": "packages/schemas/canonical/vectors/fixture_canonical_json.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00219",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b5136e43c82abd016589fabfdaaa71d066cb46b57bfdc27e3409f1946550f443"
+        }
+      ],
+      "fileName": "packages/schemas/evidence/phase-manifest.schema.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00220",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "68ae2119e331b0d07ffe53f448d2c52118879fe151b9822f6f74310366572c92"
+        }
+      ],
+      "fileName": "packages/sdk-csharp/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00221",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2a45bc056f395d85577f2c31c8354554825cc41a306ca9ad080edac758381d7c"
+        }
+      ],
+      "fileName": "packages/sdk-kotlin/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00222",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b4fe29078fe4942161fb147812ecf9d849286a8ed5994e04a2b37ba70d472765"
+        }
+      ],
+      "fileName": "packages/sdk-python/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00223",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a4329177f152c89774a02fdfbf2c70d490f7f92faa7a984558597dcd9d73b221"
+        }
+      ],
+      "fileName": "packages/sdk-python/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00224",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1d6acc0b73143dd884fb1b53e4b00c4f0f10862c6c11931cff2d2e389d24ff28"
+        }
+      ],
+      "fileName": "packages/sdk-swift/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00225",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "64918b2c592c0269d6c809eb70b54a5e8034741c6d2590447d1ff8f80713d881"
+        }
+      ],
+      "fileName": "packages/sdk-typescript/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00226",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0ea3d42e28f94cff56503d11a738122185210f197c14a038f34a3dbca22a2842"
+        }
+      ],
+      "fileName": "packages/sdk-typescript/package.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00227",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "65fca53e2f87e3dec21a3431dc4ba4c5de6eb73290cb84f8a636439b63dd5e42"
+        }
+      ],
+      "fileName": "packages/sdk-typescript/src/index.ts"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00228",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "333a90aa440a1e163ed5caabe25b40e2ee33e1ca54c0c6a9e99ec47d6f0b1640"
+        }
+      ],
+      "fileName": "packages/sdk-typescript/tsconfig.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00229",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6dc28db2fb785416a9a97d5d541b6f68061a6ae99b624481038a4d248c525f88"
+        }
+      ],
+      "fileName": "packages/shared-types/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00230",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bd05bede4eb6b0d378ef1acf171b615b8fe7b19e64be3f128ad8b2a88ede7a5a"
+        }
+      ],
+      "fileName": "packages/shared-types/generated/fixture_canonical_json.canonical.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00231",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8dc17c371064812b89b144e536f7d3b97073816efe720b27e10ff7125b78814c"
+        }
+      ],
+      "fileName": "packages/shared-types/generated/generation-index.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00232",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a4c8759513ba9dbf392107c011afb16d4ecc9ad351f6c76cf45656f7818a5a5e"
+        }
+      ],
+      "fileName": "packages/shared-types/generated/phase-manifest.ts"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00233",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3da061ebb96fddc1524e3f6f3df9d9aa337a3ec6f818cf6e1cceb1b42f60ce23"
+        }
+      ],
+      "fileName": "packages/shared-types/generated/phase_manifest.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00234",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "04cb53c48274147e5591209af0b7130f4109edd97d1be550cda7a96489088bd1"
+        }
+      ],
+      "fileName": "packages/simulation/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00235",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e99228ee09a788c87c9074ddaf1bc8f57dca77e7b919f8fa14db976686905d70"
+        }
+      ],
+      "fileName": "packages/simulation/__init__.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00236",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "096d07803ea46d9234b067cd7143d81399b63d96a86d61074d5c7cf0b98ee5e7"
+        }
+      ],
+      "fileName": "pnpm-lock.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00237",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3ffaf6699c3b117a18e6eb611ddecbb1abebe835ca043cdb0521a252093f2bce"
+        }
+      ],
+      "fileName": "pnpm-workspace.yaml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00238",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "83304120b6efb371ebe6b0cc4cfbe98c21f8a895ee68fe6c7397cf9ca0e21b6b"
+        }
+      ],
+      "fileName": "pyproject.toml"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00239",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "16ba7972d118de5cd4232a8f8467955396cf6a5a308ad17b5604fc7e8f8570db"
+        }
+      ],
+      "fileName": "tests/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00240",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5dc960bc04f62903440605d890c46373c5e5c2e547711a5fb79b5fe021d65137"
+        }
+      ],
+      "fileName": "tests/conformance/fixtures/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00241",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b8d139aec384b8286ae81bcff982ba4db967fe075f4e396caf08c482f838acce"
+        }
+      ],
+      "fileName": "tests/contract/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00242",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0f79cc342b5dc1899404cd261c3eb6aaeea1bdc9f60289562df468ba28bbc911"
+        }
+      ],
+      "fileName": "tests/contract/fixture_contract_schema/fixture_contract_schema.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00243",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2ab22ea21c668ba86258e57c59c7e8c465c05b074d513ddcf636f68640c2002b"
+        }
+      ],
+      "fileName": "tests/contract/fixture_contract_schema/test_fixture_contract_schema.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00244",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "18b557a17bdd34fc56708a27bad0ea22cb4680d4ce86191a5c01c72c3a1a9b8d"
+        }
+      ],
+      "fileName": "tests/determinism/fixture_determinism_replay/fixture_determinism_replay.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00245",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e0eec8ae80160b8917baaa433c863e81de2221db68f5b246258f0a29e9982e26"
+        }
+      ],
+      "fileName": "tests/determinism/fixture_determinism_replay/test_fixture_determinism_replay.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00246",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b73fa6d382ff2466604c14b521a3e39553f36c9f2c418da19498ec7a93eea118"
+        }
+      ],
+      "fileName": "tests/disaster-recovery/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00247",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "84138a80f33aea8945d92237175005bd40293a193f48ff4dbf04d4fea3bff2be"
+        }
+      ],
+      "fileName": "tests/disaster-recovery/fixture_disaster_recovery/fixture_disaster_recovery.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00248",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e133a7973b3767caaa920625ef6728ca06284112328126486b27873bcd10e6a8"
+        }
+      ],
+      "fileName": "tests/disaster-recovery/fixture_disaster_recovery/test_fixture_disaster_recovery.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00249",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "67bfb7c1ce100408223c2c81ee575ef5c1f7c82d79b2c6effe329f0d1b799ccd"
+        }
+      ],
+      "fileName": "tests/e2e/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00250",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "dd498740e69ae00fffb305dac6332b19e69c230c8629a5a7959a5f1f8cf890b1"
+        }
+      ],
+      "fileName": "tests/e2e/fixture_e2e_publish_flow/fixture_e2e_publish_flow.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00251",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8e9700488da71757a9a1f12b0672049e27f3255cf608e635929a246f0b366cb3"
+        }
+      ],
+      "fileName": "tests/e2e/fixture_e2e_publish_flow/test_fixture_e2e_publish_flow.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00252",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d9bdc007112e8274f4593d4a3c9c1f2727fa1cb2fae55e60c81448805bdb2cda"
+        }
+      ],
+      "fileName": "tests/fixture_test_support.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00253",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fa0dac4db65289ae91ce63588e7ca0e5608eca2c49ee9f3e879fafe806683a20"
+        }
+      ],
+      "fileName": "tests/integration/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00254",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a0e3ef425e0e3d59701fe5d2eba30681299770783ab8b2add32fa1e8f81bef08"
+        }
+      ],
+      "fileName": "tests/integration/fixture_integration_local_stack/fixture_integration_local_stack.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00255",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3e98d48cd2825a28bd051f53bc41ec654fdcd470e3ad271dfb7ddd62aa07f9a1"
+        }
+      ],
+      "fileName": "tests/integration/fixture_integration_local_stack/test_fixture_integration_local_stack.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00256",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "34807c8d763e4f6ac783f3f10a89eebb1ef9117742a117279c752cd79a5253ef"
+        }
+      ],
+      "fileName": "tests/performance/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00257",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "586c17ffeb57f152aae9c58c22920632ab34d7da6f7f54b5cfc09dc281bcdb85"
+        }
+      ],
+      "fileName": "tests/performance/fixture_performance_bounds/fixture_performance_bounds.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00258",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b0416457fa565787d4fa7ddcb35ddad89264399f4ba3eaf354371c31380fab90"
+        }
+      ],
+      "fileName": "tests/performance/fixture_performance_bounds/test_fixture_performance_bounds.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00259",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "50db6462931d80f96d3c60e347a9da62acc903923a5b672d97db00f281cfbec2"
+        }
+      ],
+      "fileName": "tests/property/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00260",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7656498bf3e47c50e64701dfb593b36d71dc0fce5411529279c3e42b63e3a4b0"
+        }
+      ],
+      "fileName": "tests/property/fixture_property_invariants/fixture_property_invariants.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00261",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3a7d297a036be90d518f0fb8010be16a88ac848ac507dd4bad62a7e2778b1d0c"
+        }
+      ],
+      "fileName": "tests/property/fixture_property_invariants/test_fixture_property_invariants.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00262",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "cbfab20d86c6b8ba7f30f1af6d416ebe6e4e28fa6918365e2aa1719ac8489ea6"
+        }
+      ],
+      "fileName": "tests/security/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00263",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "79bdb51b92043aa577140dad27a218d8c285c4fbc27b5058dadcb25cb35eda01"
+        }
+      ],
+      "fileName": "tests/security/fixture_security_boundaries/fixture_security_boundaries.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00264",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e63e12e6a7e8d581e1f79204ddc01add0811ddd6d05ffa8ea70d5195170e56fc"
+        }
+      ],
+      "fileName": "tests/security/fixture_security_boundaries/test_fixture_security_boundaries.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00265",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b3cfd1e307ce9311e4bb1183d6b4ae642c642a0657ccd23049959aaff9477ff0"
+        }
+      ],
+      "fileName": "tests/unit/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00266",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "943f8c8bf3a02df0db7fac5cff94167acac136fa92a4a9cde6d38a74b348652c"
+        }
+      ],
+      "fileName": "tests/unit/fixture_unit_platform/fixture_unit_platform.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00267",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d93a53157505c1f253701acdcf5f87631f9b2706bf4d98dcd022fddf73787a60"
+        }
+      ],
+      "fileName": "tests/unit/fixture_unit_platform/test_fixture_unit_platform.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00268",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "afdc863c0cd528d01f6631e5a1d16a3368758e7375b7c64d7de0d36cd3a251ae"
+        }
+      ],
+      "fileName": "tools/dev/README.md"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00269",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "79280c50d6274bb601b262ec137e8c5dd0d695282f27e078df15ab24c1961b98"
+        }
+      ],
+      "fileName": "tools/dev/canonical_json.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00270",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "61c703e184da0adb2f2d9eaaaeba9d2f50f91fd91db305418973a6f39b39aa9a"
+        }
+      ],
+      "fileName": "tools/dev/ci_checks.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00271",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4a84952584bba9c2adc2359af152ade8594cef0990812ea6ff041d488a2e46b1"
+        }
+      ],
+      "fileName": "tools/dev/evidence.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00272",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e77ae8ee516de6af16b8acb8275692e33a4010a32fda90d99c6c0f5159258662"
+        }
+      ],
+      "fileName": "tools/dev/format.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00273",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ebb7706a28cc698ce3dfdfa8e53eb64ab2776ef94f1b354ac5cee678b88e5bb3"
+        }
+      ],
+      "fileName": "tools/dev/generate.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00274",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "95ece809f6c9c2db7d1ebf896590563f6b5089601a36dfee19c8571196573980"
+        }
+      ],
+      "fileName": "tools/dev/lint.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00275",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "65e07da506e975a7bd050a42be2bf482590fc3c7baf2923f9c732965254a2651"
+        }
+      ],
+      "fileName": "tools/dev/local.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00276",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6f066c61376f9134a55f29a94d6b5dc3b754e5022c00346ede8988881e1f4a39"
+        }
+      ],
+      "fileName": "tools/dev/openapi_diff.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00277",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a71b0187c044588df0ddebf6e5e31910ec2d8318afc9db167bfa62a1de2c44d7"
+        }
+      ],
+      "fileName": "tools/dev/phase_gate.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00278",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "41d451f471a41dd1579a71cff94749458f4bc97cc70ba101e81050a4d35bc7c2"
+        }
+      ],
+      "fileName": "tools/dev/provenance.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00279",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "351173ad5bb66e8f9f705bd38aa74a5c9be83f70a35bf5a3234b1ba98b0de6bf"
+        }
+      ],
+      "fileName": "tools/dev/release_manifest.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00280",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f238910acae7b84398e8f14cce9ab7b81ae8c4a7b9dd6a25b196acf55ef0633d"
+        }
+      ],
+      "fileName": "tools/dev/sbom.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00281",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0b997aed95c08f33b5cca89c587e2957598aa2bc4e29b3069e292f43e17b5f03"
+        }
+      ],
+      "fileName": "tools/dev/task_runner.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00282",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d8cc70b36eb9d7b235f8e75b8023bb842c10aaf7879a1f48eedd61d9dba0b792"
+        }
+      ],
+      "fileName": "tools/dev/test_harness.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00283",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "20ad7669fa3246f106bd6b8c8f7380905851e84deece020fcb97946591bc4ec9"
+        }
+      ],
+      "fileName": "tools/dev/typecheck.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00284",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "01e32de8853a3be2dd729625ecd67221f844a23a8926abf1e86fd6b0a3132272"
+        }
+      ],
+      "fileName": "tools/dev/typegen.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00285",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fd9589431145acd25e2f65acb1dd1b6929383fa2337b5439725ae13aa97c2f21"
+        }
+      ],
+      "fileName": "tools/dev/version_report.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00286",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2f72ddaf41f858042993fa87a9cb43ca797c6137914e7305627f9855474c2d0a"
+        }
+      ],
+      "fileName": "tsconfig.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00287",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "70e7548684e7a1a67234857b1ff626a12ab94ad8a2e121a1e66329857a48a409"
+        }
+      ],
+      "fileName": "turbo.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00288",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7784adecabe92b53f9bdba608999d8a6e689dff11992c79bd434e5a5a3326ab4"
+        }
+      ],
+      "fileName": "uv.lock"
+    }
+  ],
+  "name": "lengeas-platform-source",
+  "spdxVersion": "SPDX-2.3"
+}
