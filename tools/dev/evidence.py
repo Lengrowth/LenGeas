@@ -106,14 +106,13 @@ def main() -> int:
             "dependency-free synthetic suites",
             "local policy checks",
             "server-side Compose smoke (passed; Docker was not run locally)",
-            "server-side integration and E2E harnesses (passed against the server-local endpoint)",
+            "server-side integration and server-local/public E2E harnesses (passed)",
             "task verify (still blocked by remote policy and signing prerequisites)",
-            "task phase:gate PHASE=01 (blocked by BLK-03 through BLK-05)",
+            "task phase:gate PHASE=01 (blocked by BLK-03 and BLK-04)",
             "GitHub verify workflow dispatch (startup_failure; no jobs)",
         ],
         "open_risks": [
             "Docker runtime intentionally unavailable on the developer workstation; server runtime passed",
-            "public DNS/TLS endpoint pending Cloudflare DNS-write access",
             "GitHub remote and live branch policy unavailable",
             "Sigstore signing unavailable",
         ],
@@ -121,7 +120,7 @@ def main() -> int:
             "Independent review and resolution of all blockers",
             "Phase 01 acceptance",
         ],
-        "blockers": ["BLK-03", "BLK-04", "BLK-05"],
+        "blockers": ["BLK-03", "BLK-04"],
     }
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"

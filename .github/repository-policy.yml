@@ -9,7 +9,7 @@ repository:
     - command: git remote get-url origin
       exit_code: 0
       result: "https://github.com/guerra2fernando/LenGeas.git"
-  blocker: The private GitHub repository and owner are confirmed, but the active integration cannot read live branch protection and the post-push verification run ended in startup_failure; this file remains a local policy export.
+  blocker: The public GitHub repository and owner are confirmed, but the hosted Actions account is locked for billing and live branch protection is not enabled; this file remains a local policy export.
 ownership:
   model: sole_developer_repository_owner
   github_owner_binding: guerra2fernando
@@ -56,6 +56,6 @@ verification:
   live_branch_protection_validated: false
   observed_branch_protection_enabled: false
   live_ci_validated: false
-  live_ci_observation: "run 34757300365 for audited commit 16602a9fda3fc0878127f48f10322e5996cb1eb1: startup_failure; no jobs"
-  observed_commit_signature: "16602a9fda3fc0878127f48f10322e5996cb1eb1: unsigned"
+  live_ci_observation: "run 34758013015 on public main: job not started because account is locked due to a billing issue"
+  observed_commit_signature: "d012034b829d1c8f2ee81f74a35c6c5c7bbc9b5b: unsigned"
   screenshot_available: false

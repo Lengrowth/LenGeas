@@ -47,16 +47,26 @@
       "result": "2 synthetic fixture checks; server-local E2E base URL set"
     },
     {
+      "command": "curl -fsS https://games.lengrowth.com/health and /version",
+      "exit_code": 0,
+      "result": "public HTTPS returned API health and version responses; Caddy production certificate active"
+    },
+    {
+      "command": "sudo env LENGEAS_E2E_BASE_URL=https://games.lengrowth.com python3 /opt/lengeas/tools/dev/task_runner.py test e2e",
+      "exit_code": 0,
+      "result": "2 synthetic fixture checks; public HTTPS endpoint set"
+    },
+    {
       "command": "sudo systemctl is-active caddy",
       "exit_code": 0,
-      "result": "active; public DNS cutover is pending Cloudflare DNS-write access"
+      "result": "active; public DNS and production HTTPS certificate validated"
     }
   ],
   "public_endpoint": {
     "hostname": "games.lengrowth.com",
     "target_ipv4": "3.238.63.61",
-    "dns_cutover": "pending",
-    "https_validation": "not claimed until the exact A record is updated and certificate validation succeeds"
+    "dns_cutover": "complete; A record resolves directly to 3.238.63.61",
+    "https_validation": "passed; production Caddy certificate and public health/version responses verified"
   },
   "services": {
     "expected_running": 12,

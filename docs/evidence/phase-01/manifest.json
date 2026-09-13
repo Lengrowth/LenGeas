@@ -31,7 +31,7 @@
     },
     {
       "path": ".github",
-      "sha256": "8be4fa59037b109a921b9fbcd56ce1288af6576346ccde11dc3a77deaf18ca6f"
+      "sha256": "f2000066af57d40f4fda78086bddb8bcc72a5fe28dc928c206958e9781977da4"
     },
     {
       "path": "infrastructure/docker",
@@ -51,7 +51,7 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "0363990fd2fb22b88008e3ac800ee5af591830481dcb73566f2a71d9262fbab9"
+      "sha256": "19fbd6c3511bf6c14ecfacdacd895d1411578636bb8b6c63c04135faa835e2b6"
     },
     {
       "path": "tests",
@@ -63,14 +63,13 @@
     },
     {
       "path": "docs/evidence/phase-01/operations/server-runtime.json",
-      "sha256": "a47f8ca35148fccd10eaff0ad3cc7915e88f59268dfa3182412dee076a7e679b"
+      "sha256": "25805de4ff7915bf9204f6548da13d5578a3c65272010cb98ad01dc1da3bbabc"
     }
   ],
   "base_commit": "28bd5d577c7f990854b364b4aa89a41fb144b4fa",
   "blockers": [
     "BLK-03",
-    "BLK-04",
-    "BLK-05"
+    "BLK-04"
   ],
   "completed_task_ids": [
     "P01-T01",
@@ -80,15 +79,14 @@
     "P01-T06",
     "P01-T07"
   ],
-  "end_utc": "2026-09-13T12:32:26.201295Z",
-  "final_commit": "16602a9fda3fc0878127f48f10322e5996cb1eb1",
+  "end_utc": "2026-09-13T12:49:43.625970Z",
+  "final_commit": "d012034b829d1c8f2ee81f74a35c6c5c7bbc9b5b",
   "next_phase_prerequisites": [
     "Independent review and resolution of all blockers",
     "Phase 01 acceptance"
   ],
   "open_risks": [
     "Docker runtime intentionally unavailable on the developer workstation; server runtime passed",
-    "public DNS/TLS endpoint pending Cloudflare DNS-write access",
     "GitHub remote and live branch policy unavailable",
     "Sigstore signing unavailable"
   ],
@@ -115,9 +113,9 @@
     "dependency-free synthetic suites",
     "local policy checks",
     "server-side Compose smoke (passed; Docker was not run locally)",
-    "server-side integration and E2E harnesses (passed against the server-local endpoint)",
+    "server-side integration and server-local/public E2E harnesses (passed)",
     "task verify (still blocked by remote policy and signing prerequisites)",
-    "task phase:gate PHASE=01 (blocked by BLK-03 through BLK-05)",
+    "task phase:gate PHASE=01 (blocked by BLK-03 and BLK-04)",
     "GitHub verify workflow dispatch (startup_failure; no jobs)"
   ],
   "toolchain": {

@@ -2,13 +2,13 @@
 
 ## Status
 
-`blocked` — the repository foundation and server runtime are implemented, but public DNS/TLS, remote-protection/CI, and Sigstore evidence remain unavailable. This handoff is for independent review and does not claim acceptance.
+`blocked` — the repository foundation, server runtime, and public HTTPS endpoint are implemented, but remote-protection/CI and Sigstore evidence remain unavailable. This handoff is for independent review and does not claim acceptance.
 
 ## Operational state
 
 The repository contains a digest-pinned Compose stack for MongoDB replica-set transactions, Valkey, RabbitMQ, Redpanda, MinIO, Mailpit, OpenTelemetry Collector, Prometheus, Grafana, Jaeger, and an API health/version shell. Docker was not installed or run locally after the repository owner directed that local execution not occur. `tools/dev/server_bundle.py` creates a hash manifest for the server transfer set without invoking Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md`.
 
-The authorized AWS host `i-0e826e65d7f5df890` runs the digest-pinned stack and passed the complete server smoke, integration harness, and server-local E2E harness. The developer workstation did not install or run Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md` and `infrastructure/aws/README.md`.
+The authorized AWS host `i-0e826e65d7f5df890` runs the digest-pinned stack and passed the complete server smoke, integration harness, server-local E2E harness, public HTTPS health/version checks, and public E2E harness. The developer workstation did not install or run Docker. Server execution is described in `infrastructure/docker/SERVER-DEPLOYMENT.md` and `infrastructure/aws/README.md`.
 
 ## Public interfaces and versions
 
@@ -28,11 +28,11 @@ Local Prometheus, Grafana, and Jaeger services are configured by Compose. Server
 
 ## Credentials and external setup
 
-No credentials are stored in Git or on the server source archive. The server bootstrap generates its private `.env` on-host. Server-local E2E passed with `LENGEAS_E2E_BASE_URL=http://127.0.0.1:8000`; public hostname validation remains pending DNS/TLS cutover.
+No credentials are stored in Git or on the server source archive. The server bootstrap generates its private `.env` on-host. Server-local E2E passed with `LENGEAS_E2E_BASE_URL=http://127.0.0.1:8000`, and public E2E passed with `LENGEAS_E2E_BASE_URL=https://games.lengrowth.com`.
 
 ## Known blockers
 
-See `blockers.md` for BLK-01 through BLK-04. They remain actionable and owned.
+See `blockers.md` for BLK-01 through BLK-05. BLK-03 and BLK-04 remain actionable and owned.
 
 ## Exact next command
 

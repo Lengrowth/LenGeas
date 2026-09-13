@@ -8,21 +8,21 @@ Owner: `platform_operations_owner`; status: resolved for Phase 01 runtime eviden
 
 ## BLK-02 — E2E endpoint unavailable — resolved by server-local endpoint
 
-The server-side E2E harness passed with `LENGEAS_E2E_BASE_URL=http://127.0.0.1:8000`; the synthetic health flow is recorded in `operations/server-runtime.json`. Public hostname validation remains separately tracked as BLK-05.
+The server-side E2E harness passed with `LENGEAS_E2E_BASE_URL=http://127.0.0.1:8000`, and the public E2E harness now passes with `LENGEAS_E2E_BASE_URL=https://games.lengrowth.com`; both results are recorded in `operations/server-runtime.json`.
 
-Owner: `qa_owner`; status: resolved for server-local E2E evidence; resolution: validate the public hostname after DNS/TLS cutover.
+Owner: `qa_owner`; status: resolved; resolution: retain both server-local and public E2E checks.
 
 ## BLK-03 — Remote repository protection and CI gate unavailable
 
-The remote is configured and pushed; `origin/main` is `16602a9fda3fc0878127f48f10322e5996cb1eb1`. GitHub metadata confirms private repository `guerra2fernando/LenGeas`, default branch `main`, owner admin permission, and Actions enabled with all actions allowed. The live branch read reports `protected: false` and required status-check enforcement `off`. After correcting the invalid action refs and adding `workflow_dispatch`, every registered verification push still ends in zero-job `startup_failure`; the post-push verification run `34757300365` for the evidence snapshot also failed before any job. A temporary valid one-step `ci-probe` also ended in zero-job `startup_failure`, proving the failure is external to LenGeas workflow steps and local Docker. The authenticated integration returned `403 Resource not accessible by integration` for branch protection and `403 Upgrade to GitHub Pro or make this repository public` for rulesets, so no live protection configuration can be changed or exported through this connection. P01-T08 still contains the local policy intent and the observed live state.
+The remote is configured and pushed; `origin/main` is `d012034b829d1c8f2ee81f74a35c6c5c7bbc9b5b`. GitHub metadata now confirms public repository `guerra2fernando/LenGeas`, default branch `main`, owner admin permission, and Actions enabled with all actions allowed. The live branch read reports `protected: false` and required status-check enforcement `off`. The full verification dispatch run `34758013015` was accepted but the job was not started because the account is locked due to a billing issue. No successful CI run or live protection export can be claimed until billing is restored and `main` is protected. P01-T08 still contains the local policy intent and the observed live state.
 
-Owner: `infrastructure_owner`; status: open; resolution: use the repository owner's GitHub plan/settings access to make hosted Actions runnable, enable the required `main` protection, and attach a successful CI run without weakening the local policy.
+Owner: `infrastructure_owner`; status: open; resolution: clear the GitHub billing lock, enable the required `main` protection, and attach a successful CI run without weakening the local policy.
 
-## BLK-05 — Public DNS/TLS cutover unavailable
+## BLK-05 — Public DNS/TLS cutover — resolved
 
-The server and Caddy reverse proxy are healthy at `3.238.63.61`, but the Wrangler OAuth token has only `zone:read` and cannot read or update DNS records. `games.lengrowth.com` still resolves through the prior Cloudflare edge record, so public HTTPS validation is intentionally not claimed.
+`games.lengrowth.com` resolves to `3.238.63.61`. Caddy obtained a valid production certificate, `https://games.lengrowth.com/health` and `/version` return the expected API responses, and public E2E passes. The record is currently DNS-only; Cloudflare proxying can be enabled after this direct-origin validation if desired.
 
-Owner: `infrastructure_owner`; status: open; resolution: grant the Cloudflare token DNS Read/Write or update the exact `A` record `games.lengrowth.com` to `3.238.63.61`; then verify HTTPS and rerun public E2E.
+Owner: `infrastructure_owner`; status: resolved; resolution: retain the DNS record and certificate, or optionally enable Cloudflare proxying with Full (strict).
 
 ## BLK-04 — Sigstore sample verification unavailable
 
