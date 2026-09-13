@@ -172,7 +172,7 @@ def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
         "start_utc": existing.get("start_utc", "2026-09-13T09:02:42Z"),
         "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "base_commit": existing.get("base_commit", "28bd5d577c7f990854b364b4aa89a41fb144b4fa"),
-        "final_commit": git_head(),
+        "final_commit": existing.get("final_commit", git_head()),
         "agent_identity": "Codex root phase agent",
         "toolchain": {
             "powershell": "7.6.5",
@@ -274,7 +274,7 @@ def build_phase02_manifest(existing: dict[str, object] | None) -> dict[str, obje
         ),
         "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "base_commit": existing.get("base_commit", "4902c6fbdd099e6b31402aedfc23faed7b3039dd"),
-        "final_commit": existing.get("final_commit", git_head()),
+        "final_commit": git_head(),
         "agent_identity": "Codex root phase agent",
         "toolchain": {
             "powershell": "7.6.5",
