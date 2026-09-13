@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.lengeas.com/evidence/phase-manifest.schema.json",
+  "title": "LenGeas phase evidence manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "phase", "status", "start_utc", "end_utc", "base_commit", "final_commit", "agent_identity", "toolchain", "completed_task_ids", "requirement_ids", "artifacts", "tests", "open_risks", "next_phase_prerequisites"],
+  "properties": {
+    "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "phase": {"type": "string", "pattern": "^[0-9]{2}$"},
+    "status": {"enum": ["in_progress", "in_review", "accepted", "blocked"]},
+    "start_utc": {"type": "string", "format": "date-time"},
+    "end_utc": {"type": "string", "format": "date-time"},
+    "base_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "final_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "agent_identity": {"type": "string", "minLength": 1},
+    "toolchain": {"type": "object", "additionalProperties": {"type": "string"}},
+    "completed_task_ids": {"type": "array", "items": {"type": "string", "pattern": "^P[0-9]{2}-T[0-9]{2}$"}, "uniqueItems": true},
+    "requirement_ids": {"type": "array", "items": {"type": "string", "pattern": "^RQ-[0-9]{3}$"}, "uniqueItems": true},
+    "artifacts": {"type": "array", "items": {"$ref": "#/$defs/artifact"}},
+    "tests": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "open_risks": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "next_phase_prerequisites": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "hash_scope": {"type": "string"}
+      }
+    }
+  }
+}
+

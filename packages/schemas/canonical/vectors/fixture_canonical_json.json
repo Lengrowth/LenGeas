@@ -1,0 +1,5 @@
+{
+  "input": {"z": 1, "a": [true, "é", null], "decimal": "1.2300"},
+  "canonical_utf8": "{\"a\":[true,\"é\",null],\"decimal\":\"1.2300\",\"z\":1}"
+}
+
