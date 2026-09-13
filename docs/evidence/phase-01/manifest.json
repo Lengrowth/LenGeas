@@ -55,7 +55,7 @@
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
-      "sha256": "bf7c69271f0d9fd75cad9e0955392bb909f8c472599a57bf116000e113e17a4c"
+      "sha256": "c8933a1612c280cdecb41824f5bc21f1f1bc4c4722c625eb466ba9005fa807db"
     }
   ],
   "base_commit": "28bd5d577c7f990854b364b4aa89a41fb144b4fa",
@@ -71,8 +71,8 @@
     "P01-T04",
     "P01-T06"
   ],
-  "end_utc": "2026-09-13T10:31:48.067556Z",
-  "final_commit": "14c6316ae1da4b4fa01de60176aff27b81dbbe1b",
+  "end_utc": "2026-09-13T10:32:04.743533Z",
+  "final_commit": "cd1705ccec41274a9dc1a4fd52b3ab959666feab",
   "next_phase_prerequisites": [
     "Independent review and resolution of all blockers",
     "Phase 01 acceptance"

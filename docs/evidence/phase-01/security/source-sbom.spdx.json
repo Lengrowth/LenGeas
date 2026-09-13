@@ -84,7 +84,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "6e4309d3d18b72e76e7b0663055f61e12fde60d81ba11ff1be5eb80c6cc3c182"
+          "checksumValue": "bea5d796fa346d8508a6fe93448fba975114f44090596f445e6f673d95f44828"
         }
       ],
       "fileName": ".github/repository-policy.yml"
@@ -1234,7 +1234,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "ee98cdb8bf456fd7ec309c3f457248f83e66f6ecb589500d22fedf16e9b91e3d"
+          "checksumValue": "a8d6450607547a0569d5dca193f610149188c325d8f9e9a19f46500d8db8f304"
         }
       ],
       "fileName": "docs/evidence/phase-01/blockers.md"
@@ -1244,7 +1244,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "3910ba43b02061b5fb01506521b2a84fb13a486135b4ca0f434b2048f6f5b569"
+          "checksumValue": "0cac1f5ca9f39f5d91ab1eafae9aebf19b13eb0616e870f1b7032ba11b9d9241"
         }
       ],
       "fileName": "docs/evidence/phase-01/commands.ndjson"
@@ -1284,7 +1284,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "bacd8a5f3f83cc01e9b68e170604cfeefb045fe04c1cf8e86fc51d2e15a213c8"
+          "checksumValue": "43e4c6c5a4de00e4fa0a380a16eb61eae6821044f82df5c0ad6bf642691487d6"
         }
       ],
       "fileName": "docs/evidence/phase-01/manifest.json"
@@ -1304,7 +1304,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "6f018cbb6b531a1c9025f702f4c64c79c574c95c2965b8932e3309cc494bab0e"
+          "checksumValue": "bf7c69271f0d9fd75cad9e0955392bb909f8c472599a57bf116000e113e17a4c"
         }
       ],
       "fileName": "docs/evidence/phase-01/operations/server-bundle-manifest.json"
@@ -1374,7 +1374,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "e30725e8464b7d487c9dca23616e4b292326a508e28d21b9100d2a13d25261da"
+          "checksumValue": "65b81a49cd8903a5f160d5354c3073f48c37fd1af0dd8ea4ab356341d24dfd90"
         }
       ],
       "fileName": "docs/evidence/phase-01/security/release-manifest.json"
@@ -1384,7 +1384,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "0bb6c1d5f3f04ebef816489f4c8178c38419c3e50313148f3faf951337c8806b"
+          "checksumValue": "bfdd87db1590863790822d199031adff567a5aaa3b292097359c6ab5a461ccf2"
         }
       ],
       "fileName": "docs/evidence/phase-01/security/source-sbom.spdx.json"
@@ -1424,7 +1424,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "44f59843a2b5b948ce3ce823946a3fc0f732ae52aaa9c5535a4eea9c8b2d3b4e"
+          "checksumValue": "df1042e8eb2be2387aae2f479fe08b1d5a658b25e196df50d1cc220c770e77e0"
         }
       ],
       "fileName": "docs/evidence/phase-01/tasks/P01-T04.md"
@@ -1464,7 +1464,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "63d1ee7fe70c97d40bb37e1b7fe7d31852d163342fb242b10e1cd0fd32b84a1a"
+          "checksumValue": "b87a974b371555dd512d5d09ec9b78ba3d70c0a1ba6efe8c1dc85f7224dbacf4"
         }
       ],
       "fileName": "docs/evidence/phase-01/tasks/P01-T08.md"
@@ -2744,7 +2744,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "2878de07710887187f5c642a295250079b6b74a1cdd2d8798a5aab3cac02a0c8"
+          "checksumValue": "a7ffde5136c38d447a1a6ee877115ee6b3d36e82a7e8c2fb4562df11d21e4086"
         }
       ],
       "fileName": "tools/dev/evidence.py"
