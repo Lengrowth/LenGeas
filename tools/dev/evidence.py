@@ -105,6 +105,7 @@ def main() -> int:
             "local policy checks",
             "task verify (blocked by Docker and E2E prerequisites)",
             "task phase:gate PHASE=01 (blocked by BLK-01 through BLK-04)",
+            "GitHub verify workflow dispatch (startup_failure; no jobs)",
         ],
         "open_risks": [
             "Docker runtime unavailable",

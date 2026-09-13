@@ -31,7 +31,7 @@
     },
     {
       "path": ".github",
-      "sha256": "4b0d546550393e785890226aa565be0f4eb5a6d5786e36985b66f79d5b603d21"
+      "sha256": "75200b9e3b58e326d9ff67cec44aa2c7b97d929052ae9c186421deced2982e04"
     },
     {
       "path": "infrastructure/docker",
@@ -47,7 +47,7 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "29e248ab0cafb6df4de1c64e6e7f0fb1e812583e7fea2e9560e75a31c47825ef"
+      "sha256": "ab64db6e81736902abea0900ddcbe13a7dff67e10f7b5558d25dbe8e4a7eeb15"
     },
     {
       "path": "tests",
@@ -71,8 +71,8 @@
     "P01-T04",
     "P01-T06"
   ],
-  "end_utc": "2026-09-13T10:38:37.453399Z",
-  "final_commit": "209bb5be946cf7efa88b0cee80247fd95a991026",
+  "end_utc": "2026-09-13T10:43:39.302833Z",
+  "final_commit": "3d598fd90a8cd631accc187192a901b27b05ff0a",
   "next_phase_prerequisites": [
     "Independent review and resolution of all blockers",
     "Phase 01 acceptance"
@@ -106,7 +106,8 @@
     "dependency-free synthetic suites",
     "local policy checks",
     "task verify (blocked by Docker and E2E prerequisites)",
-    "task phase:gate PHASE=01 (blocked by BLK-01 through BLK-04)"
+    "task phase:gate PHASE=01 (blocked by BLK-01 through BLK-04)",
+    "GitHub verify workflow dispatch (startup_failure; no jobs)"
   ],
   "toolchain": {
     "docker": "unavailable",
