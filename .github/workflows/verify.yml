@@ -75,7 +75,7 @@ jobs:
         run: |
           terraform fmt -check -recursive infrastructure/terraform
           for root in nonproduction staging production dr; do
-            terraform -chdir="infrastructure/terraform/environments/${root}" init -backend=false -input=false -lockfile=readonly
+            terraform -chdir="infrastructure/terraform/environments/${root}" init -backend=false -input=false
             terraform -chdir="infrastructure/terraform/environments/${root}" validate
           done
       - uses: actions/upload-artifact@v4.6.2
