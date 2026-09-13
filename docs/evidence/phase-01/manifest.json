@@ -1,0 +1,91 @@
+{
+  "agent_identity": "Codex root phase agent",
+  "artifacts": [
+    {
+      "path": "Taskfile.yml",
+      "sha256": "2ac103c55e806dcbbc000d70ed253ba3d001be34e5a26171214296b3e199c421"
+    },
+    {
+      "path": "compose.yaml",
+      "sha256": "6d94d17c01d4fef6be737a14e73af7d8253d2625f8f0315fed42d2f109bd4735"
+    },
+    {
+      "path": ".github/workflows",
+      "sha256": "fefd4ec6d9829df03b30c740dc25379112e3f7037110bb39ef9ccd437c47d162"
+    },
+    {
+      "path": "packages/schemas/evidence/phase-manifest.schema.json",
+      "sha256": "b5136e43c82abd016589fabfdaaa71d066cb46b57bfdc27e3409f1946550f443"
+    },
+    {
+      "path": "packages/shared-types/generated",
+      "sha256": "5aea7f68a07ec877bdce11589b27389bfec59b33d28ddf5f586ac74fb3d90496"
+    },
+    {
+      "path": "tools/dev",
+      "sha256": "4b35ce83750ae1ba311f942913aba8f8efeaed564eaec2492e0e3cb770df2de1"
+    },
+    {
+      "path": "tests",
+      "sha256": "11542c43bca08c478f49beffb1c6311de3c0e5243bf16a43353c98dc4ee5006d"
+    }
+  ],
+  "base_commit": "28bd5d577c7f990854b364b4aa89a41fb144b4fa",
+  "blockers": [
+    "BLK-01",
+    "BLK-02",
+    "BLK-03",
+    "BLK-04"
+  ],
+  "completed_task_ids": [
+    "P01-T01",
+    "P01-T02",
+    "P01-T04",
+    "P01-T06"
+  ],
+  "end_utc": "2026-09-13T10:14:20.631146Z",
+  "final_commit": "e6d3a5ef51d5c5eba5855cee95c48ad2c1993de0",
+  "next_phase_prerequisites": [
+    "Independent review and resolution of all blockers",
+    "Phase 01 acceptance"
+  ],
+  "open_risks": [
+    "Docker runtime unavailable",
+    "E2E endpoint unavailable",
+    "GitHub remote and live branch policy unavailable",
+    "Sigstore signing unavailable"
+  ],
+  "phase": "01",
+  "requirement_ids": [
+    "RQ-001",
+    "RQ-003",
+    "RQ-007",
+    "RQ-019",
+    "RQ-020",
+    "RQ-021",
+    "RQ-022",
+    "RQ-024"
+  ],
+  "schema_version": "1.0.0",
+  "start_utc": "2026-09-13T09:02:42Z",
+  "status": "blocked",
+  "tests": [
+    "task bootstrap",
+    "task generate twice",
+    "task format",
+    "task lint",
+    "task typecheck",
+    "dependency-free synthetic suites",
+    "local policy checks"
+  ],
+  "toolchain": {
+    "docker": "unavailable",
+    "git": "2.49.0.windows.1",
+    "node": "22.16.0",
+    "pnpm": "11.20.0",
+    "powershell": "7.6.5",
+    "python": "3.13.5 via uv 0.11.29",
+    "task": "3.53.1",
+    "terraform": "1.15.8"
+  }
+}

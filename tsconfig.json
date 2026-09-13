@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["apps/studio/src/**/*.ts", "packages/sdk-typescript/src/**/*.ts", "packages/shared-types/generated/**/*.ts"]
+}
+

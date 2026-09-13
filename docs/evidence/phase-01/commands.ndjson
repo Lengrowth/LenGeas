@@ -1,0 +1,24 @@
+{"command":"git rev-parse --show-toplevel","exit_code":128,"result":"workspace had no Git metadata"}
+{"command":"git init -b main; git add --all; git commit -m 'P01-T01: import Phase 00 baseline'","exit_code":0,"commit":"213f5b73a803d242ff33a4f395da820fae073bf9"}
+{"command":"python tools/dev/task_runner.py bootstrap","exit_code":0,"result":"monorepo structure and root contracts present"}
+{"command":"uv python install 3.13.5","exit_code":0,"result":"installed CPython 3.13.5"}
+{"command":"winget install --id Task.Task --version 3.53.1 --exact --accept-source-agreements --accept-package-agreements","exit_code":0,"result":"installed go-task 3.53.1"}
+{"command":"task bootstrap","exit_code":0,"result":"uv sync frozen and pnpm frozen install"}
+{"command":"task generate","exit_code":0,"result":"canonical and typed outputs generated"}
+{"command":"task generate (second run)","exit_code":0,"result":"zero diff by SHA-256 comparison"}
+{"command":"task format","exit_code":0,"result":"deterministic Python formatting applied"}
+{"command":"task lint","exit_code":0,"result":"Ruff, JSON, and repository policy checks"}
+{"command":"task typecheck","exit_code":0,"result":"mypy strict, TypeScript, and Python compilation"}
+{"command":"task test:unit","exit_code":0,"result":"3 synthetic fixture checks"}
+{"command":"task test:property","exit_code":0,"result":"2 synthetic fixture checks"}
+{"command":"task test:contract","exit_code":0,"result":"3 synthetic fixture checks"}
+{"command":"task test:integration","exit_code":201,"result":"mandatory Docker/local-stack dependency unavailable; underlying suite exit 2"}
+{"command":"task test:e2e","exit_code":201,"result":"mandatory LENGEAS_E2E_BASE_URL unavailable; underlying suite exit 2"}
+{"command":"task test:security","exit_code":0,"result":"3 synthetic fixture checks"}
+{"command":"task test:performance","exit_code":0,"result":"2 synthetic fixture checks"}
+{"command":"task test:determinism","exit_code":0,"result":"2 synthetic fixture checks"}
+{"command":"task test:dr","exit_code":0,"result":"3 synthetic fixture checks"}
+{"command":"task local:up","exit_code":201,"result":"Docker unavailable; underlying local command exit 1"}
+{"command":"task local:smoke","exit_code":201,"result":"Docker unavailable; underlying local command exit 1"}
+{"command":"task local:down","exit_code":201,"result":"Docker unavailable; underlying local command exit 1"}
+

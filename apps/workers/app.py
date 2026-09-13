@@ -9,4 +9,3 @@ def health() -> ShellResponse:
 
 def version() -> ShellResponse:
     return health()
-

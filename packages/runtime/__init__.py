@@ -1,2 +1,1 @@
 """Pure runtime foundation shell."""
-

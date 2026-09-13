@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -34,25 +35,58 @@ def bootstrap() -> None:
     missing = [str(path.relative_to(ROOT)) for path in required_paths() if not path.exists()]
     if missing:
         raise SystemExit(f"bootstrap failed; missing required paths: {', '.join(missing)}")
-    print("PASS bootstrap: monorepo structure and root contracts are present")
+    if shutil.which("uv") is None:
+        raise SystemExit("bootstrap failed; uv 0.11.29 is required")
+    pnpm = "pnpm.cmd" if sys.platform == "win32" else "pnpm"
+    if shutil.which(pnpm) is None:
+        raise SystemExit("bootstrap failed; pnpm 11.20.0 is required")
+    run(["uv", "sync", "--frozen", "--python", "3.13.5"])
+    run([pnpm, "install", "--frozen-lockfile", "--ignore-scripts"])
+    print("PASS bootstrap: pinned Python and JavaScript environments installed")
 
 
-def tool_script(name: str, *args: str) -> int:
+def tool_script(name: str, *args: str, check: bool = True) -> int:
     script = ROOT / "tools" / "dev" / f"{name}.py"
     if not script.exists():
         raise SystemExit(f"missing development tool: {script.relative_to(ROOT)}")
-    return run([sys.executable, str(script), *args])
+    return run([sys.executable, str(script), *args], check=check)
 
 
-def test_suite(name: str) -> int:
-    return tool_script("test_harness", name)
+def test_suite(name: str, *, check: bool = True) -> int:
+    return tool_script("test_harness", name, check=check)
 
 
 def verify() -> None:
+    failures: list[str] = []
     for name in ("format", "lint", "typecheck"):
-        tool_script(name)
-    for suite in ("unit", "property", "contract", "integration", "e2e", "security", "performance", "determinism", "disaster-recovery"):
-        test_suite(suite)
+        if tool_script(name, check=False):
+            failures.append(name)
+    for suite in (
+        "unit",
+        "property",
+        "contract",
+        "integration",
+        "e2e",
+        "security",
+        "performance",
+        "determinism",
+        "disaster-recovery",
+    ):
+        if test_suite(suite, check=False):
+            failures.append(f"test:{suite}")
+    for check_name in (
+        "workflow-policy",
+        "terraform-policy",
+        "docs-links",
+        "schema",
+        "openapi",
+        "license-policy",
+    ):
+        if tool_script("ci_checks", check_name, check=False):
+            failures.append(f"ci:{check_name}")
+    if failures:
+        print("FAIL verify: " + ", ".join(failures), file=sys.stderr)
+        raise SystemExit(1)
     print("PASS verify: required local merge-gate checks completed")
 
 

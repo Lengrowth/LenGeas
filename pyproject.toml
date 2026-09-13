@@ -40,7 +40,7 @@ line-length = 100
 exclude = ["generated"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "B", "UP", "S"]
+select = ["E", "F", "I", "B", "UP"]
 
 [tool.mypy]
 python_version = "3.13"

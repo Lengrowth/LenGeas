@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="phase-01" tests="20" failures="0" errors="2" skipped="0">
+  <testcase classname="unit" name="fixture_unit_platform"/>
+  <testcase classname="property" name="fixture_property_invariants"/>
+  <testcase classname="contract" name="fixture_contract_schema"/>
+  <testcase classname="security" name="fixture_security_boundaries"/>
+  <testcase classname="performance" name="fixture_performance_bounds"/>
+  <testcase classname="determinism" name="fixture_determinism_replay"/>
+  <testcase classname="disaster-recovery" name="fixture_disaster_recovery"/>
+  <testcase classname="integration" name="docker_local_stack"><error message="Docker CLI unavailable; mandatory suite failed closed"/></testcase>
+  <testcase classname="e2e" name="synthetic_endpoint"><error message="LENGEAS_E2E_BASE_URL is unset; mandatory suite failed closed"/></testcase>
+</testsuite>
+

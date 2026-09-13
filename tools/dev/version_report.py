@@ -90,9 +90,7 @@ def declared_dependencies() -> dict[str, Any]:
     npm_pins: dict[str, str] = {}
     for section in ("dependencies", "devDependencies", "optionalDependencies", "peerDependencies"):
         npm_pins.update(package.get(section, {}))
-    requires_python = re.search(
-        r'^requires-python\s*=\s*"([^"]+)"$', pyproject, re.MULTILINE
-    )
+    requires_python = re.search(r'^requires-python\s*=\s*"([^"]+)"$', pyproject, re.MULTILINE)
     if requires_python is None:
         raise ValueError("pyproject.toml is missing requires-python")
     return {

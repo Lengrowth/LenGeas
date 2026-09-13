@@ -6,7 +6,7 @@ import argparse
 import hashlib
 import json
 import subprocess
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -33,7 +33,7 @@ def manifest(tag: str) -> dict[str, object]:
         "tag": tag,
         "commit": git("rev-parse", "HEAD"),
         "tree": git("rev-parse", "HEAD^{tree}"),
-        "created_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "created_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "files": files,
         "provenance": {
             "builder": "local-git-tree",
@@ -51,11 +51,12 @@ def main() -> int:
     args = parser.parse_args()
     output = args.output if args.output.is_absolute() else ROOT / args.output
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(manifest(args.tag), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    output.write_text(
+        json.dumps(manifest(args.tag), indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     print(f"PASS release manifest: {output.relative_to(ROOT)}")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

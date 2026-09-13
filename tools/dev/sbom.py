@@ -24,10 +24,16 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     paths = subprocess.check_output(["git", "ls-files"], cwd=ROOT, text=True).splitlines()
-    files = []
+    files: list[dict[str, object]] = []
     for value in sorted(path for path in paths if path):
         path = ROOT / value
-        files.append({"SPDXID": f"SPDXRef-File-{len(files) + 1:05d}", "fileName": value, "checksums": [{"algorithm": "SHA256", "checksumValue": digest(path)}]})
+        files.append(
+            {
+                "SPDXID": f"SPDXRef-File-{len(files) + 1:05d}",
+                "fileName": value,
+                "checksums": [{"algorithm": "SHA256", "checksumValue": digest(path)}],
+            }
+        )
     document = {
         "spdxVersion": "SPDX-2.3",
         "dataLicense": "CC0-1.0",
@@ -46,4 +52,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

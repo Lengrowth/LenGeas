@@ -19,7 +19,8 @@ def generate_types() -> None:
         "class PhaseManifest(TypedDict):\n"
         "    schema_version: str\n    phase: str\n    status: PhaseStatus\n"
         "    start_utc: str\n    end_utc: str\n    base_commit: str\n    final_commit: str\n"
-        "    agent_identity: str\n    toolchain: dict[str, str]\n    completed_task_ids: list[str]\n"
+        "    agent_identity: str\n"
+        "    toolchain: dict[str, str]\n    completed_task_ids: list[str]\n"
         "    requirement_ids: list[str]\n    artifacts: list[Artifact]\n    tests: list[str]\n"
         "    open_risks: list[str]\n    next_phase_prerequisites: list[str]\n",
         encoding="utf-8",
@@ -30,9 +31,9 @@ def generate_types() -> None:
         "export type PhaseStatus = 'in_progress' | 'in_review' | 'accepted' | 'blocked';\n"
         "export type Artifact = { path: string; sha256: string; hash_scope?: string };\n"
         "export type PhaseManifest = { schema_version: string; phase: string; status: PhaseStatus; "
-        "start_utc: string; end_utc: string; base_commit: string; final_commit: string; agent_identity: string; "
-        "toolchain: Record<string, string>; completed_task_ids: string[]; requirement_ids: string[]; "
-        "artifacts: Artifact[]; tests: string[]; open_risks: string[]; next_phase_prerequisites: string[] };\n",
+        "start_utc: string; end_utc: string; base_commit: string; final_commit: string; "
+        "agent_identity: string; toolchain: Record<string, string>; "
+        "completed_task_ids: string[]; requirement_ids: string[]; artifacts: Artifact[]; "
+        "tests: string[]; open_risks: string[]; next_phase_prerequisites: string[] };\n",
         encoding="utf-8",
     )
-

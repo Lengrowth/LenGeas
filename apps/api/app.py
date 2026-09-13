@@ -18,4 +18,3 @@ def health() -> ShellResponse:
 
 def version() -> ShellResponse:
     return {"service": SERVICE, "version": VERSION, "status": "ok"}
-

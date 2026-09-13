@@ -1,4 +1,4 @@
 # Schemas package
 
-Canonical contract sources and generated types live here.
+Canonical contract sources, evidence schemas, vectors, and generated types live here.
 

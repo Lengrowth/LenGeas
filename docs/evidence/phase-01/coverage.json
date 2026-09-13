@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "phase": "01",
+  "status": "partial",
+  "coverage_source": "synthetic fixture harness and local policy checks",
+  "dependency_free_suites": {"unit": 3, "property": 2, "contract": 3, "security": 3, "performance": 2, "determinism": 2, "disaster_recovery": 3},
+  "unavailable_suites": {"integration": "Docker unavailable", "e2e": "LENGEAS_E2E_BASE_URL unset"},
+  "core_runtime_threshold": "not applicable; Phase 01 contains no domain runtime"
+}
+

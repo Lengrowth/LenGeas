@@ -11,9 +11,7 @@ from typing import Any
 
 def canonical_json(value: Any) -> bytes:
     """Return the platform's compact, sorted JSON representation."""
-    encoded = json.dumps(
-        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    )
+    encoded = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return encoded.encode("utf-8")
 
 

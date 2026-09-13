@@ -65,9 +65,7 @@ def _fixture_module(suite: str) -> tuple[Path, Path]:
     directory_name, _ = SUITES[suite]
     suite_root = TESTS / directory_name
     projects = sorted(
-        path
-        for path in suite_root.iterdir()
-        if path.is_dir() and path.name.startswith("fixture_")
+        path for path in suite_root.iterdir() if path.is_dir() and path.name.startswith("fixture_")
     )
     if len(projects) != 1:
         raise RuntimeError(
@@ -175,8 +173,8 @@ def _validate_fixture_policy() -> None:
 
 def run_suite(suite: str) -> int:
     if suite not in SUITES:
-        available = ", ".join(SUITES)
-        print(f"ERROR unknown suite {suite!r}; expected one of: {available}", file=sys.stderr)
+        suite_names = ", ".join(SUITES)
+        print(f"ERROR unknown suite {suite!r}; expected one of: {suite_names}", file=sys.stderr)
         return 2
     try:
         project, module_path = _fixture_module(suite)

@@ -27,17 +27,36 @@ def main() -> int:
         return 1
     if args.signature or args.certificate:
         if shutil.which("cosign") is None:
-            print("BLOCKED provenance: cosign is unavailable for signature verification", file=sys.stderr)
+            print(
+                "BLOCKED provenance: cosign is unavailable for signature verification",
+                file=sys.stderr,
+            )
             return 2
         if not args.signature or not args.certificate:
-            print("FAIL provenance: signature and certificate must be supplied together", file=sys.stderr)
+            print(
+                "FAIL provenance: signature and certificate must be supplied together",
+                file=sys.stderr,
+            )
             return 1
-        result = subprocess.run(["cosign", "verify-blob", str(args.manifest), "--signature", str(args.signature), "--certificate", str(args.certificate)], check=False)
+        result = subprocess.run(
+            [
+                "cosign",
+                "verify-blob",
+                str(args.manifest),
+                "--signature",
+                str(args.signature),
+                "--certificate",
+                str(args.certificate),
+            ],
+            check=False,
+        )
         return result.returncode
-    print("PASS provenance metadata: immutable commit/tree and keyless signature requirement validated")
+    print(
+        "PASS provenance metadata: immutable commit/tree and keyless signature "
+        "requirement validated"
+    )
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

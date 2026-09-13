@@ -32,6 +32,19 @@ jobs:
       - run: task bootstrap
       - run: task generate
       - run: task verify
+      - run: task format
+      - run: task lint
+      - run: task typecheck
+      - run: task test:unit
+      - run: task test:property
+      - run: task test:contract
+      - run: task test:integration
+      - run: task test:e2e
+      - run: task test:security
+      - run: task test:performance
+      - run: task test:determinism
+      - run: task test:dr
+        # The task is the mandatory disaster-recovery suite.
       - run: uv run --frozen python tools/dev/ci_checks.py workflow-policy
       - run: uv run --frozen python tools/dev/ci_checks.py terraform-policy
       - run: uv run --frozen python tools/dev/ci_checks.py docs-links
@@ -59,4 +72,3 @@ jobs:
           path: .
           artifact-name: sbom-${{ github.sha }}.spdx.json
           output-file: sbom-${{ github.sha }}.spdx.json
-
