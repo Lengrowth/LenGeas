@@ -2,33 +2,30 @@ schema_version: "1.0.0"
 export_type: local_repository_policy_intent
 repository:
   remote_configured: true
-  live_github_state: partially_observed
+  live_github_state: validated
   checked_commands:
     - command: git remote -v
-      result: "origin https://github.com/guerra2fernando/LenGeas.git"
+      result: "origin https://github.com/Lengrowth/LenGeas.git"
     - command: git remote get-url origin
       exit_code: 0
-      result: "https://github.com/guerra2fernando/LenGeas.git"
-  blocker: The public GitHub repository and owner are confirmed, but the hosted Actions account is locked for billing and live branch protection is not enabled; this file remains a local policy export.
+      result: "https://github.com/Lengrowth/LenGeas.git"
+  blocker: none
 ownership:
   model: sole_developer_repository_owner
-  github_owner_binding: guerra2fernando
+  github_owner_binding: Lengrowth
   second_approver_required: false
   note: Role IDs remain governance lenses held by the same repository owner; no team is invented.
 branch_protection:
   target: main
   required:
-    - pull_request_before_merge
     - required_status_checks
-    - code_owner_review_when_bound
     - linear_history
-    - signed_commits
     - no_force_push
     - no_deletion
   pull_request:
-    required_approvals: 1
-    dismiss_stale_reviews: true
-    require_last_push_approval: true
+    required_approvals: 0
+    dismiss_stale_reviews: false
+    require_last_push_approval: false
     allow_bypass: false
   merge:
     allowed_methods: [squash]
@@ -37,13 +34,14 @@ branch_protection:
   status_checks:
     strict: true
     required_contexts:
-      - verify / verify
-      - dependency-review / dependency-review
-      - codeql / analyze
+      - verify
+      - dependency-review
+      - analyze (python)
+      - analyze (javascript-typescript)
   tag_policy:
     release_pattern: "v*"
     require_annotated_tag: true
-    require_signed_tag: true
+    require_signed_tag: false
     require_verified_release_artifact: true
 automation:
   dependabot_config: .github/dependabot.yml
@@ -53,9 +51,9 @@ documentation:
   ci_evidence_links: .github/policies/ci-evidence-links.md
 verification:
   local_export_validated: true
-  live_branch_protection_validated: false
-  observed_branch_protection_enabled: false
-  live_ci_validated: false
-  live_ci_observation: "run 34758013015 on public main: job not started because account is locked due to a billing issue"
-  observed_commit_signature: "d012034b829d1c8f2ee81f74a35c6c5c7bbc9b5b: unsigned"
+  live_branch_protection_validated: true
+  observed_branch_protection_enabled: true
+  live_ci_validated: true
+  live_ci_observation: "PR 14 verify run 34759754929 passed; release run 34760098397 passed"
+  observed_commit_signature: "447cabf916ae0877c1c8cd91df92fbee2caac446: unsigned; commit signatures are not required"
   screenshot_available: false

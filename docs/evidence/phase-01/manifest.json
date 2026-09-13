@@ -31,7 +31,7 @@
     },
     {
       "path": ".github",
-      "sha256": "f2000066af57d40f4fda78086bddb8bcc72a5fe28dc928c206958e9781977da4"
+      "sha256": "451115734537aca26ee3055774592172ac96e486ebe241648b2085504d8343bb"
     },
     {
       "path": "infrastructure/docker",
@@ -51,7 +51,7 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "19fbd6c3511bf6c14ecfacdacd895d1411578636bb8b6c63c04135faa835e2b6"
+      "sha256": "af19fc193de968649b63676131e78b785730dbfeb0dc4e1574c2350a8a702125"
     },
     {
       "path": "tests",
@@ -67,28 +67,26 @@
     }
   ],
   "base_commit": "28bd5d577c7f990854b364b4aa89a41fb144b4fa",
-  "blockers": [
-    "BLK-03",
-    "BLK-04"
-  ],
+  "blockers": [],
   "completed_task_ids": [
     "P01-T01",
     "P01-T02",
     "P01-T03",
     "P01-T04",
+    "P01-T05",
     "P01-T06",
-    "P01-T07"
+    "P01-T07",
+    "P01-T08"
   ],
-  "end_utc": "2026-09-13T12:49:43.625970Z",
-  "final_commit": "d012034b829d1c8f2ee81f74a35c6c5c7bbc9b5b",
+  "end_utc": "2026-09-13T13:35:21.540853Z",
+  "final_commit": "3bd5eed3f07007cb1e39b0fa567ed7125dba5fed",
   "next_phase_prerequisites": [
     "Independent review and resolution of all blockers",
     "Phase 01 acceptance"
   ],
   "open_risks": [
-    "Docker runtime intentionally unavailable on the developer workstation; server runtime passed",
-    "GitHub remote and live branch policy unavailable",
-    "Sigstore signing unavailable"
+    "Docker intentionally unavailable on developer workstation; server and hosted CI runtime passed",
+    "Five low/moderate Dependabot advisories remain for future remediation"
   ],
   "phase": "01",
   "requirement_ids": [
@@ -103,7 +101,7 @@
   ],
   "schema_version": "1.0.0",
   "start_utc": "2026-09-13T09:02:42Z",
-  "status": "blocked",
+  "status": "in_review",
   "tests": [
     "task bootstrap",
     "task generate twice",
@@ -114,9 +112,9 @@
     "local policy checks",
     "server-side Compose smoke (passed; Docker was not run locally)",
     "server-side integration and server-local/public E2E harnesses (passed)",
-    "task verify (still blocked by remote policy and signing prerequisites)",
-    "task phase:gate PHASE=01 (blocked by BLK-03 and BLK-04)",
-    "GitHub verify workflow dispatch (startup_failure; no jobs)"
+    "GitHub hosted verify run 34759754929 (passed)",
+    "GitHub keyless release run 34760098397 for v0.1.1 (passed)",
+    "task phase:gate PHASE=01 (review gate; acceptance remains external)"
   ],
   "toolchain": {
     "docker": "unavailable",

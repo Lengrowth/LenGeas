@@ -7,4 +7,6 @@
 - Mandatory external checks fail closed when unavailable; they are not reclassified as passes.
 - The repository owner authorized a temporary AWS `t3.medium` server deployment and explicitly directed that Docker run only on the server, never on the developer workstation.
 - The private repository source was transferred as a `git archive` of the pushed commit over SSH; no GitHub credential was stored on the host.
-- The repository owner stated that signing is not needed for this temporary deployment. The Phase 01 signing requirement remains an explicit open gate until the owner changes the phase contract or supplies authentic Sigstore evidence.
+- The repository owner stated that commit and tag signing is not needed for this temporary deployment. The published container artifact still uses the Phase 01 keyless Sigstore path, and authentic verification evidence was produced by the `v0.1.1` release run.
+- The repository was transferred to the `Lengrowth` organization. The sole-developer branch policy requires CI/CodeQL, linear history, conversation resolution, and force-push/deletion protection, but intentionally requires no approving review, signed commit, or signed Git tag. Published container artifacts remain keylessly signed and verified by the release workflow.
+- Hosted verification run `34759754929` and keyless release run `34760098397` provide the external CI and Sigstore evidence for this review candidate.
