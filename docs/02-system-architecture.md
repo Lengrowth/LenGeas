@@ -1,6 +1,10 @@
 # System Architecture
 
-## Deployment topology
+## Current development topology
+
+Phase 02 runs the synthetic development platform on the existing `LenGeas-Phase01-Server`, a single `t3.medium` EC2 instance in `us-east-1a`. Cloudflare is authoritative for `games.lengrowth.com`, but the record is DNS-only and traffic reaches Caddy on the EC2 origin directly. The pinned Compose stack supplies development dependencies on that host. This topology has no high-availability, production SLO, private-origin, or regional-DR claim and may not contain customer or production data.
+
+## Target production topology
 
 ```text
 Players / Studio users
@@ -22,7 +26,7 @@ Cloudflare DNS, TLS, DDoS, WAF, Bot Management, Turnstile, Rate Limiting
         +-- assets.lengeas.com -> private Cloudflare R2
 ```
 
-AWS `eu-central-1` is the primary region. AWS `eu-west-1` is the disaster-recovery region. Production spans three availability zones in the primary region. Development and testing share a non-production AWS account; staging and production use separate accounts.
+The current candidate production design uses AWS `eu-central-1` as primary and `eu-west-1` as disaster recovery, with production spanning three availability zones. These regions and resources are not deployed in Phase 02. Before production activation, a rollout ADR must confirm or supersede the region choice using the actual workload, capacity, cost, provider, security, and data-residency requirements. Staging and production then use separate accounts and provider projects.
 
 ## Responsibility split
 
@@ -85,3 +89,5 @@ Each service owns a documented API and collections. A service cannot import anot
 ## Environments
 
 `development`, `testing`, `staging`, and `production` are separate logical environments. Staging and production use separate AWS accounts, Atlas projects/clusters, Supabase projects, Cloudflare Worker environments, R2 buckets, RabbitMQ brokers, MSK clusters, Valkey replication groups, encryption keys, and credentials. Production data never enters lower environments. Sanitized synthetic fixtures are the only supported test data.
+
+Phase 02 adopts the temporary Phase 01 host as the active development foundation. Separate production-target Terraform roots remain disabled reference material. They must not be applied until a later rollout ADR, current provider validation, capacity evidence, and explicit owner cost approval exist. The development endpoint remains available until a replacement is verified and the owner authorizes retirement.

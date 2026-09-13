@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="phase-02" tests="4" failures="0" errors="0" skipped="0">
+  <testcase classname="phase02.policy" name="module_and_root_contract" />
+  <testcase classname="phase02.policy" name="mandatory_negative_controls" />
+  <testcase classname="phase02.live" name="aws_development_host_inventory" />
+  <testcase classname="phase02.live" name="public_health_and_version" />
+</testsuite>

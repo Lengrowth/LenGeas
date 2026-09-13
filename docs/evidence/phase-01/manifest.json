@@ -31,7 +31,7 @@
     },
     {
       "path": ".github",
-      "sha256": "cc1c497e383d64836766834ff7b2b8b12daed4e58c7e9361d0e5e57046f79cac"
+      "sha256": "8dbd3382a5c5421247171ece169767f10387986f1216bfabc13d2d7b6d544477"
     },
     {
       "path": "infrastructure/docker",
@@ -39,7 +39,7 @@
     },
     {
       "path": "infrastructure/aws",
-      "sha256": "6aebb03e0faf9e30cb3f1121a21494d0582f18ae2a0606240a707bf7c9ab03ec"
+      "sha256": "bd3ec83318bf64249a561603144e5aabbe0a0c36d0c5d9f9a3fe23d79467dd82"
     },
     {
       "path": "packages/schemas/evidence/phase-manifest.schema.json",
@@ -51,7 +51,7 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "9e416ffebe80a9308d14477793450ecf5e6d1189f786cd61f450d3ae4f9ee1c3"
+      "sha256": "81907a02a93950d258767bb4fadc5a102b1e3e9d3fa76595f1b8e0876aecf374"
     },
     {
       "path": "tests",
@@ -78,7 +78,7 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T15:32:34.955282Z",
+  "end_utc": "2026-09-13T20:14:48.739527Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [],
   "open_risks": [

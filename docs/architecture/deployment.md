@@ -1,12 +1,30 @@
-# Deployment View
+# Current and Target Deployment Views
 
-## Regions and environments
+## Current development deployment
+
+- AWS `us-east-1a`: one `t3.medium` named `LenGeas-Phase01-Server`.
+- `games.lengrowth.com`: Cloudflare-authoritative DNS-only record to Caddy on the instance.
+- Runtime: digest-pinned Compose dependencies and API health/version shell.
+- Data: synthetic development data only.
+- Availability: one host and one AZ; no production SLO or DR claim.
+
+```mermaid
+flowchart LR
+  user[Developer and synthetic probes] --> dns[Cloudflare authoritative DNS\nDNS-only]
+  dns --> caddy[Caddy HTTPS\nLenGeas-Phase01-Server\nus-east-1a / t3.medium]
+  caddy --> api[API health and version]
+  api --> compose[Loopback-only Compose dependencies]
+```
+
+## Candidate production regions and environments
 
 - Primary production: AWS `eu-central-1`, three availability zones.
 - Disaster recovery: AWS `eu-west-1`.
 - Development and testing: shared non-production AWS account.
 - Staging and production: separate AWS accounts, projects, clusters, buckets, brokers, keys, and credentials.
 - Production data never enters lower environments; sanitized synthetic fixtures are the only supported test data.
+
+This candidate topology is not deployed in Phase 02. ADR-0011 requires a rollout ADR to confirm or supersede the regions and topology using the actual workload before production apply.
 
 ```mermaid
 C4Deployment

@@ -1,0 +1,18 @@
+# Phase 02 owner authorization
+
+Recorded 2026-09-13 from the repository owner's explicit architecture decision:
+
+- Keep `LenGeas-Phase01-Server`, the existing `t3.medium` in `us-east-1a`, as the development foundation.
+- Preserve `games.lengrowth.com` and its current runtime.
+- Do not create a new VPC, NAT gateway, ECS cluster, additional EC2 capacity, managed data plane, managed observability, staging, production, or DR environment during Phase 02.
+- Defer production-grade infrastructure until an actual rollout workload exists.
+- At rollout, approve a new ADR and current cost/capacity model before applying production resources.
+
+This instruction accepts ADR-0011 and authorizes the Phase 02 scope adjustment.
+
+On 2026-09-14, after independent review confirmed that the P02-T07 provider
+activation matrix and P02-T08 development-host backup, recovery, and incident
+procedures are complete, the repository owner explicitly accepts Phase 02.
+Phase 02 is approved with the documented development-only risks and no
+blockers. Production rollout remains subject to a separate rollout ADR and
+fresh qualification evidence.

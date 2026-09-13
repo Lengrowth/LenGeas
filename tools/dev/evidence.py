@@ -29,6 +29,17 @@ ARTIFACT_PATHS = (
     "docs/evidence/phase-01/operations/server-bundle-manifest.json",
     "docs/evidence/phase-01/operations/server-runtime.json",
 )
+PHASE02_ARTIFACT_PATHS = (
+    "infrastructure/terraform",
+    "infrastructure/policies",
+    "tools/dev/phase02_checks.py",
+    "docs/runbooks",
+    "docs/evidence/phase-02/tasks",
+    "docs/evidence/phase-02/security",
+    "docs/evidence/phase-02/performance",
+    "docs/evidence/phase-02/operations",
+    "docs/phases/02-cloud-foundation.md",
+)
 TEXT_SUFFIXES = {
     ".env",
     ".hcl",
@@ -230,6 +241,82 @@ def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
     }
 
 
+def build_phase02_manifest(existing: dict[str, object] | None) -> dict[str, object]:
+    """Build Phase 02 evidence without hashing the manifest itself."""
+    existing = existing or {}
+    status = existing.get("status", "in_review")
+    if status not in {"in_progress", "in_review", "accepted", "blocked"}:
+        status = "in_review"
+    artifacts = []
+    for value in PHASE02_ARTIFACT_PATHS:
+        path = ROOT / value
+        if not path.exists():
+            raise SystemExit(f"Phase 02 evidence artifact is missing: {value}")
+        artifacts.append({"path": value, "sha256": digest(path)})
+    blockers = existing.get("blockers", [])
+    if not isinstance(blockers, list):
+        blockers = []
+    return {
+        "schema_version": "1.0.0",
+        "phase": "02",
+        "status": status,
+        "start_utc": existing.get(
+            "start_utc", datetime.now(UTC).isoformat().replace("+00:00", "Z")
+        ),
+        "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "base_commit": existing.get("base_commit", "4902c6fbdd099e6b31402aedfc23faed7b3039dd"),
+        "final_commit": git_head(),
+        "agent_identity": "Codex root phase agent",
+        "toolchain": {
+            "powershell": "7.6.5",
+            "python": "3.13.5 via uv 0.11.29",
+            "node": "22.16.0",
+            "pnpm": "11.20.0",
+            "terraform": "1.15.8",
+            "git": "2.49.0.windows.1",
+            "task": "3.53.1 (not on PATH; python runner used)",
+            "docker": "unavailable and not installed per Phase 01 constraint",
+        },
+        "completed_task_ids": (
+            [f"P02-T0{number}" for number in range(1, 10)]
+            if status in {"in_review", "accepted"}
+            else []
+        ),
+        "requirement_ids": ["RQ-019", "RQ-020", "RQ-021"],
+        "artifacts": artifacts,
+        "tests": [
+            "Phase 01 accepted gate: uv run --frozen python tools/dev/task_runner.py phase-gate 01",
+            "read-only AWS development-host inventory",
+            "public development health and version checks: HTTP 200",
+            "server bundle, loopback dependency, deployment, and rollback contract review",
+            "production-target module/root static policy",
+            "production-target mandatory negative-control policy",
+            "Terraform fmt and provider-backed validation of disabled reference modules",
+            "live production apply, failover, reachability, managed providers, "
+            "and DR: deferred and not claimed",
+        ],
+        "open_risks": [
+            "Development runs on one t3.medium in one availability zone with no "
+            "production availability or DR guarantee.",
+            "The development root EBS volume is unencrypted; only synthetic "
+            "non-sensitive data is permitted.",
+            "The development endpoint is DNS-only and reaches the public origin "
+            "directly; no production edge protection is claimed.",
+            "The instance has no IAM profile and detailed monitoring is disabled.",
+            "Disabled production-target Terraform may drift and must be refreshed at rollout.",
+        ],
+        "next_phase_prerequisites": (
+            []
+            if status == "accepted"
+            else [
+                "Independent review and resolution of mandatory findings",
+                "Explicit repository-owner acceptance",
+            ]
+        ),
+        "blockers": blockers,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("phase")
@@ -239,8 +326,29 @@ def main() -> int:
         help="rewrite the manifest from the current tree; normal verification is read-only",
     )
     args = parser.parse_args()
+    if args.phase == "02":
+        evidence = ROOT / "docs" / "evidence" / "phase-02"
+        manifest_path = evidence / "manifest.json"
+        if not manifest_path.exists():
+            raise SystemExit(f"Phase 02 evidence manifest is missing: {manifest_path}")
+        existing = load_manifest(manifest_path)
+        if not args.regenerate:
+            verify_manifest(existing)
+            print(f"PASS evidence manifest verified (read-only): {manifest_path.relative_to(ROOT)}")
+            return 0
+        validate_schema(existing)
+        manifest = build_phase02_manifest(existing)
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        verify_manifest(load_manifest(manifest_path))
+        print(
+            "PASS Phase 02 evidence manifest regenerated and verified: "
+            f"{manifest_path.relative_to(ROOT)}"
+        )
+        return 0
     if args.phase != "01":
-        raise SystemExit("only Phase 01 evidence is implemented")
+        raise SystemExit("supported evidence phases are 01 and 02")
     evidence = ROOT / "docs" / "evidence" / "phase-01"
     manifest_path = evidence / "manifest.json"
     if not args.regenerate:
@@ -249,10 +357,10 @@ def main() -> int:
         print(f"PASS evidence manifest verified (read-only): {manifest_path.relative_to(ROOT)}")
         return 0
 
-    existing = load_manifest(manifest_path) if manifest_path.exists() else None
-    if existing is not None:
-        validate_schema(existing)
-    manifest = build_manifest(existing)
+    previous = load_manifest(manifest_path) if manifest_path.exists() else None
+    if previous is not None:
+        validate_schema(previous)
+    manifest = build_manifest(previous)
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )

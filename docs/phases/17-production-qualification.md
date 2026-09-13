@@ -8,7 +8,9 @@ Prove the entire v1 platform in production topology, close every mandatory findi
 
 ## Required reading and entry
 
-Phases 00–16 must be `accepted` with validated manifests and no mandatory follow-up. Read every handoff, `17-security-and-abuse-prevention.md` through `23-traceability-matrix.md`, every operational runbook, and all accepted ADRs.
+Phases 00–16 must be `accepted` with validated manifests and no mandatory follow-up. Before any qualification task runs, the repository owner must accept the ADR-0011 rollout ADR, confirm or supersede the candidate production regions/topology against the real workload, approve the current cost model, and activate the production foundation through reviewed infrastructure as code. Read every handoff, `17-security-and-abuse-prevention.md` through `23-traceability-matrix.md`, every operational runbook, and all accepted ADRs.
+
+The Phase 02 single-host development foundation and disabled Terraform reference plans cannot satisfy this entry condition.
 
 ## Tasks
 

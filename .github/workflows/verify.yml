@@ -19,6 +19,9 @@ jobs:
       LENGEAS_E2E_BASE_URL: http://127.0.0.1:8000
     steps:
       - uses: actions/checkout@v4.2.2
+      - uses: hashicorp/setup-terraform@v3.1.2
+        with:
+          terraform_version: 1.15.8
       - uses: astral-sh/setup-uv@v6.7.0
         with:
           version: 0.11.29
@@ -61,6 +64,24 @@ jobs:
         with:
           name: phase-01-evidence-${{ github.sha }}
           path: docs/evidence/phase-01/
+          if-no-files-found: error
+      - name: Verify Phase 02 evidence and policies
+        run: |
+          task evidence PHASE=02
+          uv run --frozen python tools/dev/phase02_checks.py negative
+          uv run --frozen python tools/dev/ci_checks.py phase02-policy
+      - name: Validate Phase 02 Terraform roots
+        shell: bash
+        run: |
+          terraform fmt -check -recursive infrastructure/terraform
+          for root in nonproduction staging production dr; do
+            terraform -chdir="infrastructure/terraform/environments/${root}" init -backend=false -input=false
+            terraform -chdir="infrastructure/terraform/environments/${root}" validate
+          done
+      - uses: actions/upload-artifact@v4.6.2
+        with:
+          name: phase-02-evidence-${{ github.sha }}
+          path: docs/evidence/phase-02/
           if-no-files-found: error
       - uses: aquasecurity/trivy-action@v0.36.0
         with:

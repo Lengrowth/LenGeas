@@ -81,6 +81,7 @@ def verify() -> None:
         "schema",
         "openapi",
         "license-policy",
+        "phase02-policy",
     ):
         if tool_script("ci_checks", check_name, check=False):
             failures.append(f"ci:{check_name}")
@@ -90,8 +91,11 @@ def verify() -> None:
     print("PASS verify: required local merge-gate checks completed")
 
 
-def evidence(phase: str) -> int:
-    return tool_script("evidence", phase)
+def evidence(phase: str, *, regenerate: bool = False) -> int:
+    arguments = [phase]
+    if regenerate:
+        arguments.append("--regenerate")
+    return tool_script("evidence", *arguments)
 
 
 def phase_gate(phase: str) -> int:
@@ -102,6 +106,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("command")
     parser.add_argument("args", nargs="*")
+    parser.add_argument("--regenerate", action="store_true")
     parsed = parser.parse_args()
     command = parsed.command
     if command == "bootstrap":
@@ -119,7 +124,8 @@ def main() -> int:
         verify()
         return 0
     if command == "evidence":
-        return evidence(parsed.args[0] if parsed.args else "01")
+        phase = parsed.args[0] if parsed.args and not parsed.args[0].startswith("-") else "01"
+        return evidence(phase, regenerate=parsed.regenerate)
     if command == "phase-gate":
         return phase_gate(parsed.args[0] if parsed.args else "01")
     if command in {"local-up", "local-smoke", "local-down"}:
