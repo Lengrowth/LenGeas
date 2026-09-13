@@ -15,23 +15,27 @@ jobs:
   verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    env:
+      LENGEAS_E2E_BASE_URL: http://127.0.0.1:8000
     steps:
       - uses: actions/checkout@v4.2.2
       - uses: astral-sh/setup-uv@v6.7.0
         with:
           version: 0.11.29
+      - uses: pnpm/action-setup@v4.1.0
+        with:
+          version: 11.20.0
       - uses: actions/setup-node@v4.4.0
         with:
           node-version: 22.16.0
           cache: pnpm
-      - uses: pnpm/action-setup@v4.1.0
-        with:
-          version: 11.20.0
       - uses: go-task/setup-task@v2.2.0
         with:
           version: 3.53.1
       - run: task bootstrap
       - run: task generate
+      - name: Start dependency stack
+        run: task local:up
       - run: task verify
       - run: task format
       - run: task lint
@@ -58,18 +62,35 @@ jobs:
           name: phase-01-evidence-${{ github.sha }}
           path: docs/evidence/phase-01/
           if-no-files-found: error
-      - uses: aquasecurity/trivy-action@v0.31.0
+      - uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           scan-ref: .
           severity: CRITICAL,HIGH
           exit-code: '1'
           ignore-unfixed: true
-      - uses: gitleaks/gitleaks-action@v2.3.9
+          version: v0.74.0
+      - name: Install Gitleaks
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_VERSION: 8.30.1
+        run: |
+          curl --fail --silent --show-error --location \
+            --output "$RUNNER_TEMP/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl --fail --silent --show-error --location \
+            --output "$RUNNER_TEMP/gitleaks_checksums.txt" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          cd "$RUNNER_TEMP"
+          grep "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" gitleaks_checksums.txt | sha256sum --check
+          tar -xzf "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          ./gitleaks version
+      - name: Scan repository for secrets
+        run: "$RUNNER_TEMP/gitleaks detect --source . --no-banner --redact"
       - uses: anchore/sbom-action@v0.20.9
         with:
           path: .
           artifact-name: sbom-${{ github.sha }}.spdx.json
           output-file: sbom-${{ github.sha }}.spdx.json
+      - name: Stop dependency stack
+        if: always()
+        run: task local:down
