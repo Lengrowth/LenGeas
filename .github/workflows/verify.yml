@@ -107,7 +107,7 @@ jobs:
           ./gitleaks version
       - name: Scan repository for secrets
         run: "$RUNNER_TEMP/gitleaks detect --source . --no-banner --redact"
-      - uses: anchore/sbom-action@v0.20.9
+      - uses: anchore/sbom-action@v0.24.2
         with:
           path: .
           artifact-name: sbom-${{ github.sha }}.spdx.json
