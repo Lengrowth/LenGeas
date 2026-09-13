@@ -17,13 +17,14 @@ def main() -> int:
         return 1
     manifest = json.loads(path.read_text(encoding="utf-8"))
     blockers = manifest.get("blockers", [])
-    if manifest.get("status") != "in_review" or blockers:
+    status = manifest.get("status")
+    if status not in {"in_review", "accepted"} or blockers:
         print(
             f"FAIL phase gate: status={manifest.get('status')!r}; blockers={blockers!r}",
             file=sys.stderr,
         )
         return 1
-    print(f"PASS phase gate: Phase {phase} is in_review with no blockers")
+    print(f"PASS phase gate: Phase {phase} is {status} with no blockers")
     return 0
 
 

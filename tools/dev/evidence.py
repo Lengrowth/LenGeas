@@ -151,10 +151,13 @@ def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
         artifacts.append({"path": value, "sha256": digest(path)})
     task_ids = [f"P01-T0{number}" for number in range(1, 9)]
     existing = existing or {}
+    status = existing.get("status", "in_review")
+    if status not in {"in_review", "accepted"}:
+        status = "in_review"
     return {
         "schema_version": "1.0.0",
         "phase": "01",
-        "status": "in_review",
+        "status": status,
         "start_utc": existing.get("start_utc", "2026-09-13T09:02:42Z"),
         "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "base_commit": existing.get("base_commit", "28bd5d577c7f990854b364b4aa89a41fb144b4fa"),
@@ -195,7 +198,11 @@ def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
             "server-side integration and server-local/public E2E harnesses (passed)",
             "GitHub hosted verify run 34759754929 (passed)",
             "GitHub keyless release run 34760098397 for v0.1.1 (passed)",
-            "task phase:gate PHASE=01 (review gate; acceptance remains external)",
+            (
+                "task phase:gate PHASE=01 (accepted historical gate)"
+                if status == "accepted"
+                else "task phase:gate PHASE=01 (review gate; acceptance remains external)"
+            ),
         ],
         "open_risks": [
             "Docker intentionally unavailable on developer workstation; "
@@ -211,10 +218,14 @@ def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
             "Dependabot #3: turbo 2.5.6 low build-only risk; "
             "owner infrastructure_owner; Dependabot PR #4 target 2026-09-20",
         ],
-        "next_phase_prerequisites": [
-            "Review recommendation and resolution of all mandatory findings",
-            "Explicit repository-owner acceptance",
-        ],
+        "next_phase_prerequisites": (
+            []
+            if status == "accepted"
+            else [
+                "Review recommendation and resolution of all mandatory findings",
+                "Explicit repository-owner acceptance",
+            ]
+        ),
         "blockers": [],
     }
 
