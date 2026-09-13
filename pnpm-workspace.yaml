@@ -1,0 +1,5 @@
+packages:
+  - apps/studio
+  - packages/sdk-typescript
+  - packages/shared-types/typescript
+

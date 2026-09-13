@@ -1,0 +1,16 @@
+{
+  "name": "lengeas-platform",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@11.20.0",
+  "engines": {"node": ">=22.16.0 <23"},
+  "scripts": {
+    "lint": "pnpm exec prettier --check .",
+    "typecheck": "pnpm exec tsc --noEmit"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2",
+    "typescript": "5.9.2"
+  }
+}
+

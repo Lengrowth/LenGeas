@@ -1,0 +1,76 @@
+version: '3'
+
+vars:
+  PYTHON: '{{.PYTHON | default "python"}}'
+  RUNNER: tools/dev/task_runner.py
+
+tasks:
+  default:
+    cmds:
+      - task --list
+  bootstrap:
+    desc: Install and verify pinned local toolchains and dependencies
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} bootstrap'
+  generate:
+    desc: Generate canonical contracts and typed artifacts
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} generate'
+  format:
+    desc: Apply deterministic formatters
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} format'
+  lint:
+    desc: Run repository lint and policy checks
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} lint'
+  typecheck:
+    desc: Run strict Python and TypeScript checks
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} typecheck'
+  test:unit:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test unit'
+  test:property:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test property'
+  test:contract:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test contract'
+  test:integration:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test integration'
+  test:e2e:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test e2e'
+  test:security:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test security'
+  test:performance:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test performance'
+  test:determinism:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test determinism'
+  test:dr:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} test disaster-recovery'
+  verify:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} verify'
+  evidence:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} evidence {{.PHASE | default "01"}}'
+  phase:gate:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} phase-gate {{.PHASE | default "01"}}'
+  local:up:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} local-up'
+  local:smoke:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} local-smoke'
+  local:down:
+    cmds:
+      - '{{.PYTHON}} {{.RUNNER}} local-down'
+

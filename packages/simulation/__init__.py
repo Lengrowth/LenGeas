@@ -1,0 +1,2 @@
+"""Simulation boundary shell."""
+
