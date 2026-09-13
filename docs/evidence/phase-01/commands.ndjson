@@ -22,3 +22,7 @@
 {"command":"task local:smoke","exit_code":201,"result":"Docker unavailable; underlying local command exit 1"}
 {"command":"task local:down","exit_code":201,"result":"Docker unavailable; underlying local command exit 1"}
 {"command":"uv run --frozen python tools/dev/server_bundle.py --output docs/evidence/phase-01/operations/server-bundle-manifest.json","exit_code":0,"result":"server transfer files hashed; all Compose image references verified digest-pinned; Docker not invoked"}
+{"command":"git push -u origin main","exit_code":0,"result":"origin/main created at 14c6316ae1da4b4fa01de60176aff27b81dbbe1b"}
+{"command":"GitHub repository metadata: guerra2fernando/LenGeas","exit_code":0,"result":"private repository; default branch main; owner permission admin"}
+{"command":"GitHub Actions verification run for 14c6316ae1da4b4fa01de60176aff27b81dbbe1b","exit_code":0,"result":"run 34751926936 completed with startup_failure; no jobs or check-runs"}
+{"command":"GitHub branch protection and ruleset reads","exit_code":403,"result":"branch protection inaccessible to integration; rulesets unavailable for this private repository plan; no live policy export claimed"}

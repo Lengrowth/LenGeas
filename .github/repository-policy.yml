@@ -1,20 +1,20 @@
 schema_version: "1.0.0"
 export_type: local_repository_policy_intent
 repository:
-  remote_configured: false
-  live_github_state: unavailable
+  remote_configured: true
+  live_github_state: partially_observed
   checked_commands:
     - command: git remote -v
-      result: no configured remotes
+      result: "origin https://github.com/guerra2fernando/LenGeas.git"
     - command: git remote get-url origin
-      exit_code: 2
-      result: "error: No such remote 'origin'"
-  blocker: A GitHub repository, owner handle, credentials, and API access are unavailable; this file is a local policy export, not live branch-protection evidence.
+      exit_code: 0
+      result: "https://github.com/guerra2fernando/LenGeas.git"
+  blocker: The private GitHub repository and owner are confirmed, but the active integration cannot read live branch protection and the push verification run ended in startup_failure; this file remains a local policy export.
 ownership:
   model: sole_developer_repository_owner
-  github_owner_binding: unavailable_without_owner_handle
+  github_owner_binding: guerra2fernando
   second_approver_required: false
-  note: Role IDs remain governance lenses held by the same repository owner; no handle or team is invented.
+  note: Role IDs remain governance lenses held by the same repository owner; no team is invented.
 branch_protection:
   target: main
   required:
@@ -54,4 +54,6 @@ documentation:
 verification:
   local_export_validated: true
   live_branch_protection_validated: false
+  live_ci_validated: false
+  live_ci_observation: "run 34751926936 for commit 14c6316ae1da4b4fa01de60176aff27b81dbbe1b: startup_failure"
   screenshot_available: false

@@ -12,11 +12,11 @@ Owner: `platform_operations_owner`; status: open; resolution: execute the server
 
 Owner: `qa_owner`; status: open; resolution: provide a documented non-production synthetic endpoint and rerun the E2E suite.
 
-## BLK-03 — Remote repository protection unavailable
+## BLK-03 — Remote repository protection and CI gate unavailable
 
-No Git remote, GitHub owner handle, credentials, live branch protection export, CI run, or signed release-tag verification exists in this workspace. P01-T08 contains only a locally verifiable policy export.
+The remote is now configured and pushed: `origin/main` resolves to `14c6316ae1da4b4fa01de60176aff27b81dbbe1b`. GitHub metadata confirms private repository `guerra2fernando/LenGeas`, default branch `main`, and owner admin permission. The push-triggered verification run `34751926936` completed with `startup_failure`, no jobs, and no check-runs. The authenticated integration returned `403 Resource not accessible by integration` for branch protection and `403 Upgrade to GitHub Pro or make this repository public` for rulesets, so no live protection export is claimed. P01-T08 still contains only a locally verifiable policy export.
 
-Owner: `infrastructure_owner`; status: open; resolution: connect the repository and export live protected-branch settings and checks without changing the local policy.
+Owner: `infrastructure_owner`; status: open; resolution: use the repository owner's GitHub settings/API access to export live protected-branch settings, resolve the Actions startup failure, and attach a successful CI run without weakening the local policy.
 
 ## BLK-04 — Sigstore sample verification unavailable
 
