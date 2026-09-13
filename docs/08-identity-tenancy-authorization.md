@@ -35,18 +35,18 @@ RBAC provides coarse roles: `owner`, `admin`, `developer`, `designer`, `writer`,
 
 The FastAPI policy decision point evaluates every request. Handlers cannot implement ad hoc role checks. MongoDB repository scope is derived from the authorized context, not request fields.
 
-## Separation of duties
+## Approval boundaries
 
-- An author cannot approve the same definition version.
-- An AI agent cannot approve or publish.
-- Production publishing requires two human approvals: a game owner and a platform release approver.
+- The repository owner may author and approve the same definition version. The system records the authoring and approval actions separately in the audit history.
+- An AI agent cannot approve or publish; the human repository owner makes that decision explicitly.
+- Production publishing requires one explicit repository-owner approval. A studio may configure additional approvers later, but they are not a v1 platform or delivery prerequisite.
 - Support can view redacted player data only while an open support case grants access.
-- Financial correction requires two-person approval and a compensating ledger transaction.
-- Infrastructure production apply requires an approved plan and protected GitHub environment.
+- Financial correction requires recent owner re-authentication, an explicit reason, a compensating ledger transaction, and an immutable audit record.
+- Infrastructure production apply requires a passing reviewed plan, protected GitHub environment, and explicit owner approval.
 
 ## Cross-game contracts
 
-A contract names source game, target game, qualifying event, minimal payload, reward mapping, delivery limits, expiry, revocation, and both game-owner approvals. The cross-game service receives the event and issues a target-game action. Source code cannot query the target profile.
+A contract names source game, target game, qualifying event, minimal payload, reward mapping, delivery limits, expiry, revocation, and repository-owner approval. The cross-game service receives the event and issues a target-game action. Source code cannot query the target profile.
 
 ## Account lifecycle
 

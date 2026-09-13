@@ -6,7 +6,7 @@ This repository is documentation-only until Phase 00 is approved. No product cod
 
 ## Delivery team model
 
-The current LenGeas delivery team is one developer: the repository owner. That developer may hold every governance role ID and is the human reviewer and approver for Phase 00 when approval is explicitly stated. Role IDs remain separate governance lenses for traceability. This does not waive any documented policy that explicitly requires independent or two-person approval; changing such a policy requires a proposed and accepted ADR.
+The current LenGeas delivery team is one developer: the repository owner. The owner holds every responsibility role, may implement and review the same change, and is the sole approval authority for every delivery phase and release. Role IDs remain responsibility and traceability labels; they do not require separate people, meetings, signatures, CODEOWNER reviews, or approval counts. Automated verification and stored evidence remain mandatory. AI agents may prepare and review work, but they cannot record the owner's approval.
 
 ## Canonical documentation
 

@@ -48,7 +48,7 @@ risks:
     statement: Definition content, assets, prompts, or retrieval data may smuggle executable behavior, secrets, PII, or unsafe formulas.
     owner_role: security_owner
     trigger: Scanner finding, validation bypass, prompt-injection result, or unsafe upload sample.
-    mitigation: Bounded schemas and ASTs, quarantine and scanning, output scanners, redaction, and independent review.
+    mitigation: Bounded schemas and ASTs, quarantine and scanning, output scanners, redaction, and explicit repository-owner review.
     review_date: "2026-09-27"
     status: open
   - id: RISK-007

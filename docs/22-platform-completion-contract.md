@@ -2,7 +2,7 @@
 
 ## Meaning of complete
 
-LenGeas v1 is complete when every Phase 00–17 task is accepted, every requirement in `23-traceability-matrix.md` has passing evidence, and the Platform Completion Review is signed by Product, Architecture, Security, SRE, Data, Game Systems, Multiplayer, Studio, and QA owners.
+LenGeas v1 is complete when every Phase 00–17 task is accepted, every requirement in `23-traceability-matrix.md` has passing evidence, and the repository owner records one explicit Platform Completion Review decision covering the Product, Architecture, Security, SRE, Data, Game Systems, Multiplayer, Studio, and QA responsibility lenses.
 
 Documentation, deployed infrastructure, runnable services, tests, SDKs, runbooks, and operational evidence are all required. A demonstration without repeatable tests is incomplete.
 
@@ -17,7 +17,7 @@ Documentation, deployed infrastructure, runnable services, tests, SDKs, runbooks
 7. Run balance simulations and a deterministic experiment from authoring through governed analytics decision.
 8. Run LiveOps activation, bounded remote override, season closure, offer kill switch, and audit reconstruction.
 9. Run friends, party, lobby, matchmaking, async match, real-time match, reconnect, result, rating, leaderboard, and dispute flows.
-10. Have each AI agent create a draft proposal, hit a prohibited tool boundary, pass validation, and require independent human approval.
+10. Have each AI agent create a draft proposal, hit a prohibited tool boundary, pass validation, and require explicit repository-owner approval.
 11. Restore MongoDB and R2 artifacts, rebuild Valkey projections, replay events, rotate secrets, fail one AZ, and recover the platform in the DR region within RTO/RPO.
 12. Produce complete traces, dashboards, alerts, runbooks, cost allocation, privacy deletion, and signed release evidence.
 
@@ -43,4 +43,4 @@ Documentation, deployed infrastructure, runnable services, tests, SDKs, runbooks
 
 ## Completion record
 
-The signed record names release tag, production environment, date, requirement report digest, test report digest, penetration report, DR report, cost baseline, known medium/low risks with owners, and all approvers. After sign-off, the product team creates a separate charter and phase plan for the first game.
+The owner-approved record names release tag, production environment, date, requirement report digest, test report digest, penetration report, DR report, cost baseline, known medium/low risks with owners, and the repository owner's decision. No second signer or cryptographic Git signature is required. After approval, the product team creates a separate charter and phase plan for the first game.

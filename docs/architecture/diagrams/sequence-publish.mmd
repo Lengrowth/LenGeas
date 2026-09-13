@@ -3,13 +3,13 @@ sequenceDiagram
   participant API as Definition API
   participant V as Validator
   participant R2 as Private R2
-  participant A as Approvers
+  participant A as Repository owner
   U->>API: Create or patch draft
   API->>V: Run seven validation levels
   V-->>API: Validation report and digest
   API-->>U: Draft version
   U->>API: Submit for staged review
-  A->>API: Independent approvals
+  A->>API: Explicit owner approval
   API->>R2: Write canonical bundle
   API->>R2: Read back and verify digest
   R2-->>API: Verified artifact

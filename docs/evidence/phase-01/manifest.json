@@ -31,15 +31,15 @@
     },
     {
       "path": ".github",
-      "sha256": "451115734537aca26ee3055774592172ac96e486ebe241648b2085504d8343bb"
+      "sha256": "cc1c497e383d64836766834ff7b2b8b12daed4e58c7e9361d0e5e57046f79cac"
     },
     {
       "path": "infrastructure/docker",
-      "sha256": "2041ac54bec759bac3d7b59bcd398a8f3cd204d5156feba08cf6516bb53bef2b"
+      "sha256": "7008fc96016cfc916265b4d73851dec666a7d137d411192591ec3a9e55613fa0"
     },
     {
       "path": "infrastructure/aws",
-      "sha256": "0b120b63cec6dc5304bfbb52ad3d55b3c46c7af714c986a1e8226c97f75f9065"
+      "sha256": "6aebb03e0faf9e30cb3f1121a21494d0582f18ae2a0606240a707bf7c9ab03ec"
     },
     {
       "path": "packages/schemas/evidence/phase-manifest.schema.json",
@@ -47,19 +47,19 @@
     },
     {
       "path": "packages/shared-types/generated",
-      "sha256": "4c17f9b69b6979391081fdb83aa1fec6c321ec94d85a42d7cfe49341ec92943e"
+      "sha256": "9d53cf1ad5306d1857cda2200ae0807dddf0b9e77d9a7f21d161b94a81891519"
     },
     {
       "path": "tools/dev",
-      "sha256": "af19fc193de968649b63676131e78b785730dbfeb0dc4e1574c2350a8a702125"
+      "sha256": "8e04c6f51f673255dfeb5091fbcfde95f03a97672d0f7e9bf34efa166843e2ec"
     },
     {
       "path": "tests",
-      "sha256": "3a5c17f3ad58602c31efb755f7ae914e8b281c45077f7e618a775b0e1c075f28"
+      "sha256": "e5f7c73131961acb32c88d1b7e4b6a2a618e1b010100978f7235cf4d8844407f"
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
-      "sha256": "9129b095370780899adac9bba295259976ae80a40fb049c450ce8e7362f0ea14"
+      "sha256": "9688709c75c9865ea322c19d9f14797bb8f9d2f88677b3ad37abe4de4adb4839"
     },
     {
       "path": "docs/evidence/phase-01/operations/server-runtime.json",
@@ -78,15 +78,19 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T13:35:21.540853Z",
-  "final_commit": "3bd5eed3f07007cb1e39b0fa567ed7125dba5fed",
+  "end_utc": "2026-09-13T15:14:10.618042Z",
+  "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [
-    "Independent review and resolution of all blockers",
-    "Phase 01 acceptance"
+    "Review recommendation and resolution of all mandatory findings",
+    "Explicit repository-owner acceptance"
   ],
   "open_risks": [
     "Docker intentionally unavailable on developer workstation; server and hosted CI runtime passed",
-    "Five low/moderate Dependabot advisories remain for future remediation"
+    "Dependabot #7: pytest 8.4.2 moderate test-only risk; owner infrastructure_owner; Dependabot PR #5 target 2026-09-20",
+    "Dependabot #6: turbo 2.5.6 moderate build-only risk; owner infrastructure_owner; Dependabot PR #4 target 2026-09-20",
+    "Dependabot #5: turbo 2.5.6 low build-only risk; owner infrastructure_owner; Dependabot PR #4 target 2026-09-20",
+    "Dependabot #4: turbo 2.5.6 moderate build-only risk; owner infrastructure_owner; Dependabot PR #4 target 2026-09-20",
+    "Dependabot #3: turbo 2.5.6 low build-only risk; owner infrastructure_owner; Dependabot PR #4 target 2026-09-20"
   ],
   "phase": "01",
   "requirement_ids": [
@@ -110,6 +114,7 @@
     "task typecheck",
     "dependency-free synthetic suites",
     "local policy checks",
+    "read-only manifest verification (zero mismatches)",
     "server-side Compose smoke (passed; Docker was not run locally)",
     "server-side integration and server-local/public E2E harnesses (passed)",
     "GitHub hosted verify run 34759754929 (passed)",

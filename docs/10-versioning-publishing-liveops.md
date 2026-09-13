@@ -32,7 +32,7 @@ Transitions are API commands with authorization, idempotency, comment, validatio
 6. Produce a signed release report and resolved bundle in private R2.
 7. Promote to staging and run smoke, API, SDK, and synthetic-player tests.
 8. Hold a minimum 24-hour staging soak for normal releases; emergency security releases use the incident change process.
-9. Collect game-owner and platform-release approvals.
+9. Record the repository owner's explicit approval. AI-generated drafts always require this human decision.
 10. Atomically update the production channel pointer.
 11. Warm caches, monitor canaries, and expand assignment from 1% to 10%, 50%, and 100% when health gates pass.
 12. Automatically roll back the channel pointer on integrity, error-rate, latency, or economy anomaly thresholds.

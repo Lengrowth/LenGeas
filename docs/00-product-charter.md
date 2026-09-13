@@ -6,7 +6,7 @@ LenGeas enables teams and approved AI agents to define, validate, simulate, publ
 
 ## Delivery team model
 
-The current internal delivery team is one developer: the repository owner. In this charter, “teams” refers to the studios and organizations that may use LenGeas, not to the internal delivery staffing model. The sole developer may hold all governance role IDs and may approve Phase 00 when explicitly recorded; documented independent or two-person approval requirements remain binding.
+The current internal delivery team is one developer: the repository owner. In this charter, “teams” refers to the studios and organizations that may use LenGeas, not to the internal delivery staffing model. The owner holds every responsibility role and is the sole approval authority for all phases, releases, financial corrections, infrastructure changes, and definition publications. No second person, committee, meeting, handwritten or cryptographic signature, CODEOWNER review, or minimum approval count is required. Automated gates, audit records, explicit owner decisions, and the rule that an AI cannot approve its own output remain binding.
 
 ## Product model
 

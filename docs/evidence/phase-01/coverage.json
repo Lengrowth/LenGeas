@@ -1,10 +1,11 @@
 {
   "schema_version": "1.0.0",
   "phase": "01",
-  "status": "partial",
-  "coverage_source": "synthetic fixture harness and local policy checks",
+  "status": "passed",
+  "coverage_source": "synthetic fixture harness, authorized AWS Compose run, public endpoint check, and GitHub-hosted Ubuntu verification",
   "dependency_free_suites": {"unit": 3, "property": 2, "contract": 3, "security": 3, "performance": 2, "determinism": 2, "disaster_recovery": 3},
-  "unavailable_suites": {"integration": "Docker unavailable", "e2e": "LENGEAS_E2E_BASE_URL unset"},
+  "integration": {"status": "passed", "environment": "authorized AWS host and GitHub-hosted Ubuntu runner"},
+  "e2e": {"status": "passed", "environments": ["server-local", "https://games.lengrowth.com", "GitHub-hosted Ubuntu runner"]},
+  "local_workstation_constraint": "Docker intentionally unavailable; local integration remains unexecuted on the Windows workstation",
   "core_runtime_threshold": "not applicable; Phase 01 contains no domain runtime"
 }
-

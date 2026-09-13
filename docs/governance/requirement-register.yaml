@@ -176,7 +176,7 @@ requirements:
     owner_role: platform_technical_lead
     source_anchors: [README.md#non-negotiable-release-rule, docs/22-platform-completion-contract.md#prohibited-completion-shortcuts]
     phase_tasks: [P00-T01, P00-T06, P00-T08, P17-T10]
-    verification_method: signed completion record and no-game scan
+    verification_method: owner-approved completion record and no-game scan
     evidence_path: docs/evidence/phase-00/tasks/P00-T08.md
   - id: RQ-025
     title: Assets, localization, and notifications
@@ -352,7 +352,7 @@ mandatory_controls:
     source_anchor: docs/phases/00-charter-and-architecture-lock.md#exit-gate
     owner_role: platform_technical_lead
     phase_task: P00-T08
-    verification_method: independent phase review checklist
+    verification_method: phase review checklist and explicit repository-owner decision
     evidence_path: docs/evidence/phase-00/tasks/P00-T08.md
 review:
   owners_assigned_by_role: true

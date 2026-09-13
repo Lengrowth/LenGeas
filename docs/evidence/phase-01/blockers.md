@@ -29,3 +29,15 @@ Owner: `infrastructure_owner`; status: resolved; resolution: retain the DNS reco
 The keyless release workflow completed for `v0.1.1` in run `34760098397`. Buildx published the image with SBOM/provenance, Cosign signed it using GitHub OIDC, Cosign verified the expected workflow certificate identity and issuer, and the release manifest uploaded successfully. Git commit/tag signatures are not required by the sole-developer branch policy; published container artifacts remain signed.
 
 Owner: `release_manager`; status: resolved; resolution: use the successful `v0.1.1` release evidence and retain the keyless artifact-signing workflow.
+
+## Accepted development-tool dependency risks
+
+These five open Dependabot alerts are accepted for the Phase 01 review candidate because they affect development/build tooling, not the deployed API runtime or production player data. The owner role is `infrastructure_owner`; remediation is already represented by the open Dependabot PRs and is targeted for the next maintenance pass.
+
+| Alert | Package and current version | Severity and reachability | Remediation target | Phase 01 disposition |
+|---|---|---|---|---|
+| #7 | `pytest==8.4.2` from `uv.lock`; fixed in `9.0.3` | Moderate; test-only dependency, not shipped in the API image | Dependabot PR #5; target 2026-09-20 | Accepted, non-blocking risk |
+| #6 | `turbo==2.5.6` from `pnpm-lock.yaml`; fixed in `2.9.14` | Moderate; build orchestration only, not runtime code | Dependabot PR #4; target 2026-09-20 | Accepted, non-blocking risk |
+| #5 | `turbo==2.5.6` from `pnpm-lock.yaml`; fixed in `2.9.14` | Low; build orchestration only, not runtime code | Dependabot PR #4; target 2026-09-20 | Accepted, non-blocking risk |
+| #4 | `turbo==2.5.6` from `package.json`; fixed in `2.9.14` | Moderate; build orchestration only, not runtime code | Dependabot PR #4; target 2026-09-20 | Accepted, non-blocking risk |
+| #3 | `turbo==2.5.6` from `package.json`; fixed in `2.9.14` | Low; build orchestration only, not runtime code | Dependabot PR #4; target 2026-09-20 | Accepted, non-blocking risk |

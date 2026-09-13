@@ -14,7 +14,7 @@ ownership:
   model: sole_developer_repository_owner
   github_owner_binding: Lengrowth
   second_approver_required: false
-  note: Role IDs remain governance lenses held by the same repository owner; no team is invented.
+  note: Role IDs remain responsibility labels held by the same repository owner; no team or second approver is invented.
 branch_protection:
   target: main
   required:
