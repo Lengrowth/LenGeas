@@ -19,7 +19,7 @@
     },
     {
       "path": "docs/evidence/phase-02/tasks",
-      "sha256": "f06f516ab955fc3c74f697bf6fac7dc41dd653f8c88d3e71f3f2c950e170ed8e"
+      "sha256": "8f3476bd0291aee4b90d6825475e01e305d53795e337d1f418eefa42fb201e14"
     },
     {
       "path": "docs/evidence/phase-02/security",
@@ -31,7 +31,7 @@
     },
     {
       "path": "docs/evidence/phase-02/operations",
-      "sha256": "5a50f643e35500609656049b5eaf19bfcb0c1c876c05b14d62e21b428b880fa4"
+      "sha256": "9b3704f34f6f013c4c6cea4ba9fe23154adabd2dd301ca7cca7589b4ce7271e7"
     },
     {
       "path": "docs/phases/02-cloud-foundation.md",
@@ -40,11 +40,13 @@
   ],
   "base_commit": "4902c6fbdd099e6b31402aedfc23faed7b3039dd",
   "blockers": [
-    "Required AWS Organizations/security access, Cloudflare access, Supabase/Resend access, and owner-approved recurring-cost ceiling are unavailable; all persistent resources remain planned-only."
+    "AWS Organizations/security access is unavailable and the current account is outside an Organization; the owner-approved no-new-AWS-machine constraint must be reconciled with the required Phase 02 foundation.",
+    "Cloudflare, Atlas, Supabase, Resend, and Sentry provider credentials and capability inventories are unavailable; the owner's cost envelope is recorded but no live vendor exercise can run.",
+    "GitHub is authenticated but restricted AWS plan/apply OIDC roles have not been bootstrapped or exercised."
   ],
   "completed_task_ids": [],
-  "end_utc": "2026-09-13T17:52:32.029288Z",
-  "final_commit": "ef2e38421f6b5da5cf37743ea2e92e83cf7dc38e",
+  "end_utc": "2026-09-13T18:08:14.822596Z",
+  "final_commit": "c7b77de66c76805fc250f9a1cc4b6ca876f5e430",
   "next_phase_prerequisites": [
     "Resolve all mandatory blockers and rerun live evidence",
     "Independent review and explicit repository-owner acceptance"
