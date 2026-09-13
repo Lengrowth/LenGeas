@@ -1,7 +1,7 @@
 {
   "artifact_type": "lengeas.release",
-  "commit": "75c26d40e9d418bc62cc18b6eb84fb7d25a8b557",
-  "created_utc": "2026-09-13T10:16:23.072979Z",
+  "commit": "c1274260dce81e06a2a7934a563fffdb3f7b9501",
+  "created_utc": "2026-09-13T10:25:11.315013Z",
   "files": [
     {
       "path": ".editorconfig",
@@ -57,7 +57,7 @@
     },
     {
       "path": ".tool-versions",
-      "sha256": "d68a08d73d92f00e9808ad335d5a622f6980839897f8495217647979391c3672"
+      "sha256": "33dfbf0923c9aca88d798b7d644936c137831a0abda857e9c2a9d9718ac3b031"
     },
     {
       "path": "CODEOWNERS",
@@ -497,7 +497,7 @@
     },
     {
       "path": "docs/evidence/phase-01/commands.ndjson",
-      "sha256": "609f632839a664392552e420c6f08aa87e78ab799e80f0ac3393f45d8b4ed572"
+      "sha256": "3910ba43b02061b5fb01506521b2a84fb13a486135b4ca0f434b2048f6f5b569"
     },
     {
       "path": "docs/evidence/phase-01/coverage.json",
@@ -509,15 +509,19 @@
     },
     {
       "path": "docs/evidence/phase-01/handoff.md",
-      "sha256": "b74414dc311158e3ad91cc61790efe37257e8bd0e5ecf9f9a01afb198e11a1a2"
+      "sha256": "5112b3f42a54097a8a1526d7abc8b2deb4098dd6d54e75b86a29cf71640f3a49"
     },
     {
       "path": "docs/evidence/phase-01/manifest.json",
-      "sha256": "095bdc9ced302e3e4522b17723a1dde6a922602eeba0bee8b4a94622dcde88c1"
+      "sha256": "bacd8a5f3f83cc01e9b68e170604cfeefb045fe04c1cf8e86fc51d2e15a213c8"
     },
     {
       "path": "docs/evidence/phase-01/operations/README.md",
       "sha256": "5df7456e11b627be1876ecbc31d4b5c85b6daa92a6a2d7c00dd731c0173d9f40"
+    },
+    {
+      "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
+      "sha256": "6f018cbb6b531a1c9025f702f4c64c79c574c95c2965b8932e3309cc494bab0e"
     },
     {
       "path": "docs/evidence/phase-01/operations/service-map.md",
@@ -544,6 +548,14 @@
       "sha256": "0bc13ec0d30bbe3f429c3e6190898c2a32eb51d3845d1f1bb3357236f3e9ccdf"
     },
     {
+      "path": "docs/evidence/phase-01/security/release-manifest.json",
+      "sha256": "df8389d2826e7209526310dca6a87c8f4c321cd9b72a4b02da6d2b087b32b801"
+    },
+    {
+      "path": "docs/evidence/phase-01/security/source-sbom.spdx.json",
+      "sha256": "0bb6c1d5f3f04ebef816489f4c8178c38419c3e50313148f3faf951337c8806b"
+    },
+    {
       "path": "docs/evidence/phase-01/tasks/P01-T01.md",
       "sha256": "8aa6fb16b881555e9950cc8c6d4b3afa05c7e42dd33cf4f4d6f417c6bbac7ef5"
     },
@@ -553,7 +565,7 @@
     },
     {
       "path": "docs/evidence/phase-01/tasks/P01-T03.md",
-      "sha256": "fbfb997f2821319b4ef7aa5256c0b3cb9f26c398e7d886a07a8308f36dbd733f"
+      "sha256": "a97be6d40ffdabfc66cf464fbd85f8164b347bfdac2b90966b88875a3413c76b"
     },
     {
       "path": "docs/evidence/phase-01/tasks/P01-T04.md",
@@ -741,7 +753,7 @@
     },
     {
       "path": "infrastructure/docker/SERVER-DEPLOYMENT.md",
-      "sha256": "9fc448f852f0beef2dde2e31fe57701dac5b184ae051e92b8a2993ecb4318b66"
+      "sha256": "9ed785f9a6027b6064f9b0fe983644002689754015b073fba18a1efb4045fa4c"
     },
     {
       "path": "infrastructure/docker/api-shell/Dockerfile",
@@ -1085,7 +1097,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "4a84952584bba9c2adc2359af152ade8594cef0990812ea6ff041d488a2e46b1"
+      "sha256": "2878de07710887187f5c642a295250079b6b74a1cdd2d8798a5aab3cac02a0c8"
     },
     {
       "path": "tools/dev/format.py",
@@ -1122,6 +1134,10 @@
     {
       "path": "tools/dev/sbom.py",
       "sha256": "f238910acae7b84398e8f14cce9ab7b81ae8c4a7b9dd6a25b196acf55ef0633d"
+    },
+    {
+      "path": "tools/dev/server_bundle.py",
+      "sha256": "03a6a5cb44aeb16d47d05144e90dbc4f8d36c2b385a7506f14cc64222b85e659"
     },
     {
       "path": "tools/dev/task_runner.py",
@@ -1164,5 +1180,5 @@
   },
   "schema_version": "1.0.0",
   "tag": "phase-01-candidate",
-  "tree": "62c395b89cf118e2dd48984583a3b9220bec48e1"
+  "tree": "cdd8ee5cf8b01ada5d93e038636cc110e2cf8f97"
 }

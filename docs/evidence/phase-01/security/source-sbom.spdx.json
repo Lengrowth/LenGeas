@@ -144,7 +144,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "d68a08d73d92f00e9808ad335d5a622f6980839897f8495217647979391c3672"
+          "checksumValue": "33dfbf0923c9aca88d798b7d644936c137831a0abda857e9c2a9d9718ac3b031"
         }
       ],
       "fileName": ".tool-versions"
@@ -1244,7 +1244,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "609f632839a664392552e420c6f08aa87e78ab799e80f0ac3393f45d8b4ed572"
+          "checksumValue": "3910ba43b02061b5fb01506521b2a84fb13a486135b4ca0f434b2048f6f5b569"
         }
       ],
       "fileName": "docs/evidence/phase-01/commands.ndjson"
@@ -1274,7 +1274,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "b74414dc311158e3ad91cc61790efe37257e8bd0e5ecf9f9a01afb198e11a1a2"
+          "checksumValue": "5112b3f42a54097a8a1526d7abc8b2deb4098dd6d54e75b86a29cf71640f3a49"
         }
       ],
       "fileName": "docs/evidence/phase-01/handoff.md"
@@ -1284,7 +1284,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "095bdc9ced302e3e4522b17723a1dde6a922602eeba0bee8b4a94622dcde88c1"
+          "checksumValue": "bacd8a5f3f83cc01e9b68e170604cfeefb045fe04c1cf8e86fc51d2e15a213c8"
         }
       ],
       "fileName": "docs/evidence/phase-01/manifest.json"
@@ -1304,13 +1304,23 @@
       "checksums": [
         {
           "algorithm": "SHA256",
+          "checksumValue": "6f018cbb6b531a1c9025f702f4c64c79c574c95c2965b8932e3309cc494bab0e"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/operations/server-bundle-manifest.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00131",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
           "checksumValue": "4cab7d91d9a615e8a21d8d4f51502b5a6593fb343d98808067bae5215ca18c01"
         }
       ],
       "fileName": "docs/evidence/phase-01/operations/service-map.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00131",
+      "SPDXID": "SPDXRef-File-00132",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1320,7 +1330,7 @@
       "fileName": "docs/evidence/phase-01/performance/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00132",
+      "SPDXID": "SPDXRef-File-00133",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1330,7 +1340,7 @@
       "fileName": "docs/evidence/phase-01/performance/bounds.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00133",
+      "SPDXID": "SPDXRef-File-00134",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1340,7 +1350,7 @@
       "fileName": "docs/evidence/phase-01/phase-review.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00134",
+      "SPDXID": "SPDXRef-File-00135",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1350,7 +1360,7 @@
       "fileName": "docs/evidence/phase-01/security/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00135",
+      "SPDXID": "SPDXRef-File-00136",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1360,7 +1370,27 @@
       "fileName": "docs/evidence/phase-01/security/policy-scan.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00136",
+      "SPDXID": "SPDXRef-File-00137",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e30725e8464b7d487c9dca23616e4b292326a508e28d21b9100d2a13d25261da"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/security/release-manifest.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00138",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0bb6c1d5f3f04ebef816489f4c8178c38419c3e50313148f3faf951337c8806b"
+        }
+      ],
+      "fileName": "docs/evidence/phase-01/security/source-sbom.spdx.json"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00139",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1370,7 +1400,7 @@
       "fileName": "docs/evidence/phase-01/tasks/P01-T01.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00137",
+      "SPDXID": "SPDXRef-File-00140",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1380,17 +1410,17 @@
       "fileName": "docs/evidence/phase-01/tasks/P01-T02.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00138",
+      "SPDXID": "SPDXRef-File-00141",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "fbfb997f2821319b4ef7aa5256c0b3cb9f26c398e7d886a07a8308f36dbd733f"
+          "checksumValue": "a97be6d40ffdabfc66cf464fbd85f8164b347bfdac2b90966b88875a3413c76b"
         }
       ],
       "fileName": "docs/evidence/phase-01/tasks/P01-T03.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00139",
+      "SPDXID": "SPDXRef-File-00142",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1400,7 +1430,7 @@
       "fileName": "docs/evidence/phase-01/tasks/P01-T04.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00140",
+      "SPDXID": "SPDXRef-File-00143",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1410,7 +1440,7 @@
       "fileName": "docs/evidence/phase-01/tasks/P01-T05.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00141",
+      "SPDXID": "SPDXRef-File-00144",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1420,7 +1450,7 @@
       "fileName": "docs/evidence/phase-01/tasks/P01-T06.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00142",
+      "SPDXID": "SPDXRef-File-00145",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1430,7 +1460,7 @@
       "fileName": "docs/evidence/phase-01/tasks/P01-T07.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00143",
+      "SPDXID": "SPDXRef-File-00146",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1440,7 +1470,7 @@
       "fileName": "docs/evidence/phase-01/tasks/P01-T08.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00144",
+      "SPDXID": "SPDXRef-File-00147",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1450,7 +1480,7 @@
       "fileName": "docs/evidence/phase-01/test-report.xml"
     },
     {
-      "SPDXID": "SPDXRef-File-00145",
+      "SPDXID": "SPDXRef-File-00148",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1460,7 +1490,7 @@
       "fileName": "docs/governance/invariant-review.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00146",
+      "SPDXID": "SPDXRef-File-00149",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1470,7 +1500,7 @@
       "fileName": "docs/governance/ownership.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00147",
+      "SPDXID": "SPDXRef-File-00150",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1480,7 +1510,7 @@
       "fileName": "docs/governance/product-charter-approval.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00148",
+      "SPDXID": "SPDXRef-File-00151",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1490,7 +1520,7 @@
       "fileName": "docs/governance/requirement-register.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00149",
+      "SPDXID": "SPDXRef-File-00152",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1500,7 +1530,7 @@
       "fileName": "docs/governance/requirements.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00150",
+      "SPDXID": "SPDXRef-File-00153",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1510,7 +1540,7 @@
       "fileName": "docs/governance/risk-register.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00151",
+      "SPDXID": "SPDXRef-File-00154",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1520,7 +1550,7 @@
       "fileName": "docs/governance/schemas/ownership.schema.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00152",
+      "SPDXID": "SPDXRef-File-00155",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1530,7 +1560,7 @@
       "fileName": "docs/governance/schemas/requirement-register.schema.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00153",
+      "SPDXID": "SPDXRef-File-00156",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1540,7 +1570,7 @@
       "fileName": "docs/governance/schemas/requirements.schema.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00154",
+      "SPDXID": "SPDXRef-File-00157",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1550,7 +1580,7 @@
       "fileName": "docs/governance/schemas/risk-register.schema.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00155",
+      "SPDXID": "SPDXRef-File-00158",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1560,7 +1590,7 @@
       "fileName": "docs/governance/schemas/scope-register.schema.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00156",
+      "SPDXID": "SPDXRef-File-00159",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1570,7 +1600,7 @@
       "fileName": "docs/governance/schemas/vendor-register.schema.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00157",
+      "SPDXID": "SPDXRef-File-00160",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1580,7 +1610,7 @@
       "fileName": "docs/governance/scope-register.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00158",
+      "SPDXID": "SPDXRef-File-00161",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1590,7 +1620,7 @@
       "fileName": "docs/governance/traceability-matrix.generated.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00159",
+      "SPDXID": "SPDXRef-File-00162",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1600,7 +1630,7 @@
       "fileName": "docs/governance/vendor-register.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00160",
+      "SPDXID": "SPDXRef-File-00163",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1610,7 +1640,7 @@
       "fileName": "docs/phases/00-charter-and-architecture-lock.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00161",
+      "SPDXID": "SPDXRef-File-00164",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1620,7 +1650,7 @@
       "fileName": "docs/phases/01-engineering-foundation.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00162",
+      "SPDXID": "SPDXRef-File-00165",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1630,7 +1660,7 @@
       "fileName": "docs/phases/02-cloud-foundation.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00163",
+      "SPDXID": "SPDXRef-File-00166",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1640,7 +1670,7 @@
       "fileName": "docs/phases/03-identity-tenancy-authorization.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00164",
+      "SPDXID": "SPDXRef-File-00167",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1650,7 +1680,7 @@
       "fileName": "docs/phases/04-definition-schema.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00165",
+      "SPDXID": "SPDXRef-File-00168",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1660,7 +1690,7 @@
       "fileName": "docs/phases/05-runtime-primitives.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00166",
+      "SPDXID": "SPDXRef-File-00169",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1670,7 +1700,7 @@
       "fileName": "docs/phases/06-state-economy-inventory.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00167",
+      "SPDXID": "SPDXRef-File-00170",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1680,7 +1710,7 @@
       "fileName": "docs/phases/07-progression-and-sdks.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00168",
+      "SPDXID": "SPDXRef-File-00171",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1690,7 +1720,7 @@
       "fileName": "docs/phases/08-registry-publishing-liveops.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00169",
+      "SPDXID": "SPDXRef-File-00172",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1700,7 +1730,7 @@
       "fileName": "docs/phases/09-saves-and-offline-sync.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00170",
+      "SPDXID": "SPDXRef-File-00173",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1710,7 +1740,7 @@
       "fileName": "docs/phases/10-events-jobs-timers-analytics.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00171",
+      "SPDXID": "SPDXRef-File-00174",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1720,7 +1750,7 @@
       "fileName": "docs/phases/11-simulation-experiments-monetization.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00172",
+      "SPDXID": "SPDXRef-File-00175",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1730,7 +1760,7 @@
       "fileName": "docs/phases/12-game-studio.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00173",
+      "SPDXID": "SPDXRef-File-00176",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1740,7 +1770,7 @@
       "fileName": "docs/phases/13-solo-mechanics-packages.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00174",
+      "SPDXID": "SPDXRef-File-00177",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1750,7 +1780,7 @@
       "fileName": "docs/phases/14-social-and-async-multiplayer.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00175",
+      "SPDXID": "SPDXRef-File-00178",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1760,7 +1790,7 @@
       "fileName": "docs/phases/15-realtime-multiplayer.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00176",
+      "SPDXID": "SPDXRef-File-00179",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1770,7 +1800,7 @@
       "fileName": "docs/phases/16-ai-agent-control-plane.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00177",
+      "SPDXID": "SPDXRef-File-00180",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1780,7 +1810,7 @@
       "fileName": "docs/phases/17-production-qualification.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00178",
+      "SPDXID": "SPDXRef-File-00181",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1790,7 +1820,7 @@
       "fileName": "docs/phases/AI-EXECUTION-PROTOCOL.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00179",
+      "SPDXID": "SPDXRef-File-00182",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1800,7 +1830,7 @@
       "fileName": "docs/phases/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00180",
+      "SPDXID": "SPDXRef-File-00183",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1810,7 +1840,7 @@
       "fileName": "docs/templates/adr.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00181",
+      "SPDXID": "SPDXRef-File-00184",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1820,7 +1850,7 @@
       "fileName": "docs/templates/phase-agent-prompt.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00182",
+      "SPDXID": "SPDXRef-File-00185",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1830,7 +1860,7 @@
       "fileName": "docs/templates/phase-review.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00183",
+      "SPDXID": "SPDXRef-File-00186",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1840,7 +1870,7 @@
       "fileName": "docs/templates/task-record.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00184",
+      "SPDXID": "SPDXRef-File-00187",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1850,17 +1880,17 @@
       "fileName": "infrastructure/docker/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00185",
+      "SPDXID": "SPDXRef-File-00188",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "9fc448f852f0beef2dde2e31fe57701dac5b184ae051e92b8a2993ecb4318b66"
+          "checksumValue": "9ed785f9a6027b6064f9b0fe983644002689754015b073fba18a1efb4045fa4c"
         }
       ],
       "fileName": "infrastructure/docker/SERVER-DEPLOYMENT.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00186",
+      "SPDXID": "SPDXRef-File-00189",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1870,7 +1900,7 @@
       "fileName": "infrastructure/docker/api-shell/Dockerfile"
     },
     {
-      "SPDXID": "SPDXRef-File-00187",
+      "SPDXID": "SPDXRef-File-00190",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1880,7 +1910,7 @@
       "fileName": "infrastructure/docker/api-shell/api_shell.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00188",
+      "SPDXID": "SPDXRef-File-00191",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1890,7 +1920,7 @@
       "fileName": "infrastructure/docker/grafana/provisioning/datasources/datasource.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00189",
+      "SPDXID": "SPDXRef-File-00192",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1900,7 +1930,7 @@
       "fileName": "infrastructure/docker/otel-collector-config.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00190",
+      "SPDXID": "SPDXRef-File-00193",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1910,7 +1940,7 @@
       "fileName": "infrastructure/docker/prometheus.yml"
     },
     {
-      "SPDXID": "SPDXRef-File-00191",
+      "SPDXID": "SPDXRef-File-00194",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1920,7 +1950,7 @@
       "fileName": "infrastructure/policies/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00192",
+      "SPDXID": "SPDXRef-File-00195",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1930,7 +1960,7 @@
       "fileName": "infrastructure/terraform/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00193",
+      "SPDXID": "SPDXRef-File-00196",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1940,7 +1970,7 @@
       "fileName": "infrastructure/terraform/bootstrap/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00194",
+      "SPDXID": "SPDXRef-File-00197",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1950,7 +1980,7 @@
       "fileName": "infrastructure/terraform/environments/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00195",
+      "SPDXID": "SPDXRef-File-00198",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1960,7 +1990,7 @@
       "fileName": "infrastructure/terraform/modules/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00196",
+      "SPDXID": "SPDXRef-File-00199",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1970,7 +2000,7 @@
       "fileName": "infrastructure/terraform/versions.tf"
     },
     {
-      "SPDXID": "SPDXRef-File-00197",
+      "SPDXID": "SPDXRef-File-00200",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1980,7 +2010,7 @@
       "fileName": "mechanics/async-multiplayer/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00198",
+      "SPDXID": "SPDXRef-File-00201",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1990,7 +2020,7 @@
       "fileName": "mechanics/cards/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00199",
+      "SPDXID": "SPDXRef-File-00202",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2000,7 +2030,7 @@
       "fileName": "mechanics/crafting/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00200",
+      "SPDXID": "SPDXRef-File-00203",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2010,7 +2040,7 @@
       "fileName": "mechanics/idle/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00201",
+      "SPDXID": "SPDXRef-File-00204",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2020,7 +2050,7 @@
       "fileName": "mechanics/management/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00202",
+      "SPDXID": "SPDXRef-File-00205",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2030,7 +2060,7 @@
       "fileName": "mechanics/merge/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00203",
+      "SPDXID": "SPDXRef-File-00206",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2040,7 +2070,7 @@
       "fileName": "mechanics/prestige/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00204",
+      "SPDXID": "SPDXRef-File-00207",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2050,7 +2080,7 @@
       "fileName": "mechanics/realtime-session/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00205",
+      "SPDXID": "SPDXRef-File-00208",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2060,7 +2090,7 @@
       "fileName": "mechanics/rpg/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00206",
+      "SPDXID": "SPDXRef-File-00209",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2070,7 +2100,7 @@
       "fileName": "mechanics/story/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00207",
+      "SPDXID": "SPDXRef-File-00210",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2080,7 +2110,7 @@
       "fileName": "mechanics/tower-defense/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00208",
+      "SPDXID": "SPDXRef-File-00211",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2090,7 +2120,7 @@
       "fileName": "on-call-roles.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00209",
+      "SPDXID": "SPDXRef-File-00212",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2100,7 +2130,7 @@
       "fileName": "package.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00210",
+      "SPDXID": "SPDXRef-File-00213",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2110,7 +2140,7 @@
       "fileName": "packages/__init__.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00211",
+      "SPDXID": "SPDXRef-File-00214",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2120,7 +2150,7 @@
       "fileName": "packages/domain/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00212",
+      "SPDXID": "SPDXRef-File-00215",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2130,7 +2160,7 @@
       "fileName": "packages/domain/__init__.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00213",
+      "SPDXID": "SPDXRef-File-00216",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2140,7 +2170,7 @@
       "fileName": "packages/persistence/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00214",
+      "SPDXID": "SPDXRef-File-00217",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2150,7 +2180,7 @@
       "fileName": "packages/persistence/__init__.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00215",
+      "SPDXID": "SPDXRef-File-00218",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2160,7 +2190,7 @@
       "fileName": "packages/runtime/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00216",
+      "SPDXID": "SPDXRef-File-00219",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2170,7 +2200,7 @@
       "fileName": "packages/runtime/__init__.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00217",
+      "SPDXID": "SPDXRef-File-00220",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2180,7 +2210,7 @@
       "fileName": "packages/schemas/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00218",
+      "SPDXID": "SPDXRef-File-00221",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2190,7 +2220,7 @@
       "fileName": "packages/schemas/canonical/vectors/fixture_canonical_json.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00219",
+      "SPDXID": "SPDXRef-File-00222",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2200,7 +2230,7 @@
       "fileName": "packages/schemas/evidence/phase-manifest.schema.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00220",
+      "SPDXID": "SPDXRef-File-00223",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2210,7 +2240,7 @@
       "fileName": "packages/sdk-csharp/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00221",
+      "SPDXID": "SPDXRef-File-00224",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2220,7 +2250,7 @@
       "fileName": "packages/sdk-kotlin/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00222",
+      "SPDXID": "SPDXRef-File-00225",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2230,7 +2260,7 @@
       "fileName": "packages/sdk-python/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00223",
+      "SPDXID": "SPDXRef-File-00226",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2240,7 +2270,7 @@
       "fileName": "packages/sdk-python/__init__.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00224",
+      "SPDXID": "SPDXRef-File-00227",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2250,7 +2280,7 @@
       "fileName": "packages/sdk-swift/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00225",
+      "SPDXID": "SPDXRef-File-00228",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2260,7 +2290,7 @@
       "fileName": "packages/sdk-typescript/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00226",
+      "SPDXID": "SPDXRef-File-00229",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2270,7 +2300,7 @@
       "fileName": "packages/sdk-typescript/package.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00227",
+      "SPDXID": "SPDXRef-File-00230",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2280,7 +2310,7 @@
       "fileName": "packages/sdk-typescript/src/index.ts"
     },
     {
-      "SPDXID": "SPDXRef-File-00228",
+      "SPDXID": "SPDXRef-File-00231",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2290,7 +2320,7 @@
       "fileName": "packages/sdk-typescript/tsconfig.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00229",
+      "SPDXID": "SPDXRef-File-00232",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2300,7 +2330,7 @@
       "fileName": "packages/shared-types/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00230",
+      "SPDXID": "SPDXRef-File-00233",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2310,7 +2340,7 @@
       "fileName": "packages/shared-types/generated/fixture_canonical_json.canonical.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00231",
+      "SPDXID": "SPDXRef-File-00234",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2320,7 +2350,7 @@
       "fileName": "packages/shared-types/generated/generation-index.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00232",
+      "SPDXID": "SPDXRef-File-00235",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2330,7 +2360,7 @@
       "fileName": "packages/shared-types/generated/phase-manifest.ts"
     },
     {
-      "SPDXID": "SPDXRef-File-00233",
+      "SPDXID": "SPDXRef-File-00236",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2340,7 +2370,7 @@
       "fileName": "packages/shared-types/generated/phase_manifest.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00234",
+      "SPDXID": "SPDXRef-File-00237",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2350,7 +2380,7 @@
       "fileName": "packages/simulation/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00235",
+      "SPDXID": "SPDXRef-File-00238",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2360,7 +2390,7 @@
       "fileName": "packages/simulation/__init__.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00236",
+      "SPDXID": "SPDXRef-File-00239",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2370,7 +2400,7 @@
       "fileName": "pnpm-lock.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00237",
+      "SPDXID": "SPDXRef-File-00240",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2380,7 +2410,7 @@
       "fileName": "pnpm-workspace.yaml"
     },
     {
-      "SPDXID": "SPDXRef-File-00238",
+      "SPDXID": "SPDXRef-File-00241",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2390,7 +2420,7 @@
       "fileName": "pyproject.toml"
     },
     {
-      "SPDXID": "SPDXRef-File-00239",
+      "SPDXID": "SPDXRef-File-00242",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2400,7 +2430,7 @@
       "fileName": "tests/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00240",
+      "SPDXID": "SPDXRef-File-00243",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2410,7 +2440,7 @@
       "fileName": "tests/conformance/fixtures/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00241",
+      "SPDXID": "SPDXRef-File-00244",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2420,7 +2450,7 @@
       "fileName": "tests/contract/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00242",
+      "SPDXID": "SPDXRef-File-00245",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2430,7 +2460,7 @@
       "fileName": "tests/contract/fixture_contract_schema/fixture_contract_schema.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00243",
+      "SPDXID": "SPDXRef-File-00246",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2440,7 +2470,7 @@
       "fileName": "tests/contract/fixture_contract_schema/test_fixture_contract_schema.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00244",
+      "SPDXID": "SPDXRef-File-00247",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2450,7 +2480,7 @@
       "fileName": "tests/determinism/fixture_determinism_replay/fixture_determinism_replay.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00245",
+      "SPDXID": "SPDXRef-File-00248",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2460,7 +2490,7 @@
       "fileName": "tests/determinism/fixture_determinism_replay/test_fixture_determinism_replay.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00246",
+      "SPDXID": "SPDXRef-File-00249",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2470,7 +2500,7 @@
       "fileName": "tests/disaster-recovery/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00247",
+      "SPDXID": "SPDXRef-File-00250",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2480,7 +2510,7 @@
       "fileName": "tests/disaster-recovery/fixture_disaster_recovery/fixture_disaster_recovery.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00248",
+      "SPDXID": "SPDXRef-File-00251",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2490,7 +2520,7 @@
       "fileName": "tests/disaster-recovery/fixture_disaster_recovery/test_fixture_disaster_recovery.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00249",
+      "SPDXID": "SPDXRef-File-00252",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2500,7 +2530,7 @@
       "fileName": "tests/e2e/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00250",
+      "SPDXID": "SPDXRef-File-00253",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2510,7 +2540,7 @@
       "fileName": "tests/e2e/fixture_e2e_publish_flow/fixture_e2e_publish_flow.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00251",
+      "SPDXID": "SPDXRef-File-00254",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2520,7 +2550,7 @@
       "fileName": "tests/e2e/fixture_e2e_publish_flow/test_fixture_e2e_publish_flow.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00252",
+      "SPDXID": "SPDXRef-File-00255",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2530,7 +2560,7 @@
       "fileName": "tests/fixture_test_support.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00253",
+      "SPDXID": "SPDXRef-File-00256",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2540,7 +2570,7 @@
       "fileName": "tests/integration/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00254",
+      "SPDXID": "SPDXRef-File-00257",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2550,7 +2580,7 @@
       "fileName": "tests/integration/fixture_integration_local_stack/fixture_integration_local_stack.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00255",
+      "SPDXID": "SPDXRef-File-00258",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2560,7 +2590,7 @@
       "fileName": "tests/integration/fixture_integration_local_stack/test_fixture_integration_local_stack.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00256",
+      "SPDXID": "SPDXRef-File-00259",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2570,7 +2600,7 @@
       "fileName": "tests/performance/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00257",
+      "SPDXID": "SPDXRef-File-00260",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2580,7 +2610,7 @@
       "fileName": "tests/performance/fixture_performance_bounds/fixture_performance_bounds.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00258",
+      "SPDXID": "SPDXRef-File-00261",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2590,7 +2620,7 @@
       "fileName": "tests/performance/fixture_performance_bounds/test_fixture_performance_bounds.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00259",
+      "SPDXID": "SPDXRef-File-00262",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2600,7 +2630,7 @@
       "fileName": "tests/property/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00260",
+      "SPDXID": "SPDXRef-File-00263",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2610,7 +2640,7 @@
       "fileName": "tests/property/fixture_property_invariants/fixture_property_invariants.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00261",
+      "SPDXID": "SPDXRef-File-00264",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2620,7 +2650,7 @@
       "fileName": "tests/property/fixture_property_invariants/test_fixture_property_invariants.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00262",
+      "SPDXID": "SPDXRef-File-00265",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2630,7 +2660,7 @@
       "fileName": "tests/security/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00263",
+      "SPDXID": "SPDXRef-File-00266",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2640,7 +2670,7 @@
       "fileName": "tests/security/fixture_security_boundaries/fixture_security_boundaries.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00264",
+      "SPDXID": "SPDXRef-File-00267",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2650,7 +2680,7 @@
       "fileName": "tests/security/fixture_security_boundaries/test_fixture_security_boundaries.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00265",
+      "SPDXID": "SPDXRef-File-00268",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2660,7 +2690,7 @@
       "fileName": "tests/unit/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00266",
+      "SPDXID": "SPDXRef-File-00269",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2670,7 +2700,7 @@
       "fileName": "tests/unit/fixture_unit_platform/fixture_unit_platform.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00267",
+      "SPDXID": "SPDXRef-File-00270",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2680,7 +2710,7 @@
       "fileName": "tests/unit/fixture_unit_platform/test_fixture_unit_platform.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00268",
+      "SPDXID": "SPDXRef-File-00271",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2690,7 +2720,7 @@
       "fileName": "tools/dev/README.md"
     },
     {
-      "SPDXID": "SPDXRef-File-00269",
+      "SPDXID": "SPDXRef-File-00272",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2700,7 +2730,7 @@
       "fileName": "tools/dev/canonical_json.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00270",
+      "SPDXID": "SPDXRef-File-00273",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2710,17 +2740,17 @@
       "fileName": "tools/dev/ci_checks.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00271",
+      "SPDXID": "SPDXRef-File-00274",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "4a84952584bba9c2adc2359af152ade8594cef0990812ea6ff041d488a2e46b1"
+          "checksumValue": "2878de07710887187f5c642a295250079b6b74a1cdd2d8798a5aab3cac02a0c8"
         }
       ],
       "fileName": "tools/dev/evidence.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00272",
+      "SPDXID": "SPDXRef-File-00275",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2730,7 +2760,7 @@
       "fileName": "tools/dev/format.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00273",
+      "SPDXID": "SPDXRef-File-00276",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2740,7 +2770,7 @@
       "fileName": "tools/dev/generate.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00274",
+      "SPDXID": "SPDXRef-File-00277",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2750,7 +2780,7 @@
       "fileName": "tools/dev/lint.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00275",
+      "SPDXID": "SPDXRef-File-00278",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2760,7 +2790,7 @@
       "fileName": "tools/dev/local.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00276",
+      "SPDXID": "SPDXRef-File-00279",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2770,7 +2800,7 @@
       "fileName": "tools/dev/openapi_diff.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00277",
+      "SPDXID": "SPDXRef-File-00280",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2780,7 +2810,7 @@
       "fileName": "tools/dev/phase_gate.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00278",
+      "SPDXID": "SPDXRef-File-00281",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2790,7 +2820,7 @@
       "fileName": "tools/dev/provenance.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00279",
+      "SPDXID": "SPDXRef-File-00282",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2800,7 +2830,7 @@
       "fileName": "tools/dev/release_manifest.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00280",
+      "SPDXID": "SPDXRef-File-00283",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2810,7 +2840,17 @@
       "fileName": "tools/dev/sbom.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00281",
+      "SPDXID": "SPDXRef-File-00284",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "03a6a5cb44aeb16d47d05144e90dbc4f8d36c2b385a7506f14cc64222b85e659"
+        }
+      ],
+      "fileName": "tools/dev/server_bundle.py"
+    },
+    {
+      "SPDXID": "SPDXRef-File-00285",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2820,7 +2860,7 @@
       "fileName": "tools/dev/task_runner.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00282",
+      "SPDXID": "SPDXRef-File-00286",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2830,7 +2870,7 @@
       "fileName": "tools/dev/test_harness.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00283",
+      "SPDXID": "SPDXRef-File-00287",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2840,7 +2880,7 @@
       "fileName": "tools/dev/typecheck.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00284",
+      "SPDXID": "SPDXRef-File-00288",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2850,7 +2890,7 @@
       "fileName": "tools/dev/typegen.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00285",
+      "SPDXID": "SPDXRef-File-00289",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2860,7 +2900,7 @@
       "fileName": "tools/dev/version_report.py"
     },
     {
-      "SPDXID": "SPDXRef-File-00286",
+      "SPDXID": "SPDXRef-File-00290",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2870,7 +2910,7 @@
       "fileName": "tsconfig.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00287",
+      "SPDXID": "SPDXRef-File-00291",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -2880,7 +2920,7 @@
       "fileName": "turbo.json"
     },
     {
-      "SPDXID": "SPDXRef-File-00288",
+      "SPDXID": "SPDXRef-File-00292",
       "checksums": [
         {
           "algorithm": "SHA256",
