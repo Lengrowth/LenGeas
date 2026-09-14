@@ -3,7 +3,7 @@
   "artifacts": [
     {
       "path": ".github/workflows/verify.yml",
-      "sha256": "533f503e817a8a11b33a7f00ae38eb3d24c2266754f64dd1d5c7dc5ddd51c319"
+      "sha256": "a5ca9f2ba9f2531674d52021e330edf4c9c9b295ee6201b58c14e3e75f9901c7"
     },
     {
       "path": "pyproject.toml",
@@ -166,8 +166,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T14:53:07.952436Z",
-  "final_commit": "f15c6b9b1fe86c157f946d4dfdd7a033445ebc0d",
+  "end_utc": "2026-09-14T15:02:53.702305Z",
+  "final_commit": "040711337aa25b141fcea6cf7fb792a933cef719",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
