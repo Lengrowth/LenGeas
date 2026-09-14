@@ -5,9 +5,11 @@ from __future__ import annotations
 from collections.abc import Iterator
 from copy import deepcopy
 from datetime import UTC, datetime
+from threading import RLock
 from typing import Any
-from uuid import uuid4
 
+from packages.domain.audit.events import EventEnvelope
+from packages.domain.ids import new_uuid7
 from packages.domain.tenancy.models import TrustedScope
 
 from .models import (
@@ -22,7 +24,7 @@ from .models import (
 
 
 def new_id() -> str:
-    return str(uuid4())
+    return new_uuid7()
 
 
 class InMemoryIdentityRepository:
@@ -33,10 +35,14 @@ class InMemoryIdentityRepository:
         self.profiles: dict[str, GameProfile] = {}
         self.global_profiles: dict[str, GlobalProfile] = {}
         self.audit: list[AuditEvent] = []
+        self.events: list[EventEnvelope] = []
+        self.outbox: list[EventEnvelope] = []
+        self.player_studios: dict[str, set[str]] = {}
         self._provider_subject: dict[tuple[str, str], str] = {}
         self._device_keys: dict[str, str] = {}
         self._merge_keys: dict[tuple[str, str], str] = {}
         self._snapshots: list[tuple[Any, ...]] = []
+        self.lock = RLock()
 
     def create_account(self, email_hash: str | None = None) -> Account:
         account = Account(new_id(), datetime.now(UTC), email_hash)
@@ -46,6 +52,7 @@ class InMemoryIdentityRepository:
     def create_player(self) -> StudioPlayer:
         player = StudioPlayer(new_id(), datetime.now(UTC))
         self.players[player.player_id] = player
+        self.player_studios[player.player_id] = set()
         self.global_profiles[player.player_id] = GlobalProfile(player.player_id)
         return player
 
@@ -83,6 +90,19 @@ class InMemoryIdentityRepository:
             self._device_keys[device_fingerprint] = identity.identity_id
         return identity
 
+    def replace_device_key(
+        self, identity_id: str, old_fingerprint: str, new_fingerprint: str
+    ) -> None:
+        identity = self.identities.get(identity_id)
+        if identity is None or identity.device_key_fingerprint != old_fingerprint:
+            raise ValueError("device_key_mismatch")
+        owner = self._device_keys.get(new_fingerprint)
+        if owner is not None and owner != identity_id:
+            raise ValueError("device_key_exists")
+        self._device_keys.pop(old_fingerprint, None)
+        self._device_keys[new_fingerprint] = identity_id
+        identity.device_key_fingerprint = new_fingerprint
+
     def identity_for_provider(self, provider: str, value: str) -> PlayerIdentity | None:
         identity_id = self._provider_subject.get((provider, value))
         return self.identities.get(identity_id) if identity_id else None
@@ -99,6 +119,7 @@ class InMemoryIdentityRepository:
             raise ValueError("game_profile_exists")
         profile = GameProfile(new_id(), player_id, scope.studio_id, game_id)
         self.profiles[profile.profile_id] = profile
+        self.player_studios.setdefault(player_id, set()).add(scope.studio_id)
         return profile
 
     def profiles_for(self, scope: TrustedScope, player_id: str) -> list[GameProfile]:
@@ -130,6 +151,10 @@ class InMemoryIdentityRepository:
         self.audit.append(event)
         return event
 
+    def emit(self, event: EventEnvelope) -> None:
+        self.events.append(event)
+        self.outbox.append(event)
+
     def begin(self) -> None:
         self._snapshots.append(
             (
@@ -141,6 +166,10 @@ class InMemoryIdentityRepository:
                 deepcopy(self._provider_subject),
                 deepcopy(self._device_keys),
                 deepcopy(self._merge_keys),
+                deepcopy(self.audit),
+                deepcopy(self.events),
+                deepcopy(self.outbox),
+                deepcopy(self.player_studios),
             )
         )
 
@@ -157,6 +186,10 @@ class InMemoryIdentityRepository:
             self._provider_subject,
             self._device_keys,
             self._merge_keys,
+            self.audit,
+            self.events,
+            self.outbox,
+            self.player_studios,
         ) = snapshot
 
     def commit(self) -> None:

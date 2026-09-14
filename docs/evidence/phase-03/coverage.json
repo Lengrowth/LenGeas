@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "scope": "Phase 03 identity tests",
-  "tests": 12,
+  "tests": 18,
   "failures": 0,
   "errors": 0,
   "coverage_command": "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity"

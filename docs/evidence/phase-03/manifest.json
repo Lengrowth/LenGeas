@@ -3,39 +3,39 @@
   "artifacts": [
     {
       "path": "packages/domain/identity",
-      "sha256": "fdea2c5ee505e01fea6689c9a62c324c5eb3149b60a3cdc8253dc1579536d726"
+      "sha256": "5a0fe3e41ed07c265b9c6b42577a0a320593f89110dfa1ef1e0413a4859b46a7"
     },
     {
       "path": "packages/domain/tenancy",
-      "sha256": "1b0a88031ec25f15e2e0a0773d4f692584f2d159a596977088bcf7eba5574d06"
+      "sha256": "6c7dca555c75b2ec665ccfcecb608446f416fbeea24236d7aecfafc85ac9747d"
     },
     {
       "path": "packages/domain/authorization",
-      "sha256": "fff39c622de32309c31c0c48ce880cf5c7c77684660060b9cb84be8ff88e701a"
+      "sha256": "9a435d683a9a7361bac064ad7aff428792b69e9e70039f95e85bf299f163a30b"
     },
     {
       "path": "packages/domain/audit",
-      "sha256": "c888cfee04a686df6791bbce3622220bceb8575993b695bc7007176d5c61872d"
+      "sha256": "50623af3031b18f7a1d10e8158b8d18824f93a203d1bc3e705b4c0b908f62c48"
     },
     {
       "path": "packages/persistence/mongodb/identity",
-      "sha256": "be7334fb777f5ccc085c10439962c1c59fa1331da8bd3c609cbae01ac91acf5a"
+      "sha256": "678cdf66cda36ae100f5c8d22c3102722b51c4fa8ee2d374415e464ce56a95b1"
     },
     {
       "path": "packages/persistence/mongodb/tenancy",
-      "sha256": "ba04895077bcedf43bc9fe3a3e4d74c1dffdb9ad1175b0bb13ba0aac9bc8907e"
+      "sha256": "47c949a521d2e42ebc8936c7afba1f8fd6441c31a49a9d356142e3073533f247"
     },
     {
       "path": "packages/persistence/mongodb/audit",
-      "sha256": "ccbda3bca5248c8a9438f6ea70013fad3aa5e1fa3f8595c465536f4265869f8c"
+      "sha256": "8d84dc3b68eae5a737ce7bbf736df83e935549607918da5bd015cd1b44b848b9"
     },
     {
       "path": "apps/api/app/auth",
-      "sha256": "9cc6f804210faa53022c30c937abe2d6e837fc065e46a67f209c59c3cc9c6ae4"
+      "sha256": "60f790bd79ad3533c0892ee3e76b6e6e5c7168d1e328547367e796696f5db06d"
     },
     {
       "path": "apps/api/app/main.py",
-      "sha256": "d275234c5e5d24f7f52e6d86e9aa9390431d2328251a3454ac1fd14436f17933"
+      "sha256": "a71102d897b18d0ba7f26f500e5dc2f1d2175e5e1beedc229fd8ebb09b93538d"
     },
     {
       "path": "apps/api/app/users",
@@ -59,7 +59,7 @@
     },
     {
       "path": "packages/schemas/api/v1",
-      "sha256": "cf46413320fd457b1112675dba3649604269cced18c2f742d899b186b3c2d89c"
+      "sha256": "83ff51b8f60a2aee286f7d76803900eccb0c396660bda7a47b0003ecfe4e15f2"
     },
     {
       "path": "tests/unit/identity",
@@ -83,7 +83,7 @@
     },
     {
       "path": "tests/security/identity",
-      "sha256": "d4a80a17711a40b6a09dbd545d73e79c41aec03fb6b905ed03c1f18e2bace6a0"
+      "sha256": "02c6adb9429d88dfd25be3a1034d8088a0d83726f61854ed7801f4c922884870"
     },
     {
       "path": "docs/evidence/phase-03/tasks",
@@ -104,6 +104,30 @@
     {
       "path": "docs/phases/03-identity-tenancy-authorization.md",
       "sha256": "4f7550567b9527d8a2a59c2e13de3a6fdc8c0e1fcf24006025e27a82b5b48ebe"
+    },
+    {
+      "path": "docs/evidence/phase-03/handoff.md",
+      "sha256": "c276c23b124cd6daf8bea66330e7ccb28a74b26e304c8d052700f07988ea00ac"
+    },
+    {
+      "path": "docs/evidence/phase-03/blockers.md",
+      "sha256": "7232eff4974fa51cfde330dae4a8343a1cd3cf0389eee81ca9142f784064bca6"
+    },
+    {
+      "path": "docs/evidence/phase-03/decisions.md",
+      "sha256": "7b3a658f240b33835eeb1901b883d85b2828c4f057bc8fbad44dedc0445a7401"
+    },
+    {
+      "path": "docs/evidence/phase-03/commands.ndjson",
+      "sha256": "ee3ff1d89d1cc8557c7d249ff80e67215145eac3d6ade1900f416d06b34a2195"
+    },
+    {
+      "path": "docs/evidence/phase-03/test-report.xml",
+      "sha256": "9bd21d66a4f97147ec38f4c62fe00446a99e31b6755bdf6d236d9f4da2403237"
+    },
+    {
+      "path": "docs/evidence/phase-03/coverage.json",
+      "sha256": "a5e8e8307facc085a63fdb21bb1c226b58e22eef8ebcc0bc7d44deecd98c1b3e"
     }
   ],
   "base_commit": "c704e4409c4ef3e004a3b57dddaeec52919dc351",
@@ -118,8 +142,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T09:56:59.146305Z",
-  "final_commit": "ad1ed3fd695acbdcb6a2b52e00c8cc0364454bfe",
+  "end_utc": "2026-09-14T12:42:40.558511Z",
+  "final_commit": "5cd25ce382cca2baa59532615e6e5eb099d5d8d3",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
@@ -152,6 +176,7 @@
     "task test:integration -- supabase,mongodb (identity provider boundary)",
     "task test:e2e -- identity",
     "task test:security -- tenancy,authorization",
+    "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity (18 passed)",
     "full dependency-free suites",
     "read-only Phase 03 manifest verification",
     "task phase:gate PHASE=03"

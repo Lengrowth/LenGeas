@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 from canonical_json import canonical_text
 from typegen import generate_types
 
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 SCHEMA = ROOT / "packages" / "schemas"
 GENERATED = ROOT / "packages" / "shared-types" / "generated"
 
@@ -27,6 +30,13 @@ def generate() -> None:
         output = GENERATED / f"{source.stem}.canonical.json"
         output.write_text(data["canonical_utf8"] + "\n", encoding="utf-8")
     generate_types()
+    # The checked-in API contract is generated from the actual FastAPI route graph.
+    from apps.api.app.main import create_app
+
+    openapi = create_app(test_mode=True).openapi()
+    (SCHEMA / "api" / "v1" / "openapi.json").write_text(
+        json.dumps(openapi, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":

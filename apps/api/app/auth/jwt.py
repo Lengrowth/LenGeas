@@ -23,7 +23,9 @@ class JwksTransport(Protocol):
 
 class HttpJwksTransport:
     async def get(self, url: str) -> dict[str, Any]:
-        async with httpx.AsyncClient(timeout=5.0, follow_redirects=False) as client:
+        async with httpx.AsyncClient(
+            timeout=5.0, follow_redirects=False, trust_env=False
+        ) as client:
             response = await client.get(url)
             response.raise_for_status()
             value = response.json()

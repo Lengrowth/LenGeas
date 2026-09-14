@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from packages.domain.audit.events import _scrub
 from packages.domain.tenancy.models import TrustedScope
 
 
@@ -20,11 +21,7 @@ class AuditMongoRepository:
         )
 
     async def append(self, scope: TrustedScope, event: dict[str, Any]) -> None:
-        safe = {
-            key: value
-            for key, value in event.items()
-            if key.lower() not in {"token", "authorization", "password", "secret", "api_key"}
-        }
+        safe = _scrub(event)
         safe["studio_id"] = scope.studio_id
         await self.collection.insert_one(safe)
 

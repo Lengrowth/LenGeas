@@ -14,7 +14,7 @@ class InternalAccountMapper:
         identity = self.repository.identity_for_provider("supabase", subject)
         if identity is not None:
             account = self.repository.accounts.get(identity.account_id or identity.player_id)
-            if account is None:
+            if account is None or identity.revoked_at is not None or account.deleted_at is not None:
                 raise KeyError("mapped_account_missing")
             return account
         account = self.repository.create_account()

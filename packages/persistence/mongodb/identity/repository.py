@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any, cast
 
+from packages.domain.ids import new_uuid7
 from packages.domain.tenancy.models import TrustedScope
 
 
@@ -47,3 +48,54 @@ class IdentityMongoRepository:
     async def find_profile(self, scope: TrustedScope, player_id: str) -> Mapping[str, Any] | None:
         value = await self.database.game_profiles.find_one(self._filter(scope, player_id=player_id))
         return cast(Mapping[str, Any] | None, value)
+
+    async def create_account(self, email_hash: str | None = None) -> str:
+        account_id = new_uuid7()
+        await self.database.accounts.insert_one(
+            {"account_id": account_id, "email_hash": email_hash}
+        )
+        return account_id
+
+    async def create_player(self) -> str:
+        player_id = new_uuid7()
+        await self.database.studio_players.insert_one({"player_id": player_id, "tombstone": False})
+        await self.database.global_profiles.insert_one({"player_id": player_id, "entitlements": []})
+        return player_id
+
+    async def find_identity(self, provider: str, subject: str) -> Mapping[str, Any] | None:
+        return cast(
+            Mapping[str, Any] | None,
+            await self.database.player_identities.find_one(
+                {
+                    "provider": provider,
+                    "subject_or_credential_hash": subject,
+                    "revoked_at": {"$exists": False},
+                }
+            ),
+        )
+
+    async def create_profile(
+        self,
+        scope: TrustedScope,
+        player_id: str,
+        game_id: str,
+        state: Mapping[str, Any] | None = None,
+    ) -> str:
+        if scope.game_id != game_id:
+            raise PermissionError("game_scope_mismatch")
+        profile_id = new_uuid7()
+        await self.database.game_profiles.insert_one(
+            {
+                "profile_id": profile_id,
+                "player_id": player_id,
+                "studio_id": scope.studio_id,
+                "game_id": game_id,
+                "state": dict(state or {}),
+                "state_version": 0,
+            }
+        )
+        return profile_id
+
+    async def list_profiles(self, scope: TrustedScope, player_id: str) -> list[Mapping[str, Any]]:
+        cursor = self.database.game_profiles.find(self._filter(scope, player_id=player_id))
+        return [document async for document in cursor]

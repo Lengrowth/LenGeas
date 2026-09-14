@@ -11,12 +11,20 @@ from typing import Protocol
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
+from packages.domain.audit.events import EventEnvelope
 from packages.domain.identity.models import IdentityKind
 from packages.domain.identity.repository import InMemoryIdentityRepository
 
 
 class TurnstileVerifier(Protocol):
     async def verify(self, proof: str, remote_ip: str | None) -> bool: ...
+
+
+class UnconfiguredTurnstile:
+    """Production-safe default: no guest is admitted without a provider boundary."""
+
+    async def verify(self, proof: str, remote_ip: str | None) -> bool:
+        return False
 
 
 def _hash(value: str) -> str:
@@ -59,7 +67,8 @@ class GuestIdentityService:
             Ed25519PublicKey.from_public_bytes(raw_key)
         except (ValueError, TypeError) as error:
             raise ValueError("invalid_device_key") from error
-        if self._device_counts.get(_hash(device_public_key), 0) >= self.max_per_device:
+        device_hash = _hash(device_public_key)
+        if self._device_counts.get(device_hash, 0) >= self.max_per_device:
             raise ValueError("guest_abuse_limit")
         if not await self.turnstile.verify(turnstile_proof, remote_ip):
             raise ValueError("turnstile_failed")
@@ -77,6 +86,14 @@ class GuestIdentityService:
         self._device_keys_raw[identity.identity_id] = device_public_key
         device_hash = _hash(device_public_key)
         self._device_counts[device_hash] = self._device_counts.get(device_hash, 0) + 1
+        self.repository.emit(
+            EventEnvelope.create(
+                "identity.guest_created.v1",
+                "GuestIdentityService",
+                player_id=player.player_id,
+                payload={"identity_id": identity.identity_id},
+            )
+        )
         return GuestCredentials(
             player.player_id,
             identity.identity_id,
@@ -114,6 +131,22 @@ class GuestIdentityService:
             Ed25519PublicKey.from_public_bytes(raw_old_key).verify(signed_challenge, challenge)
         except Exception as error:
             raise ValueError("device_proof_invalid") from error
-        identity.device_key_fingerprint = _hash(new_public_key)
+        try:
+            raw_new_key = base64.urlsafe_b64decode(
+                new_public_key + "=" * (-len(new_public_key) % 4)
+            )
+            Ed25519PublicKey.from_public_bytes(raw_new_key)
+        except (ValueError, TypeError) as error:
+            raise ValueError("invalid_device_key") from error
+        old_fingerprint = identity.device_key_fingerprint
+        new_fingerprint = _hash(new_public_key)
+        if old_fingerprint == new_fingerprint:
+            raise ValueError("device_key_exists")
+        self.repository.replace_device_key(identity_id, old_fingerprint, new_fingerprint)
         self._device_keys_raw[identity_id] = new_public_key
-        return self.rotate(identity_id, self._credential_hashes[identity_id])
+        old_hash = self._credential_hashes.get(identity_id)
+        if old_hash is None:
+            raise ValueError("credential_invalid")
+        new_token = secrets.token_urlsafe(48)
+        self._credential_hashes[identity_id] = _hash(new_token)
+        return new_token

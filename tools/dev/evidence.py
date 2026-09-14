@@ -67,6 +67,12 @@ PHASE03_ARTIFACT_PATHS = (
     "docs/evidence/phase-03/performance",
     "docs/evidence/phase-03/operations",
     "docs/phases/03-identity-tenancy-authorization.md",
+    "docs/evidence/phase-03/handoff.md",
+    "docs/evidence/phase-03/blockers.md",
+    "docs/evidence/phase-03/decisions.md",
+    "docs/evidence/phase-03/commands.ndjson",
+    "docs/evidence/phase-03/test-report.xml",
+    "docs/evidence/phase-03/coverage.json",
 )
 TEXT_SUFFIXES = {
     ".env",
@@ -179,6 +185,45 @@ def verify_manifest(manifest: dict[str, object]) -> None:
             mismatches.append(f"{relative} (manifest={expected}; actual={actual})")
     if mismatches:
         raise SystemExit("evidence artifact digest mismatches:\n" + "\n".join(mismatches))
+
+
+def verify_phase03_completeness(manifest: dict[str, object]) -> None:
+    required = {
+        "manifest.json",
+        "handoff.md",
+        "blockers.md",
+        "decisions.md",
+        "commands.ndjson",
+        "test-report.xml",
+        "coverage.json",
+    }
+    evidence = ROOT / "docs" / "evidence" / "phase-03"
+    present = {path.name for path in evidence.iterdir() if path.is_file()}
+    present |= {f"tasks/{path.name}" for path in (evidence / "tasks").glob("P03-T*.md")}
+    present |= {f"security/{path.name}" for path in (evidence / "security").glob("*")}
+    present |= {f"performance/{path.name}" for path in (evidence / "performance").glob("*")}
+    present |= {f"operations/{path.name}" for path in (evidence / "operations").glob("*")}
+    required |= {f"tasks/P03-T0{number}.md" for number in range(1, 9)}
+    required |= {"security/README.md", "performance/README.md", "operations/README.md"}
+    missing = sorted(required - present)
+    if missing:
+        raise SystemExit("Phase 03 evidence is incomplete: " + ", ".join(missing))
+    if manifest.get("status") != "in_review" or manifest.get("blockers") != []:
+        raise SystemExit("Phase 03 evidence must be in_review with no blockers")
+    if manifest.get("completed_task_ids") != [f"P03-T0{number}" for number in range(1, 9)]:
+        raise SystemExit("Phase 03 evidence must list P03-T01 through P03-T08")
+    import xml.etree.ElementTree as ET
+
+    report = ET.parse(evidence / "test-report.xml").getroot()
+    if report.attrib.get("failures") != "0" or report.attrib.get("errors") != "0":
+        raise SystemExit("Phase 03 test report contains failures or errors")
+    commands = (evidence / "commands.ndjson").read_text(encoding="utf-8")
+    exact_pytest = (
+        "pytest -q tests/unit/identity tests/property/identity tests/contract/identity "
+        "tests/integration/identity tests/e2e/identity tests/security/identity"
+    )
+    if exact_pytest not in commands:
+        raise SystemExit("Phase 03 evidence does not record the exact identity pytest command")
 
 
 def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
@@ -389,6 +434,11 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "task test:integration -- supabase,mongodb (identity provider boundary)",
             "task test:e2e -- identity",
             "task test:security -- tenancy,authorization",
+            (
+                "uv run --frozen pytest -q tests/unit/identity tests/property/identity "
+                "tests/contract/identity tests/integration/identity tests/e2e/identity "
+                "tests/security/identity (18 passed)"
+            ),
             "full dependency-free suites",
             "read-only Phase 03 manifest verification",
             "task phase:gate PHASE=03",
@@ -446,6 +496,7 @@ def main() -> int:
         existing = load_manifest(manifest_path)
         if not args.regenerate:
             verify_manifest(existing)
+            verify_phase03_completeness(existing)
             print(f"PASS evidence manifest verified (read-only): {manifest_path.relative_to(ROOT)}")
             return 0
         validate_schema(existing)

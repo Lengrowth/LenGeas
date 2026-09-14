@@ -43,6 +43,9 @@ class TrustedScope:
     expires_at: datetime | None = None
     service_account_id: str | None = None
     ai_agent_id: str | None = None
+    mfa_verified: bool = False
+    game_ids: frozenset[str] = frozenset()
+    environments: frozenset[Environment] = frozenset()
 
     def is_expired(self, now: datetime) -> bool:
         return self.expires_at is not None and now >= self.expires_at
@@ -66,6 +69,7 @@ class Membership:
     created_at: datetime
     mfa_required: bool = False
     active: bool = True
+    game_ids: frozenset[str] = frozenset()
 
 
 @dataclass(slots=True)

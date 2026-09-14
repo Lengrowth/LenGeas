@@ -5,7 +5,23 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Any
-from uuid import uuid4
+
+from packages.domain.ids import new_uuid7
+
+_FORBIDDEN = {"token", "authorization", "password", "secret", "api_key", "email", "ip"}
+
+
+def _scrub(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {
+            str(key): "[REDACTED]" if str(key).lower() in _FORBIDDEN else _scrub(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [_scrub(item) for item in value]
+    if isinstance(value, tuple):
+        return tuple(_scrub(item) for item in value)
+    return value
 
 
 @dataclass(frozen=True, slots=True)
@@ -42,19 +58,16 @@ class EventEnvelope:
             "privacy.requested.v1",
         }:
             raise ValueError("event_type_not_registered")
-        forbidden = {"token", "authorization", "password", "secret", "api_key", "email", "ip"}
-        safe_payload = {
-            key: value for key, value in (payload or {}).items() if key.lower() not in forbidden
-        }
+        safe_payload = _scrub(payload or {})
         return cls(
-            str(uuid4()),
+            new_uuid7(),
             event_type,
             datetime.now(UTC),
             producer,
             studio_id,
             game_id,
             player_id,
-            correlation_id or str(uuid4()),
+            correlation_id or new_uuid7(),
             causation_id,
             safe_payload,
         )

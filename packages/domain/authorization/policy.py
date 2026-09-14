@@ -25,6 +25,9 @@ class Actor:
     mfa_verified: bool = False
     support_case_id: str | None = None
     support_expires_at: datetime | None = None
+    game_ids: frozenset[str] = frozenset()
+    environments: frozenset[Environment] = frozenset()
+    support_grant_valid: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -73,6 +76,12 @@ class PolicyDecisionService:
         actor, resource = request.actor, request.resource
         if actor.studio_id is None or resource.studio_id != actor.studio_id:
             return Decision(False, "tenant_mismatch", "actor and resource are in different studios")
+        if actor.environments and request.environment not in actor.environments:
+            return Decision(
+                False, "environment_scope_mismatch", "actor is not scoped to this environment"
+            )
+        if resource.game_id is not None and resource.game_id not in actor.game_ids:
+            return Decision(False, "game_scope_mismatch", "actor is not scoped to this game")
         if (
             actor.kind == ActorKind.SERVICE
             and f"{resource.resource_type}:{request.action}" not in actor.scopes
@@ -104,7 +113,7 @@ class PolicyDecisionService:
         if (
             MembershipRole.SUPPORT in actor.roles
             and request.action == "support_sensitive"
-            and actor.support_case_id is None
+            and (actor.support_case_id is None or not actor.support_grant_valid)
         ):
             return Decision(False, "support_case_required", "support access requires an open case")
         actions = set().union(*(self.ROLE_ACTIONS.get(role, frozenset()) for role in actor.roles))

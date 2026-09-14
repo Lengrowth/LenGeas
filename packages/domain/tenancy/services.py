@@ -5,6 +5,9 @@ from __future__ import annotations
 import hashlib
 from datetime import UTC, datetime, timedelta
 
+from packages.domain.audit.events import EventEnvelope
+from packages.domain.ids import new_uuid7
+
 from .models import Invitation, MembershipRole, TrustedScope
 from .repository import InMemoryTenantRepository
 
@@ -23,7 +26,7 @@ class StudioAdministration:
         digest = hashlib.sha256(email.strip().lower().encode()).hexdigest()
         now = datetime.now(UTC)
         invitation = Invitation(
-            invitation_id=__import__("uuid").uuid4().hex,
+            invitation_id=new_uuid7(),
             studio_id=scope.studio_id,
             email_hash=digest,
             role=role,
@@ -31,6 +34,17 @@ class StudioAdministration:
             created_at=now,
         )
         self.repository.invitations[invitation.invitation_id] = invitation
+        self.repository.audit.append(
+            {"action": "studio.membership_changed.v1", "subject_id": invitation.invitation_id}
+        )
+        self.repository.events.append(
+            EventEnvelope.create(
+                "studio.membership_changed.v1",
+                "StudioAdministration",
+                studio_id=scope.studio_id,
+                payload={"invitation_id": invitation.invitation_id, "role": role.value},
+            )
+        )
         return invitation
 
     def enforce_mfa(self, scope: TrustedScope) -> int:
