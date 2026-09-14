@@ -133,5 +133,7 @@ jobs:
       - name: Stop dependency stack
         if: always()
         run: |
-          if [ -f "$RUNNER_TEMP/identity-e2e.pid" ]; then kill "$(cat "$RUNNER_TEMP/identity-e2e.pid")" || true; fi
+          if [ -f "$RUNNER_TEMP/identity-e2e.pid" ]; then
+            if kill "$(cat "$RUNNER_TEMP/identity-e2e.pid")" 2>/dev/null; then :; fi
+          fi
           task local:down

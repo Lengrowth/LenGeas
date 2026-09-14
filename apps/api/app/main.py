@@ -295,8 +295,12 @@ def create_app(
                 return Response(status_code=existing.status_code)
             return JSONResponse(status_code=existing.status_code, content=existing.body)
         response = await call_next(request)
-        chunks = [chunk async for chunk in response.body_iterator]
-        response_body = b"".join(chunks)
+        body_iterator = getattr(response, "body_iterator", None)
+        if body_iterator is None:
+            response_body = response.body or b""
+        else:
+            chunks = [chunk async for chunk in body_iterator]
+            response_body = b"".join(chunks)
         if response.status_code < 500:
             try:
                 stored_body = json.loads(response_body) if response_body else None

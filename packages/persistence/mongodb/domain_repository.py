@@ -328,7 +328,7 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
         super().save_merge_result(
             scope, idempotency_key, document["target_player_id"], document.get("payload_digest")
         )
-        return document["target_player_id"]
+        return str(document["target_player_id"])
 
     def save_merge_result(
         self, scope: Any, idempotency_key: str, player_id: str, fingerprint: str | None = None
