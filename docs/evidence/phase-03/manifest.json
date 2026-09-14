@@ -3,11 +3,11 @@
   "artifacts": [
     {
       "path": "packages/domain/identity",
-      "sha256": "f820d6e09871ee02570b5e4511ac5e334a6e0ab39ba5def1bfb6b48b11418c60"
+      "sha256": "2793d83d651a667cb8b5c8da449f1394da9776ebcadb4a475a979240e4e782d2"
     },
     {
       "path": "packages/domain/tenancy",
-      "sha256": "c01249da187aabbc09ea22b5564f4af2ab6ec2a10e4672d8126ed601ff5b0f89"
+      "sha256": "bc3e9442551290390a0661b6ef019676324a38dbd9720e9c55bd40a5a51f0770"
     },
     {
       "path": "packages/domain/authorization",
@@ -15,27 +15,31 @@
     },
     {
       "path": "packages/domain/audit",
-      "sha256": "ce9e038227452d8fc46146bb7a215abeeba489289a609fc638535e5f93eebf1a"
+      "sha256": "9e0d9b79652a0d3f02a19ff817b79835b320d300d8c225eefce2009bf28cd2ba"
     },
     {
-      "path": "packages/persistence/mongodb/identity",
-      "sha256": "8219b5301ecc4424d34cef93e29e44a2ae27191543f26f63428538b61580d690"
+      "path": "packages/domain/coordination.py",
+      "sha256": "5d5ec8a7fdc3bc62753a2dc8313430c1ab1668450ffd485d14f182eda9323934"
     },
     {
-      "path": "packages/persistence/mongodb/tenancy",
-      "sha256": "b7d2dd7dd762d39b153bbf21aabe59015a3e3af4d62fe087a4f1410e8d764387"
+      "path": "packages/domain/coordination_memory.py",
+      "sha256": "5b8e8fceecf303f28382030f5e2aa2d5e5b8a88ef9ee300f35709faa24de5192"
     },
     {
-      "path": "packages/persistence/mongodb/audit",
-      "sha256": "303bd01b93ca3537f41acd3c16c117560cd4e7a2fa15e292754ce292a552c93d"
+      "path": "packages/persistence/mongodb",
+      "sha256": "9e8cc5af053b5937b66c7e079cb89e9db789726754689cff3b0fbc41ba2597d4"
+    },
+    {
+      "path": "apps/api/app/composition.py",
+      "sha256": "40273d088a429414cc7421c0724afe2300658a32a57d5cd7b32c965870bd0ff6"
     },
     {
       "path": "apps/api/app/auth",
-      "sha256": "be9e9972ffee9b56499201beedf97b9a3eedfa7b0ecff6f84e97d147473e1887"
+      "sha256": "01e96b1cbc7d4fc8ab59cba6beb1ce423b1e558aa21d0af208c7bf69262f21a0"
     },
     {
       "path": "apps/api/app/main.py",
-      "sha256": "ce9f30b25e15b4e35e9907d88a4ca4022960be42fa5343bced81a52804b9d137"
+      "sha256": "dabaca88d36339d6371776bc0043ed0afde2a479079e040f599bf2ea3ca80bbf"
     },
     {
       "path": "apps/api/app/users",
@@ -59,7 +63,7 @@
     },
     {
       "path": "packages/schemas/api/v1",
-      "sha256": "eaba471e3d878c621b7c100310f319f098c20794c9dc584d042199cff608b96e"
+      "sha256": "4c8299bd395540f6b82b3e3dc487591533cfe1ad0c0c134ed870f42b59a0912e"
     },
     {
       "path": "tests/unit/identity",
@@ -79,11 +83,11 @@
     },
     {
       "path": "tests/e2e/identity",
-      "sha256": "3417cdc6131d7850eb71b7940b3eaf42386369608c082b5d72b4b9b798974c39"
+      "sha256": "bbb2b67b89732d46c961a0e1b06e130df38a8ae49920e9f120a6237d88986dd8"
     },
     {
       "path": "tests/security/identity",
-      "sha256": "e148e42ab63aec4ab5b538d5d6f136e0215b4d90d6d29a8bbed87a87b41f01d6"
+      "sha256": "c63f6eec5d0c9489785639ca4a0d7a3bcdd125e4cec0fc8ae315259ec7b2d18e"
     },
     {
       "path": "docs/evidence/phase-03/tasks",
@@ -119,15 +123,19 @@
     },
     {
       "path": "docs/evidence/phase-03/commands.ndjson",
-      "sha256": "c0712cfc89367800200e60bbbf40805985312af2f601f3b4d1b3a263b067ae10"
+      "sha256": "bc90b823be0485f9ea0fc4fc588b3c9555c8eed008812f9a47552b5ba53718b0"
     },
     {
       "path": "docs/evidence/phase-03/test-report.xml",
-      "sha256": "eb920ad89361798505a3ae5e6672c0ad63bf87e7940532076a5d737f1afbb491"
+      "sha256": "f1a7484e5a0d65fe0da782a13573d785b0a5265e66ae47582e3b62be73572cec"
     },
     {
       "path": "docs/evidence/phase-03/coverage.json",
-      "sha256": "1d5905f7bfa93abf73bcf7b11aba914e57f4f6bde05c2b3413587f1d3423d61a"
+      "sha256": "71700fc08258410a8f5bfaed320f710d9b3bdea80bb8a089a78a86822298eedf"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "dfa40d4b3961ec3284ba2c76d014b3d7de73540a4c9c91398f6fbb91cf6a00d6"
     }
   ],
   "base_commit": "c704e4409c4ef3e004a3b57dddaeec52919dc351",
@@ -142,8 +150,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T13:49:06.651602Z",
-  "final_commit": "3a8eb6e7a49d3c33e3659d6fc4a6bda560fa0380",
+  "end_utc": "2026-09-14T14:33:26.714020Z",
+  "final_commit": "98b6cd6d0d769e32c52dc18e510368c9649e20f6",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
@@ -151,6 +159,8 @@
   "open_risks": [
     "Docker is unavailable on the Windows workstation; MongoDB Compose execution is delegated to hosted CI.",
     "Supabase and Turnstile production projects are intentionally not activated under ADR-0011; provider-faithful adapters and test boundaries are present.",
+    "Production API composition requires all MongoDB, Supabase JWKS, and Turnstile settings; partial configuration fails closed.",
+    "Deployed E2E requires LENGEAS_E2E_BASE_URL, LENGEAS_E2E_GUEST_PROOF, and LENGEAS_E2E_DEVICE_PUBLIC_KEY; absent dependencies fail the selector.",
     "Development remains synthetic-data-only on the accepted Phase 02 host."
   ],
   "phase": "03",
@@ -174,9 +184,9 @@
     "task test:property -- identity",
     "task test:contract -- auth",
     "task test:integration -- supabase,mongodb (fails closed without Docker/Mongo)",
-    "task test:e2e -- identity (fails closed without deployed API URL)",
+    "task test:e2e -- identity (fails closed without deployed API URL and guest credentials)",
     "task test:security -- tenancy,authorization",
-    "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity (24 passed; total coverage 73%)",
+    "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity (24 passed, 1 skipped; total coverage 72%)",
     "full dependency-free suites",
     "read-only Phase 03 manifest verification",
     "task phase:gate PHASE=03"

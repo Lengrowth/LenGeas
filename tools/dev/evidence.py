@@ -45,9 +45,10 @@ PHASE03_ARTIFACT_PATHS = (
     "packages/domain/tenancy",
     "packages/domain/authorization",
     "packages/domain/audit",
-    "packages/persistence/mongodb/identity",
-    "packages/persistence/mongodb/tenancy",
-    "packages/persistence/mongodb/audit",
+    "packages/domain/coordination.py",
+    "packages/domain/coordination_memory.py",
+    "packages/persistence/mongodb",
+    "apps/api/app/composition.py",
     "apps/api/app/auth",
     "apps/api/app/main.py",
     "apps/api/app/users",
@@ -73,6 +74,7 @@ PHASE03_ARTIFACT_PATHS = (
     "docs/evidence/phase-03/commands.ndjson",
     "docs/evidence/phase-03/test-report.xml",
     "docs/evidence/phase-03/coverage.json",
+    ".env.example",
 )
 TEXT_SUFFIXES = {
     ".env",
@@ -215,13 +217,17 @@ def verify_phase03_completeness(manifest: dict[str, object]) -> None:
     import xml.etree.ElementTree as ET
 
     report = ET.parse(evidence / "test-report.xml").getroot()
-    if report.attrib.get("failures") != "0" or report.attrib.get("errors") != "0":
+    suites = [report] if report.tag == "testsuite" else list(report)
+    failures = sum(int(suite.attrib.get("failures", "0")) for suite in suites)
+    errors = sum(int(suite.attrib.get("errors", "0")) for suite in suites)
+    tests = sum(int(suite.attrib.get("tests", "0")) for suite in suites)
+    if failures != 0 or errors != 0:
         raise SystemExit("Phase 03 test report contains failures or errors")
     coverage = json.loads((evidence / "coverage.json").read_text(encoding="utf-8"))
     totals = coverage.get("totals", {})
     if not isinstance(totals, dict) or not isinstance(totals.get("percent_covered"), (int, float)):
         raise SystemExit("Phase 03 coverage report has no numeric totals.percent_covered")
-    if int(report.attrib.get("tests", "0")) < 24:
+    if tests < 24:
         raise SystemExit("Phase 03 test report is missing the behavioral regression tests")
     commands = (evidence / "commands.ndjson").read_text(encoding="utf-8")
     exact_pytest = (
@@ -438,12 +444,15 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "task test:property -- identity",
             "task test:contract -- auth",
             "task test:integration -- supabase,mongodb (fails closed without Docker/Mongo)",
-            "task test:e2e -- identity (fails closed without deployed API URL)",
+            (
+                "task test:e2e -- identity (fails closed without deployed API URL and "
+                "guest credentials)"
+            ),
             "task test:security -- tenancy,authorization",
             (
                 "uv run --frozen pytest -q tests/unit/identity tests/property/identity "
                 "tests/contract/identity tests/integration/identity tests/e2e/identity "
-                "tests/security/identity (24 passed; total coverage 73%)"
+                "tests/security/identity (24 passed, 1 skipped; total coverage 72%)"
             ),
             "full dependency-free suites",
             "read-only Phase 03 manifest verification",
@@ -454,6 +463,10 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "is delegated to hosted CI.",
             "Supabase and Turnstile production projects are intentionally not activated "
             "under ADR-0011; provider-faithful adapters and test boundaries are present.",
+            "Production API composition requires all MongoDB, Supabase JWKS, and Turnstile "
+            "settings; partial configuration fails closed.",
+            "Deployed E2E requires LENGEAS_E2E_BASE_URL, LENGEAS_E2E_GUEST_PROOF, and "
+            "LENGEAS_E2E_DEVICE_PUBLIC_KEY; absent dependencies fail the selector.",
             "Development remains synthetic-data-only on the accepted Phase 02 host.",
         ],
         "next_phase_prerequisites": [
