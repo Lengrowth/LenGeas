@@ -155,7 +155,7 @@ def create_app(
         request.state.account = account
 
     async def require_idempotency(
-        idempotency_key: Annotated[str | None, Header(alias="Idempotency-Key")] = None,
+        idempotency_key: Annotated[str, Header(alias="Idempotency-Key")],
     ) -> None:
         if not idempotency_key or len(idempotency_key) > 128:
             raise HTTPException(status_code=400, detail={"code": "idempotency_key_required"})
