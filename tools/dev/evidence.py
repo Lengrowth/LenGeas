@@ -40,6 +40,34 @@ PHASE02_ARTIFACT_PATHS = (
     "docs/evidence/phase-02/operations",
     "docs/phases/02-cloud-foundation.md",
 )
+PHASE03_ARTIFACT_PATHS = (
+    "packages/domain/identity",
+    "packages/domain/tenancy",
+    "packages/domain/authorization",
+    "packages/domain/audit",
+    "packages/persistence/mongodb/identity",
+    "packages/persistence/mongodb/tenancy",
+    "packages/persistence/mongodb/audit",
+    "apps/api/app/auth",
+    "apps/api/app/main.py",
+    "apps/api/app/users",
+    "apps/api/app/players",
+    "apps/api/app/studios",
+    "apps/api/app/permissions",
+    "apps/api/app/audit",
+    "packages/schemas/api/v1",
+    "tests/unit/identity",
+    "tests/property/identity",
+    "tests/contract/identity",
+    "tests/integration/identity",
+    "tests/e2e/identity",
+    "tests/security/identity",
+    "docs/evidence/phase-03/tasks",
+    "docs/evidence/phase-03/security",
+    "docs/evidence/phase-03/performance",
+    "docs/evidence/phase-03/operations",
+    "docs/phases/03-identity-tenancy-authorization.md",
+)
 TEXT_SUFFIXES = {
     ".env",
     ".hcl",
@@ -317,6 +345,69 @@ def build_phase02_manifest(existing: dict[str, object] | None) -> dict[str, obje
     }
 
 
+def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, object]:
+    existing = existing or {}
+    artifacts = []
+    for value in PHASE03_ARTIFACT_PATHS:
+        path = ROOT / value
+        if not path.exists():
+            raise SystemExit(f"Phase 03 evidence artifact is missing: {value}")
+        artifacts.append({"path": value, "sha256": digest(path)})
+    return {
+        "schema_version": "1.0.0",
+        "phase": "03",
+        "status": "in_review",
+        "start_utc": existing.get(
+            "start_utc", datetime.now(UTC).isoformat().replace("+00:00", "Z")
+        ),
+        "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "base_commit": existing.get("base_commit", "c704e4409c4ef3e004a3b57dddaeec52919dc351"),
+        "final_commit": git_head(),
+        "agent_identity": "Codex root phase agent",
+        "toolchain": {
+            "powershell": "7.6.5",
+            "python": "3.13.5 via uv 0.11.29",
+            "node": "22.16.0",
+            "pnpm": "11.20.0",
+            "git": "2.49.0.windows.1",
+            "task": "3.53.1 (python runner used)",
+            "docker": "unavailable and not installed per Phase 01 constraint",
+        },
+        "completed_task_ids": [f"P03-T0{number}" for number in range(1, 9)],
+        "requirement_ids": ["RQ-006", "RQ-007", "RQ-010", "RQ-020"],
+        "artifacts": artifacts,
+        "tests": [
+            "Phase 02 accepted gate and read-only manifest verification",
+            "task bootstrap",
+            "task generate twice with identical output",
+            "task format",
+            "task lint",
+            "task typecheck",
+            "task test:unit -- identity",
+            "task test:property -- identity",
+            "task test:contract -- auth",
+            "task test:integration -- supabase,mongodb (identity provider boundary)",
+            "task test:e2e -- identity",
+            "task test:security -- tenancy,authorization",
+            "full dependency-free suites",
+            "read-only Phase 03 manifest verification",
+            "task phase:gate PHASE=03",
+        ],
+        "open_risks": [
+            "Docker is unavailable on the Windows workstation; MongoDB Compose execution "
+            "is delegated to hosted CI.",
+            "Supabase and Turnstile production projects are intentionally not activated "
+            "under ADR-0011; provider-faithful adapters and test boundaries are present.",
+            "Development remains synthetic-data-only on the accepted Phase 02 host.",
+        ],
+        "next_phase_prerequisites": [
+            "Repository-owner review and explicit acceptance",
+            "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md",
+        ],
+        "blockers": [],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("phase")
@@ -347,8 +438,29 @@ def main() -> int:
             f"{manifest_path.relative_to(ROOT)}"
         )
         return 0
+    if args.phase == "03":
+        evidence = ROOT / "docs" / "evidence" / "phase-03"
+        manifest_path = evidence / "manifest.json"
+        if not manifest_path.exists():
+            raise SystemExit(f"Phase 03 evidence manifest is missing: {manifest_path}")
+        existing = load_manifest(manifest_path)
+        if not args.regenerate:
+            verify_manifest(existing)
+            print(f"PASS evidence manifest verified (read-only): {manifest_path.relative_to(ROOT)}")
+            return 0
+        validate_schema(existing)
+        manifest = build_phase03_manifest(existing)
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        verify_manifest(load_manifest(manifest_path))
+        print(
+            "PASS Phase 03 evidence manifest regenerated and verified: "
+            f"{manifest_path.relative_to(ROOT)}"
+        )
+        return 0
     if args.phase != "01":
-        raise SystemExit("supported evidence phases are 01 and 02")
+        raise SystemExit("supported evidence phases are 01, 02, and 03")
     evidence = ROOT / "docs" / "evidence" / "phase-01"
     manifest_path = evidence / "manifest.json"
     if not args.regenerate:

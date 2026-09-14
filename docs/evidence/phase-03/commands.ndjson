@@ -1,0 +1,11 @@
+{"command":"git status --short --branch","exit_code":0,"result":"phase/P03-identity-tenancy-authorization"}
+{"command":"uv run --frozen python tools/dev/task_runner.py test unit identity","exit_code":0,"result":"PASS unit: 3 synthetic fixture checks"}
+{"command":"uv run --frozen python tools/dev/task_runner.py test property identity","exit_code":0,"result":"PASS property: 2 synthetic fixture checks"}
+{"command":"uv run --frozen python tools/dev/task_runner.py test contract identity","exit_code":0,"result":"PASS contract: 2 synthetic fixture checks"}
+{"command":"uv run --frozen python tools/dev/task_runner.py test integration identity","exit_code":0,"result":"PASS integration: 2 synthetic fixture checks; real HTTP JWKS boundary"}
+{"command":"uv run --frozen python tools/dev/task_runner.py test e2e identity","exit_code":0,"result":"PASS e2e: 1 synthetic fixture checks"}
+{"command":"uv run --frozen python tools/dev/task_runner.py test security identity","exit_code":0,"result":"PASS security: 2 synthetic fixture checks"}
+{"command":"uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity","exit_code":0,"result":"12 passed"}
+{"command":"uv run --frozen mypy --strict apps/api apps/workers packages/runtime packages/domain packages/persistence packages/simulation tools","exit_code":0,"result":"Success: no issues found"}
+{"command":"uv run --frozen ruff check apps packages tools tests","exit_code":0,"result":"PASS"}
+{"command":"uv run --frozen python tools/dev/task_runner.py evidence 02","exit_code":0,"result":"PASS evidence manifest verified read-only"}

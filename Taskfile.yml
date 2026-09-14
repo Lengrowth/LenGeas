@@ -30,22 +30,22 @@ tasks:
       - '{{.PYTHON}} {{.RUNNER}} typecheck'
   test:unit:
     cmds:
-      - '{{.PYTHON}} {{.RUNNER}} test unit'
+      - '{{.PYTHON}} {{.RUNNER}} test unit {{.CLI_ARGS}}'
   test:property:
     cmds:
-      - '{{.PYTHON}} {{.RUNNER}} test property'
+      - '{{.PYTHON}} {{.RUNNER}} test property {{.CLI_ARGS}}'
   test:contract:
     cmds:
-      - '{{.PYTHON}} {{.RUNNER}} test contract'
+      - '{{.PYTHON}} {{.RUNNER}} test contract {{.CLI_ARGS}}'
   test:integration:
     cmds:
-      - '{{.PYTHON}} {{.RUNNER}} test integration'
+      - '{{.PYTHON}} {{.RUNNER}} test integration {{.CLI_ARGS}}'
   test:e2e:
     cmds:
-      - '{{.PYTHON}} {{.RUNNER}} test e2e'
+      - '{{.PYTHON}} {{.RUNNER}} test e2e {{.CLI_ARGS}}'
   test:security:
     cmds:
-      - '{{.PYTHON}} {{.RUNNER}} test security'
+      - '{{.PYTHON}} {{.RUNNER}} test security {{.CLI_ARGS}}'
   test:performance:
     cmds:
       - '{{.PYTHON}} {{.RUNNER}} test performance'
@@ -73,4 +73,3 @@ tasks:
   local:down:
     cmds:
       - '{{.PYTHON}} {{.RUNNER}} local-down'
-

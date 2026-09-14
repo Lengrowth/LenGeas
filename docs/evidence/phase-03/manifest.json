@@ -1,0 +1,168 @@
+{
+  "agent_identity": "Codex root phase agent",
+  "artifacts": [
+    {
+      "path": "packages/domain/identity",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/domain/tenancy",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/domain/authorization",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/domain/audit",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/persistence/mongodb/identity",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/persistence/mongodb/tenancy",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/persistence/mongodb/audit",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/api/app/auth",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/api/app/main.py",
+      "sha256": "d275234c5e5d24f7f52e6d86e9aa9390431d2328251a3454ac1fd14436f17933"
+    },
+    {
+      "path": "apps/api/app/users",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/api/app/players",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/api/app/studios",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/api/app/permissions",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/api/app/audit",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/schemas/api/v1",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/unit/identity",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/property/identity",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/contract/identity",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/integration/identity",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/e2e/identity",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/security/identity",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/phase-03/tasks",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/phase-03/security",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/phase-03/performance",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/phase-03/operations",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/phases/03-identity-tenancy-authorization.md",
+      "sha256": "4f7550567b9527d8a2a59c2e13de3a6fdc8c0e1fcf24006025e27a82b5b48ebe"
+    }
+  ],
+  "base_commit": "c704e4409c4ef3e004a3b57dddaeec52919dc351",
+  "blockers": [],
+  "completed_task_ids": [
+    "P03-T01",
+    "P03-T02",
+    "P03-T03",
+    "P03-T04",
+    "P03-T05",
+    "P03-T06",
+    "P03-T07",
+    "P03-T08"
+  ],
+  "end_utc": "2026-09-14T09:54:02.202207Z",
+  "final_commit": "c704e4409c4ef3e004a3b57dddaeec52919dc351",
+  "next_phase_prerequisites": [
+    "Repository-owner review and explicit acceptance",
+    "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
+  ],
+  "open_risks": [
+    "Docker is unavailable on the Windows workstation; MongoDB Compose execution is delegated to hosted CI.",
+    "Supabase and Turnstile production projects are intentionally not activated under ADR-0011; provider-faithful adapters and test boundaries are present.",
+    "Development remains synthetic-data-only on the accepted Phase 02 host."
+  ],
+  "phase": "03",
+  "requirement_ids": [
+    "RQ-006",
+    "RQ-007",
+    "RQ-010",
+    "RQ-020"
+  ],
+  "schema_version": "1.0.0",
+  "start_utc": "2026-09-14T00:00:00Z",
+  "status": "in_review",
+  "tests": [
+    "Phase 02 accepted gate and read-only manifest verification",
+    "task bootstrap",
+    "task generate twice with identical output",
+    "task format",
+    "task lint",
+    "task typecheck",
+    "task test:unit -- identity",
+    "task test:property -- identity",
+    "task test:contract -- auth",
+    "task test:integration -- supabase,mongodb (identity provider boundary)",
+    "task test:e2e -- identity",
+    "task test:security -- tenancy,authorization",
+    "full dependency-free suites",
+    "read-only Phase 03 manifest verification",
+    "task phase:gate PHASE=03"
+  ],
+  "toolchain": {
+    "docker": "unavailable and not installed per Phase 01 constraint",
+    "git": "2.49.0.windows.1",
+    "node": "22.16.0",
+    "pnpm": "11.20.0",
+    "powershell": "7.6.5",
+    "python": "3.13.5 via uv 0.11.29",
+    "task": "3.53.1 (python runner used)"
+  }
+}

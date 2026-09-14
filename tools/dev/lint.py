@@ -42,6 +42,7 @@ def _text_files() -> list[Path]:
                 and ".git" not in item.parts
                 and "node_modules" not in item.parts
                 and ".venv" not in item.parts
+                and ".terraform" not in item.parts
                 and "__pycache__" not in item.parts
             )
     return sorted(files)
@@ -74,7 +75,12 @@ def main() -> int:
         if "TODO" in text or "FIXME" in text:
             violations.append(f"unresolved work marker in {path.relative_to(ROOT)}")
     for path in sorted(ROOT.rglob("*.json")):
-        if ".git" in path.parts or "node_modules" in path.parts or ".venv" in path.parts:
+        if (
+            ".git" in path.parts
+            or "node_modules" in path.parts
+            or ".venv" in path.parts
+            or ".terraform" in path.parts
+        ):
             continue
         try:
             json.loads(path.read_text(encoding="utf-8"))

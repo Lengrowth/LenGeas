@@ -52,8 +52,8 @@ def tool_script(name: str, *args: str, check: bool = True) -> int:
     return run([sys.executable, str(script), *args], check=check)
 
 
-def test_suite(name: str, *, check: bool = True) -> int:
-    return tool_script("test_harness", name, check=check)
+def test_suite(name: str, *selectors: str, check: bool = True) -> int:
+    return tool_script("test_harness", name, *selectors, check=check)
 
 
 def verify() -> None:
@@ -117,9 +117,9 @@ def main() -> int:
     if command in {"format", "lint", "typecheck"}:
         return tool_script(command)
     if command == "test":
-        if len(parsed.args) != 1:
-            raise SystemExit("usage: task_runner.py test <suite>")
-        return test_suite(parsed.args[0])
+        if len(parsed.args) not in {1, 2}:
+            raise SystemExit("usage: task_runner.py test <suite> [selector]")
+        return test_suite(parsed.args[0], *(parsed.args[1:]))
     if command == "verify":
         verify()
         return 0

@@ -1,0 +1,17 @@
+{
+  "openapi": "3.1.0",
+  "info": {"title": "LenGeas Identity and Tenancy API", "version": "1.0.0"},
+  "paths": {
+    "/api/v1/auth/guests": {"post": {"operationId": "createGuest", "responses": {"201": {"description": "Guest created"}}}},
+    "/api/v1/auth/current": {"get": {"operationId": "currentAccount", "responses": {"200": {"description": "Current account"}}}},
+    "/api/v1/auth/credentials/rotate": {"post": {"operationId": "rotateGuestCredential", "responses": {"200": {"description": "Credential rotated"}}}},
+    "/api/v1/players/merge/preview": {"post": {"operationId": "mergePreview", "responses": {"200": {"description": "Merge preview"}}}},
+    "/api/v1/players/merge": {"post": {"operationId": "mergeCommit", "responses": {"200": {"description": "Merge committed"}}}},
+    "/api/v1/privacy/requests": {"post": {"operationId": "privacyRequest", "responses": {"202": {"description": "Privacy operation queued"}}}},
+    "/api/v1/studios": {"post": {"operationId": "createStudio", "responses": {"201": {"description": "Studio created"}}}},
+    "/api/v1/studios/invitations": {"post": {"operationId": "inviteMembership", "responses": {"201": {"description": "Invitation created"}}}},
+    "/api/v1/studios/memberships/role": {"post": {"operationId": "changeMembershipRole", "responses": {"200": {"description": "Role changed"}}}},
+    "/api/v1/studios/service-accounts/revoke": {"post": {"operationId": "revokeServiceAccount", "responses": {"204": {"description": "Service account revoked"}}}},
+    "/api/v1/sessions/revoke": {"post": {"operationId": "revokeSession", "responses": {"204": {"description": "Session revoked"}}}}
+  }
+}
