@@ -303,7 +303,7 @@ def create_app(
             response_body = b"".join(bytes(chunk) for chunk in chunks)
         if response.status_code < 500:
             try:
-                stored_body = json.loads(response_body) if response_body else None
+                stored_body = json.loads(bytes(response_body)) if response_body else None
                 await mutation_idempotency.complete(
                     key, status_code=response.status_code, body=stored_body
                 )
