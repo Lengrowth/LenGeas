@@ -217,6 +217,12 @@ def verify_phase03_completeness(manifest: dict[str, object]) -> None:
     report = ET.parse(evidence / "test-report.xml").getroot()
     if report.attrib.get("failures") != "0" or report.attrib.get("errors") != "0":
         raise SystemExit("Phase 03 test report contains failures or errors")
+    coverage = json.loads((evidence / "coverage.json").read_text(encoding="utf-8"))
+    totals = coverage.get("totals", {})
+    if not isinstance(totals, dict) or not isinstance(totals.get("percent_covered"), (int, float)):
+        raise SystemExit("Phase 03 coverage report has no numeric totals.percent_covered")
+    if int(report.attrib.get("tests", "0")) < 24:
+        raise SystemExit("Phase 03 test report is missing the behavioral regression tests")
     commands = (evidence / "commands.ndjson").read_text(encoding="utf-8")
     exact_pytest = (
         "pytest -q tests/unit/identity tests/property/identity tests/contract/identity "
@@ -431,13 +437,13 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "task test:unit -- identity",
             "task test:property -- identity",
             "task test:contract -- auth",
-            "task test:integration -- supabase,mongodb (identity provider boundary)",
-            "task test:e2e -- identity",
+            "task test:integration -- supabase,mongodb (fails closed without Docker/Mongo)",
+            "task test:e2e -- identity (fails closed without deployed API URL)",
             "task test:security -- tenancy,authorization",
             (
                 "uv run --frozen pytest -q tests/unit/identity tests/property/identity "
                 "tests/contract/identity tests/integration/identity tests/e2e/identity "
-                "tests/security/identity (18 passed)"
+                "tests/security/identity (24 passed; total coverage 73%)"
             ),
             "full dependency-free suites",
             "read-only Phase 03 manifest verification",

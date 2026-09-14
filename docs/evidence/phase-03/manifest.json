@@ -3,11 +3,11 @@
   "artifacts": [
     {
       "path": "packages/domain/identity",
-      "sha256": "5a0fe3e41ed07c265b9c6b42577a0a320593f89110dfa1ef1e0413a4859b46a7"
+      "sha256": "f820d6e09871ee02570b5e4511ac5e334a6e0ab39ba5def1bfb6b48b11418c60"
     },
     {
       "path": "packages/domain/tenancy",
-      "sha256": "6c7dca555c75b2ec665ccfcecb608446f416fbeea24236d7aecfafc85ac9747d"
+      "sha256": "c01249da187aabbc09ea22b5564f4af2ab6ec2a10e4672d8126ed601ff5b0f89"
     },
     {
       "path": "packages/domain/authorization",
@@ -15,27 +15,27 @@
     },
     {
       "path": "packages/domain/audit",
-      "sha256": "50623af3031b18f7a1d10e8158b8d18824f93a203d1bc3e705b4c0b908f62c48"
+      "sha256": "ce9e038227452d8fc46146bb7a215abeeba489289a609fc638535e5f93eebf1a"
     },
     {
       "path": "packages/persistence/mongodb/identity",
-      "sha256": "678cdf66cda36ae100f5c8d22c3102722b51c4fa8ee2d374415e464ce56a95b1"
+      "sha256": "8219b5301ecc4424d34cef93e29e44a2ae27191543f26f63428538b61580d690"
     },
     {
       "path": "packages/persistence/mongodb/tenancy",
-      "sha256": "47c949a521d2e42ebc8936c7afba1f8fd6441c31a49a9d356142e3073533f247"
+      "sha256": "b7d2dd7dd762d39b153bbf21aabe59015a3e3af4d62fe087a4f1410e8d764387"
     },
     {
       "path": "packages/persistence/mongodb/audit",
-      "sha256": "8d84dc3b68eae5a737ce7bbf736df83e935549607918da5bd015cd1b44b848b9"
+      "sha256": "303bd01b93ca3537f41acd3c16c117560cd4e7a2fa15e292754ce292a552c93d"
     },
     {
       "path": "apps/api/app/auth",
-      "sha256": "60f790bd79ad3533c0892ee3e76b6e6e5c7168d1e328547367e796696f5db06d"
+      "sha256": "be9e9972ffee9b56499201beedf97b9a3eedfa7b0ecff6f84e97d147473e1887"
     },
     {
       "path": "apps/api/app/main.py",
-      "sha256": "a71102d897b18d0ba7f26f500e5dc2f1d2175e5e1beedc229fd8ebb09b93538d"
+      "sha256": "4b83185b6aac18795a99408a5a19a330cc4f2fd759a13512934f55e3284caa65"
     },
     {
       "path": "apps/api/app/users",
@@ -59,7 +59,7 @@
     },
     {
       "path": "packages/schemas/api/v1",
-      "sha256": "83ff51b8f60a2aee286f7d76803900eccb0c396660bda7a47b0003ecfe4e15f2"
+      "sha256": "5c5f4dd418192a43f113e8d6e91638fd3ba45391f99ea249bfed4592ac9a7582"
     },
     {
       "path": "tests/unit/identity",
@@ -83,7 +83,7 @@
     },
     {
       "path": "tests/security/identity",
-      "sha256": "02c6adb9429d88dfd25be3a1034d8088a0d83726f61854ed7801f4c922884870"
+      "sha256": "e148e42ab63aec4ab5b538d5d6f136e0215b4d90d6d29a8bbed87a87b41f01d6"
     },
     {
       "path": "docs/evidence/phase-03/tasks",
@@ -119,15 +119,15 @@
     },
     {
       "path": "docs/evidence/phase-03/commands.ndjson",
-      "sha256": "ee3ff1d89d1cc8557c7d249ff80e67215145eac3d6ade1900f416d06b34a2195"
+      "sha256": "c0712cfc89367800200e60bbbf40805985312af2f601f3b4d1b3a263b067ae10"
     },
     {
       "path": "docs/evidence/phase-03/test-report.xml",
-      "sha256": "9bd21d66a4f97147ec38f4c62fe00446a99e31b6755bdf6d236d9f4da2403237"
+      "sha256": "eb920ad89361798505a3ae5e6672c0ad63bf87e7940532076a5d737f1afbb491"
     },
     {
       "path": "docs/evidence/phase-03/coverage.json",
-      "sha256": "a5e8e8307facc085a63fdb21bb1c226b58e22eef8ebcc0bc7d44deecd98c1b3e"
+      "sha256": "f2c2eb7302cdc5ea7c57dc0b9d157ac52f83b5cf4649093c812fc8118725ba03"
     }
   ],
   "base_commit": "c704e4409c4ef3e004a3b57dddaeec52919dc351",
@@ -142,8 +142,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T12:49:14.775224Z",
-  "final_commit": "36a868618235325c1b47a849988df1d87826a3ce",
+  "end_utc": "2026-09-14T13:44:05.601573Z",
+  "final_commit": "91b82ffebebf5a6239735972a5cb0d112486b018",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
@@ -173,10 +173,10 @@
     "task test:unit -- identity",
     "task test:property -- identity",
     "task test:contract -- auth",
-    "task test:integration -- supabase,mongodb (identity provider boundary)",
-    "task test:e2e -- identity",
+    "task test:integration -- supabase,mongodb (fails closed without Docker/Mongo)",
+    "task test:e2e -- identity (fails closed without deployed API URL)",
     "task test:security -- tenancy,authorization",
-    "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity (18 passed)",
+    "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity (24 passed; total coverage 73%)",
     "full dependency-free suites",
     "read-only Phase 03 manifest verification",
     "task phase:gate PHASE=03"
