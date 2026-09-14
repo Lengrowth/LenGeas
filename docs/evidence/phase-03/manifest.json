@@ -35,7 +35,7 @@
     },
     {
       "path": "apps/api/app/main.py",
-      "sha256": "4b83185b6aac18795a99408a5a19a330cc4f2fd759a13512934f55e3284caa65"
+      "sha256": "ce9f30b25e15b4e35e9907d88a4ca4022960be42fa5343bced81a52804b9d137"
     },
     {
       "path": "apps/api/app/users",
@@ -59,7 +59,7 @@
     },
     {
       "path": "packages/schemas/api/v1",
-      "sha256": "5c5f4dd418192a43f113e8d6e91638fd3ba45391f99ea249bfed4592ac9a7582"
+      "sha256": "eaba471e3d878c621b7c100310f319f098c20794c9dc584d042199cff608b96e"
     },
     {
       "path": "tests/unit/identity",
@@ -127,7 +127,7 @@
     },
     {
       "path": "docs/evidence/phase-03/coverage.json",
-      "sha256": "f2c2eb7302cdc5ea7c57dc0b9d157ac52f83b5cf4649093c812fc8118725ba03"
+      "sha256": "1d5905f7bfa93abf73bcf7b11aba914e57f4f6bde05c2b3413587f1d3423d61a"
     }
   ],
   "base_commit": "c704e4409c4ef3e004a3b57dddaeec52919dc351",
@@ -142,8 +142,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T13:44:05.601573Z",
-  "final_commit": "91b82ffebebf5a6239735972a5cb0d112486b018",
+  "end_utc": "2026-09-14T13:49:06.651602Z",
+  "final_commit": "3a8eb6e7a49d3c33e3659d6fc4a6bda560fa0380",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
