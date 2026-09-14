@@ -3,15 +3,20 @@ from __future__ import annotations
 import asyncio
 import base64
 import json
+import os
 import time
 import unittest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import jwt
 from cryptography.hazmat.primitives.asymmetric import rsa
+from pymongo import AsyncMongoClient
+from pymongo.errors import PyMongoError
 
 from apps.api.app.auth.jwt import HttpJwksTransport, SupabaseJwtVerifier
 from apps.api.app.auth.turnstile import HttpTurnstileVerifier
+from packages.domain.tenancy.models import Environment, TrustedScope
+from packages.persistence.mongodb.identity.repository import IdentityMongoRepository
 
 
 def _b64(value: int) -> str:
@@ -33,6 +38,43 @@ class Transport:
 
 
 class IdentityIntegrationTests(unittest.TestCase):
+    def test_mongodb_identity_repository_is_durable_and_scoped(self) -> None:
+        uri = os.environ.get(
+            "MONGODB_URI", "mongodb://localhost:27017/?replicaSet=rs0"
+        )
+        database_name = os.environ.get("MONGODB_DATABASE", "lengeas_identity_integration")
+        client = AsyncMongoClient(uri, serverSelectionTimeoutMS=1500)
+
+        async def run() -> None:
+            try:
+                await client.admin.command("ping")
+                database = client[database_name]
+                repository = IdentityMongoRepository(database)
+                await repository.ensure_indexes()
+                account_id = await repository.create_account()
+                player_id = await repository.create_player()
+                scope = TrustedScope(
+                    "integration-actor",
+                    "integration-studio",
+                    "integration-game",
+                    Environment.TESTING,
+                )
+                await repository.create_profile(scope, player_id, "integration-game")
+                profile = await repository.find_profile(scope, player_id)
+                self.assertIsNotNone(profile)
+                self.assertEqual(profile["studio_id"], "integration-studio")  # type: ignore[index]
+                await database.accounts.delete_one({"account_id": account_id})
+                await database.studio_players.delete_one({"player_id": player_id})
+                await database.global_profiles.delete_one({"player_id": player_id})
+                await database.game_profiles.delete_many({"player_id": player_id})
+            finally:
+                await client.close()
+
+        try:
+            asyncio.run(run())
+        except PyMongoError as error:
+            self.skipTest(f"MongoDB unavailable: {error}")
+
     def test_unknown_kid_forces_refresh_and_real_rsa_verification(self) -> None:
         key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
         numbers = key.private_numbers().public_numbers

@@ -243,7 +243,11 @@ def run_suite(suite: str, selector: str | None = None) -> int:
     stream = io.StringIO()
     result = unittest.TextTestRunner(stream=stream, verbosity=0, buffer=True).run(tests)
     if result.wasSuccessful():
-        print(f"PASS {suite}: {result.testsRun} synthetic fixture checks")
+        label = {
+            "integration": "backend integration checks",
+            "e2e": "deployed API boundary checks",
+        }.get(suite, "synthetic fixture checks")
+        print(f"PASS {suite}: {result.testsRun} {label}")
         return 0
     print(stream.getvalue().rstrip(), file=sys.stderr)
     print(

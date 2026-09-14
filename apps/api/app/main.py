@@ -300,7 +300,7 @@ def create_app(
             response_body = response.body or b""
         else:
             chunks = [chunk async for chunk in body_iterator]
-            response_body = b"".join(chunks)
+            response_body = b"".join(bytes(chunk) for chunk in chunks)
         if response.status_code < 500:
             try:
                 stored_body = json.loads(response_body) if response_body else None
