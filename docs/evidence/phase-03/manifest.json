@@ -3,35 +3,35 @@
   "artifacts": [
     {
       "path": "packages/domain/identity",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "fdea2c5ee505e01fea6689c9a62c324c5eb3149b60a3cdc8253dc1579536d726"
     },
     {
       "path": "packages/domain/tenancy",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "1b0a88031ec25f15e2e0a0773d4f692584f2d159a596977088bcf7eba5574d06"
     },
     {
       "path": "packages/domain/authorization",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "fff39c622de32309c31c0c48ce880cf5c7c77684660060b9cb84be8ff88e701a"
     },
     {
       "path": "packages/domain/audit",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "c888cfee04a686df6791bbce3622220bceb8575993b695bc7007176d5c61872d"
     },
     {
       "path": "packages/persistence/mongodb/identity",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "be7334fb777f5ccc085c10439962c1c59fa1331da8bd3c609cbae01ac91acf5a"
     },
     {
       "path": "packages/persistence/mongodb/tenancy",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "ba04895077bcedf43bc9fe3a3e4d74c1dffdb9ad1175b0bb13ba0aac9bc8907e"
     },
     {
       "path": "packages/persistence/mongodb/audit",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "ccbda3bca5248c8a9438f6ea70013fad3aa5e1fa3f8595c465536f4265869f8c"
     },
     {
       "path": "apps/api/app/auth",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "9cc6f804210faa53022c30c937abe2d6e837fc065e46a67f209c59c3cc9c6ae4"
     },
     {
       "path": "apps/api/app/main.py",
@@ -39,67 +39,67 @@
     },
     {
       "path": "apps/api/app/users",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "177836b82f611ebdbab5511091a5fad04aabd3288f6581892328e8fb545a3dfc"
     },
     {
       "path": "apps/api/app/players",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "15debffadea8e52a0e8c0c0a3fa38b00dfbf5d45908ab13e800bb6c543f343ac"
     },
     {
       "path": "apps/api/app/studios",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "c9f9e042ff727006c8f106aaa3fe24e7fb9a64225d76f8745a324998324e1078"
     },
     {
       "path": "apps/api/app/permissions",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "84ef12706f190aebe484fd56483c826dd1535ca9f3321bf15a482a5f05be6962"
     },
     {
       "path": "apps/api/app/audit",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "a6726a0b2d9503fc023557777feb0799934e34ee4a8572845847f5d05ed4cc3e"
     },
     {
       "path": "packages/schemas/api/v1",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "cf46413320fd457b1112675dba3649604269cced18c2f742d899b186b3c2d89c"
     },
     {
       "path": "tests/unit/identity",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "db60e528174041bfb52e7cfa353f05851e2be44753ef8c7d9c95bf779a4a6b12"
     },
     {
       "path": "tests/property/identity",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "7c9d480adf3f0b303debcea6245b42829f9b90ae889b46e3c79b2b40611f8a3d"
     },
     {
       "path": "tests/contract/identity",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "e7ceb75f39ea50de5e67ab084eb2667fd10c8b72dc7508a7927a16aed0590508"
     },
     {
       "path": "tests/integration/identity",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "837ea0ed120a7311e9aabff13b333baf868018a93632e458b57e631c4614d4e0"
     },
     {
       "path": "tests/e2e/identity",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "3417cdc6131d7850eb71b7940b3eaf42386369608c082b5d72b4b9b798974c39"
     },
     {
       "path": "tests/security/identity",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "d4a80a17711a40b6a09dbd545d73e79c41aec03fb6b905ed03c1f18e2bace6a0"
     },
     {
       "path": "docs/evidence/phase-03/tasks",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "93373df79a25d4adfdd7e2ee63e8bc96042da3d0ffd264621c26ea7d2d94d5d7"
     },
     {
       "path": "docs/evidence/phase-03/security",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "014e46c59142ac3c8719a5f80912000b0c41058af0cec97530e3aee07c7d5dc0"
     },
     {
       "path": "docs/evidence/phase-03/performance",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "1c2718b8d82e81579aa9930f5c5af15b5936b5d21790b1ee4ce3aaed62cf7c1c"
     },
     {
       "path": "docs/evidence/phase-03/operations",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "e8eb89062bd97087f4f1ce886182b3c8645f79038ac6645b43e6eeec2e7dcdc9"
     },
     {
       "path": "docs/phases/03-identity-tenancy-authorization.md",
@@ -118,8 +118,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T09:54:02.202207Z",
-  "final_commit": "c704e4409c4ef3e004a3b57dddaeec52919dc351",
+  "end_utc": "2026-09-14T09:56:59.146305Z",
+  "final_commit": "ad1ed3fd695acbdcb6a2b52e00c8cc0364454bfe",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
