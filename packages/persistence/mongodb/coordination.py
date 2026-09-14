@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import time
+from datetime import UTC, datetime
 from typing import Any
 
 from pymongo.errors import DuplicateKeyError
@@ -24,6 +25,9 @@ class MongoCoordinationStore:
         )
         await self.database.proof_consumptions.create_index(
             "proof_hash", unique=True, name="uq_consumed_proof"
+        )
+        await self.database.proof_consumptions.create_index(
+            "expires_at", expireAfterSeconds=0, name="proof_consumption_expiry"
         )
         await self.database.idempotency.create_index("key", unique=True, name="uq_idempotency_key")
 
@@ -55,7 +59,7 @@ class MongoCoordinationStore:
                 {
                     "proof_hash": hashlib.sha256(proof.encode()).hexdigest(),
                     "consumed_at": time.time(),
-                    "expires_at": expires_at,
+                    "expires_at": datetime.fromtimestamp(expires_at, UTC),
                 }
             )
         except DuplicateKeyError:

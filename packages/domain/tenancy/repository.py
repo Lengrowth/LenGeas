@@ -74,6 +74,9 @@ class InMemoryTenantRepository:
             None,
         )
 
+    def service_account_for(self, service_account_id: str) -> ServiceAccount | None:
+        return self.service_accounts.get(service_account_id)
+
     def create_studio(self, scope: TrustedScope, name: str, slug: str) -> Studio:
         if not scope.mfa_verified and MembershipRole.ADMIN in scope.roles:
             raise PermissionError("mfa_required")
@@ -98,9 +101,12 @@ class InMemoryTenantRepository:
             raise ValueError("membership_exists")
         membership = Membership(_id(), scope.studio_id, account_id, role, datetime.now(UTC))
         self.memberships[membership.membership_id] = membership
+        self.audit.append(
+            {"action": "studio.membership_created.v1", "subject_id": membership.membership_id}
+        )
         self.events.append(
             EventEnvelope.create(
-                "studio.service_account_revoked.v1",
+                "studio.membership_created.v1",
                 "InMemoryTenantRepository",
                 studio_id=scope.studio_id,
                 payload={"membership_id": membership.membership_id, "role": role.value},
@@ -117,6 +123,7 @@ class InMemoryTenantRepository:
         if MembershipRole.OWNER not in scope.roles and MembershipRole.ADMIN not in scope.roles:
             raise PermissionError("membership_admin_required")
         membership.role = role
+        self.audit.append({"action": "studio.membership_changed.v1", "subject_id": membership_id})
         self.events.append(
             EventEnvelope.create(
                 "studio.membership_changed.v1",
@@ -153,11 +160,14 @@ class InMemoryTenantRepository:
         self.service_credentials[account.service_account_id] = credential
         self.service_accounts[account.service_account_id] = account
         self.audit.append(
-            {"action": "studio.membership_changed.v1", "subject_id": account.service_account_id}
+            {
+                "action": "studio.service_account_created.v1",
+                "subject_id": account.service_account_id,
+            }
         )
         self.events.append(
             EventEnvelope.create(
-                "studio.membership_changed.v1",
+                "studio.service_account_created.v1",
                 "InMemoryTenantRepository",
                 studio_id=scope.studio_id,
                 payload={"service_account_id": account.service_account_id},
@@ -173,11 +183,11 @@ class InMemoryTenantRepository:
             raise PermissionError("service_account_admin_required")
         account.revoked_at = datetime.now(UTC)
         self.audit.append(
-            {"action": "studio.membership_changed.v1", "subject_id": service_account_id}
+            {"action": "studio.service_account_revoked.v1", "subject_id": service_account_id}
         )
         self.events.append(
             EventEnvelope.create(
-                "studio.membership_changed.v1",
+                "studio.service_account_revoked.v1",
                 "InMemoryTenantRepository",
                 studio_id=scope.studio_id,
                 payload={"service_account_id": service_account_id, "action": "revoked"},

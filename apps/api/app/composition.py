@@ -15,6 +15,7 @@ from packages.persistence.mongodb.domain_repository import (
 )
 
 from .auth.jwt import SupabaseJwtVerifier
+from .auth.provider import SupabaseProviderIdentityVerifier
 from .auth.turnstile import HttpTurnstileVerifier
 from .main import create_app
 
@@ -61,6 +62,33 @@ def create_production_app() -> FastAPI:
         unique=True,
         name="uq_merge_idempotency_scope",
     )
+    database.merge_previews.create_index("preview_id", unique=True, name="uq_merge_preview_id")
+    database.merge_previews.create_index(
+        "expires_at", expireAfterSeconds=0, name="merge_preview_expiry"
+    )
+    database.guest_credentials.create_index(
+        "identity_id", unique=True, name="uq_guest_credential_identity"
+    )
+    database.guest_device_counts.create_index(
+        "device_hash", unique=True, name="uq_guest_device_hash"
+    )
+    database.privacy_requests.create_index("request_id", unique=True, name="uq_privacy_request")
+    database.privacy_requests.create_index(
+        [("account_id", 1), ("status", 1)], name="privacy_account_status"
+    )
+    database.privacy_holds.create_index("account_id", unique=True, name="uq_privacy_hold_account")
+    database.financial_history.create_index(
+        [("studio_id", 1), ("account_id", 1)],
+        unique=True,
+        name="uq_financial_history_scope",
+    )
+    database.audit_events.create_index(
+        [("studio_id", 1), ("occurred_at", -1)], name="audit_studio_time"
+    )
+    database.audit_events.create_index(
+        [("subject_id", 1), ("occurred_at", -1)], name="audit_subject_time"
+    )
+    database.event_outbox.create_index("event_id", unique=True, name="uq_event_id")
     identity = MongoIdentityDomainRepository(database)
     tenancy = MongoTenantDomainRepository(database)
     verifier = SupabaseJwtVerifier(
@@ -75,6 +103,7 @@ def create_production_app() -> FastAPI:
         tenancy=tenancy,
         jwt_verifier=verifier,
         turnstile=turnstile,
+        provider_verifier=SupabaseProviderIdentityVerifier(verifier),
         revocation_store=coordination,
         proof_store=coordination,
         idempotency_store=coordination,

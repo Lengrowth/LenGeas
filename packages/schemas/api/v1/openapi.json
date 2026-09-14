@@ -1,6 +1,99 @@
 {
   "components": {
     "schemas": {
+      "AccountResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "deleted_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deleted At"
+          },
+          "email_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email Hash"
+          },
+          "player_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Player Id"
+          },
+          "restricted": {
+            "default": false,
+            "title": "Restricted",
+            "type": "boolean"
+          },
+          "session_epoch": {
+            "default": 0,
+            "title": "Session Epoch",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "account_id",
+          "created_at"
+        ],
+        "title": "AccountResponse",
+        "type": "object"
+      },
+      "CredentialResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "expires_at": {
+            "title": "Expires At",
+            "type": "string"
+          },
+          "identity_id": {
+            "title": "Identity Id",
+            "type": "string"
+          },
+          "player_id": {
+            "title": "Player Id",
+            "type": "string"
+          },
+          "refresh_token": {
+            "title": "Refresh Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "player_id",
+          "identity_id",
+          "refresh_token",
+          "expires_at"
+        ],
+        "title": "CredentialResponse",
+        "type": "object"
+      },
       "CredentialRotateRequest": {
         "additionalProperties": false,
         "properties": {
@@ -96,6 +189,25 @@
         "title": "IdentityLinkRequest",
         "type": "object"
       },
+      "IdentityLinkResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "identity_id": {
+            "title": "Identity Id",
+            "type": "string"
+          },
+          "player_id": {
+            "title": "Player Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identity_id",
+          "player_id"
+        ],
+        "title": "IdentityLinkResponse",
+        "type": "object"
+      },
       "InvitationRequest": {
         "additionalProperties": false,
         "properties": {
@@ -118,6 +230,59 @@
         "title": "InvitationRequest",
         "type": "object"
       },
+      "InvitationResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "accepted_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accepted At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "email_hash": {
+            "title": "Email Hash",
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "invitation_id": {
+            "title": "Invitation Id",
+            "type": "string"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string"
+          },
+          "studio_id": {
+            "title": "Studio Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "invitation_id",
+          "studio_id",
+          "email_hash",
+          "role",
+          "expires_at",
+          "created_at"
+        ],
+        "title": "InvitationResponse",
+        "type": "object"
+      },
       "MembershipRequest": {
         "additionalProperties": false,
         "properties": {
@@ -138,6 +303,92 @@
           "role"
         ],
         "title": "MembershipRequest",
+        "type": "object"
+      },
+      "MembershipResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "active": {
+            "default": true,
+            "title": "Active",
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "game_ids": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Game Ids",
+            "type": "array",
+            "uniqueItems": true
+          },
+          "membership_id": {
+            "title": "Membership Id",
+            "type": "string"
+          },
+          "mfa_required": {
+            "default": false,
+            "title": "Mfa Required",
+            "type": "boolean"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string"
+          },
+          "studio_id": {
+            "title": "Studio Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "membership_id",
+          "studio_id",
+          "account_id",
+          "role",
+          "created_at"
+        ],
+        "title": "MembershipResponse",
+        "type": "object"
+      },
+      "MergeCollisionResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "choices": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Choices",
+            "type": "array"
+          },
+          "game_id": {
+            "title": "Game Id",
+            "type": "string"
+          },
+          "source_profile_id": {
+            "title": "Source Profile Id",
+            "type": "string"
+          },
+          "target_profile_id": {
+            "title": "Target Profile Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "game_id",
+          "source_profile_id",
+          "target_profile_id",
+          "choices"
+        ],
+        "title": "MergeCollisionResponse",
         "type": "object"
       },
       "MergeCommitRequest": {
@@ -197,6 +448,20 @@
         "title": "MergeCommitRequest",
         "type": "object"
       },
+      "MergeCommitResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "player_id": {
+            "title": "Player Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "player_id"
+        ],
+        "title": "MergeCommitResponse",
+        "type": "object"
+      },
       "MergePreviewRequest": {
         "additionalProperties": false,
         "properties": {
@@ -246,6 +511,100 @@
         "title": "MergePreviewRequest",
         "type": "object"
       },
+      "MergePreviewResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "collisions": {
+            "items": {
+              "$ref": "#/components/schemas/MergeCollisionResponse"
+            },
+            "title": "Collisions",
+            "type": "array"
+          },
+          "entitlements": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Entitlements",
+            "type": "array"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "game_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Game Id"
+          },
+          "preview_id": {
+            "title": "Preview Id",
+            "type": "string"
+          },
+          "source_player_id": {
+            "title": "Source Player Id",
+            "type": "string"
+          },
+          "studio_id": {
+            "title": "Studio Id",
+            "type": "string"
+          },
+          "target_player_id": {
+            "title": "Target Player Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "preview_id",
+          "source_player_id",
+          "target_player_id",
+          "collisions",
+          "entitlements",
+          "expires_at",
+          "studio_id"
+        ],
+        "title": "MergePreviewResponse",
+        "type": "object"
+      },
+      "PolicyDecisionResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "allowed": {
+            "title": "Allowed",
+            "type": "boolean"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "explanation": {
+            "title": "Explanation",
+            "type": "string"
+          },
+          "obligations": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Obligations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "allowed",
+          "code",
+          "explanation"
+        ],
+        "title": "PolicyDecisionResponse",
+        "type": "object"
+      },
       "PrivacyOperation": {
         "enum": [
           "export",
@@ -270,6 +629,71 @@
           "operation"
         ],
         "title": "PrivacyRequestModel",
+        "type": "object"
+      },
+      "PrivacyResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "legal_hold": {
+            "default": false,
+            "title": "Legal Hold",
+            "type": "boolean"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "requested_at": {
+            "format": "date-time",
+            "title": "Requested At",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "studio_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Studio Id"
+          }
+        },
+        "required": [
+          "request_id",
+          "account_id",
+          "operation",
+          "requested_at",
+          "status"
+        ],
+        "title": "PrivacyResponse",
+        "type": "object"
+      },
+      "RefreshTokenResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "refresh_token": {
+            "title": "Refresh Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "refresh_token"
+        ],
+        "title": "RefreshTokenResponse",
         "type": "object"
       },
       "RoleChangeRequest": {
@@ -320,6 +744,44 @@
         "title": "ServiceAccountRequest",
         "type": "object"
       },
+      "ServiceAccountResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "title": "Client Id",
+            "type": "string"
+          },
+          "credential": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credential"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes",
+            "type": "array"
+          },
+          "service_account_id": {
+            "title": "Service Account Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "service_account_id",
+          "client_id",
+          "scopes"
+        ],
+        "title": "ServiceAccountResponse",
+        "type": "object"
+      },
       "StudioCreateRequest": {
         "additionalProperties": false,
         "properties": {
@@ -340,6 +802,41 @@
           "slug"
         ],
         "title": "StudioCreateRequest",
+        "type": "object"
+      },
+      "StudioResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "restricted": {
+            "default": false,
+            "title": "Restricted",
+            "type": "boolean"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "studio_id": {
+            "title": "Studio Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "studio_id",
+          "name",
+          "slug",
+          "created_at"
+        ],
+        "title": "StudioResponse",
         "type": "object"
       },
       "ValidationError": {
@@ -424,7 +921,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Rights Api V1 Accounts Correction Post"
+                  "$ref": "#/components/schemas/PrivacyResponse"
                 }
               }
             },
@@ -468,7 +965,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Delete Account Api V1 Accounts Deletion Post"
+                  "$ref": "#/components/schemas/PrivacyResponse"
                 }
               }
             },
@@ -521,7 +1018,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Rights Api V1 Accounts Export Post"
+                  "$ref": "#/components/schemas/PrivacyResponse"
                 }
               }
             },
@@ -574,7 +1071,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Rights Api V1 Accounts Legal Hold Post"
+                  "$ref": "#/components/schemas/PrivacyResponse"
                 }
               }
             },
@@ -627,7 +1124,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Rights Api V1 Accounts Restriction Post"
+                  "$ref": "#/components/schemas/PrivacyResponse"
                 }
               }
             },
@@ -681,11 +1178,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "additionalProperties": {
-                    "type": "string"
-                  },
-                  "title": "Response Rotate Credential Api V1 Auth Credentials Rotate Post",
-                  "type": "object"
+                  "$ref": "#/components/schemas/RefreshTokenResponse"
                 }
               }
             },
@@ -718,7 +1211,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Current Account Api V1 Auth Current Get"
+                  "$ref": "#/components/schemas/AccountResponse"
                 }
               }
             },
@@ -762,9 +1255,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "additionalProperties": true,
-                  "title": "Response Create Guest Api V1 Auth Guests Post",
-                  "type": "object"
+                  "$ref": "#/components/schemas/CredentialResponse"
                 }
               }
             },
@@ -813,11 +1304,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "additionalProperties": {
-                    "type": "string"
-                  },
-                  "title": "Response Link Identity Api V1 Auth Identity Links Post",
-                  "type": "object"
+                  "$ref": "#/components/schemas/IdentityLinkResponse"
                 }
               }
             },
@@ -866,6 +1353,22 @@
           },
           {
             "in": "query",
+            "name": "resource_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Resource Id"
+            }
+          },
+          {
+            "in": "query",
             "name": "game_id",
             "required": false,
             "schema": {
@@ -886,7 +1389,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Decision Api V1 Permissions Decision Get"
+                  "$ref": "#/components/schemas/PolicyDecisionResponse"
                 }
               }
             },
@@ -940,11 +1443,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "additionalProperties": {
-                    "type": "string"
-                  },
-                  "title": "Response Merge Commit Api V1 Players Merge Post",
-                  "type": "object"
+                  "$ref": "#/components/schemas/MergeCommitResponse"
                 }
               }
             },
@@ -998,7 +1497,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Merge Preview Api V1 Players Merge Preview Post"
+                  "$ref": "#/components/schemas/MergePreviewResponse"
                 }
               }
             },
@@ -1052,7 +1551,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Privacy Request Api V1 Privacy Requests Post"
+                  "$ref": "#/components/schemas/PrivacyResponse"
                 }
               }
             },
@@ -1096,7 +1595,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Privacy Status Api V1 Privacy Requests  Request Id  Get"
+                  "$ref": "#/components/schemas/PrivacyResponse"
                 }
               }
             },
@@ -1187,7 +1686,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Create Studio Api V1 Studios Post"
+                  "$ref": "#/components/schemas/StudioResponse"
                 }
               }
             },
@@ -1241,7 +1740,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Invite Membership Api V1 Studios Invitations Post"
+                  "$ref": "#/components/schemas/InvitationResponse"
                 }
               }
             },
@@ -1295,7 +1794,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Create Membership Api V1 Studios Memberships Post"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             },
@@ -1349,7 +1848,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Change Membership Role Api V1 Studios Memberships Role Post"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             },
@@ -1403,7 +1902,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Create Service Account Api V1 Studios Service Accounts Post"
+                  "$ref": "#/components/schemas/ServiceAccountResponse"
                 }
               }
             },

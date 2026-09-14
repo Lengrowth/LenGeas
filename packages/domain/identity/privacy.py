@@ -48,12 +48,20 @@ class PrivacyService:
         legal_hold: bool = False,
         studio_id: str | None = None,
     ) -> PrivacyRequest:
-        account = self.repository.accounts.get(account_id)
+        account_loader = getattr(self.repository, "account_for_id", None)
+        account = (
+            account_loader(account_id)
+            if account_loader is not None
+            else self.repository.accounts.get(account_id)
+        )
         if account is None:
             raise KeyError("account_not_found")
         if operation == PrivacyOperation.DELETION and legal_hold:
             raise ValueError("legal_hold_conflict")
-        if operation == PrivacyOperation.DELETION and account_id in self.legal_holds:
+        has_hold = getattr(self.repository, "has_legal_hold", lambda value: False)
+        if operation == PrivacyOperation.DELETION and (
+            account_id in self.legal_holds or has_hold(account_id)
+        ):
             raise ValueError("legal_hold_conflict")
         request = PrivacyRequest(
             new_uuid7(), account_id, operation, datetime.now(UTC), "queued", legal_hold, studio_id
@@ -80,6 +88,7 @@ class PrivacyService:
         )
         if operation == PrivacyOperation.LEGAL_HOLD:
             self.legal_holds.add(account_id)
+            self.repository.set_legal_hold(account_id)
             return self._complete(request)
         if operation in {
             PrivacyOperation.EXPORT,
@@ -87,6 +96,8 @@ class PrivacyService:
             PrivacyOperation.RESTRICTION,
         }:
             return self.execute(request.request_id)
+        if operation == PrivacyOperation.DELETION:
+            return self.execute_deletion(request.request_id)
         return request
 
     def _complete(self, request: PrivacyRequest) -> PrivacyRequest:
@@ -121,34 +132,64 @@ class PrivacyService:
         return completed
 
     def execute(self, request_id: str) -> PrivacyRequest:
-        request = self.requests[request_id]
-        account = self.repository.accounts[request.account_id]
-        if request.operation == PrivacyOperation.RESTRICTION:
-            account.restricted = True
-        elif request.operation == PrivacyOperation.CORRECTION:
-            account.session_epoch += 1
-        elif request.operation == PrivacyOperation.EXPORT:
-            self.financial_history.setdefault(request.account_id, {})
-        return self._complete(request)
+        request = self.requests.get(request_id)
+        if request is None:
+            loader = getattr(self.repository, "privacy_request_for", None)
+            request = loader(request_id) if loader is not None else None
+        if request is None:
+            raise KeyError("privacy_request_not_found")
+        account_loader = getattr(self.repository, "account_for_id", None)
+        account = (
+            account_loader(request.account_id)
+            if account_loader is not None
+            else self.repository.accounts[request.account_id]
+        )
+        self.repository.begin()
+        try:
+            if request.operation == PrivacyOperation.RESTRICTION:
+                account.restricted = True
+            elif request.operation == PrivacyOperation.CORRECTION:
+                account.session_epoch += 1
+            elif request.operation == PrivacyOperation.EXPORT:
+                self.financial_history.setdefault(request.account_id, {})
+            saver = getattr(self.repository, "save_account", None)
+            if saver is not None:
+                saver(account)
+            completed = self._complete(request)
+            self.repository.commit()
+            return completed
+        except Exception:
+            self.repository.rollback()
+            raise
 
     def execute_deletion(self, request_id: str) -> PrivacyRequest:
         request = self.requests[request_id]
         if request.operation != PrivacyOperation.DELETION:
             raise ValueError("not_deletion")
-        if request.account_id in self.legal_holds:
+        has_hold = getattr(self.repository, "has_legal_hold", lambda value: False)
+        if request.account_id in self.legal_holds or has_hold(request.account_id):
             raise ValueError("legal_hold_conflict")
         self.repository.begin()
         try:
-            account = self.repository.accounts[request.account_id]
+            account_loader = getattr(self.repository, "account_for_id", None)
+            account = (
+                account_loader(request.account_id)
+                if account_loader is not None
+                else self.repository.accounts[request.account_id]
+            )
             account.deleted_at = datetime.now(UTC)
             account.email_hash = None
             account.session_epoch += 1
-            for identity in self.repository.identities.values():
+            identities = self.repository.all_identities()
+            for identity in identities:
                 if identity.account_id == request.account_id:
                     identity.revoked_at = datetime.now(UTC)
                     player = self.repository.players.get(identity.player_id)
                     if player is not None:
                         player.tombstone = True
+            saver = getattr(self.repository, "save_account", None)
+            if saver is not None:
+                saver(account)
             pseudonym = "deleted_" + hashlib.sha256(request.account_id.encode()).hexdigest()[:24]
             retained = self.financial_history.setdefault(request.account_id, {})
             retained["account_ref"] = pseudonym

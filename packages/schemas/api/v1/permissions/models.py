@@ -9,3 +9,11 @@ class PolicyDecisionRequest(BaseModel):
     resource_type: str = Field(min_length=1, max_length=64)
     resource_id: str | None = Field(default=None, max_length=128)
     game_id: str | None = Field(default=None, max_length=128)
+
+
+class PolicyDecisionResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid", from_attributes=True)
+    allowed: bool
+    code: str
+    explanation: str
+    obligations: tuple[str, ...] = ()

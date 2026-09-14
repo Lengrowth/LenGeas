@@ -17,6 +17,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: hashicorp/setup-terraform@v3.1.2
         with:
           terraform_version: 1.15.8
@@ -43,10 +45,14 @@ jobs:
           uv run --frozen uvicorn apps.api.app.e2e:app --host 127.0.0.1 --port 8001 > "$RUNNER_TEMP/identity-e2e.log" 2>&1 &
           echo $! > "$RUNNER_TEMP/identity-e2e.pid"
           E2E_DEVICE_KEY=$(uv run --frozen python -c 'import base64; from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey; print(base64.urlsafe_b64encode(Ed25519PrivateKey.generate().public_key().public_bytes_raw()).rstrip(b"=").decode())')
+          E2E_LIFECYCLE_DEVICE_KEY=$(uv run --frozen python -c 'import base64; from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey; print(base64.urlsafe_b64encode(Ed25519PrivateKey.generate().public_key().public_bytes_raw()).rstrip(b"=").decode())')
           {
             echo "LENGEAS_E2E_BASE_URL=http://127.0.0.1:8001"
             echo "LENGEAS_E2E_GUEST_PROOF=ci-e2e-proof"
+            echo "LENGEAS_E2E_LIFECYCLE_PROOF=ci-e2e-lifecycle-proof"
             echo "LENGEAS_E2E_DEVICE_PUBLIC_KEY=$E2E_DEVICE_KEY"
+            echo "LENGEAS_E2E_LIFECYCLE_DEVICE_PUBLIC_KEY=$E2E_LIFECYCLE_DEVICE_KEY"
+            echo "LENGEAS_E2E_TOKEN=ci-e2e-token"
           } >> "$GITHUB_ENV"
           for attempt in $(seq 1 30); do
             if curl --fail --silent http://127.0.0.1:8001/health >/dev/null; then exit 0; fi
@@ -93,6 +99,8 @@ jobs:
           path: docs/evidence/phase-02/
           if-no-files-found: error
       - name: Verify Phase 03 evidence and gate
+        env:
+          LENGEAS_EVIDENCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           uv run --frozen python tools/dev/evidence.py 03 --regenerate
           task evidence PHASE=03

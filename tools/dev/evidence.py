@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
@@ -133,6 +134,9 @@ def digest(path: Path) -> str:
 
 
 def git_head() -> str:
+    evidence_commit = os.environ.get("LENGEAS_EVIDENCE_COMMIT", "").strip()
+    if evidence_commit:
+        return evidence_commit
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
@@ -452,12 +456,15 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
                 "task test:e2e -- identity (fails closed without deployed API URL and "
                 "guest credentials)"
             ),
-            "hosted E2E identity selector (deployed FastAPI boundary; guest create plus replay)",
+            (
+                "hosted E2E identity selector (deployed FastAPI boundary; guest replay and "
+                "full identity/tenancy/privacy lifecycle)"
+            ),
             "task test:security -- tenancy,authorization",
             (
                 "uv run --frozen pytest -q tests/unit/identity tests/property/identity "
                 "tests/contract/identity tests/integration/identity tests/e2e/identity "
-                "tests/security/identity (24 passed, 2 skipped; total coverage 72%)"
+                "tests/security/identity (24 passed, 3 skipped; total coverage 62.13%)"
             ),
             "full dependency-free suites",
             "read-only Phase 03 manifest verification",

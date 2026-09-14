@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -23,3 +25,39 @@ class MergeCommitRequest(BaseModel):
 class PrivacyRequestModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
     operation: str = Field(pattern="^(export|correction|deletion|restriction|legal_hold)$")
+
+
+class MergeCollisionResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid", from_attributes=True)
+    game_id: str
+    source_profile_id: str
+    target_profile_id: str
+    choices: tuple[str, ...]
+
+
+class MergePreviewResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid", from_attributes=True)
+    preview_id: str
+    source_player_id: str
+    target_player_id: str
+    collisions: tuple[MergeCollisionResponse, ...]
+    entitlements: tuple[str, ...]
+    expires_at: datetime
+    studio_id: str
+    game_id: str | None = None
+
+
+class MergeCommitResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    player_id: str
+
+
+class PrivacyResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid", from_attributes=True)
+    request_id: str
+    account_id: str
+    operation: str
+    requested_at: datetime
+    status: str
+    legal_hold: bool = False
+    studio_id: str | None = None

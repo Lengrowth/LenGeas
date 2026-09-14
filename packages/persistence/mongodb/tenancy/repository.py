@@ -52,38 +52,84 @@ class TenancyMongoRepository:
 
     async def create_membership(self, scope: TrustedScope, account_id: str, role: str) -> str:
         membership_id = new_uuid7()
-        await self.database.studio_memberships.insert_one(
-            {
-                "membership_id": membership_id,
-                "studio_id": scope.studio_id,
-                "account_id": account_id,
-                "role": role,
-                "active": True,
-            }
-        )
+        event = {
+            "event_id": new_uuid7(),
+            "event_type": "studio.membership_created.v1",
+            "studio_id": scope.studio_id,
+            "subject_id": membership_id,
+            "role": role,
+            "occurred_at": datetime.now(UTC),
+        }
+        async with self.database.client.start_session() as session:
+            async with session.start_transaction():
+                await self.database.studio_memberships.insert_one(
+                    {
+                        "membership_id": membership_id,
+                        "studio_id": scope.studio_id,
+                        "account_id": account_id,
+                        "role": role,
+                        "active": True,
+                    },
+                    session=session,
+                )
+                await self.database.audit_events.insert_one(
+                    {"action": "studio.membership_created.v1", **event}, session=session
+                )
+                await self.database.event_outbox.insert_one(event, session=session)
         return membership_id
 
     async def change_role(self, scope: TrustedScope, membership_id: str, role: str) -> None:
-        await self.database.studio_memberships.update_one(
-            {"membership_id": membership_id, "studio_id": scope.studio_id},
-            {"$set": {"role": role}},
-        )
+        event = {
+            "event_id": new_uuid7(),
+            "event_type": "studio.membership_changed.v1",
+            "studio_id": scope.studio_id,
+            "subject_id": membership_id,
+            "role": role,
+            "occurred_at": datetime.now(UTC),
+        }
+        async with self.database.client.start_session() as session:
+            async with session.start_transaction():
+                result = await self.database.studio_memberships.update_one(
+                    {"membership_id": membership_id, "studio_id": scope.studio_id},
+                    {"$set": {"role": role}},
+                    session=session,
+                )
+                if result.matched_count != 1:
+                    raise KeyError("membership_not_found")
+                await self.database.audit_events.insert_one(
+                    {"action": "studio.membership_changed.v1", **event}, session=session
+                )
+                await self.database.event_outbox.insert_one(event, session=session)
 
     async def create_service_account(
         self, scope: TrustedScope, name: str, scopes: list[str]
     ) -> dict[str, str]:
         service_account_id = new_uuid7()
         credential = secrets.token_urlsafe(32)
-        await self.database.service_accounts.insert_one(
-            {
-                "service_account_id": service_account_id,
-                "studio_id": scope.studio_id,
-                "name": name,
-                "scopes": scopes,
-                "revoked_at": None,
-                "credential_hash": hashlib.sha256(credential.encode()).hexdigest(),
-            }
-        )
+        event = {
+            "event_id": new_uuid7(),
+            "event_type": "studio.service_account_created.v1",
+            "studio_id": scope.studio_id,
+            "subject_id": service_account_id,
+            "occurred_at": datetime.now(UTC),
+        }
+        async with self.database.client.start_session() as session:
+            async with session.start_transaction():
+                await self.database.service_accounts.insert_one(
+                    {
+                        "service_account_id": service_account_id,
+                        "studio_id": scope.studio_id,
+                        "name": name,
+                        "scopes": scopes,
+                        "revoked_at": None,
+                        "credential_hash": hashlib.sha256(credential.encode()).hexdigest(),
+                    },
+                    session=session,
+                )
+                await self.database.audit_events.insert_one(
+                    {"action": "studio.service_account_created.v1", **event}, session=session
+                )
+                await self.database.event_outbox.insert_one(event, session=session)
         return {"service_account_id": service_account_id, "credential": credential}
 
     async def revoke_service_account(self, scope: TrustedScope, service_account_id: str) -> None:

@@ -6,7 +6,7 @@ import hashlib
 import inspect
 import json
 from collections.abc import Awaitable, Callable
-from datetime import UTC
+from datetime import UTC, datetime
 from typing import Annotated, Any, Protocol, cast
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Security, status
@@ -33,21 +33,33 @@ from packages.domain.tenancy.models import Environment, MembershipRole, TrustedS
 from packages.domain.tenancy.repository import InMemoryTenantRepository
 from packages.domain.tenancy.services import StudioAdministration
 from packages.schemas.api.v1.auth.models import (
+    AccountResponse,
+    CredentialResponse,
     CredentialRotateRequest,
     GuestCreateRequest,
     IdentityLinkRequest,
+    IdentityLinkResponse,
+    RefreshTokenResponse,
 )
+from packages.schemas.api.v1.permissions.models import PolicyDecisionResponse
 from packages.schemas.api.v1.players.models import (
     MergeCommitRequest,
+    MergeCommitResponse,
     MergePreviewRequest,
+    MergePreviewResponse,
     PrivacyRequestModel,
+    PrivacyResponse,
 )
 from packages.schemas.api.v1.studios.models import (
     InvitationRequest,
+    InvitationResponse,
     MembershipRequest,
+    MembershipResponse,
     RoleChangeRequest,
     ServiceAccountRequest,
+    ServiceAccountResponse,
     StudioCreateRequest,
+    StudioResponse,
 )
 
 from .auth.guest import GuestIdentityService, TurnstileVerifier, UnconfiguredTurnstile
@@ -171,11 +183,16 @@ def create_app(
                     claims.subject
                 ):
                     raise ValueError("token_revoked")
-            account = mapper.map_subject(claims.subject)
+            raw_kind = str(claims.raw.get("actor_kind", ActorKind.ACCOUNT.value))
+            actor_kind = ActorKind(raw_kind)
+            account = (
+                mapper.map_subject(claims.subject) if actor_kind == ActorKind.ACCOUNT else None
+            )
         except (ValueError, KeyError, RuntimeError) as error:
             raise HTTPException(status_code=401, detail={"code": str(error)}) from error
         request.state.claims = claims
         request.state.account = account
+        request.state.actor_kind = actor_kind
 
     async def require_idempotency(
         idempotency_key: Annotated[str, Header(alias="Idempotency-Key")],
@@ -186,25 +203,72 @@ def create_app(
     def scope(request: Request, *, game_id: str | None = None) -> TrustedScope:
         account = getattr(request.state, "account", None)
         studio_id = request.headers.get("x-studio-id")
-        if account is None or not studio_id:
-            raise HTTPException(status_code=401, detail={"code": "authentication_required"})
-        membership = tenancy_repo.membership_for(studio_id, account.account_id)
-        if membership is None or not membership.active:
-            raise HTTPException(status_code=403, detail={"code": "membership_required"})
-        if game_id and game_id not in membership.game_ids:
-            raise HTTPException(status_code=403, detail={"code": "game_scope_mismatch"})
         claims = request.state.claims
+        actor_kind = getattr(request.state, "actor_kind", ActorKind.ACCOUNT)
+        service_account = None
+        if actor_kind == ActorKind.SERVICE:
+            service_id = str(claims.raw.get("service_account_id") or "")
+            service_account = tenancy_repo.service_account_for(service_id)
+            if service_account is None or service_account.revoked_at is not None:
+                raise HTTPException(status_code=401, detail={"code": "service_account_revoked"})
+            request.state.actor_scopes = service_account.scopes
+        if actor_kind != ActorKind.ACCOUNT:
+            studio_id = (
+                str(
+                    service_account.studio_id
+                    if service_account is not None
+                    else claims.raw.get("studio_id") or studio_id or ""
+                )
+                or None
+            )
+        if (actor_kind == ActorKind.ACCOUNT and account is None) or not studio_id:
+            raise HTTPException(status_code=401, detail={"code": "authentication_required"})
+        membership = (
+            tenancy_repo.membership_for(studio_id, account.account_id)
+            if actor_kind == ActorKind.ACCOUNT and account is not None
+            else None
+        )
+        if actor_kind == ActorKind.ACCOUNT and (membership is None or not membership.active):
+            raise HTTPException(status_code=403, detail={"code": "membership_required"})
+        game_ids = (
+            membership.game_ids
+            if membership is not None
+            else frozenset(str(value) for value in claims.raw.get("game_ids", []))
+        )
+        if game_id and game_id not in game_ids:
+            raise HTTPException(status_code=403, detail={"code": "game_scope_mismatch"})
         amr = claims.raw.get("amr", [])
         mfa_verified = claims.raw.get("aal") in {"aal2", "aal3"} or "mfa" in amr
+        actor_id = (
+            account.account_id
+            if account is not None
+            else str(claims.raw.get("service_account_id") or claims.subject)
+        )
+        roles = frozenset({membership.role}) if membership is not None else frozenset()
+        environments = frozenset(
+            Environment(value)
+            for value in claims.raw.get("environments", [Environment.TESTING.value])
+            if value in {item.value for item in Environment}
+        )
+        try:
+            environment = Environment(str(claims.raw.get("environment", Environment.TESTING.value)))
+        except ValueError as error:
+            raise HTTPException(status_code=401, detail={"code": "environment_invalid"}) from error
+        expires_raw = claims.raw.get("support_expires_at")
+        support_expires_at = datetime.fromisoformat(str(expires_raw)) if expires_raw else None
         return TrustedScope(
-            account.account_id,
+            actor_id,
             studio_id,
             game_id,
-            Environment.TESTING,
-            frozenset({membership.role}),
+            environment,
+            roles,
+            support_case_id=claims.raw.get("support_case_id"),
+            expires_at=support_expires_at,
+            service_account_id=claims.raw.get("service_account_id"),
+            ai_agent_id=claims.raw.get("ai_agent_id"),
             mfa_verified=bool(mfa_verified),
-            game_ids=membership.game_ids,
-            environments=frozenset({Environment.TESTING}),
+            game_ids=game_ids,
+            environments=environments,
         )
 
     def authorize(
@@ -215,24 +279,78 @@ def create_app(
         game_id: str | None = None,
     ) -> TrustedScope:
         trusted = scope(request, game_id=game_id)
+        owner_id = None
+        if resource_type == "account":
+            owner_id = resource_id
+        elif resource_type == "identity" and resource_id:
+            lookup_identity = getattr(identity_repo, "identity_for_id", None)
+            identity = (
+                lookup_identity(resource_id)
+                if lookup_identity is not None
+                else identity_repo.identities.get(resource_id)
+            )
+            owner_id = identity.account_id if identity is not None else None
+        elif resource_type == "player" and resource_id:
+            lookup_account = getattr(identity_repo, "account_for_player", None)
+            account = (
+                lookup_account(resource_id)
+                if lookup_account is not None
+                else next(
+                    (
+                        account
+                        for account in identity_repo.accounts.values()
+                        if account.player_id == resource_id
+                    ),
+                    None,
+                )
+            )
+            owner_id = account.account_id if account is not None else None
+        elif resource_type == "profile" and resource_id:
+            profile = identity_repo.profiles.get(resource_id)
+            if profile is not None:
+                lookup_account = getattr(identity_repo, "account_for_player", None)
+                account = lookup_account(profile.player_id) if lookup_account is not None else None
+                owner_id = account.account_id if account is not None else None
+        if (
+            action != "read"
+            and resource_type in {"player", "profile", "identity"}
+            and not resource_id
+        ):
+            raise HTTPException(status_code=403, detail={"code": "resource_owner_required"})
         result = policies.decide(
             PolicyRequest(
                 Actor(
                     trusted.actor_id,
-                    ActorKind.ACCOUNT,
+                    getattr(request.state, "actor_kind", ActorKind.ACCOUNT),
                     trusted.studio_id,
                     trusted.roles,
+                    scopes=frozenset(
+                        getattr(
+                            request.state,
+                            "actor_scopes",
+                            frozenset(
+                                str(value) for value in request.state.claims.raw.get("scopes", [])
+                            ),
+                        )
+                    ),
                     mfa_verified=trusted.mfa_verified,
+                    support_case_id=trusted.support_case_id,
+                    support_expires_at=trusted.expires_at,
                     game_ids=trusted.game_ids,
                     environments=trusted.environments,
+                    support_grant_valid=bool(
+                        request.state.claims.raw.get("support_grant_valid", False)
+                    ),
+                    ai_agent_id=trusted.ai_agent_id,
                 ),
                 action,
-                Resource(resource_type, resource_id, trusted.studio_id, game_id),
+                Resource(resource_type, resource_id, trusted.studio_id, game_id, owner_id),
                 trusted.environment,
             )
         )
         if not result.allowed:
             raise HTTPException(status_code=403, detail={"code": result.code})
+        request.state.last_decision = result
         return trusted
 
     def error_body(
@@ -355,6 +473,7 @@ def create_app(
     @app.post(
         "/api/v1/auth/guests",
         status_code=status.HTTP_201_CREATED,
+        response_model=CredentialResponse,
         dependencies=[Depends(require_idempotency)],
     )
     async def create_guest(body: GuestCreateRequest, request: Request) -> dict[str, object]:
@@ -374,11 +493,14 @@ def create_app(
     protected_read = [Depends(authenticate)]
 
     @app.post(
-        "/api/v1/auth/identity-links", status_code=status.HTTP_201_CREATED, dependencies=protected
+        "/api/v1/auth/identity-links",
+        status_code=status.HTTP_201_CREATED,
+        response_model=IdentityLinkResponse,
+        dependencies=protected,
     )
     async def link_identity(body: IdentityLinkRequest, request: Request) -> dict[str, str]:
-        trusted = authorize(request, "write", "identity")
         player_id = request.state.account.player_id
+        trusted = authorize(request, "write", "identity", player_id)
         player = identity_repo.players.get(player_id) if player_id else None
         if player is None:
             raise HTTPException(status_code=404, detail={"code": "player_not_found"})
@@ -406,54 +528,79 @@ def create_app(
         )
         return {"identity_id": link.identity_id, "player_id": link.player_id}
 
-    @app.post("/api/v1/auth/credentials/rotate", dependencies=protected)
+    @app.post(
+        "/api/v1/auth/credentials/rotate",
+        response_model=RefreshTokenResponse,
+        dependencies=protected,
+    )
     async def rotate_credential(body: CredentialRotateRequest, request: Request) -> dict[str, str]:
         authorize(request, "write", "identity", body.identity_id)
         return {"refresh_token": guest.rotate(body.identity_id, body.refresh_token)}
 
-    @app.get("/api/v1/auth/current", dependencies=protected_read)
+    @app.get("/api/v1/auth/current", response_model=AccountResponse, dependencies=protected_read)
     async def current_account(request: Request) -> object:
         account = request.state.account
         if account.deleted_at is not None:
             raise HTTPException(status_code=404, detail={"code": "account_not_found"})
         return account
 
-    @app.post("/api/v1/players/merge/preview", dependencies=protected)
+    @app.post(
+        "/api/v1/players/merge/preview",
+        response_model=MergePreviewResponse,
+        dependencies=protected,
+    )
     async def merge_preview(body: MergePreviewRequest, request: Request) -> object:
-        trusted = authorize(request, "write", "player", body.source_player_id)
+        trusted = authorize(request, "write", "player", body.target_player_id)
         if request.state.account.player_id not in {body.source_player_id, body.target_player_id}:
             raise HTTPException(status_code=403, detail={"code": "merge_owner_required"})
-        if not body.source_credential or not body.target_credential:
-            raise HTTPException(status_code=403, detail={"code": "merge_proof_required"})
-        if not guest.prove_player(
-            body.source_player_id, body.source_credential
-        ) or not guest.prove_player(body.target_player_id, body.target_credential):
+        source_proven = bool(
+            body.source_credential
+            and guest.prove_player(body.source_player_id, body.source_credential)
+        )
+        target_proven = (
+            bool(
+                body.target_credential
+                and guest.prove_player(body.target_player_id, body.target_credential)
+            )
+            or request.state.account.player_id == body.target_player_id
+        )
+        if not source_proven or not target_proven:
             raise HTTPException(status_code=403, detail={"code": "merge_proof_invalid"})
         return merge.preview(trusted, body.source_player_id, body.target_player_id)
 
-    @app.post("/api/v1/players/merge", dependencies=protected)
+    @app.post("/api/v1/players/merge", response_model=MergeCommitResponse, dependencies=protected)
     async def merge_commit(body: MergeCommitRequest, request: Request) -> dict[str, str]:
-        trusted = authorize(request, "write", "player")
         if request.headers.get("Idempotency-Key") != body.idempotency_key:
             raise HTTPException(status_code=400, detail={"code": "idempotency_key_mismatch"})
-        if not body.source_credential or not body.target_credential:
-            raise HTTPException(status_code=403, detail={"code": "merge_proof_required"})
-        preview = merge.previews.get(body.preview_id)
+        preview = identity_repo.merge_preview_for(body.preview_id)
         if preview is None or request.state.account.player_id not in {
             preview.source_player_id,
             preview.target_player_id,
         }:
             raise HTTPException(status_code=403, detail={"code": "merge_owner_required"})
-        if not guest.prove_player(
-            preview.source_player_id, body.source_credential
-        ) or not guest.prove_player(preview.target_player_id, body.target_credential):
+        trusted = authorize(request, "write", "player", preview.target_player_id)
+        source_proven = bool(
+            body.source_credential
+            and guest.prove_player(preview.source_player_id, body.source_credential)
+        )
+        target_proven = (
+            bool(
+                body.target_credential
+                and guest.prove_player(preview.target_player_id, body.target_credential)
+            )
+            or request.state.account.player_id == preview.target_player_id
+        )
+        if not source_proven or not target_proven:
             raise HTTPException(status_code=403, detail={"code": "merge_proof_invalid"})
         return {
             "player_id": merge.commit(trusted, body.preview_id, body.choices, body.idempotency_key)
         }
 
     @app.post(
-        "/api/v1/privacy/requests", status_code=status.HTTP_202_ACCEPTED, dependencies=protected
+        "/api/v1/privacy/requests",
+        status_code=status.HTTP_202_ACCEPTED,
+        response_model=PrivacyResponse,
+        dependencies=protected,
     )
     async def privacy_request(body: PrivacyRequestModel, request: Request) -> object:
         trusted_id = request.state.account.account_id
@@ -471,7 +618,7 @@ def create_app(
     ):
 
         async def rights(request: Request, op: PrivacyOperation = operation) -> object:
-            trusted = authorize(request, "write", "account")
+            trusted = authorize(request, "write", "account", request.state.account.account_id)
             return privacy.request(
                 trusted.actor_id,
                 op,
@@ -484,19 +631,27 @@ def create_app(
             rights,
             methods=["POST"],
             status_code=status.HTTP_202_ACCEPTED,
+            response_model=PrivacyResponse,
             dependencies=protected,
         )
 
     @app.post(
-        "/api/v1/accounts/deletion", status_code=status.HTTP_202_ACCEPTED, dependencies=protected
+        "/api/v1/accounts/deletion",
+        status_code=status.HTTP_202_ACCEPTED,
+        response_model=PrivacyResponse,
+        dependencies=protected,
     )
     async def delete_account(request: Request) -> object:
-        trusted = authorize(request, "delete", "account")
+        trusted = authorize(request, "delete", "account", request.state.account.account_id)
         return privacy.request(
             trusted.actor_id, PrivacyOperation.DELETION, studio_id=trusted.studio_id
         )
 
-    @app.get("/api/v1/privacy/requests/{request_id}", dependencies=protected_read)
+    @app.get(
+        "/api/v1/privacy/requests/{request_id}",
+        response_model=PrivacyResponse,
+        dependencies=protected_read,
+    )
     async def privacy_status(request_id: str, request: Request) -> object:
         trusted = authorize(request, "read", "privacy", request_id)
         operation = privacy.requests.get(request_id)
@@ -508,14 +663,22 @@ def create_app(
             raise HTTPException(status_code=404, detail={"code": "privacy_request_not_found"})
         return operation
 
-    @app.post("/api/v1/studios", status_code=status.HTTP_201_CREATED, dependencies=protected)
+    @app.post(
+        "/api/v1/studios",
+        status_code=status.HTTP_201_CREATED,
+        response_model=StudioResponse,
+        dependencies=protected,
+    )
     async def create_studio(body: StudioCreateRequest, request: Request) -> object:
         return tenancy_repo.create_studio(
             authorize(request, "admin", "studio"), body.name, body.slug
         )
 
     @app.post(
-        "/api/v1/studios/memberships", status_code=status.HTTP_201_CREATED, dependencies=protected
+        "/api/v1/studios/memberships",
+        status_code=status.HTTP_201_CREATED,
+        response_model=MembershipResponse,
+        dependencies=protected,
     )
     async def create_membership(body: MembershipRequest, request: Request) -> object:
         return tenancy_repo.create_membership(
@@ -523,14 +686,21 @@ def create_app(
         )
 
     @app.post(
-        "/api/v1/studios/invitations", status_code=status.HTTP_201_CREATED, dependencies=protected
+        "/api/v1/studios/invitations",
+        status_code=status.HTTP_201_CREATED,
+        response_model=InvitationResponse,
+        dependencies=protected,
     )
     async def invite_membership(body: InvitationRequest, request: Request) -> object:
         return admin.invite(
             authorize(request, "admin", "membership"), body.email, MembershipRole(body.role)
         )
 
-    @app.post("/api/v1/studios/memberships/role", dependencies=protected)
+    @app.post(
+        "/api/v1/studios/memberships/role",
+        response_model=MembershipResponse,
+        dependencies=protected,
+    )
     async def change_membership_role(body: RoleChangeRequest, request: Request) -> object:
         return tenancy_repo.change_role(
             authorize(request, "admin", "membership"), body.membership_id, MembershipRole(body.role)
@@ -539,6 +709,7 @@ def create_app(
     @app.post(
         "/api/v1/studios/service-accounts",
         status_code=status.HTTP_201_CREATED,
+        response_model=ServiceAccountResponse,
         dependencies=protected,
     )
     async def create_service_account(body: ServiceAccountRequest, request: Request) -> object:
@@ -601,27 +772,20 @@ def create_app(
             )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    @app.get("/api/v1/permissions/decision", dependencies=protected_read)
+    @app.get(
+        "/api/v1/permissions/decision",
+        response_model=PolicyDecisionResponse,
+        dependencies=protected_read,
+    )
     async def decision(
-        request: Request, action: str, resource_type: str, game_id: str | None = None
+        request: Request,
+        action: str,
+        resource_type: str,
+        resource_id: str | None = None,
+        game_id: str | None = None,
     ) -> object:
-        trusted = authorize(request, action, resource_type, game_id=game_id)
-        return policies.decide(
-            PolicyRequest(
-                Actor(
-                    trusted.actor_id,
-                    ActorKind.ACCOUNT,
-                    trusted.studio_id,
-                    trusted.roles,
-                    mfa_verified=trusted.mfa_verified,
-                    game_ids=trusted.game_ids,
-                    environments=trusted.environments,
-                ),
-                action,
-                Resource(resource_type, None, trusted.studio_id, game_id),
-                trusted.environment,
-            )
-        )
+        authorize(request, action, resource_type, resource_id, game_id)
+        return request.state.last_decision
 
     return app
 

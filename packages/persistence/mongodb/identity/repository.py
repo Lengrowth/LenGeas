@@ -6,6 +6,8 @@ from collections.abc import Mapping
 from datetime import UTC, datetime
 from typing import Any, cast
 
+from pymongo.errors import DuplicateKeyError
+
 from packages.domain.ids import new_uuid7
 from packages.domain.tenancy.models import TrustedScope
 
@@ -37,6 +39,18 @@ class IdentityMongoRepository:
             unique=True,
             name="uq_game_profile",
         )
+        await self.database.merge_previews.create_index(
+            "preview_id", unique=True, name="uq_merge_preview_id"
+        )
+        await self.database.merge_previews.create_index(
+            "expires_at", expireAfterSeconds=0, name="merge_preview_expiry"
+        )
+        await self.database.guest_credentials.create_index(
+            "identity_id", unique=True, name="uq_guest_credential_identity"
+        )
+        await self.database.guest_device_counts.create_index(
+            "device_hash", unique=True, name="uq_guest_device_hash"
+        )
         await self.database.privacy_requests.create_index(
             "request_id", unique=True, name="uq_privacy_request"
         )
@@ -47,6 +61,21 @@ class IdentityMongoRepository:
             [("studio_id", 1), ("occurred_at", -1)], name="audit_studio_time"
         )
         await self.database.event_outbox.create_index("event_id", unique=True, name="uq_event_id")
+
+    async def save_merge_preview(self, preview: Mapping[str, Any]) -> None:
+        await self.database.merge_previews.replace_one(
+            {"preview_id": preview["preview_id"]}, dict(preview), upsert=True
+        )
+
+    async def find_merge_preview(
+        self, scope: TrustedScope, preview_id: str
+    ) -> Mapping[str, Any] | None:
+        return cast(
+            Mapping[str, Any] | None,
+            await self.database.merge_previews.find_one(
+                {"preview_id": preview_id, "studio_id": scope.studio_id}
+            ),
+        )
 
     @staticmethod
     def _filter(scope: TrustedScope, **extra: Any) -> dict[str, Any]:
@@ -169,54 +198,60 @@ class IdentityMongoRepository:
     ) -> None:
         now = datetime.now(UTC)
         account_filter = {"account_id": account_id}
-        await self.database.accounts.update_one(
-            account_filter,
-            {
-                "$set": {
-                    "deleted_at": now,
-                    "email_hash": None,
-                    "tombstone": True,
-                    "pseudonym": pseudonym,
-                },
-                "$inc": {"session_epoch": 1},
-            },
-        )
-        identities = self.database.player_identities.find({"account_id": account_id})
-        player_ids = [document["player_id"] async for document in identities]
-        await self.database.player_identities.update_many(
-            {"account_id": account_id}, {"$set": {"revoked_at": now}}
-        )
-        if player_ids:
-            await self.database.studio_players.update_many(
-                {"player_id": {"$in": player_ids}}, {"$set": {"tombstone": True, "deleted_at": now}}
-            )
-        await self.database.financial_history.update_one(
-            {"studio_id": scope.studio_id, "account_id": account_id},
-            {
-                "$set": {
+        async with self.database.client.start_session() as session:
+            async with session.start_transaction():
+                await self.database.accounts.update_one(
+                    account_filter,
+                    {
+                        "$set": {
+                            "deleted_at": now,
+                            "email_hash": None,
+                            "tombstone": True,
+                            "pseudonym": pseudonym,
+                        },
+                        "$inc": {"session_epoch": 1},
+                    },
+                    session=session,
+                )
+                identities = self.database.player_identities.find(
+                    {"account_id": account_id}, session=session
+                )
+                player_ids = [document["player_id"] async for document in identities]
+                await self.database.player_identities.update_many(
+                    {"account_id": account_id}, {"$set": {"revoked_at": now}}, session=session
+                )
+                if player_ids:
+                    await self.database.studio_players.update_many(
+                        {"player_id": {"$in": player_ids}},
+                        {"$set": {"tombstone": True, "deleted_at": now}},
+                        session=session,
+                    )
+                await self.database.financial_history.update_one(
+                    {"studio_id": scope.studio_id, "account_id": account_id},
+                    {
+                        "$set": {
+                            "studio_id": scope.studio_id,
+                            "account_id": account_id,
+                            "pseudonym": pseudonym,
+                            "request_id": request_id,
+                            "updated_at": now,
+                        }
+                    },
+                    upsert=True,
+                    session=session,
+                )
+                event = {
+                    "event_id": new_uuid7(),
+                    "event_type": "privacy.deleted.v1",
                     "studio_id": scope.studio_id,
-                    "account_id": account_id,
-                    "pseudonym": pseudonym,
+                    "subject_id": account_id,
                     "request_id": request_id,
-                    "updated_at": now,
+                    "occurred_at": now,
                 }
-            },
-            upsert=True,
-        )
-        await self.record_audit(
-            scope,
-            {"action": "privacy.deleted", "subject_id": account_id, "request_id": request_id},
-        )
-        await self.append_event(
-            {
-                "event_id": new_uuid7(),
-                "event_type": "privacy.deleted.v1",
-                "studio_id": scope.studio_id,
-                "subject_id": account_id,
-                "request_id": request_id,
-                "occurred_at": now,
-            }
-        )
+                await self.database.audit_events.insert_one(
+                    {"action": "privacy.deleted", **event}, session=session
+                )
+                await self.database.event_outbox.insert_one(event, session=session)
 
     async def merge_players(
         self,
@@ -237,19 +272,51 @@ class IdentityMongoRepository:
             if existing.get("payload_digest") != payload_digest:
                 raise ValueError("idempotency_conflict")
             return
-        await self.database.merge_idempotency.insert_one(
-            {
-                "studio_id": scope.studio_id,
-                "actor_id": scope.actor_id,
-                "idempotency_key": idempotency_key,
-                "payload_digest": payload_digest,
-                "source_player_id": source_player_id,
-                "target_player_id": target_player_id,
-            }
-        )
-        await self.database.studio_players.update_one(
-            {"player_id": source_player_id}, {"$set": {"tombstone": True}}
-        )
-        await self.database.player_identities.update_many(
-            {"player_id": source_player_id}, {"$set": {"revoked_at": datetime.now(UTC)}}
-        )
+        event = {
+            "event_id": new_uuid7(),
+            "event_type": "identity.merged.v1",
+            "studio_id": scope.studio_id,
+            "player_id": target_player_id,
+            "source_player_id": source_player_id,
+            "occurred_at": datetime.now(UTC),
+        }
+        async with self.database.client.start_session() as session:
+            async with session.start_transaction():
+                try:
+                    await self.database.merge_idempotency.insert_one(
+                        {
+                            "studio_id": scope.studio_id,
+                            "actor_id": scope.actor_id,
+                            "idempotency_key": idempotency_key,
+                            "payload_digest": payload_digest,
+                            "source_player_id": source_player_id,
+                            "target_player_id": target_player_id,
+                        },
+                        session=session,
+                    )
+                except DuplicateKeyError as error:
+                    replay = await self.database.merge_idempotency.find_one(
+                        {
+                            "studio_id": scope.studio_id,
+                            "actor_id": scope.actor_id,
+                            "idempotency_key": idempotency_key,
+                        },
+                        session=session,
+                    )
+                    if replay is None or replay.get("payload_digest") != payload_digest:
+                        raise ValueError("idempotency_conflict") from error
+                    return
+                await self.database.studio_players.update_one(
+                    {"player_id": source_player_id},
+                    {"$set": {"tombstone": True}},
+                    session=session,
+                )
+                await self.database.player_identities.update_many(
+                    {"player_id": source_player_id},
+                    {"$set": {"revoked_at": datetime.now(UTC)}},
+                    session=session,
+                )
+                await self.database.audit_events.insert_one(
+                    {"action": "identity.merge_committed", **event}, session=session
+                )
+                await self.database.event_outbox.insert_one(event, session=session)

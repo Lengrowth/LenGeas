@@ -37,7 +37,6 @@ class MergePreview:
 class MergeService:
     def __init__(self, repository: InMemoryIdentityRepository) -> None:
         self.repository = repository
-        self.previews: dict[str, MergePreview] = {}
 
     def preview(
         self, scope: TrustedScope, source_player_id: str, target_player_id: str
@@ -70,13 +69,13 @@ class MergeService:
             scope.studio_id,
             scope.game_id,
         )
-        self.previews[preview.preview_id] = preview
+        self.repository.save_merge_preview(preview)
         return preview
 
     def commit(
         self, scope: TrustedScope, preview_id: str, choices: dict[str, str], idempotency_key: str
     ) -> str:
-        preview = self.previews.get(preview_id)
+        preview = self.repository.merge_preview_for(preview_id)
         if preview is None or preview.expires_at < datetime.now(UTC):
             raise ValueError("stale_merge_preview")
         if preview.studio_id != scope.studio_id or preview.game_id != scope.game_id:

@@ -22,6 +22,9 @@ class InternalAccountMapper:
             if account is None or identity.revoked_at is not None or account.deleted_at is not None:
                 raise KeyError("mapped_account_missing")
             account.player_id = identity.player_id
+            save_account = getattr(self.repository, "save_account", None)
+            if save_account is not None:
+                save_account(account)
             return account
         account = self.repository.create_account()
         player = self.repository.create_player()
@@ -33,4 +36,7 @@ class InternalAccountMapper:
             subject,
             account_id=account.account_id,
         )
+        save_account = getattr(self.repository, "save_account", None)
+        if save_account is not None:
+            save_account(account)
         return account

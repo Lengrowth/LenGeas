@@ -29,12 +29,28 @@ _FORBIDDEN = {
 }
 
 
+def _sensitive_key(key: object) -> bool:
+    normalized = str(key).lower().replace("_", "").replace("-", "")
+    return normalized in _FORBIDDEN or any(
+        marker in normalized
+        for marker in (
+            "token",
+            "credential",
+            "password",
+            "secret",
+            "email",
+            "phone",
+            "ipaddress",
+            "devicekey",
+            "emailhash",
+        )
+    )
+
+
 def _scrub(value: Any) -> Any:
     if isinstance(value, dict):
         return {
-            str(key): "[REDACTED]"
-            if str(key).lower().replace("_", "").replace("-", "") in _FORBIDDEN
-            else _scrub(item)
+            str(key): "[REDACTED]" if _sensitive_key(key) else _scrub(item)
             for key, item in value.items()
         }
     if isinstance(value, list):
@@ -75,6 +91,8 @@ class EventEnvelope:
             "identity.linked.v1",
             "identity.merged.v1",
             "studio.membership_changed.v1",
+            "studio.membership_created.v1",
+            "studio.service_account_created.v1",
             "privacy.requested.v1",
             "privacy.completed.v1",
             "privacy.deleted.v1",

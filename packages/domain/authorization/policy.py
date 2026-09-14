@@ -28,6 +28,7 @@ class Actor:
     game_ids: frozenset[str] = frozenset()
     environments: frozenset[Environment] = frozenset()
     support_grant_valid: bool = False
+    ai_agent_id: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -91,10 +92,17 @@ class PolicyDecisionService:
             )
         if actor.kind == ActorKind.AI_AGENT and request.action not in {"read", "draft_write"}:
             return Decision(False, "ai_publish_forbidden", "AI agents may not approve or publish")
+        if actor.kind == ActorKind.AI_AGENT and not actor.ai_agent_id:
+            return Decision(False, "ai_identity_required", "AI agent identity is required")
         if (
-            resource.game_id is not None
-            and request.action != "read"
+            actor.kind == ActorKind.AI_AGENT
+            and f"{resource.resource_type}:{request.action}" not in actor.scopes
+        ):
+            return Decision(False, "ai_scope_missing", "AI agent scope does not cover action")
+        if (
+            request.action != "read"
             and actor.kind == ActorKind.ACCOUNT
+            and resource.resource_type in {"player", "profile", "identity", "account"}
             and resource.owner_id not in {None, actor.actor_id}
         ):
             return Decision(False, "ownership_required", "resource is owned by another actor")
@@ -112,12 +120,17 @@ class PolicyDecisionService:
             return Decision(False, "mfa_required", "operator action requires recent MFA")
         if (
             MembershipRole.SUPPORT in actor.roles
-            and request.action == "support_sensitive"
+            and request.action in {"read", "support_sensitive"}
             and (actor.support_case_id is None or not actor.support_grant_valid)
         ):
             return Decision(False, "support_case_required", "support access requires an open case")
         actions = set().union(*(self.ROLE_ACTIONS.get(role, frozenset()) for role in actor.roles))
-        if request.action not in actions:
+        actor_has_action = request.action in actions
+        if actor.kind == ActorKind.SERVICE:
+            actor_has_action = f"{resource.resource_type}:{request.action}" in actor.scopes
+        elif actor.kind == ActorKind.AI_AGENT:
+            actor_has_action = request.action in {"read", "draft_write"}
+        if not actor_has_action:
             return Decision(False, "role_denied", "role does not grant this action")
         obligations = ("redact_pii",) if MembershipRole.SUPPORT in actor.roles else ()
         return Decision(

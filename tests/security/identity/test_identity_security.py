@@ -303,7 +303,11 @@ class IdentitySecurityTests(unittest.TestCase):
 
     def test_concurrent_guest_proof_is_consumed_once(self) -> None:
         async def run() -> list[object]:
-            service = GuestIdentityService(InMemoryIdentityRepository(), FakeTurnstile())
+            repository = InMemoryIdentityRepository()
+            services = [
+                GuestIdentityService(repository, FakeTurnstile()),
+                GuestIdentityService(repository, FakeTurnstile()),
+            ]
             keys = []
             for _ in range(2):
                 private = Ed25519PrivateKey.generate()
@@ -313,8 +317,8 @@ class IdentitySecurityTests(unittest.TestCase):
                     .decode()
                 )
             return await asyncio.gather(
-                service.create("provider-valid", keys[0]),
-                service.create("provider-valid", keys[1]),
+                services[0].create("provider-valid", keys[0]),
+                services[1].create("provider-valid", keys[1]),
                 return_exceptions=True,
             )
 

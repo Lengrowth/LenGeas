@@ -9,9 +9,12 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 from datetime import UTC, datetime
-from typing import Any
+from typing import Any, cast
+
+from pymongo.errors import DuplicateKeyError
 
 from packages.domain.audit.events import EventEnvelope
+from packages.domain.identity.merge import MergeCollision, MergePreview
 from packages.domain.identity.models import (
     Account,
     AuditEvent,
@@ -35,6 +38,10 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
     def __init__(self, database: Any) -> None:
         super().__init__()
         self.database = database
+        self._session: Any | None = None
+
+    def _session_kwargs(self) -> dict[str, Any]:
+        return {"session": self._session} if self._session is not None else {}
 
     def _hydrate_account(self, document: dict[str, Any]) -> Account:
         account = self.accounts.get(document["account_id"])
@@ -83,6 +90,7 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
                 }
             },
             upsert=True,
+            **self._session_kwargs(),
         )
 
     def player_for_id(self, player_id: str) -> StudioPlayer | None:
@@ -90,6 +98,38 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
             return self.players[player_id]
         document = self.database.studio_players.find_one({"player_id": player_id})
         return self._hydrate_player(document) if document else None
+
+    def account_for_player(self, player_id: str) -> Account | None:
+        account = super().account_for_player(player_id)
+        if account is not None:
+            return account
+        document = self.database.accounts.find_one({"player_id": player_id})
+        return self._hydrate_account(document) if document else None
+
+    def identity_for_id(self, identity_id: str) -> PlayerIdentity | None:
+        identity = super().identity_for_id(identity_id)
+        if identity is not None:
+            return identity
+        document = self.database.player_identities.find_one({"identity_id": identity_id})
+        if document is None:
+            return None
+        identity = PlayerIdentity(
+            document["identity_id"],
+            document["player_id"],
+            IdentityKind(document["kind"]),
+            document["provider"],
+            document["subject_or_credential_hash"],
+            document.get("created_at", datetime.now(UTC)),
+            document.get("revoked_at"),
+            document.get("device_key_fingerprint"),
+            document.get("account_id"),
+        )
+        self.identities[identity.identity_id] = identity
+        self._provider_subject[(identity.provider, identity.subject_or_credential_hash)] = (
+            identity.identity_id
+        )
+        self._hydrate_player({"player_id": identity.player_id})
+        return identity
 
     def create_account(self, email_hash: str | None = None) -> Account:
         account = super().create_account(email_hash)
@@ -168,8 +208,121 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
     ) -> None:
         super().replace_device_key(identity_id, old_fingerprint, new_fingerprint)
         self.database.player_identities.update_one(
-            {"identity_id": identity_id}, {"$set": {"device_key_fingerprint": new_fingerprint}}
+            {"identity_id": identity_id},
+            {"$set": {"device_key_fingerprint": new_fingerprint}},
+            **self._session_kwargs(),
         )
+
+    def reserve_guest_device(self, device_hash: str, maximum: int) -> bool:
+        try:
+            result = self.database.guest_device_counts.update_one(
+                {
+                    "device_hash": device_hash,
+                    "$or": [{"count": {"$lt": maximum}}, {"count": {"$exists": False}}],
+                },
+                {"$inc": {"count": 1}, "$setOnInsert": {"device_hash": device_hash}},
+                upsert=True,
+            )
+        except DuplicateKeyError:
+            result = self.database.guest_device_counts.update_one(
+                {"device_hash": device_hash, "count": {"$lt": maximum}},
+                {"$inc": {"count": 1}},
+            )
+        return bool(result.modified_count or result.upserted_id is not None)
+
+    def save_guest_credential(
+        self, identity_id: str, credential_hash: str, device_public_key: str
+    ) -> None:
+        super().save_guest_credential(identity_id, credential_hash, device_public_key)
+        self.database.guest_credentials.update_one(
+            {"identity_id": identity_id},
+            {
+                "$set": {
+                    "identity_id": identity_id,
+                    "credential_hash": credential_hash,
+                    "device_public_key": device_public_key,
+                }
+            },
+            upsert=True,
+        )
+
+    def guest_credential_for(self, identity_id: str) -> dict[str, str] | None:
+        record = super().guest_credential_for(identity_id)
+        if record is not None:
+            return record
+        document = self.database.guest_credentials.find_one({"identity_id": identity_id})
+        if document is None:
+            return None
+        record = {
+            "credential_hash": document["credential_hash"],
+            "device_public_key": document["device_public_key"],
+        }
+        self.guest_credentials[identity_id] = record
+        return record
+
+    def rotate_guest_credential(self, identity_id: str, old_hash: str, new_hash: str) -> bool:
+        result = self.database.guest_credentials.update_one(
+            {"identity_id": identity_id, "credential_hash": old_hash},
+            {"$set": {"credential_hash": new_hash}},
+        )
+        if result.modified_count != 1:
+            return False
+        return super().rotate_guest_credential(identity_id, old_hash, new_hash)
+
+    def recover_guest_credential(
+        self,
+        identity_id: str,
+        old_fingerprint: str,
+        new_fingerprint: str,
+        new_hash: str,
+        new_public_key: str,
+    ) -> bool:
+        with self.database.client.start_session() as session:
+            with session.start_transaction():
+                identity_result = self.database.player_identities.update_one(
+                    {"identity_id": identity_id, "device_key_fingerprint": old_fingerprint},
+                    {"$set": {"device_key_fingerprint": new_fingerprint}},
+                    session=session,
+                )
+                if identity_result.modified_count != 1:
+                    return False
+                credential_result = self.database.guest_credentials.update_one(
+                    {"identity_id": identity_id},
+                    {
+                        "$set": {
+                            "credential_hash": new_hash,
+                            "device_public_key": new_public_key,
+                        }
+                    },
+                    session=session,
+                )
+                if credential_result.matched_count != 1:
+                    raise ValueError("credential_invalid")
+        identity = self.identities.get(identity_id)
+        if identity is not None:
+            identity.device_key_fingerprint = new_fingerprint
+        self.guest_credentials[identity_id] = {
+            "credential_hash": new_hash,
+            "device_public_key": new_public_key,
+        }
+        return True
+
+    def identities_for_player(self, player_id: str) -> list[PlayerIdentity]:
+        documents = self.database.player_identities.find({"player_id": player_id})
+        for document in documents:
+            identity = PlayerIdentity(
+                document["identity_id"],
+                document["player_id"],
+                IdentityKind(document["kind"]),
+                document["provider"],
+                document["subject_or_credential_hash"],
+                document.get("created_at", datetime.now(UTC)),
+                document.get("revoked_at"),
+                document.get("device_key_fingerprint"),
+                document.get("account_id"),
+            )
+            self.identities[identity.identity_id] = identity
+        return super().identities_for_player(player_id)
 
     def create_profile(self, scope: Any, player_id: str, game_id: str) -> GameProfile:
         profile = super().create_profile(scope, player_id, game_id)
@@ -212,6 +365,61 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
             profiles.append(profile)
         return profiles
 
+    def save_merge_preview(self, preview: MergePreview) -> None:
+        super().save_merge_preview(preview)
+        self.database.merge_previews.update_one(
+            {"preview_id": preview.preview_id},
+            {
+                "$set": {
+                    "preview_id": preview.preview_id,
+                    "source_player_id": preview.source_player_id,
+                    "target_player_id": preview.target_player_id,
+                    "collisions": [
+                        {
+                            "game_id": collision.game_id,
+                            "source_profile_id": collision.source_profile_id,
+                            "target_profile_id": collision.target_profile_id,
+                            "choices": list(collision.choices),
+                        }
+                        for collision in preview.collisions
+                    ],
+                    "entitlements": list(preview.entitlements),
+                    "expires_at": preview.expires_at,
+                    "studio_id": preview.studio_id,
+                    "game_id": preview.game_id,
+                }
+            },
+            upsert=True,
+        )
+
+    def merge_preview_for(self, preview_id: str) -> MergePreview | None:
+        cached = super().merge_preview_for(preview_id)
+        if cached is not None:
+            return cast(MergePreview, cached)
+        document = self.database.merge_previews.find_one({"preview_id": preview_id})
+        if document is None:
+            return None
+        preview = MergePreview(
+            document["preview_id"],
+            document["source_player_id"],
+            document["target_player_id"],
+            tuple(
+                MergeCollision(
+                    item["game_id"],
+                    item["source_profile_id"],
+                    item["target_profile_id"],
+                    tuple(item.get("choices", ["source", "target"])),
+                )
+                for item in document.get("collisions", [])
+            ),
+            tuple(document.get("entitlements", [])),
+            document["expires_at"],
+            document["studio_id"],
+            document.get("game_id"),
+        )
+        super().save_merge_preview(preview)
+        return preview
+
     def all_identities(self) -> Iterator[PlayerIdentity]:
         for document in self.database.player_identities.find({}):
             self.identity_for_provider(document["provider"], document["subject_or_credential_hash"])
@@ -228,7 +436,8 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
                 "subject_id": event.subject_id,
                 "occurred_at": event.occurred_at,
                 "metadata": event.metadata,
-            }
+            },
+            **self._session_kwargs(),
         )
         return event
 
@@ -244,7 +453,8 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
                 "game_id": event.game_id,
                 "player_id": event.player_id,
                 "payload": event.payload,
-            }
+            },
+            **self._session_kwargs(),
         )
 
     def persist_privacy_request(self, request: Any) -> None:
@@ -262,12 +472,15 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
                 }
             },
             upsert=True,
+            **self._session_kwargs(),
         )
 
     def persist_privacy_completion(self, request: Any) -> None:
         self.persist_privacy_request(request)
         self.database.privacy_requests.update_one(
-            {"request_id": request.request_id}, {"$set": {"completed_at": datetime.now(UTC)}}
+            {"request_id": request.request_id},
+            {"$set": {"completed_at": datetime.now(UTC)}},
+            **self._session_kwargs(),
         )
 
     def privacy_request_for(self, request_id: str) -> PrivacyRequest | None:
@@ -282,6 +495,20 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
             document.get("status", "queued"),
             bool(document.get("legal_hold", False)),
             document.get("studio_id"),
+        )
+
+    def set_legal_hold(self, account_id: str) -> None:
+        super().set_legal_hold(account_id)
+        self.database.privacy_holds.update_one(
+            {"account_id": account_id},
+            {"$set": {"account_id": account_id, "created_at": datetime.now(UTC)}},
+            upsert=True,
+            **self._session_kwargs(),
+        )
+
+    def has_legal_hold(self, account_id: str) -> bool:
+        return super().has_legal_hold(account_id) or (
+            self.database.privacy_holds.find_one({"account_id": account_id}) is not None
         )
 
     def persist_financial_record(
@@ -299,6 +526,7 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
                 }
             },
             upsert=True,
+            **self._session_kwargs(),
         )
 
     def merge_result(
@@ -350,10 +578,24 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
                 }
             },
             upsert=True,
+            **self._session_kwargs(),
         )
 
+    def begin(self) -> None:
+        super().begin()
+        self._session = self.database.client.start_session()
+        self._session.start_transaction()
+
+    def rollback(self) -> None:
+        try:
+            if self._session is not None:
+                self._session.abort_transaction()
+                self._session.end_session()
+        finally:
+            self._session = None
+            super().rollback()
+
     def commit(self) -> None:
-        super().commit()
         for account in self.accounts.values():
             self.database.accounts.update_one(
                 {"account_id": account.account_id},
@@ -366,17 +608,20 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
                         "session_epoch": account.session_epoch,
                     }
                 },
+                **self._session_kwargs(),
             )
         for player in self.players.values():
             self.database.studio_players.update_one(
                 {"player_id": player.player_id},
                 {"$set": {"tombstone": player.tombstone, "deleted_at": player.deleted_at}},
                 upsert=True,
+                **self._session_kwargs(),
             )
         for identity in self.identities.values():
             self.database.player_identities.update_one(
                 {"identity_id": identity.identity_id},
                 {"$set": {"revoked_at": identity.revoked_at}},
+                **self._session_kwargs(),
             )
         for profile in self.profiles.values():
             self.database.game_profiles.update_one(
@@ -388,13 +633,49 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
                         "state_version": profile.state_version,
                     }
                 },
+                **self._session_kwargs(),
             )
+        super().commit()
+        if self._session is not None:
+            self._session.commit_transaction()
+            self._session.end_session()
+            self._session = None
 
 
 class MongoTenantDomainRepository(InMemoryTenantRepository):
     def __init__(self, database: Any) -> None:
         super().__init__()
         self.database = database
+
+    def _admin_event(
+        self, event_type: str, action: str, scope: Any, subject_id: str, payload: dict[str, Any]
+    ) -> EventEnvelope:
+        event = EventEnvelope.create(
+            event_type,
+            "MongoTenantDomainRepository",
+            studio_id=scope.studio_id,
+            payload=payload,
+        )
+        self.database.audit_events.insert_one(
+            {
+                "event_id": event.event_id,
+                "action": action,
+                "actor_id": scope.actor_id,
+                "studio_id": scope.studio_id,
+                "subject_id": subject_id,
+                "occurred_at": event.occurred_at,
+            }
+        )
+        self.database.event_outbox.insert_one(
+            {
+                "event_id": event.event_id,
+                "event_type": event.event_type,
+                "studio_id": scope.studio_id,
+                "payload": event.payload,
+                "occurred_at": event.occurred_at,
+            }
+        )
+        return event
 
     def membership_for(self, studio_id: str, account_id: str) -> Membership | None:
         membership = super().membership_for(studio_id, account_id)
@@ -418,6 +699,28 @@ class MongoTenantDomainRepository(InMemoryTenantRepository):
         self.memberships[membership.membership_id] = membership
         return membership
 
+    def service_account_for(self, service_account_id: str) -> ServiceAccount | None:
+        account = self.service_accounts.get(service_account_id)
+        if account is not None:
+            return account
+        document = self.database.service_accounts.find_one(
+            {"service_account_id": service_account_id}
+        )
+        if document is None:
+            return None
+        account = ServiceAccount(
+            document["service_account_id"],
+            document["studio_id"],
+            document["client_id"],
+            document["name"],
+            frozenset(document.get("scopes", [])),
+            document.get("created_at", datetime.now(UTC)),
+            document.get("revoked_at"),
+            document.get("credential_hash"),
+        )
+        self.service_accounts[service_account_id] = account
+        return account
+
     def create_studio(self, scope: Any, name: str, slug: str) -> Studio:
         studio = super().create_studio(scope, name, slug)
         self.database.studios.insert_one(
@@ -435,43 +738,136 @@ class MongoTenantDomainRepository(InMemoryTenantRepository):
 
     def create_membership(self, scope: Any, account_id: str, role: MembershipRole) -> Membership:
         membership = super().create_membership(scope, account_id, role)
-        self.database.studio_memberships.insert_one(
-            {
-                "membership_id": membership.membership_id,
-                "studio_id": membership.studio_id,
-                "account_id": membership.account_id,
-                "role": membership.role.value,
-                "created_at": membership.created_at,
-                "active": membership.active,
-                "game_ids": list(membership.game_ids),
-            }
+        event = EventEnvelope.create(
+            "studio.membership_created.v1",
+            "MongoTenantDomainRepository",
+            studio_id=scope.studio_id,
+            payload={"membership_id": membership.membership_id, "role": role.value},
         )
+        with self.database.client.start_session() as session:
+            with session.start_transaction():
+                self.database.studio_memberships.insert_one(
+                    {
+                        "membership_id": membership.membership_id,
+                        "studio_id": membership.studio_id,
+                        "account_id": membership.account_id,
+                        "role": membership.role.value,
+                        "created_at": membership.created_at,
+                        "active": membership.active,
+                        "game_ids": list(membership.game_ids),
+                    },
+                    session=session,
+                )
+                self.database.audit_events.insert_one(
+                    {
+                        "event_id": event.event_id,
+                        "action": "studio.membership_created.v1",
+                        "actor_id": scope.actor_id,
+                        "studio_id": scope.studio_id,
+                        "subject_id": membership.membership_id,
+                        "occurred_at": event.occurred_at,
+                    },
+                    session=session,
+                )
+                self.database.event_outbox.insert_one(
+                    {
+                        "event_id": event.event_id,
+                        "event_type": event.event_type,
+                        "studio_id": scope.studio_id,
+                        "payload": event.payload,
+                        "occurred_at": event.occurred_at,
+                    },
+                    session=session,
+                )
+        self.events.append(event)
         return membership
 
     def change_role(self, scope: Any, membership_id: str, role: MembershipRole) -> Membership:
         membership = super().change_role(scope, membership_id, role)
-        self.database.studio_memberships.update_one(
-            {"membership_id": membership_id, "studio_id": scope.studio_id},
-            {"$set": {"role": role.value}},
+        event = EventEnvelope.create(
+            "studio.membership_changed.v1",
+            "MongoTenantDomainRepository",
+            studio_id=scope.studio_id,
+            payload={"membership_id": membership_id, "role": role.value},
         )
+        with self.database.client.start_session() as session:
+            with session.start_transaction():
+                self.database.studio_memberships.update_one(
+                    {"membership_id": membership_id, "studio_id": scope.studio_id},
+                    {"$set": {"role": role.value}},
+                    session=session,
+                )
+                self.database.audit_events.insert_one(
+                    {
+                        "event_id": event.event_id,
+                        "action": "studio.membership_changed.v1",
+                        "actor_id": scope.actor_id,
+                        "studio_id": scope.studio_id,
+                        "subject_id": membership_id,
+                        "occurred_at": event.occurred_at,
+                    },
+                    session=session,
+                )
+                self.database.event_outbox.insert_one(
+                    {
+                        "event_id": event.event_id,
+                        "event_type": event.event_type,
+                        "studio_id": scope.studio_id,
+                        "payload": event.payload,
+                        "occurred_at": event.occurred_at,
+                    },
+                    session=session,
+                )
+        self.events.append(event)
         return membership
 
     def create_service_account(
         self, scope: Any, name: str, scopes: frozenset[str]
     ) -> ServiceAccount:
         account = super().create_service_account(scope, name, scopes)
-        self.database.service_accounts.insert_one(
-            {
-                "service_account_id": account.service_account_id,
-                "studio_id": account.studio_id,
-                "client_id": account.client_id,
-                "name": account.name,
-                "scopes": list(account.scopes),
-                "created_at": account.created_at,
-                "credential_hash": account.credential_hash,
-                "revoked_at": None,
-            }
+        event = EventEnvelope.create(
+            "studio.service_account_created.v1",
+            "MongoTenantDomainRepository",
+            studio_id=scope.studio_id,
+            payload={"service_account_id": account.service_account_id},
         )
+        with self.database.client.start_session() as session:
+            with session.start_transaction():
+                self.database.service_accounts.insert_one(
+                    {
+                        "service_account_id": account.service_account_id,
+                        "studio_id": account.studio_id,
+                        "client_id": account.client_id,
+                        "name": account.name,
+                        "scopes": list(account.scopes),
+                        "created_at": account.created_at,
+                        "credential_hash": account.credential_hash,
+                        "revoked_at": None,
+                    },
+                    session=session,
+                )
+                self.database.audit_events.insert_one(
+                    {
+                        "event_id": event.event_id,
+                        "action": "studio.service_account_created.v1",
+                        "actor_id": scope.actor_id,
+                        "studio_id": scope.studio_id,
+                        "subject_id": account.service_account_id,
+                        "occurred_at": event.occurred_at,
+                    },
+                    session=session,
+                )
+                self.database.event_outbox.insert_one(
+                    {
+                        "event_id": event.event_id,
+                        "event_type": event.event_type,
+                        "studio_id": scope.studio_id,
+                        "payload": event.payload,
+                        "occurred_at": event.occurred_at,
+                    },
+                    session=session,
+                )
+        self.events.append(event)
         return account
 
     def revoke_service_account(self, scope: Any, service_account_id: str) -> None:

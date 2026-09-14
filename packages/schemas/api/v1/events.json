@@ -5,7 +5,7 @@
   "required": ["event_id", "type", "occurred_at", "producer", "studio_id", "correlation_id", "payload"],
   "properties": {
     "event_id": {"type": "string", "minLength": 1},
-    "type": {"enum": ["identity.guest_created.v1", "identity.linked.v1", "identity.merged.v1", "studio.membership_changed.v1", "privacy.requested.v1", "privacy.completed.v1", "privacy.deleted.v1", "studio.service_account_revoked.v1"]},
+    "type": {"enum": ["identity.guest_created.v1", "identity.linked.v1", "identity.merged.v1", "studio.membership_created.v1", "studio.membership_changed.v1", "privacy.requested.v1", "privacy.completed.v1", "privacy.deleted.v1", "studio.service_account_created.v1", "studio.service_account_revoked.v1"]},
     "occurred_at": {"type": "string", "format": "date-time"},
     "producer": {"type": "string", "minLength": 1},
     "studio_id": {"type": ["string", "null"]},
