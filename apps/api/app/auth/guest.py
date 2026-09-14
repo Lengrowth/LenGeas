@@ -14,6 +14,7 @@ from typing import Protocol
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
 from packages.domain.audit.events import EventEnvelope
+from packages.domain.coordination import ProofConsumptionStore
 from packages.domain.coordination_memory import InMemoryProofConsumptionStore
 from packages.domain.identity.models import IdentityKind
 from packages.domain.identity.repository import InMemoryIdentityRepository
@@ -49,7 +50,7 @@ class GuestIdentityService:
         turnstile: TurnstileVerifier,
         *,
         max_per_device: int = 3,
-        proof_store: object | None = None,
+        proof_store: ProofConsumptionStore | None = None,
     ) -> None:
         self.repository = repository
         self.turnstile = turnstile

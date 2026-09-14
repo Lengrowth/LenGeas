@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 from typing import Any
 
+from fastapi import FastAPI
 from pymongo import AsyncMongoClient, MongoClient
 
 from packages.persistence.mongodb.coordination import MongoCoordinationStore
@@ -18,7 +19,7 @@ from .auth.turnstile import HttpTurnstileVerifier
 from .main import create_app
 
 
-def create_production_app() -> Any:
+def create_production_app() -> FastAPI:
     required = {
         "MONGODB_URI": os.environ.get("MONGODB_URI", "").strip(),
         "SUPABASE_JWKS_URL": os.environ.get("SUPABASE_JWKS_URL", "").strip(),
@@ -32,8 +33,8 @@ def create_production_app() -> Any:
             raise RuntimeError("production_configuration_incomplete:" + ",".join(missing))
         return create_app(allow_unconfigured=True)
     database_name = os.environ.get("MONGODB_DATABASE", "lengeas")
-    sync_client = MongoClient(required["MONGODB_URI"], tz_aware=True)
-    async_client = AsyncMongoClient(required["MONGODB_URI"], tz_aware=True)
+    sync_client: Any = MongoClient(required["MONGODB_URI"], tz_aware=True)
+    async_client: Any = AsyncMongoClient(required["MONGODB_URI"], tz_aware=True)
     database = sync_client[database_name]
     async_database = async_client[database_name]
     coordination = MongoCoordinationStore(async_database)
@@ -78,7 +79,7 @@ def create_production_app() -> Any:
         proof_store=coordination,
         idempotency_store=coordination,
     )
-    app.add_event_handler("startup", coordination.ensure_indexes)
+    app.router.add_event_handler("startup", coordination.ensure_indexes)
     app.state.mongo_client = sync_client
     app.state.mongo_async_client = async_client
     return app

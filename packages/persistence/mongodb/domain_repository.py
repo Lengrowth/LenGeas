@@ -7,12 +7,14 @@ hydrating cache misses from Mongo, so multiple API workers share identity state.
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from datetime import UTC, datetime
 from typing import Any
 
 from packages.domain.audit.events import EventEnvelope
 from packages.domain.identity.models import (
     Account,
+    AuditEvent,
     GameProfile,
     IdentityKind,
     PlayerIdentity,
@@ -210,12 +212,12 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
             profiles.append(profile)
         return profiles
 
-    def all_identities(self):
+    def all_identities(self) -> Iterator[PlayerIdentity]:
         for document in self.database.player_identities.find({}):
             self.identity_for_provider(document["provider"], document["subject_or_credential_hash"])
         return super().all_identities()
 
-    def record_audit(self, *args: Any, **kwargs: Any):
+    def record_audit(self, *args: Any, **kwargs: Any) -> AuditEvent:
         event = super().record_audit(*args, **kwargs)
         self.database.audit_events.insert_one(
             {
@@ -306,7 +308,7 @@ class MongoIdentityDomainRepository(InMemoryIdentityRepository):
         target_player: str,
         idempotency_key: str,
         fingerprint: str | None = None,
-    ):
+    ) -> str | None:
         result = super().merge_result(
             scope, source_player, target_player, idempotency_key, fingerprint
         )

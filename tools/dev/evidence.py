@@ -41,6 +41,9 @@ PHASE02_ARTIFACT_PATHS = (
     "docs/phases/02-cloud-foundation.md",
 )
 PHASE03_ARTIFACT_PATHS = (
+    ".github/workflows/verify.yml",
+    "pyproject.toml",
+    "uv.lock",
     "packages/domain/identity",
     "packages/domain/tenancy",
     "packages/domain/authorization",
@@ -49,6 +52,7 @@ PHASE03_ARTIFACT_PATHS = (
     "packages/domain/coordination_memory.py",
     "packages/persistence/mongodb",
     "apps/api/app/composition.py",
+    "apps/api/app/e2e.py",
     "apps/api/app/auth",
     "apps/api/app/main.py",
     "apps/api/app/users",
@@ -445,9 +449,10 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "task test:contract -- auth",
             "task test:integration -- supabase,mongodb (fails closed without Docker/Mongo)",
             (
-                "task test:e2e -- identity (fails closed without deployed API URL and "
+            "task test:e2e -- identity (fails closed without deployed API URL and "
                 "guest credentials)"
             ),
+            "hosted E2E identity selector (deployed FastAPI boundary; guest create plus replay)",
             "task test:security -- tenancy,authorization",
             (
                 "uv run --frozen pytest -q tests/unit/identity tests/property/identity "
@@ -467,6 +472,8 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "settings; partial configuration fails closed.",
             "Deployed E2E requires LENGEAS_E2E_BASE_URL, LENGEAS_E2E_GUEST_PROOF, and "
             "LENGEAS_E2E_DEVICE_PUBLIC_KEY; absent dependencies fail the selector.",
+            "Hosted verification uses the provider-independent identity API boundary in "
+            "apps/api/app/e2e.py; production provider credentials remain external.",
             "Development remains synthetic-data-only on the accepted Phase 02 host.",
         ],
         "next_phase_prerequisites": [

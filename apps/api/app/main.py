@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import inspect
 import json
+from collections.abc import Awaitable, Callable
 from datetime import UTC
 from typing import Annotated, Any, Protocol, cast
 
@@ -22,7 +23,7 @@ from packages.domain.authorization.policy import (
     PolicyRequest,
     Resource,
 )
-from packages.domain.coordination import RevocationStore
+from packages.domain.coordination import IdempotencyStore, ProofConsumptionStore, RevocationStore
 from packages.domain.coordination_memory import InMemoryIdempotencyStore
 from packages.domain.identity.merge import MergeService
 from packages.domain.identity.privacy import PrivacyOperation, PrivacyService
@@ -109,8 +110,8 @@ def create_app(
     tenancy: Any | None = None,
     provider_verifier: ProviderIdentityVerifier | None = None,
     revocation_store: RevocationStore | None = None,
-    proof_store: object | None = None,
-    idempotency_store: object | None = None,
+        proof_store: ProofConsumptionStore | None = None,
+        idempotency_store: IdempotencyStore | None = None,
     test_mode: bool = False,
     allow_unconfigured: bool = False,
 ) -> FastAPI:
@@ -248,7 +249,9 @@ def create_app(
         }
 
     @app.middleware("http")
-    async def mutation_idempotency_boundary(request: Request, call_next: Any) -> Response:
+    async def mutation_idempotency_boundary(
+        request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
         if request.method != "POST" or mutation_idempotency is None:
             return await call_next(request)
         key = request.headers.get("Idempotency-Key")

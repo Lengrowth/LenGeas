@@ -15,8 +15,6 @@ jobs:
   verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
-    env:
-      LENGEAS_E2E_BASE_URL: http://127.0.0.1:8000
     steps:
       - uses: actions/checkout@v4.2.2
       - uses: hashicorp/setup-terraform@v3.1.2
@@ -39,6 +37,23 @@ jobs:
       - run: task generate
       - name: Start dependency stack
         run: task local:up
+      - name: Start identity E2E API boundary
+        shell: bash
+        run: |
+          uv run --frozen uvicorn apps.api.app.e2e:app --host 127.0.0.1 --port 8001 > "$RUNNER_TEMP/identity-e2e.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/identity-e2e.pid"
+          E2E_DEVICE_KEY=$(uv run --frozen python -c 'import base64; from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey; print(base64.urlsafe_b64encode(Ed25519PrivateKey.generate().public_key().public_bytes_raw()).rstrip(b"=").decode())')
+          {
+            echo "LENGEAS_E2E_BASE_URL=http://127.0.0.1:8001"
+            echo "LENGEAS_E2E_GUEST_PROOF=ci-e2e-proof"
+            echo "LENGEAS_E2E_DEVICE_PUBLIC_KEY=$E2E_DEVICE_KEY"
+          } >> "$GITHUB_ENV"
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8001/health >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/identity-e2e.log"
+          exit 1
       - run: task verify
       - run: task format
       - run: task lint
@@ -117,4 +132,6 @@ jobs:
           output-file: sbom-${{ github.sha }}.spdx.json
       - name: Stop dependency stack
         if: always()
-        run: task local:down
+        run: |
+          if [ -f "$RUNNER_TEMP/identity-e2e.pid" ]; then kill "$(cat "$RUNNER_TEMP/identity-e2e.pid")" || true; fi
+          task local:down
