@@ -16,9 +16,11 @@ class InternalAccountMapper:
             account = self.repository.accounts.get(identity.account_id or identity.player_id)
             if account is None or identity.revoked_at is not None or account.deleted_at is not None:
                 raise KeyError("mapped_account_missing")
+            account.player_id = identity.player_id
             return account
         account = self.repository.create_account()
         player = self.repository.create_player()
+        account.player_id = player.player_id
         self.repository.link_identity(
             player.player_id,
             IdentityKind.SUPABASE,

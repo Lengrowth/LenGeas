@@ -81,6 +81,7 @@ class ServiceAccount:
     scopes: frozenset[str]
     created_at: datetime
     revoked_at: datetime | None = None
+    credential_hash: str | None = None
 
 
 @dataclass(slots=True)

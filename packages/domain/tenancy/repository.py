@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import secrets
 from collections.abc import Iterable
 from datetime import UTC, datetime
 from typing import Protocol
@@ -48,6 +50,7 @@ class InMemoryTenantRepository:
         self._client_ids: set[str] = set()
         self.audit: list[dict[str, str]] = []
         self.events: list[EventEnvelope] = []
+        self.service_credentials: dict[str, str] = {}
 
     @staticmethod
     def _check(scope: TrustedScope, studio_id: str) -> None:
@@ -137,7 +140,17 @@ class InMemoryTenantRepository:
         if client_id in self._client_ids:
             raise ValueError("service_client_id_exists")
         self._client_ids.add(client_id)
-        account = ServiceAccount(_id(), scope.studio_id, client_id, name, scopes, datetime.now(UTC))
+        credential = secrets.token_urlsafe(32)
+        account = ServiceAccount(
+            _id(),
+            scope.studio_id,
+            client_id,
+            name,
+            scopes,
+            datetime.now(UTC),
+            credential_hash=hashlib.sha256(credential.encode()).hexdigest(),
+        )
+        self.service_credentials[account.service_account_id] = credential
         self.service_accounts[account.service_account_id] = account
         self.audit.append(
             {"action": "studio.membership_changed.v1", "subject_id": account.service_account_id}
@@ -159,6 +172,26 @@ class InMemoryTenantRepository:
         if not ({MembershipRole.OWNER, MembershipRole.ADMIN} & set(scope.roles)):
             raise PermissionError("service_account_admin_required")
         account.revoked_at = datetime.now(UTC)
+        self.audit.append(
+            {"action": "studio.membership_changed.v1", "subject_id": service_account_id}
+        )
+        self.events.append(
+            EventEnvelope.create(
+                "studio.membership_changed.v1",
+                "InMemoryTenantRepository",
+                studio_id=scope.studio_id,
+                payload={"service_account_id": service_account_id, "action": "revoked"},
+            )
+        )
+
+    def verify_service_credential(self, service_account_id: str, credential: str) -> bool:
+        account = self.service_accounts.get(service_account_id)
+        return bool(
+            account
+            and account.revoked_at is None
+            and account.credential_hash
+            and account.credential_hash == hashlib.sha256(credential.encode()).hexdigest()
+        )
 
     def all_studios(self) -> Iterable[Studio]:
         return self.studios.values()

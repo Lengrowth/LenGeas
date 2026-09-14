@@ -200,10 +200,12 @@ def run_suite(suite: str, selector: str | None = None) -> int:
         print(f"ERROR {suite}: {exc}", file=sys.stderr)
         return 2
 
-    # Identity integration/E2E fixtures use an in-process HTTP provider boundary
-    # and the in-memory domain adapters; they do not silently claim Docker or a
-    # deployed API. The unfiltered suite retains its mandatory prerequisites.
-    dependencies = () if _is_identity_selector(selector) else SUITES[suite][1]
+    # Integration and E2E selectors retain their real-system prerequisites.
+    dependencies = (
+        SUITES[suite][1]
+        if suite in {"integration", "e2e"}
+        else (() if _is_identity_selector(selector) else SUITES[suite][1])
+    )
     unavailable = []
     for dependency in dependencies:
         available, detail = _dependency_available(dependency, project)

@@ -8,13 +8,33 @@ from typing import Any
 
 from packages.domain.ids import new_uuid7
 
-_FORBIDDEN = {"token", "authorization", "password", "secret", "api_key", "email", "ip"}
+_FORBIDDEN = {
+    "token",
+    "accesstoken",
+    "refreshtoken",
+    "authorization",
+    "password",
+    "secret",
+    "apikey",
+    "credential",
+    "credentialhash",
+    "email",
+    "emailaddress",
+    "phone",
+    "phonenumber",
+    "ip",
+    "ipaddress",
+    "address",
+    "name",
+}
 
 
 def _scrub(value: Any) -> Any:
     if isinstance(value, dict):
         return {
-            str(key): "[REDACTED]" if str(key).lower() in _FORBIDDEN else _scrub(item)
+            str(key): "[REDACTED]"
+            if str(key).lower().replace("_", "").replace("-", "") in _FORBIDDEN
+            else _scrub(item)
             for key, item in value.items()
         }
     if isinstance(value, list):

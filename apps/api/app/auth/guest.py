@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import base64
 import hashlib
 import secrets
@@ -54,8 +55,17 @@ class GuestIdentityService:
         self._credential_hashes: dict[str, str] = {}
         self._device_counts: dict[str, int] = {}
         self._device_keys_raw: dict[str, str] = {}
+        self._lock = asyncio.Lock()
 
     async def create(
+        self, turnstile_proof: str, device_public_key: str, remote_ip: str | None = None
+    ) -> GuestCredentials:
+        # The lock makes proof consumption atomic within a process. Production
+        # composition must back this boundary with a durable unique proof key.
+        async with self._lock:
+            return await self._create_unlocked(turnstile_proof, device_public_key, remote_ip)
+
+    async def _create_unlocked(
         self, turnstile_proof: str, device_public_key: str, remote_ip: str | None = None
     ) -> GuestCredentials:
         if not turnstile_proof or turnstile_proof in self._used_proofs:
@@ -100,6 +110,12 @@ class GuestIdentityService:
             credential,
             datetime.now(UTC) + timedelta(days=30),
         )
+
+    def prove_player(self, player_id: str, credential: str) -> bool:
+        for identity in self.repository.identities.values():
+            if identity.player_id == player_id and identity.kind == IdentityKind.GUEST:
+                return self._credential_hashes.get(identity.identity_id) == _hash(credential)
+        return False
 
     def rotate(self, identity_id: str, old_token: str) -> str:
         identity = self.repository.identities.get(identity_id)

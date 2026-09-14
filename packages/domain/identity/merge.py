@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 
@@ -79,9 +81,25 @@ class MergeService:
             raise ValueError("stale_merge_preview")
         if preview.studio_id != scope.studio_id or preview.game_id != scope.game_id:
             raise PermissionError("merge_scope_mismatch")
+        fingerprint = hashlib.sha256(
+            json.dumps(
+                {
+                    "preview_id": preview_id,
+                    "source_player_id": preview.source_player_id,
+                    "target_player_id": preview.target_player_id,
+                    "choices": choices,
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode()
+        ).hexdigest()
         with self.repository.lock:
             prior = self.repository.merge_result(
-                scope, preview.source_player_id, preview.target_player_id, idempotency_key
+                scope,
+                preview.source_player_id,
+                preview.target_player_id,
+                idempotency_key,
+                fingerprint,
             )
             if prior:
                 return prior
@@ -119,7 +137,9 @@ class MergeService:
                 for identity in self.repository.all_identities():
                     if identity.player_id == source.player_id:
                         identity.revoked_at = datetime.now(UTC)
-                self.repository.save_merge_result(scope, idempotency_key, target.player_id)
+                self.repository.save_merge_result(
+                    scope, idempotency_key, target.player_id, fingerprint
+                )
                 self.repository.record_audit(
                     scope.actor_id, "identity.merge_committed", scope.studio_id, target.player_id
                 )

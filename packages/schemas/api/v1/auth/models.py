@@ -21,6 +21,7 @@ class IdentityLinkRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     provider: str = Field(min_length=1, max_length=32)
     subject: str = Field(min_length=1, max_length=256)
+    provider_proof: str | None = Field(default=None, min_length=1, max_length=4096)
 
 
 class CredentialRotateRequest(BaseModel):

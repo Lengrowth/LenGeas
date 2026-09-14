@@ -20,6 +20,7 @@ class Account:
     deleted_at: datetime | None = None
     restricted: bool = False
     session_epoch: int = 0
+    player_id: str | None = None
 
 
 @dataclass(slots=True)

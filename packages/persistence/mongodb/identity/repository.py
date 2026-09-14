@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
+from datetime import UTC, datetime
 from typing import Any, cast
 
 from packages.domain.ids import new_uuid7
@@ -35,6 +36,9 @@ class IdentityMongoRepository:
             [("studio_id", 1), ("game_id", 1), ("player_id", 1)],
             unique=True,
             name="uq_game_profile",
+        )
+        await self.database.privacy_requests.create_index(
+            "request_id", unique=True, name="uq_privacy_request"
         )
 
     @staticmethod
@@ -99,3 +103,86 @@ class IdentityMongoRepository:
     async def list_profiles(self, scope: TrustedScope, player_id: str) -> list[Mapping[str, Any]]:
         cursor = self.database.game_profiles.find(self._filter(scope, player_id=player_id))
         return [document async for document in cursor]
+
+    async def link_identity(
+        self,
+        scope: TrustedScope,
+        player_id: str,
+        provider: str,
+        subject: str,
+        account_id: str | None = None,
+    ) -> str:
+        identity_id = new_uuid7()
+        await self.database.player_identities.insert_one(
+            {
+                "identity_id": identity_id,
+                "player_id": player_id,
+                "provider": provider,
+                "subject_or_credential_hash": subject,
+                "account_id": account_id,
+            }
+        )
+        return identity_id
+
+    async def record_audit(self, scope: TrustedScope, event: Mapping[str, Any]) -> None:
+        await self.database.audit_events.insert_one({**dict(event), "studio_id": scope.studio_id})
+
+    async def append_event(self, event: Mapping[str, Any]) -> None:
+        await self.database.event_outbox.insert_one(dict(event))
+
+    async def create_privacy_request(self, request: Mapping[str, Any]) -> None:
+        await self.database.privacy_requests.insert_one(dict(request))
+
+    async def complete_privacy_request(self, request_id: str, status: str) -> None:
+        await self.database.privacy_requests.update_one(
+            {"request_id": request_id}, {"$set": {"status": status}}
+        )
+
+    async def delete_account(self, scope: TrustedScope, account_id: str, pseudonym: str) -> None:
+        await self.database.accounts.update_one(
+            {"account_id": account_id},
+            {
+                "$set": {
+                    "deleted_at": datetime.now(UTC),
+                    "email_hash": None,
+                    "tombstone": True,
+                    "pseudonym": pseudonym,
+                }
+            },
+        )
+
+    async def merge_players(
+        self,
+        scope: TrustedScope,
+        source_player_id: str,
+        target_player_id: str,
+        idempotency_key: str,
+        payload_digest: str,
+    ) -> None:
+        existing = await self.database.merge_idempotency.find_one(
+            {
+                "studio_id": scope.studio_id,
+                "actor_id": scope.actor_id,
+                "idempotency_key": idempotency_key,
+            }
+        )
+        if existing is not None:
+            if existing.get("payload_digest") != payload_digest:
+                raise ValueError("idempotency_conflict")
+            return
+        await self.database.merge_idempotency.insert_one(
+            {
+                "studio_id": scope.studio_id,
+                "actor_id": scope.actor_id,
+                "idempotency_key": idempotency_key,
+                "payload_digest": payload_digest,
+                "source_player_id": source_player_id,
+                "target_player_id": target_player_id,
+            }
+        )
+        await self.database.studio_players.update_one(
+            {"player_id": source_player_id}, {"$set": {"tombstone": True}}
+        )
+        await self.database.player_identities.update_many(
+            {"player_id": source_player_id}, {"$set": {"revoked_at": datetime.now(UTC)}}
+        )

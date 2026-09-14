@@ -29,18 +29,24 @@ class PrivacyRequest:
     requested_at: datetime
     status: str
     legal_hold: bool = False
+    studio_id: str | None = None
 
 
 class PrivacyService:
     def __init__(self, repository: InMemoryIdentityRepository) -> None:
         self.repository = repository
-        self.requests: dict[str, PrivacyRequest] = {}
-        self.financial_history: dict[str, dict[str, str]] = {}
+        self.requests: dict[str, PrivacyRequest] = repository.privacy_requests
+        self.financial_history: dict[str, dict[str, str]] = repository.financial_history
         self.deleted_tombstones: set[str] = set()
         self.legal_holds: set[str] = set()
 
     def request(
-        self, account_id: str, operation: PrivacyOperation, *, legal_hold: bool = False
+        self,
+        account_id: str,
+        operation: PrivacyOperation,
+        *,
+        legal_hold: bool = False,
+        studio_id: str | None = None,
     ) -> PrivacyRequest:
         account = self.repository.accounts.get(account_id)
         if account is None:
@@ -50,16 +56,22 @@ class PrivacyService:
         if operation == PrivacyOperation.DELETION and account_id in self.legal_holds:
             raise ValueError("legal_hold_conflict")
         request = PrivacyRequest(
-            new_uuid7(), account_id, operation, datetime.now(UTC), "queued", legal_hold
+            new_uuid7(), account_id, operation, datetime.now(UTC), "queued", legal_hold, studio_id
         )
         self.requests[request.request_id] = request
         self.repository.record_audit(
-            account_id, "privacy.requested", None, account_id, {"operation": operation.value}
+            account_id,
+            "privacy.requested",
+            studio_id,
+            account_id,
+            {"operation": operation.value, "status": "queued"},
         )
         self.repository.emit(
             EventEnvelope.create(
                 "privacy.requested.v1",
                 "PrivacyService",
+                studio_id=studio_id,
+                player_id=getattr(account, "player_id", None),
                 payload={"operation": operation.value},
             )
         )
@@ -82,8 +94,24 @@ class PrivacyService:
             request.requested_at,
             "completed",
             request.legal_hold,
+            request.studio_id,
         )
         self.requests[request.request_id] = completed
+        self.repository.record_audit(
+            request.account_id,
+            "privacy.completed",
+            request.studio_id,
+            request.account_id,
+            {"operation": request.operation.value, "status": "completed"},
+        )
+        self.repository.emit(
+            EventEnvelope.create(
+                "privacy.requested.v1",
+                "PrivacyService",
+                studio_id=request.studio_id,
+                payload={"operation": request.operation.value, "status": "completed"},
+            )
+        )
         return completed
 
     def execute(self, request_id: str) -> PrivacyRequest:
@@ -103,19 +131,25 @@ class PrivacyService:
             raise ValueError("not_deletion")
         if request.account_id in self.legal_holds:
             raise ValueError("legal_hold_conflict")
-        account = self.repository.accounts[request.account_id]
-        account.deleted_at = datetime.now(UTC)
-        account.email_hash = None
-        account.session_epoch += 1
-        self.deleted_tombstones.add(request.account_id)
-        for identity in self.repository.identities.values():
-            if identity.account_id == request.account_id:
-                identity.revoked_at = datetime.now(UTC)
-                player = self.repository.players.get(identity.player_id)
-                if player is not None:
-                    player.tombstone = True
-        retained = self.financial_history.get(request.account_id)
-        if retained:
+        self.repository.begin()
+        try:
+            account = self.repository.accounts[request.account_id]
+            account.deleted_at = datetime.now(UTC)
+            account.email_hash = None
+            account.session_epoch += 1
+            for identity in self.repository.identities.values():
+                if identity.account_id == request.account_id:
+                    identity.revoked_at = datetime.now(UTC)
+                    player = self.repository.players.get(identity.player_id)
+                    if player is not None:
+                        player.tombstone = True
             pseudonym = "deleted_" + hashlib.sha256(request.account_id.encode()).hexdigest()[:24]
+            retained = self.financial_history.setdefault(request.account_id, {})
             retained["account_ref"] = pseudonym
-        return self._complete(request)
+            completed = self._complete(request)
+            self.repository.commit()
+            self.deleted_tombstones.add(request.account_id)
+            return completed
+        except Exception:
+            self.repository.rollback()
+            raise

@@ -25,6 +25,9 @@ class AuditMongoRepository:
         safe["studio_id"] = scope.studio_id
         await self.collection.insert_one(safe)
 
+    async def append_event(self, scope: TrustedScope, event: dict[str, Any]) -> None:
+        await self.append(scope, {**event, "event_type": event.get("event_type", "audit.v1")})
+
     async def list_for_scope(self, scope: TrustedScope, subject_id: str) -> list[dict[str, Any]]:
         cursor = self.collection.find({"studio_id": scope.studio_id, "subject_id": subject_id})
         return [document async for document in cursor]

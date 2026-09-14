@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any, cast
 
 from packages.domain.ids import new_uuid7
@@ -21,7 +22,7 @@ class TenancyMongoRepository:
         )
         await self.database.studios.create_index("slug", unique=True, name="uq_studio_slug")
         await self.database.merge_idempotency.create_index(
-            [("studio_id", 1), ("idempotency_key", 1)],
+            [("studio_id", 1), ("actor_id", 1), ("idempotency_key", 1)],
             unique=True,
             name="uq_merge_idempotency_scope",
         )
@@ -53,3 +54,45 @@ class TenancyMongoRepository:
             }
         )
         return membership_id
+
+    async def change_role(self, scope: TrustedScope, membership_id: str, role: str) -> None:
+        await self.database.studio_memberships.update_one(
+            {"membership_id": membership_id, "studio_id": scope.studio_id},
+            {"$set": {"role": role}},
+        )
+
+    async def create_service_account(
+        self, scope: TrustedScope, name: str, scopes: list[str]
+    ) -> str:
+        service_account_id = new_uuid7()
+        await self.database.service_accounts.insert_one(
+            {
+                "service_account_id": service_account_id,
+                "studio_id": scope.studio_id,
+                "name": name,
+                "scopes": scopes,
+                "revoked_at": None,
+            }
+        )
+        return service_account_id
+
+    async def revoke_service_account(self, scope: TrustedScope, service_account_id: str) -> None:
+        await self.database.service_accounts.update_one(
+            {"service_account_id": service_account_id, "studio_id": scope.studio_id},
+            {"$set": {"revoked_at": datetime.now(UTC)}},
+        )
+
+    async def create_invitation(self, scope: TrustedScope, invitation: dict[str, Any]) -> None:
+        await self.database.invitations.insert_one({**invitation, "studio_id": scope.studio_id})
+
+    async def verify_service_credential(
+        self, service_account_id: str, credential_hash: str
+    ) -> bool:
+        value = await self.database.service_accounts.find_one(
+            {
+                "service_account_id": service_account_id,
+                "credential_hash": credential_hash,
+                "revoked_at": None,
+            }
+        )
+        return value is not None

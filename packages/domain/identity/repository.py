@@ -8,7 +8,7 @@ from datetime import UTC, datetime
 from threading import RLock
 from typing import Any
 
-from packages.domain.audit.events import EventEnvelope
+from packages.domain.audit.events import EventEnvelope, _scrub
 from packages.domain.ids import new_uuid7
 from packages.domain.tenancy.models import TrustedScope
 
@@ -37,10 +37,13 @@ class InMemoryIdentityRepository:
         self.audit: list[AuditEvent] = []
         self.events: list[EventEnvelope] = []
         self.outbox: list[EventEnvelope] = []
+        self.privacy_requests: dict[str, Any] = {}
+        self.financial_history: dict[str, dict[str, str]] = {}
         self.player_studios: dict[str, set[str]] = {}
         self._provider_subject: dict[tuple[str, str], str] = {}
         self._device_keys: dict[str, str] = {}
-        self._merge_keys: dict[tuple[str, str], str] = {}
+        self._merge_keys: dict[tuple[str, str, str], str] = {}
+        self._merge_fingerprints: dict[tuple[str, str, str], str] = {}
         self._snapshots: list[tuple[Any, ...]] = []
         self.lock = RLock()
 
@@ -146,7 +149,7 @@ class InMemoryIdentityRepository:
             studio_id,
             subject_id,
             datetime.now(UTC),
-            metadata or {},
+            _scrub(metadata or {}),
         )
         self.audit.append(event)
         return event
@@ -166,10 +169,13 @@ class InMemoryIdentityRepository:
                 deepcopy(self._provider_subject),
                 deepcopy(self._device_keys),
                 deepcopy(self._merge_keys),
+                deepcopy(self._merge_fingerprints),
                 deepcopy(self.audit),
                 deepcopy(self.events),
                 deepcopy(self.outbox),
                 deepcopy(self.player_studios),
+                deepcopy(self.privacy_requests),
+                deepcopy(self.financial_history),
             )
         )
 
@@ -186,10 +192,13 @@ class InMemoryIdentityRepository:
             self._provider_subject,
             self._device_keys,
             self._merge_keys,
+            self._merge_fingerprints,
             self.audit,
             self.events,
             self.outbox,
             self.player_studios,
+            self.privacy_requests,
+            self.financial_history,
         ) = snapshot
 
     def commit(self) -> None:
@@ -198,12 +207,33 @@ class InMemoryIdentityRepository:
         self._snapshots.pop()
 
     def merge_result(
-        self, scope: TrustedScope, source_player: str, target_player: str, idempotency_key: str
+        self,
+        scope: TrustedScope,
+        source_player: str,
+        target_player: str,
+        idempotency_key: str,
+        fingerprint: str | None = None,
     ) -> str | None:
-        return self._merge_keys.get((scope.studio_id, idempotency_key))
+        result = self._merge_keys.get((scope.studio_id, scope.actor_id, idempotency_key))
+        if result is not None and fingerprint is not None:
+            stored = getattr(self, "_merge_fingerprints", {}).get(
+                (scope.studio_id, scope.actor_id, idempotency_key)
+            )
+            if stored != fingerprint:
+                raise ValueError("idempotency_conflict")
+        return result
 
-    def save_merge_result(self, scope: TrustedScope, idempotency_key: str, player_id: str) -> None:
-        self._merge_keys[(scope.studio_id, idempotency_key)] = player_id
+    def save_merge_result(
+        self,
+        scope: TrustedScope,
+        idempotency_key: str,
+        player_id: str,
+        fingerprint: str | None = None,
+    ) -> None:
+        key = (scope.studio_id, scope.actor_id, idempotency_key)
+        self._merge_keys[key] = player_id
+        if fingerprint is not None:
+            self._merge_fingerprints[key] = fingerprint
 
     def all_identities(self) -> Iterator[PlayerIdentity]:
         return iter(self.identities.values())
