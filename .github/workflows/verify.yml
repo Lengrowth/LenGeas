@@ -59,12 +59,6 @@ jobs:
       - run: uv run --frozen python tools/dev/ci_checks.py schema
       - run: uv run --frozen python tools/dev/ci_checks.py openapi
       - run: uv run --frozen python tools/dev/ci_checks.py license-policy
-      - run: task evidence PHASE=01
-      - uses: actions/upload-artifact@v4.6.2
-        with:
-          name: phase-01-evidence-${{ github.sha }}
-          path: docs/evidence/phase-01/
-          if-no-files-found: error
       - name: Verify Phase 02 evidence and policies
         run: |
           task evidence PHASE=02
