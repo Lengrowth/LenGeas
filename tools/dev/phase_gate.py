@@ -49,6 +49,22 @@ def main() -> int:
             file=sys.stderr,
         )
         return 1
+    if phase == "03":
+        evidence_path = ROOT / "tools" / "dev" / "evidence.py"
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("lengeas_evidence", evidence_path)
+        if spec is None or spec.loader is None:
+            print("FAIL phase gate: evidence validator unavailable", file=sys.stderr)
+            return 1
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        try:
+            module.verify_manifest(manifest)
+            module.verify_phase03_completeness(manifest)
+        except SystemExit as error:
+            print(f"FAIL phase gate: {error}", file=sys.stderr)
+            return 1
     print(f"PASS phase gate: Phase {phase} is {status} with no blockers")
     return 0
 

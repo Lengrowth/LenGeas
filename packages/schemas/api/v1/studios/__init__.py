@@ -1,0 +1,1 @@
+"""Versioned studio administration schemas."""

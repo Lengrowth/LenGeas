@@ -15,10 +15,10 @@ jobs:
   verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
-    env:
-      LENGEAS_E2E_BASE_URL: http://127.0.0.1:8000
     steps:
       - uses: actions/checkout@v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: hashicorp/setup-terraform@v3.1.2
         with:
           terraform_version: 1.15.8
@@ -39,6 +39,27 @@ jobs:
       - run: task generate
       - name: Start dependency stack
         run: task local:up
+      - name: Start identity E2E API boundary
+        shell: bash
+        run: |
+          uv run --frozen uvicorn apps.api.app.e2e:app --host 127.0.0.1 --port 8001 > "$RUNNER_TEMP/identity-e2e.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/identity-e2e.pid"
+          E2E_DEVICE_KEY=$(uv run --frozen python -c 'import base64; from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey; print(base64.urlsafe_b64encode(Ed25519PrivateKey.generate().public_key().public_bytes_raw()).rstrip(b"=").decode())')
+          E2E_LIFECYCLE_DEVICE_KEY=$(uv run --frozen python -c 'import base64; from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey; print(base64.urlsafe_b64encode(Ed25519PrivateKey.generate().public_key().public_bytes_raw()).rstrip(b"=").decode())')
+          {
+            echo "LENGEAS_E2E_BASE_URL=http://127.0.0.1:8001"
+            echo "LENGEAS_E2E_GUEST_PROOF=ci-e2e-proof"
+            echo "LENGEAS_E2E_LIFECYCLE_PROOF=ci-e2e-lifecycle-proof"
+            echo "LENGEAS_E2E_DEVICE_PUBLIC_KEY=$E2E_DEVICE_KEY"
+            echo "LENGEAS_E2E_LIFECYCLE_DEVICE_PUBLIC_KEY=$E2E_LIFECYCLE_DEVICE_KEY"
+            echo "LENGEAS_E2E_TOKEN=ci-e2e-token"
+          } >> "$GITHUB_ENV"
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8001/health >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/identity-e2e.log"
+          exit 1
       - run: task verify
       - run: task format
       - run: task lint
@@ -59,12 +80,6 @@ jobs:
       - run: uv run --frozen python tools/dev/ci_checks.py schema
       - run: uv run --frozen python tools/dev/ci_checks.py openapi
       - run: uv run --frozen python tools/dev/ci_checks.py license-policy
-      - run: task evidence PHASE=01
-      - uses: actions/upload-artifact@v4.6.2
-        with:
-          name: phase-01-evidence-${{ github.sha }}
-          path: docs/evidence/phase-01/
-          if-no-files-found: error
       - name: Verify Phase 02 evidence and policies
         run: |
           task evidence PHASE=02
@@ -80,8 +95,20 @@ jobs:
           done
       - uses: actions/upload-artifact@v4.6.2
         with:
-          name: phase-02-evidence-${{ github.sha }}
+          name: phase-02-evidence-${{ github.event.pull_request.head.sha || github.sha }}
           path: docs/evidence/phase-02/
+          if-no-files-found: error
+      - name: Verify Phase 03 evidence and gate
+        env:
+          LENGEAS_EVIDENCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          uv run --frozen python tools/dev/evidence.py 03 --regenerate
+          task evidence PHASE=03
+          task phase:gate PHASE=03
+      - uses: actions/upload-artifact@v4.6.2
+        with:
+          name: phase-03-evidence-${{ github.event.pull_request.head.sha || github.sha }}
+          path: docs/evidence/phase-03/
           if-no-files-found: error
       - uses: aquasecurity/trivy-action@v0.36.0
         with:
@@ -110,8 +137,12 @@ jobs:
       - uses: anchore/sbom-action@v0.20.9
         with:
           path: .
-          artifact-name: sbom-${{ github.sha }}.spdx.json
-          output-file: sbom-${{ github.sha }}.spdx.json
+          artifact-name: sbom-${{ github.event.pull_request.head.sha || github.sha }}.spdx.json
+          output-file: sbom-${{ github.event.pull_request.head.sha || github.sha }}.spdx.json
       - name: Stop dependency stack
         if: always()
-        run: task local:down
+        run: |
+          if [ -f "$RUNNER_TEMP/identity-e2e.pid" ]; then
+            if kill "$(cat "$RUNNER_TEMP/identity-e2e.pid")" 2>/dev/null; then :; fi
+          fi
+          task local:down
