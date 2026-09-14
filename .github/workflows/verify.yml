@@ -95,7 +95,7 @@ jobs:
           done
       - uses: actions/upload-artifact@v4.6.2
         with:
-          name: phase-02-evidence-${{ github.sha }}
+          name: phase-02-evidence-${{ github.event.pull_request.head.sha || github.sha }}
           path: docs/evidence/phase-02/
           if-no-files-found: error
       - name: Verify Phase 03 evidence and gate
@@ -107,7 +107,7 @@ jobs:
           task phase:gate PHASE=03
       - uses: actions/upload-artifact@v4.6.2
         with:
-          name: phase-03-evidence-${{ github.sha }}
+          name: phase-03-evidence-${{ github.event.pull_request.head.sha || github.sha }}
           path: docs/evidence/phase-03/
           if-no-files-found: error
       - uses: aquasecurity/trivy-action@v0.36.0
@@ -137,8 +137,8 @@ jobs:
       - uses: anchore/sbom-action@v0.20.9
         with:
           path: .
-          artifact-name: sbom-${{ github.sha }}.spdx.json
-          output-file: sbom-${{ github.sha }}.spdx.json
+          artifact-name: sbom-${{ github.event.pull_request.head.sha || github.sha }}.spdx.json
+          output-file: sbom-${{ github.event.pull_request.head.sha || github.sha }}.spdx.json
       - name: Stop dependency stack
         if: always()
         run: |
