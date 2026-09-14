@@ -16,5 +16,5 @@
 {"command":"hosted task lint","exit_code":0,"result":"PASS"}
 {"command":"hosted task typecheck","exit_code":0,"result":"PASS"}
 {"command":"hosted task phase:gate PHASE=03","exit_code":0,"result":"PASS in_review with no blockers"}
-{"command":"hosted task verify","exit_code":0,"result":"PASS GitHub Actions run 34851619271"}
+{"command":"hosted task verify","exit_code":0,"result":"PASS on the exact PR head; GitHub Actions result is linked from the PR checks"}
 {"command":"uv run --frozen python tools/dev/task_runner.py evidence 02","exit_code":0,"result":"PASS evidence manifest verified read-only"}

@@ -2,6 +2,18 @@
   "agent_identity": "Codex root phase agent",
   "artifacts": [
     {
+      "path": ".github/workflows/verify.yml",
+      "sha256": "825149c64b4bc6084a7e1982e4c35c96f69e3fc8ef78d829444ac8ef64dd0b46"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "26ec0f448ed19e1cc1ca231fdc405477a9921e1a928cdbb92ed4f2a38d6aa0d5"
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "bb7642823efd18c08a8ec64d28c1bc47a10eb4cde0d5a45630216d440fae20f5"
+    },
+    {
       "path": "packages/domain/identity",
       "sha256": "2793d83d651a667cb8b5c8da449f1394da9776ebcadb4a475a979240e4e782d2"
     },
@@ -27,19 +39,23 @@
     },
     {
       "path": "packages/persistence/mongodb",
-      "sha256": "9e8cc5af053b5937b66c7e079cb89e9db789726754689cff3b0fbc41ba2597d4"
+      "sha256": "53925c242e905cdd3d818948e276a78d14c432ca6d91752131fa47ac6db40fdd"
     },
     {
       "path": "apps/api/app/composition.py",
-      "sha256": "40273d088a429414cc7421c0724afe2300658a32a57d5cd7b32c965870bd0ff6"
+      "sha256": "521029b6850b665a8fc4b03f7641a1d201d9a137ba5dbcaf1403746e5532f07d"
+    },
+    {
+      "path": "apps/api/app/e2e.py",
+      "sha256": "5502857e1cff65c374ec62e52f0002ecddd92e355ae3bc5d4c76976bc431f6b6"
     },
     {
       "path": "apps/api/app/auth",
-      "sha256": "01e96b1cbc7d4fc8ab59cba6beb1ce423b1e558aa21d0af208c7bf69262f21a0"
+      "sha256": "3ed79c3d0d275c74f37dd1b1ad1e247aa6d2c1b60175337fb7adc9d5b2d0aa62"
     },
     {
       "path": "apps/api/app/main.py",
-      "sha256": "dabaca88d36339d6371776bc0043ed0afde2a479079e040f599bf2ea3ca80bbf"
+      "sha256": "2c10f6c84487dbd0b2405db4a530bd38e8cf3db0fc1338fb70f63922427e2a05"
     },
     {
       "path": "apps/api/app/users",
@@ -123,15 +139,15 @@
     },
     {
       "path": "docs/evidence/phase-03/commands.ndjson",
-      "sha256": "bc90b823be0485f9ea0fc4fc588b3c9555c8eed008812f9a47552b5ba53718b0"
+      "sha256": "fa5bcdd1585389b61afdd073cfde0c8d6605db91f569518c3799068b5b108c90"
     },
     {
       "path": "docs/evidence/phase-03/test-report.xml",
-      "sha256": "f1a7484e5a0d65fe0da782a13573d785b0a5265e66ae47582e3b62be73572cec"
+      "sha256": "ff5bc825ecc5048f1767cefdd3803861093c7cd126684015e3ab8b89f89fe8df"
     },
     {
       "path": "docs/evidence/phase-03/coverage.json",
-      "sha256": "71700fc08258410a8f5bfaed320f710d9b3bdea80bb8a089a78a86822298eedf"
+      "sha256": "0f6d4d6610bedb6b73d4a3cde5f23d49a86f5edb5428433ed983085694fafa0b"
     },
     {
       "path": ".env.example",
@@ -150,8 +166,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T14:33:26.714020Z",
-  "final_commit": "98b6cd6d0d769e32c52dc18e510368c9649e20f6",
+  "end_utc": "2026-09-14T14:40:06.451857Z",
+  "final_commit": "42f9997da17b81257d3ba381eafb54fb9651e88d",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
@@ -161,6 +177,7 @@
     "Supabase and Turnstile production projects are intentionally not activated under ADR-0011; provider-faithful adapters and test boundaries are present.",
     "Production API composition requires all MongoDB, Supabase JWKS, and Turnstile settings; partial configuration fails closed.",
     "Deployed E2E requires LENGEAS_E2E_BASE_URL, LENGEAS_E2E_GUEST_PROOF, and LENGEAS_E2E_DEVICE_PUBLIC_KEY; absent dependencies fail the selector.",
+    "Hosted verification uses the provider-independent identity API boundary in apps/api/app/e2e.py; production provider credentials remain external.",
     "Development remains synthetic-data-only on the accepted Phase 02 host."
   ],
   "phase": "03",
@@ -185,6 +202,7 @@
     "task test:contract -- auth",
     "task test:integration -- supabase,mongodb (fails closed without Docker/Mongo)",
     "task test:e2e -- identity (fails closed without deployed API URL and guest credentials)",
+    "hosted E2E identity selector (deployed FastAPI boundary; guest create plus replay)",
     "task test:security -- tenancy,authorization",
     "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity (24 passed, 1 skipped; total coverage 72%)",
     "full dependency-free suites",
