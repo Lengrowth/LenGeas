@@ -6,8 +6,8 @@
 {"command":"uv run --frozen python tools/dev/task_runner.py test integration supabase,mongodb","exit_code":2,"result":"FAIL closed: Docker CLI and local stack unavailable; no synthetic fallback"}
 {"command":"uv run --frozen python tools/dev/task_runner.py test e2e identity","exit_code":2,"result":"FAIL closed: deployed API URL and guest credentials unavailable; no synthetic fallback"}
 {"command":"hosted e2e identity selector against http://127.0.0.1:8001","exit_code":0,"result":"PASS deployed FastAPI boundary: guest create and same-key replay returned identical responses"}
-{"command":"uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity --cov=apps --cov=packages --cov-report=json:docs/evidence/phase-03/coverage.json --junitxml=docs/evidence/phase-03/test-report.xml","exit_code":0,"result":"24 passed, 1 skipped; total coverage 72.43%"}
-{"command":"uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity","exit_code":0,"result":"24 passed, 1 skipped"}
+{"command":"uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity --cov=apps --cov=packages --cov-report=json:docs/evidence/phase-03/coverage.json --junitxml=docs/evidence/phase-03/test-report.xml","exit_code":0,"result":"24 passed, 2 skipped; total coverage 72.43%"}
+{"command":"uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity","exit_code":0,"result":"24 passed, 2 skipped"}
 {"command":"uv run --frozen mypy apps packages tools","exit_code":0,"result":"Success: no issues found"}
 {"command":"uv run --frozen ruff check apps packages tools tests","exit_code":0,"result":"PASS"}
 {"command":"uv run --frozen python tools/dev/task_runner.py generate (twice)","exit_code":0,"result":"PASS deterministic generated artifacts"}

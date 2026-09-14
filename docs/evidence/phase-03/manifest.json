@@ -55,7 +55,7 @@
     },
     {
       "path": "apps/api/app/main.py",
-      "sha256": "2fce34586054fc19c112243d81f8fea1eeeb7e09171e44f502b93beb689ba3d6"
+      "sha256": "13c4c6cbce1f9768fbfa36f92878c2c091b85bfd7c09a967a9c0cadddf7a9570"
     },
     {
       "path": "apps/api/app/users",
@@ -95,7 +95,7 @@
     },
     {
       "path": "tests/integration/identity",
-      "sha256": "837ea0ed120a7311e9aabff13b333baf868018a93632e458b57e631c4614d4e0"
+      "sha256": "630d6366f8eade6e60019c93b950f0cfecbd38ddd5cd336a32a0be68e6edbc15"
     },
     {
       "path": "tests/e2e/identity",
@@ -139,15 +139,15 @@
     },
     {
       "path": "docs/evidence/phase-03/commands.ndjson",
-      "sha256": "fa5bcdd1585389b61afdd073cfde0c8d6605db91f569518c3799068b5b108c90"
+      "sha256": "ffa48d55ba1e9ae4945c398fc85014f71b654aade1da4bf1eaea7e288ce2ae5d"
     },
     {
       "path": "docs/evidence/phase-03/test-report.xml",
-      "sha256": "65b909dfdd6e8817888b41b0d48a2f4b0291f3e68e13db699cca29974ebcba4d"
+      "sha256": "d90f7525fb5efbc439141edf7808215419d25f576fc030d967dd7d5908372db4"
     },
     {
       "path": "docs/evidence/phase-03/coverage.json",
-      "sha256": "7885f1d4e5ef1a084c1f505693e7c739deead6ba562f2acbdd211a204f2bb970"
+      "sha256": "adba6dd79f47d58f516238f5283171b0269668d98fe67f0c5d16cec3f6493ebc"
     },
     {
       "path": ".env.example",
@@ -166,8 +166,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T14:42:59.648780Z",
-  "final_commit": "2c4d9e640b2c4a4964d5c82ad7c2f78e87e3b00d",
+  "end_utc": "2026-09-14T14:47:00.234664Z",
+  "final_commit": "d9f15dfb46f7e1029aa74cc0c7bd629a177957a0",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
@@ -204,7 +204,7 @@
     "task test:e2e -- identity (fails closed without deployed API URL and guest credentials)",
     "hosted E2E identity selector (deployed FastAPI boundary; guest create plus replay)",
     "task test:security -- tenancy,authorization",
-    "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity (24 passed, 1 skipped; total coverage 72%)",
+    "uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity (24 passed, 2 skipped; total coverage 72%)",
     "full dependency-free suites",
     "read-only Phase 03 manifest verification",
     "task phase:gate PHASE=03"

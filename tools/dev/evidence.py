@@ -457,7 +457,7 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             (
                 "uv run --frozen pytest -q tests/unit/identity tests/property/identity "
                 "tests/contract/identity tests/integration/identity tests/e2e/identity "
-                "tests/security/identity (24 passed, 1 skipped; total coverage 72%)"
+                "tests/security/identity (24 passed, 2 skipped; total coverage 72%)"
             ),
             "full dependency-free suites",
             "read-only Phase 03 manifest verification",
