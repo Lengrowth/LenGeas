@@ -39,9 +39,7 @@ class Transport:
 
 class IdentityIntegrationTests(unittest.TestCase):
     def test_mongodb_identity_repository_is_durable_and_scoped(self) -> None:
-        uri = os.environ.get(
-            "MONGODB_URI", "mongodb://localhost:27017/?replicaSet=rs0"
-        )
+        uri = os.environ.get("MONGODB_URI", "mongodb://localhost:27017/?replicaSet=rs0")
         database_name = os.environ.get("MONGODB_DATABASE", "lengeas_identity_integration")
         client = AsyncMongoClient(uri, serverSelectionTimeoutMS=1500)
 

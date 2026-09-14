@@ -110,8 +110,8 @@ def create_app(
     tenancy: Any | None = None,
     provider_verifier: ProviderIdentityVerifier | None = None,
     revocation_store: RevocationStore | None = None,
-        proof_store: ProofConsumptionStore | None = None,
-        idempotency_store: IdempotencyStore | None = None,
+    proof_store: ProofConsumptionStore | None = None,
+    idempotency_store: IdempotencyStore | None = None,
     test_mode: bool = False,
     allow_unconfigured: bool = False,
 ) -> FastAPI:

@@ -55,7 +55,7 @@
     },
     {
       "path": "apps/api/app/main.py",
-      "sha256": "13c4c6cbce1f9768fbfa36f92878c2c091b85bfd7c09a967a9c0cadddf7a9570"
+      "sha256": "bbbb3205c228275f4d0467bb989d7a8bb528b5e557d858e483d37e321a69b9f1"
     },
     {
       "path": "apps/api/app/users",
@@ -95,7 +95,7 @@
     },
     {
       "path": "tests/integration/identity",
-      "sha256": "630d6366f8eade6e60019c93b950f0cfecbd38ddd5cd336a32a0be68e6edbc15"
+      "sha256": "131f12c2f9332c3d974665ea54d08efe7cefa61173bc96d39bd46b1bb1e8c3b9"
     },
     {
       "path": "tests/e2e/identity",
@@ -166,8 +166,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-09-14T14:47:00.234664Z",
-  "final_commit": "d9f15dfb46f7e1029aa74cc0c7bd629a177957a0",
+  "end_utc": "2026-09-14T14:53:07.952436Z",
+  "final_commit": "f15c6b9b1fe86c157f946d4dfdd7a033445ebc0d",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"

@@ -449,7 +449,7 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "task test:contract -- auth",
             "task test:integration -- supabase,mongodb (fails closed without Docker/Mongo)",
             (
-            "task test:e2e -- identity (fails closed without deployed API URL and "
+                "task test:e2e -- identity (fails closed without deployed API URL and "
                 "guest credentials)"
             ),
             "hosted E2E identity selector (deployed FastAPI boundary; guest create plus replay)",
