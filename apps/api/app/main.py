@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
+import inspect
+import json
 from datetime import UTC
 from typing import Annotated, Any, Protocol, cast
 
@@ -19,6 +22,8 @@ from packages.domain.authorization.policy import (
     PolicyRequest,
     Resource,
 )
+from packages.domain.coordination import RevocationStore
+from packages.domain.coordination_memory import InMemoryIdempotencyStore
 from packages.domain.identity.merge import MergeService
 from packages.domain.identity.privacy import PrivacyOperation, PrivacyService
 from packages.domain.identity.repository import InMemoryIdentityRepository
@@ -103,6 +108,9 @@ def create_app(
     identity: Any | None = None,
     tenancy: Any | None = None,
     provider_verifier: ProviderIdentityVerifier | None = None,
+    revocation_store: RevocationStore | None = None,
+    proof_store: object | None = None,
+    idempotency_store: object | None = None,
     test_mode: bool = False,
     allow_unconfigured: bool = False,
 ) -> FastAPI:
@@ -125,10 +133,17 @@ def create_app(
     privacy = PrivacyService(identity_domain)
     policies = PolicyDecisionService()
     admin = StudioAdministration(tenancy_domain)
-    guest = GuestIdentityService(identity_domain, turnstile or UnconfiguredTurnstile())
+    guest = GuestIdentityService(
+        identity_domain,
+        turnstile or UnconfiguredTurnstile(),
+        proof_store=proof_store,
+    )
     verifier = jwt_verifier or UnconfiguredJwtVerifier()
     mapper = InternalAccountMapper(identity_domain)
     provider_control = provider_verifier or UnconfiguredProviderIdentityVerifier()
+    mutation_idempotency = idempotency_store or (InMemoryIdempotencyStore() if test_mode else None)
+    if not test_mode and not allow_unconfigured and mutation_idempotency is None:
+        raise RuntimeError("idempotency_persistence_required")
     revoked_jtis: set[str] = set()
     revoked_subjects: set[str] = set()
     app.state.admin = admin
@@ -148,6 +163,13 @@ def create_app(
                 claims.jwt_id and claims.jwt_id in revoked_jtis
             ):
                 raise ValueError("token_revoked")
+            if revocation_store is not None:
+                if claims.jwt_id and await revocation_store.is_jti_revoked(claims.jwt_id):
+                    raise ValueError("token_revoked")
+                if int(claims.raw.get("session_epoch", 0)) < await revocation_store.subject_epoch(
+                    claims.subject
+                ):
+                    raise ValueError("token_revoked")
             account = mapper.map_subject(claims.subject)
         except (ValueError, KeyError, RuntimeError) as error:
             raise HTTPException(status_code=401, detail={"code": str(error)}) from error
@@ -224,6 +246,68 @@ def create_app(
                 "retryable": retryable,
             }
         }
+
+    @app.middleware("http")
+    async def mutation_idempotency_boundary(request: Request, call_next: Any) -> Response:
+        if request.method != "POST" or mutation_idempotency is None:
+            return await call_next(request)
+        key = request.headers.get("Idempotency-Key")
+        if not key:
+            return await call_next(request)
+        body = await request.body()
+        actor = hashlib.sha256(
+            request.headers.get("authorization", "anonymous").encode()
+        ).hexdigest()
+        tenant = request.headers.get("x-studio-id")
+        fingerprint = hashlib.sha256(
+            json.dumps(
+                {
+                    "method": request.method,
+                    "path": request.url.path,
+                    "actor": actor,
+                    "tenant": tenant,
+                    "body": body.decode("utf-8", errors="replace"),
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode()
+        ).hexdigest()
+        try:
+            existing = await mutation_idempotency.reserve(
+                key=key,
+                operation=f"{request.method}:{request.url.path}",
+                actor_id=actor,
+                tenant_id=tenant,
+                fingerprint=fingerprint,
+            )
+        except ValueError as error:
+            return JSONResponse(status_code=409, content=error_body(str(error), str(error)))
+        if existing is not None:
+            if existing.status_code is None:
+                return JSONResponse(
+                    status_code=409,
+                    content=error_body("idempotency_in_progress", "Request is still in progress."),
+                )
+            if existing.status_code == status.HTTP_204_NO_CONTENT:
+                return Response(status_code=existing.status_code)
+            return JSONResponse(status_code=existing.status_code, content=existing.body)
+        response = await call_next(request)
+        chunks = [chunk async for chunk in response.body_iterator]
+        response_body = b"".join(chunks)
+        if response.status_code < 500:
+            try:
+                stored_body = json.loads(response_body) if response_body else None
+                await mutation_idempotency.complete(
+                    key, status_code=response.status_code, body=stored_body
+                )
+            except (UnicodeDecodeError, json.JSONDecodeError, TypeError):
+                pass
+        return Response(
+            content=response_body,
+            status_code=response.status_code,
+            headers=dict(response.headers),
+            media_type=response.media_type,
+        )
 
     @app.exception_handler(HTTPException)
     async def http_error_handler(_: Request, error: HTTPException) -> JSONResponse:
@@ -409,6 +493,10 @@ def create_app(
     async def privacy_status(request_id: str, request: Request) -> object:
         trusted = authorize(request, "read", "privacy", request_id)
         operation = privacy.requests.get(request_id)
+        if operation is None:
+            load_privacy = getattr(identity_repo, "privacy_request_for", None)
+            if load_privacy is not None:
+                operation = load_privacy(request_id)
         if operation is None or operation.account_id != trusted.actor_id:
             raise HTTPException(status_code=404, detail={"code": "privacy_request_not_found"})
         return operation
@@ -447,9 +535,18 @@ def create_app(
         dependencies=protected,
     )
     async def create_service_account(body: ServiceAccountRequest, request: Request) -> object:
-        return tenancy_repo.create_service_account(
+        account = tenancy_repo.create_service_account(
             authorize(request, "admin", "service_account"), body.name, frozenset(body.scopes)
         )
+        credential = getattr(tenancy_repo, "service_credentials", {}).get(
+            account.service_account_id
+        )
+        return {
+            "service_account_id": account.service_account_id,
+            "client_id": account.client_id,
+            "credential": credential,
+            "scopes": sorted(account.scopes),
+        }
 
     @app.post(
         "/api/v1/studios/service-accounts/revoke",
@@ -472,16 +569,29 @@ def create_app(
     async def revoke_session(request: Request) -> Response:
         authorize(request, "write", "session")
         request.state.account.session_epoch += 1
+        save_account = getattr(identity_repo, "save_account", None)
+        if save_account is not None:
+            save_account(request.state.account)
         claims = request.state.claims
         if claims.jwt_id:
             revoked_jtis.add(claims.jwt_id)
             revoke_jti = getattr(verifier, "revoke_jti", None)
             if revoke_jti:
-                revoke_jti(claims.jwt_id)
+                result = revoke_jti(claims.jwt_id)
+                if inspect.isawaitable(result):
+                    await result
+            elif revocation_store is not None:
+                await revocation_store.revoke_jti(claims.jwt_id)
         revoked_subjects.add(claims.subject)
         revoke_subject = getattr(verifier, "revoke_subject", None)
         if revoke_subject:
-            revoke_subject(claims.subject)
+            result = revoke_subject(claims.subject)
+            if inspect.isawaitable(result):
+                await result
+        elif revocation_store is not None:
+            await revocation_store.revoke_subject(
+                claims.subject, request.state.account.session_epoch
+            )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
     @app.get("/api/v1/permissions/decision", dependencies=protected_read)
@@ -509,4 +619,10 @@ def create_app(
     return app
 
 
-app = create_app(allow_unconfigured=True)
+def _build_application() -> FastAPI:
+    from .composition import create_production_app
+
+    return create_production_app()
+
+
+app = _build_application()

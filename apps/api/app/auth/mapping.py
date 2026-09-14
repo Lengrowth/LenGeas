@@ -13,7 +13,12 @@ class InternalAccountMapper:
     def map_subject(self, subject: str) -> Account:
         identity = self.repository.identity_for_provider("supabase", subject)
         if identity is not None:
-            account = self.repository.accounts.get(identity.account_id or identity.player_id)
+            lookup = getattr(self.repository, "account_for_id", None)
+            account = (
+                lookup(identity.account_id or identity.player_id)
+                if lookup is not None
+                else self.repository.accounts.get(identity.account_id or identity.player_id)
+            )
             if account is None or identity.revoked_at is not None or account.deleted_at is not None:
                 raise KeyError("mapped_account_missing")
             account.player_id = identity.player_id

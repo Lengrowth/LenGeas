@@ -76,6 +76,9 @@ class EventEnvelope:
             "identity.merged.v1",
             "studio.membership_changed.v1",
             "privacy.requested.v1",
+            "privacy.completed.v1",
+            "privacy.deleted.v1",
+            "studio.service_account_revoked.v1",
         }:
             raise ValueError("event_type_not_registered")
         safe_payload = _scrub(payload or {})

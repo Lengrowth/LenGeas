@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import secrets
 from datetime import UTC, datetime
 from typing import Any, cast
 
@@ -25,6 +27,12 @@ class TenancyMongoRepository:
             [("studio_id", 1), ("actor_id", 1), ("idempotency_key", 1)],
             unique=True,
             name="uq_merge_idempotency_scope",
+        )
+        await self.database.audit_events.create_index(
+            [("studio_id", 1), ("occurred_at", -1)], name="audit_studio_time"
+        )
+        await self.database.event_outbox.create_index(
+            "event_id", unique=True, name="uq_tenancy_event_id"
         )
 
     async def list_memberships(self, scope: TrustedScope) -> list[dict[str, Any]]:
@@ -63,8 +71,9 @@ class TenancyMongoRepository:
 
     async def create_service_account(
         self, scope: TrustedScope, name: str, scopes: list[str]
-    ) -> str:
+    ) -> dict[str, str]:
         service_account_id = new_uuid7()
+        credential = secrets.token_urlsafe(32)
         await self.database.service_accounts.insert_one(
             {
                 "service_account_id": service_account_id,
@@ -72,26 +81,46 @@ class TenancyMongoRepository:
                 "name": name,
                 "scopes": scopes,
                 "revoked_at": None,
+                "credential_hash": hashlib.sha256(credential.encode()).hexdigest(),
             }
         )
-        return service_account_id
+        return {"service_account_id": service_account_id, "credential": credential}
 
     async def revoke_service_account(self, scope: TrustedScope, service_account_id: str) -> None:
-        await self.database.service_accounts.update_one(
-            {"service_account_id": service_account_id, "studio_id": scope.studio_id},
-            {"$set": {"revoked_at": datetime.now(UTC)}},
-        )
+        now = datetime.now(UTC)
+        event = {
+            "event_id": new_uuid7(),
+            "event_type": "studio.service_account_revoked.v1",
+            "studio_id": scope.studio_id,
+            "subject_id": service_account_id,
+            "occurred_at": now,
+        }
+        async with self.database.client.start_session() as session:
+            async with session.start_transaction():
+                result = await self.database.service_accounts.update_one(
+                    {
+                        "service_account_id": service_account_id,
+                        "studio_id": scope.studio_id,
+                        "revoked_at": None,
+                    },
+                    {"$set": {"revoked_at": now}},
+                    session=session,
+                )
+                if result.matched_count == 0:
+                    raise KeyError("service_account_not_found")
+                await self.database.audit_events.insert_one(
+                    {"action": "service_account.revoked", **event}, session=session
+                )
+                await self.database.event_outbox.insert_one(event, session=session)
 
     async def create_invitation(self, scope: TrustedScope, invitation: dict[str, Any]) -> None:
         await self.database.invitations.insert_one({**invitation, "studio_id": scope.studio_id})
 
-    async def verify_service_credential(
-        self, service_account_id: str, credential_hash: str
-    ) -> bool:
+    async def verify_service_credential(self, service_account_id: str, credential: str) -> bool:
         value = await self.database.service_accounts.find_one(
             {
                 "service_account_id": service_account_id,
-                "credential_hash": credential_hash,
+                "credential_hash": hashlib.sha256(credential.encode()).hexdigest(),
                 "revoked_at": None,
             }
         )

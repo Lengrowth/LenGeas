@@ -59,6 +59,9 @@ class PrivacyService:
             new_uuid7(), account_id, operation, datetime.now(UTC), "queued", legal_hold, studio_id
         )
         self.requests[request.request_id] = request
+        persist_request = getattr(self.repository, "persist_privacy_request", None)
+        if persist_request is not None:
+            persist_request(request)
         self.repository.record_audit(
             account_id,
             "privacy.requested",
@@ -97,6 +100,9 @@ class PrivacyService:
             request.studio_id,
         )
         self.requests[request.request_id] = completed
+        persist_completion = getattr(self.repository, "persist_privacy_completion", None)
+        if persist_completion is not None:
+            persist_completion(completed)
         self.repository.record_audit(
             request.account_id,
             "privacy.completed",
@@ -106,7 +112,7 @@ class PrivacyService:
         )
         self.repository.emit(
             EventEnvelope.create(
-                "privacy.requested.v1",
+                "privacy.completed.v1",
                 "PrivacyService",
                 studio_id=request.studio_id,
                 payload={"operation": request.operation.value, "status": "completed"},
@@ -146,6 +152,14 @@ class PrivacyService:
             pseudonym = "deleted_" + hashlib.sha256(request.account_id.encode()).hexdigest()[:24]
             retained = self.financial_history.setdefault(request.account_id, {})
             retained["account_ref"] = pseudonym
+            persist_financial = getattr(self.repository, "persist_financial_record", None)
+            if persist_financial is not None:
+                persist_financial(
+                    request.studio_id,
+                    request.account_id,
+                    pseudonym,
+                    request.request_id,
+                )
             completed = self._complete(request)
             self.repository.commit()
             self.deleted_tombstones.add(request.account_id)

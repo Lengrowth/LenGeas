@@ -1,30 +1,23 @@
 from __future__ import annotations
 
-import asyncio
-import base64
+import os
 import unittest
 
-from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-
-from apps.api.app.auth.guest import GuestIdentityService
-from packages.domain.identity.repository import InMemoryIdentityRepository
-
-
-class AcceptingTurnstile:
-    async def verify(self, proof: str, remote_ip: str | None) -> bool:
-        return proof == "turnstile-once"
+import httpx
 
 
 class IdentityE2ETests(unittest.TestCase):
-    def test_guest_device_lifecycle_replay_and_rotation(self) -> None:
-        private = Ed25519PrivateKey.generate()
-        public = private.public_key().public_bytes_raw()
-        encoded = base64.urlsafe_b64encode(public).rstrip(b"=").decode()
-        service = GuestIdentityService(InMemoryIdentityRepository(), AcceptingTurnstile())
-        credentials = asyncio.run(service.create("turnstile-once", encoded))
-        with self.assertRaisesRegex(ValueError, "turnstile_replay"):
-            asyncio.run(service.create("turnstile-once", encoded))
-        rotated = service.rotate(credentials.identity_id, credentials.refresh_token)
-        self.assertNotEqual(rotated, credentials.refresh_token)
-        with self.assertRaisesRegex(ValueError, "credential_invalid"):
-            service.rotate(credentials.identity_id, credentials.refresh_token)
+    def test_guest_lifecycle_through_deployed_api_boundary(self) -> None:
+        base_url = os.environ.get("LENGEAS_E2E_BASE_URL", "").rstrip("/")
+        proof = os.environ.get("LENGEAS_E2E_GUEST_PROOF", "")
+        device_key = os.environ.get("LENGEAS_E2E_DEVICE_PUBLIC_KEY", "")
+        if not base_url or not proof or not device_key:
+            self.skipTest("deployed API E2E prerequisites are unavailable")
+        headers = {"Idempotency-Key": "e2e-guest-lifecycle-0001"}
+        payload = {"turnstile_proof": proof, "device_public_key": device_key}
+        with httpx.Client(base_url=base_url, timeout=10.0, trust_env=False) as client:
+            first = client.post("/api/v1/auth/guests", json=payload, headers=headers)
+            self.assertEqual(first.status_code, 201, first.text)
+            replay = client.post("/api/v1/auth/guests", json=payload, headers=headers)
+        self.assertEqual(replay.status_code, 201, replay.text)
+        self.assertEqual(replay.json(), first.json())

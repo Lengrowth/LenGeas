@@ -40,6 +40,13 @@ class IdentityMongoRepository:
         await self.database.privacy_requests.create_index(
             "request_id", unique=True, name="uq_privacy_request"
         )
+        await self.database.financial_history.create_index(
+            [("studio_id", 1), ("account_id", 1)], unique=True, name="uq_financial_history_scope"
+        )
+        await self.database.audit_events.create_index(
+            [("studio_id", 1), ("occurred_at", -1)], name="audit_studio_time"
+        )
+        await self.database.event_outbox.create_index("event_id", unique=True, name="uq_event_id")
 
     @staticmethod
     def _filter(scope: TrustedScope, **extra: Any) -> dict[str, Any]:
@@ -131,24 +138,84 @@ class IdentityMongoRepository:
         await self.database.event_outbox.insert_one(dict(event))
 
     async def create_privacy_request(self, request: Mapping[str, Any]) -> None:
-        await self.database.privacy_requests.insert_one(dict(request))
+        document = dict(request)
+        document.setdefault("status", "queued")
+        await self.database.privacy_requests.insert_one(document)
 
-    async def complete_privacy_request(self, request_id: str, status: str) -> None:
+    async def complete_privacy_request(
+        self, scope: TrustedScope, request_id: str, status: str, event: Mapping[str, Any]
+    ) -> None:
         await self.database.privacy_requests.update_one(
-            {"request_id": request_id}, {"$set": {"status": status}}
+            {"request_id": request_id, "studio_id": scope.studio_id},
+            {"$set": {"status": status, "completed_at": datetime.now(UTC)}},
+        )
+        await self.record_audit(scope, {**dict(event), "action": "privacy.completed"})
+        await self.append_event(
+            {
+                **dict(event),
+                "event_id": new_uuid7(),
+                "event_type": "privacy.completed.v1",
+                "studio_id": scope.studio_id,
+                "occurred_at": datetime.now(UTC),
+            }
         )
 
-    async def delete_account(self, scope: TrustedScope, account_id: str, pseudonym: str) -> None:
+    async def delete_account(
+        self,
+        scope: TrustedScope,
+        account_id: str,
+        pseudonym: str,
+        request_id: str,
+    ) -> None:
+        now = datetime.now(UTC)
+        account_filter = {"account_id": account_id}
         await self.database.accounts.update_one(
-            {"account_id": account_id},
+            account_filter,
             {
                 "$set": {
-                    "deleted_at": datetime.now(UTC),
+                    "deleted_at": now,
                     "email_hash": None,
                     "tombstone": True,
                     "pseudonym": pseudonym,
+                },
+                "$inc": {"session_epoch": 1},
+            },
+        )
+        identities = self.database.player_identities.find({"account_id": account_id})
+        player_ids = [document["player_id"] async for document in identities]
+        await self.database.player_identities.update_many(
+            {"account_id": account_id}, {"$set": {"revoked_at": now}}
+        )
+        if player_ids:
+            await self.database.studio_players.update_many(
+                {"player_id": {"$in": player_ids}}, {"$set": {"tombstone": True, "deleted_at": now}}
+            )
+        await self.database.financial_history.update_one(
+            {"studio_id": scope.studio_id, "account_id": account_id},
+            {
+                "$set": {
+                    "studio_id": scope.studio_id,
+                    "account_id": account_id,
+                    "pseudonym": pseudonym,
+                    "request_id": request_id,
+                    "updated_at": now,
                 }
             },
+            upsert=True,
+        )
+        await self.record_audit(
+            scope,
+            {"action": "privacy.deleted", "subject_id": account_id, "request_id": request_id},
+        )
+        await self.append_event(
+            {
+                "event_id": new_uuid7(),
+                "event_type": "privacy.deleted.v1",
+                "studio_id": scope.studio_id,
+                "subject_id": account_id,
+                "request_id": request_id,
+                "occurred_at": now,
+            }
         )
 
     async def merge_players(

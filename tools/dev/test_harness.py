@@ -43,7 +43,11 @@ SUITES: dict[str, tuple[str, tuple[Dependency, ...]]] = {
     ),
     "e2e": (
         "e2e",
-        (Dependency("e2e-base-url", "LENGEAS_E2E_BASE_URL"),),
+        (
+            Dependency("e2e-base-url", "LENGEAS_E2E_BASE_URL"),
+            Dependency("e2e-guest-proof", "LENGEAS_E2E_GUEST_PROOF"),
+            Dependency("e2e-device-key", "LENGEAS_E2E_DEVICE_PUBLIC_KEY"),
+        ),
     ),
     "performance": ("performance", ()),
     "security": ("security", ()),
@@ -132,6 +136,20 @@ def _dependency_available(dependency: Dependency, project: Path) -> tuple[bool, 
         return (
             bool(value),
             "LENGEAS_E2E_BASE_URL is set" if value else "LENGEAS_E2E_BASE_URL is unset",
+        )
+    if dependency.name == "e2e-guest-proof":
+        value = os.environ.get("LENGEAS_E2E_GUEST_PROOF", "").strip()
+        return (
+            bool(value),
+            "LENGEAS_E2E_GUEST_PROOF is set" if value else "LENGEAS_E2E_GUEST_PROOF is unset",
+        )
+    if dependency.name == "e2e-device-key":
+        value = os.environ.get("LENGEAS_E2E_DEVICE_PUBLIC_KEY", "").strip()
+        return (
+            bool(value),
+            "LENGEAS_E2E_DEVICE_PUBLIC_KEY is set"
+            if value
+            else "LENGEAS_E2E_DEVICE_PUBLIC_KEY is unset",
         )
     return False, f"unknown dependency declaration: {dependency.name}"
 

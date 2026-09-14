@@ -16,6 +16,8 @@ import httpx
 import jwt
 from jwt import PyJWK
 
+from packages.domain.coordination import RevocationStore
+
 
 class JwksTransport(Protocol):
     async def get(self, url: str) -> dict[str, Any]: ...
@@ -53,6 +55,7 @@ class SupabaseJwtVerifier:
         ttl_seconds: int = 300,
         leeway_seconds: int = 5,
         transport: JwksTransport | None = None,
+        revocation_store: RevocationStore | None = None,
     ) -> None:
         self.jwks_url = jwks_url
         self.issuer = issuer
@@ -60,6 +63,7 @@ class SupabaseJwtVerifier:
         self.ttl_seconds = ttl_seconds
         self.leeway_seconds = leeway_seconds
         self.transport = transport or HttpJwksTransport()
+        self.revocation_store = revocation_store
         self._keys: dict[str, dict[str, Any]] = {}
         self._fetched_at = 0.0
         self._revoked_jti: set[str] = set()
@@ -131,20 +135,31 @@ class SupabaseJwtVerifier:
             raise ValueError("invalid_token") from error
         subject = str(claims["sub"])
         jwt_id = str(claims["jti"]) if claims.get("jti") else None
-        if jwt_id and jwt_id in self._revoked_jti:
+        if jwt_id and (
+            jwt_id in self._revoked_jti
+            or self.revocation_store is not None
+            and await self.revocation_store.is_jti_revoked(jwt_id)
+        ):
             raise ValueError("token_revoked")
         token_epoch = int(claims.get("session_epoch", 0))
-        if token_epoch < self._revoked_subject_epoch.get(subject, -1):
+        revoked_epoch = self._revoked_subject_epoch.get(subject, -1)
+        if self.revocation_store is not None:
+            revoked_epoch = max(revoked_epoch, await self.revocation_store.subject_epoch(subject))
+        if token_epoch < revoked_epoch:
             raise ValueError("token_revoked")
         return JwtClaims(subject, str(claims["iss"]), claims["aud"], jwt_id, claims)
 
-    def revoke_jti(self, jwt_id: str) -> None:
+    async def revoke_jti(self, jwt_id: str) -> None:
         self._revoked_jti.add(jwt_id)
+        if self.revocation_store is not None:
+            await self.revocation_store.revoke_jti(jwt_id)
 
-    def revoke_subject(self, subject: str) -> None:
+    async def revoke_subject(self, subject: str) -> None:
         next_epoch = self._subject_epochs.get(subject, 0) + 1
         self._subject_epochs[subject] = next_epoch
         self._revoked_subject_epoch[subject] = next_epoch
+        if self.revocation_store is not None:
+            await self.revocation_store.revoke_subject(subject, next_epoch)
 
     def clear_cache(self) -> None:
         self._keys = {}

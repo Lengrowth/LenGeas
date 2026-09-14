@@ -20,6 +20,7 @@ from packages.domain.authorization.policy import (
     PolicyRequest,
     Resource,
 )
+from packages.domain.coordination_memory import InMemoryRevocationStore
 from packages.domain.identity.merge import MergeService
 from packages.domain.identity.privacy import PrivacyOperation, PrivacyService
 from packages.domain.identity.repository import InMemoryIdentityRepository
@@ -172,6 +173,45 @@ class IdentitySecurityTests(unittest.TestCase):
         self.assertEqual(client.post("/api/v1/sessions/revoke", headers=headers).status_code, 204)
         self.assertEqual(client.get("/api/v1/auth/current", headers=headers).status_code, 401)
 
+    def test_session_revocation_is_visible_to_a_second_api_worker(self) -> None:
+        identity = InMemoryIdentityRepository()
+        account = identity.create_account()
+        player = identity.create_player()
+        account.player_id = player.player_id
+        identity.link_identity(
+            player.player_id, "supabase", "supabase", "subject-1", account_id=account.account_id
+        )  # type: ignore[arg-type]
+        tenancy = InMemoryTenantRepository()
+        tenancy.memberships["membership"] = Membership(
+            "membership", "studio", account.account_id, MembershipRole.ADMIN, datetime.now(UTC)
+        )
+        revocations = InMemoryRevocationStore()
+        first = TestClient(
+            create_app(
+                identity=identity,
+                tenancy=tenancy,
+                jwt_verifier=FakeJwt(),
+                revocation_store=revocations,
+                test_mode=True,
+            )
+        )
+        second = TestClient(
+            create_app(
+                identity=identity,
+                tenancy=tenancy,
+                jwt_verifier=FakeJwt(),
+                revocation_store=revocations,
+                test_mode=True,
+            )
+        )
+        headers = {
+            "Authorization": "Bearer verified-token",
+            "x-studio-id": "studio",
+            "Idempotency-Key": "revoke-cross-worker-0001",
+        }
+        self.assertEqual(first.post("/api/v1/sessions/revoke", headers=headers).status_code, 204)
+        self.assertEqual(second.get("/api/v1/auth/current", headers=headers).status_code, 401)
+
     def test_merge_requires_owner_and_both_guest_proofs(self) -> None:
         identity = InMemoryIdentityRepository()
         account = identity.create_account()
@@ -244,9 +284,22 @@ class IdentitySecurityTests(unittest.TestCase):
         allowed = client.post(
             "/api/v1/auth/identity-links",
             json={"provider": "steam", "subject": "s-1", "provider_proof": "provider-proof"},
-            headers=headers,
+            headers={**headers, "Idempotency-Key": "link-0002"},
         )
         self.assertEqual(allowed.status_code, 201)
+        replay = client.post(
+            "/api/v1/auth/identity-links",
+            json={"provider": "steam", "subject": "s-1", "provider_proof": "provider-proof"},
+            headers={**headers, "Idempotency-Key": "link-0002"},
+        )
+        self.assertEqual(replay.status_code, 201)
+        self.assertEqual(replay.json(), allowed.json())
+        conflict = client.post(
+            "/api/v1/auth/identity-links",
+            json={"provider": "steam", "subject": "s-2", "provider_proof": "provider-proof"},
+            headers={**headers, "Idempotency-Key": "link-0002"},
+        )
+        self.assertEqual(conflict.status_code, 409)
 
     def test_concurrent_guest_proof_is_consumed_once(self) -> None:
         async def run() -> list[object]:

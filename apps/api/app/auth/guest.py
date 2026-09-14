@@ -6,6 +6,7 @@ import asyncio
 import base64
 import hashlib
 import secrets
+import time
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from typing import Protocol
@@ -13,6 +14,7 @@ from typing import Protocol
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
 from packages.domain.audit.events import EventEnvelope
+from packages.domain.coordination_memory import InMemoryProofConsumptionStore
 from packages.domain.identity.models import IdentityKind
 from packages.domain.identity.repository import InMemoryIdentityRepository
 
@@ -47,11 +49,12 @@ class GuestIdentityService:
         turnstile: TurnstileVerifier,
         *,
         max_per_device: int = 3,
+        proof_store: object | None = None,
     ) -> None:
         self.repository = repository
         self.turnstile = turnstile
         self.max_per_device = max_per_device
-        self._used_proofs: set[str] = set()
+        self.proof_store = proof_store or InMemoryProofConsumptionStore()
         self._credential_hashes: dict[str, str] = {}
         self._device_counts: dict[str, int] = {}
         self._device_keys_raw: dict[str, str] = {}
@@ -68,7 +71,7 @@ class GuestIdentityService:
     async def _create_unlocked(
         self, turnstile_proof: str, device_public_key: str, remote_ip: str | None = None
     ) -> GuestCredentials:
-        if not turnstile_proof or turnstile_proof in self._used_proofs:
+        if not turnstile_proof:
             raise ValueError("turnstile_replay")
         try:
             raw_key = base64.urlsafe_b64decode(
@@ -80,9 +83,13 @@ class GuestIdentityService:
         device_hash = _hash(device_public_key)
         if self._device_counts.get(device_hash, 0) >= self.max_per_device:
             raise ValueError("guest_abuse_limit")
+        consumed = await self.proof_store.consume(
+            turnstile_proof, expires_at=time.monotonic() + 300
+        )
+        if not consumed:
+            raise ValueError("turnstile_replay")
         if not await self.turnstile.verify(turnstile_proof, remote_ip):
             raise ValueError("turnstile_failed")
-        self._used_proofs.add(turnstile_proof)
         player = self.repository.create_player()
         credential = secrets.token_urlsafe(48)
         identity = self.repository.link_identity(

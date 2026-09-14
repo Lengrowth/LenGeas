@@ -100,7 +100,7 @@ class InMemoryTenantRepository:
         self.memberships[membership.membership_id] = membership
         self.events.append(
             EventEnvelope.create(
-                "studio.membership_changed.v1",
+                "studio.service_account_revoked.v1",
                 "InMemoryTenantRepository",
                 studio_id=scope.studio_id,
                 payload={"membership_id": membership.membership_id, "role": role.value},
