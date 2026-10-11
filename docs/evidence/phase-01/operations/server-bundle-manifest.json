@@ -4,11 +4,11 @@
   "files": [
     {
       "path": "compose.yaml",
-      "sha256": "7d24bf85e441285f353cff2cf688a2d9bc50e8069d858b101c872f7125e03b6f"
+      "sha256": "7bad9b2ab4791294757d76b62e54697d28f0a0e949d7f3d4a8086aa47fb0b6af"
     },
     {
       "path": ".env.example",
-      "sha256": "ac57da41f65e6ed82fcc9282852f044001b46036ed40238314572739f497172d"
+      "sha256": "dfa40d4b3961ec3284ba2c76d014b3d7de73540a4c9c91398f6fbb91cf6a00d6"
     },
     {
       "path": "infrastructure/docker/api-shell/Dockerfile",
@@ -44,7 +44,7 @@
     },
     {
       "path": "infrastructure/aws/README.md",
-      "sha256": "53451a36dbaff72b491d0fd0cbac65b574f2da2db0e3b233f05342feff02c32a"
+      "sha256": "1b5c31457d579fed7080524871ec653c0ec439a2190b39a282c36316b44ea740"
     },
     {
       "path": "infrastructure/aws/phase-01-user-data.sh",
@@ -57,8 +57,8 @@
     "valkey/valkey@sha256:a19bebed6a91bd5e6e2106fef015f9602a3392deeb7c9ed47548378dcee3dfc2",
     "rabbitmq@sha256:294b01e1796a8acede4619f32a1c394fae1f8021e57986ea01aad38dc2a4f502",
     "redpandadata/redpanda@sha256:218469e5d088757bb2c3ff4c5e272f7eebdc4e94c933e6e15aff10b845cbcd07",
-    "quay.io/minio/minio@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e",
-    "quay.io/minio/mc@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727",
+    "docker.io/pgsty/silo@sha256:635197cb9f36d01bee221d34d1c7d7960f6a95c48b0b6c01d99cd13bdae51a46",
+    "docker.io/pgsty/silo@sha256:635197cb9f36d01bee221d34d1c7d7960f6a95c48b0b6c01d99cd13bdae51a46",
     "axllent/mailpit@sha256:6abc8e633df15eaf785cfcf38bae48e66f64beecdc03121e249d0f9ec15f0707",
     "jaegertracing/all-in-one@sha256:ab6f1a1f0fb49ea08bcd19f6b84f6081d0d44b364b6de148e1798eb5816bacac",
     "otel/opentelemetry-collector-contrib@sha256:4a951ff0a9772f4fa8e9c7a326434370301b98b2b813933468dcb54aa6a6b5e5",
@@ -66,7 +66,7 @@
     "grafana/grafana@sha256:74144189b38447facf737dfd0f3906e42e0776212bf575dc3334c3609183adf7"
   ],
   "schema_version": "1.0.0",
-  "source_commit": "d9f6715f3f997487c5cb0075b518ecb60c1aaa9e",
+  "source_commit": "88d3101bf8661389f15cb1c74ab53be603cf3f1b",
   "verification": [
     "docker compose config --quiet",
     "python tools/dev/task_runner.py local-up",
