@@ -395,6 +395,24 @@ def test_formula_variables_are_allowlisted() -> None:
     assert "formula_variable_not_allowed" in {error["code"] for error in result["errors"]}
 
 
+def test_blueprint_formula_operation_budget_is_enforced() -> None:
+    bundle = valid_bundle()
+    bundle["blueprint"]["resource_budget"]["max_formula_operations"] = 2
+    bundle["documents"] = [
+        valid_formula(
+            {
+                "operator": "add",
+                "args": [
+                    {"operator": "literal", "value": 1},
+                    {"operator": "literal", "value": 2},
+                ],
+            }
+        )
+    ]
+    result = validate_bundle(bundle)
+    assert "formula_operation_budget_exceeded" in {error["code"] for error in result["errors"]}
+
+
 def test_progression_cycle_and_required_unreachable_node_are_rejected() -> None:
     bundle = valid_bundle()
     first = valid_progression("node_alpha", children=["node_beta"], entry=True)

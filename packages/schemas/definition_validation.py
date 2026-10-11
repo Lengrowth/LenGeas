@@ -511,13 +511,24 @@ def validate_bundle(value: Any) -> dict[str, Any]:
                     errors.append(
                         _error(f"{pointer}/configuration", "remote_config_forbidden_field")
                     )
+    blueprint_budget = value["blueprint"]["resource_budget"]
     operation_budget = min(
-        (module["resource_budget"]["max_formula_operations"] for module in value["modules"]),
-        default=4096,
+        [
+            blueprint_budget["max_formula_operations"],
+            *(module["resource_budget"]["max_formula_operations"] for module in value["modules"]),
+        ]
     )
     condition_budget = min(
-        (module["resource_budget"]["max_condition_nodes"] for module in value["modules"]),
-        default=256,
+        [
+            blueprint_budget["max_condition_nodes"],
+            *(module["resource_budget"]["max_condition_nodes"] for module in value["modules"]),
+        ]
+    )
+    depth_limit = min(
+        [
+            blueprint_budget["max_ast_depth"],
+            *(module["resource_budget"]["max_ast_depth"] for module in value["modules"]),
+        ]
     )
 
     def ast_size(node: Any, depth: int = 0) -> tuple[int, int]:
@@ -546,10 +557,6 @@ def validate_bundle(value: Any) -> dict[str, Any]:
             size, depth = ast_size(node)
             is_formula = any(pointer.startswith(prefix) for prefix in formula_prefixes)
             budget = operation_budget if is_formula else condition_budget
-            depth_limit = min(
-                (module["resource_budget"]["max_ast_depth"] for module in value["modules"]),
-                default=32,
-            )
             if size > budget or depth > depth_limit:
                 errors.append(
                     _error(
