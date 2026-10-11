@@ -615,7 +615,10 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "task generate twice with zero second-run diff",
             "definition schema compilation and compatibility checks",
             "valid and invalid definition fixture conformance suite",
-            "cross-platform canonical digest verification",
+            (
+                "Windows canonical digest verified locally; Ubuntu and Windows CI matrix "
+                "configured and pending the protected-branch pull-request push"
+            ),
             "generated Python and TypeScript model compilation",
             "documentation generation and validation",
             "task phase:gate PHASE=04 (review gate; owner acceptance remains external)",
