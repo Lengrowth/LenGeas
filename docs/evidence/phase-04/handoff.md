@@ -4,6 +4,8 @@
 
 `in_review`; P04-T01 through P04-T08 have review evidence. The repository owner must explicitly accept this phase. No schema has been published to an external registry.
 
+The independent review corrections are committed on `main` as `1db9a84` (`P04: fix definition schema review findings`). The evidence-only manifest refresh follows separately and binds this source commit.
+
 ## Operational interfaces
 
 - Schema source: `packages/schemas/definition/v0.1/bundle.schema.json`, Draft 2020-12, version `0.1.0`.

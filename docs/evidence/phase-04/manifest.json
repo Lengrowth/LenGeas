@@ -11,7 +11,7 @@
     },
     {
       "path": "packages/schemas/definition_validation.py",
-      "sha256": "35b264e754e462c5f4440b6a4e05d73eb9de83e5ad5d99f8cd75823d77528f0a"
+      "sha256": "1bd18047e33949e56e7878b542e8eecfe676d58bf24c2adc7903f0647e7a10da"
     },
     {
       "path": "tools/dev/definition_schemas.py",
@@ -19,11 +19,11 @@
     },
     {
       "path": "tools/dev/definition_cli.py",
-      "sha256": "4c27eb539dd8d603463fcef8e57a8c280ec9cde0abcd674fbe1bc9276e4b3b29"
+      "sha256": "e9b97abf004305c6a964600885d3106abbca0df239e59d3022ce649bd95d89bb"
     },
     {
       "path": "tools/dev/sign_definition_release.py",
-      "sha256": "bbda1b36b59b967ad0288d4d38fd80bc2edfe377d9d467925c00eff24f3d90f4"
+      "sha256": "155c84cbea4449cfd3beab6e60510e597dc6a5177fad35913f26dee7deddf731"
     },
     {
       "path": "tools/dev/generate_definition_models.py",
@@ -31,7 +31,7 @@
     },
     {
       "path": "tools/dev/generate.py",
-      "sha256": "2845a86600da75b2e42b261f90ec3ba96d84550a732db3a1978304c69321a082"
+      "sha256": "cdcbbf420918a40e15db2f120d65857434272cfa7c0b2fadd15d485b7071ae4d"
     },
     {
       "path": "packages/sdk-python/definition_v0_1.py",
@@ -43,7 +43,7 @@
     },
     {
       "path": "tests/unit/definitions",
-      "sha256": "5079c5cc5d5a1dac15f3f259ebe8df3784b8ad745b497fb594c4210967e4d767"
+      "sha256": "a60da9710fa356c79fdc7e1cb6d1c522d630bf6187d895352b2ee0cdb3fd5959"
     },
     {
       "path": "tests/security/definitions",
@@ -59,7 +59,7 @@
     },
     {
       "path": "docs/05-game-definition-schema-v0.1.md",
-      "sha256": "fb89518951273662e57b93ce30f8bb825054e27db140cd705bd30187cf13d7dd"
+      "sha256": "5f9896ce1d70aa28034e3ab39968dea218741fb16e9a788188ecfad010346068"
     },
     {
       "path": "docs/14-mechanics-packages.md",
@@ -99,7 +99,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "d1316ca97ab853dfb5270867d36bf521872715eb9574929c3c97313df52c9fcb"
+      "sha256": "7d79dacc849311d9fc741c70a20320dd4b38f3808ebca5c2cf3284c399f15c22"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -107,31 +107,31 @@
     },
     {
       "path": "docs/evidence/phase-04/blockers.md",
-      "sha256": "8b488750965d17653bae329b99e20c4217d9472643eb722213a3d2dcdedf3bce"
+      "sha256": "aa7336b9eca8e816c6ad0bdb242e8c8b4a3369864487dddc5d44a1c0f13fa0a7"
     },
     {
       "path": "docs/evidence/phase-04/decisions.md",
-      "sha256": "50b0ba18d0f0cdefd62cb43b96b874f052a3856acb65d9a9cb214da6c2830dc1"
+      "sha256": "bcc9daddfc4bda8aaccadf96a07da17a916bc4420e7bfd555b2223666dddc6a7"
     },
     {
       "path": "docs/evidence/phase-04/handoff.md",
-      "sha256": "e5ab2a48f3a2963283b3256954df924f467e98a503f867684089d3162399e37c"
+      "sha256": "8e956e0d488e957eb944259b8e9f7184ed3b87b17acbdf766e7d17ddcf7d89b3"
     },
     {
       "path": "docs/evidence/phase-04/commands.ndjson",
-      "sha256": "0001e775937d53ac3def182ba820725f7f726a168eb3ec9674199a75414148d4"
+      "sha256": "e85bdd81a5f3658c961fdaa8ae33f256f3a5ca9884d8fa0377c27e329ec5ec3a"
     },
     {
       "path": "docs/evidence/phase-04/test-report.xml",
-      "sha256": "45e0af53561055b0d765547e0c51349d987d7330e5be4f04877adfee4da10548"
+      "sha256": "cf4e9aca45d24b17a1c313749ae92abddc6df9f688bae52bc9067d844d6cf32b"
     },
     {
       "path": "docs/evidence/phase-04/coverage.json",
-      "sha256": "eafaac2757bd9f3c0d6439e211601baed54236a3b9055e9d50a0076e67673ece"
+      "sha256": "95c081f36a79a8e0a9d3ed46a9178582bdc1dc4e9d79cfb779c0c7140f05c2a9"
     },
     {
       "path": "docs/evidence/phase-04/tasks",
-      "sha256": "d790d5f356c3d8756b5ce56064d798702e3a29fc9b4baa18b7cc8d1d6d56a873"
+      "sha256": "32f4c49ee061d3e63f2cea9e8102524911e33c89e7c1a952fb86b8365430213f"
     },
     {
       "path": "docs/evidence/phase-04/security",
@@ -139,11 +139,11 @@
     },
     {
       "path": "docs/evidence/phase-04/performance",
-      "sha256": "6feae4dd211d55528371d56788e154cde4fa96d0097f6a444952159af8070dde"
+      "sha256": "0e8d884db1db27a0b8a395954a2ec11dc0cfee20fc117bd5ff1a6a9281353058"
     },
     {
       "path": "docs/evidence/phase-04/operations",
-      "sha256": "4fef867a4a8add241dabb3e374605abdc00d62a1c5617e105bb144fc45054162"
+      "sha256": "72e6d25e3dcbacb7283c59d2ae5ba83b5d850cdaf496a7a83ed903926c7db516"
     }
   ],
   "base_commit": "4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd",
@@ -158,15 +158,19 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-11T20:36:20.513827Z",
-  "final_commit": "42da5561284c81ea30536daa40be4e1957793335",
+  "end_utc": "2026-10-11T22:03:57.785278Z",
+  "final_commit": "1db9a84330a8902026110d2e5a5dedb739be8438",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit Phase 04 acceptance",
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
   ],
   "open_risks": [
     "Internal registry publication requires owner-managed registry credentials and endpoint; signed artifact is reviewable locally.",
-    "Runtime execution and full game-balance simulation are conformance checks only; phase 05 provides production runtime consumers."
+    "The Phase 04 release public key is self-supplied and has no independent trust anchor; the signature verifies artifact integrity but not signer identity.",
+    "Runtime execution and full game-balance simulation remain conformance_only; staging eligibility stays false until later-phase consumers exist.",
+    "P04-T07 calls for generated TypeScript validators, but the generated TypeScript artifact contains structural types only.",
+    "Negative-balance approval metadata is self-asserted; publication must verify the referenced security review through an authorized review system.",
+    "The checked-in evidence does not contain a completed Ubuntu/Windows digest matrix result; only the Windows digest is verified locally."
   ],
   "phase": "04",
   "requirement_ids": [
@@ -180,7 +184,7 @@
     "task generate twice with zero second-run diff",
     "definition schema compilation and compatibility checks",
     "valid and invalid definition fixture conformance suite",
-    "Windows canonical digest verified locally; Ubuntu and Windows CI matrix verified on the main-branch push",
+    "Windows canonical digest verified locally; Ubuntu and Windows workflow matrix is configured, but a completed hosted cross-platform result is not present",
     "generated Python and TypeScript model compilation",
     "documentation generation and validation",
     "task phase:gate PHASE=04 (review gate; owner acceptance remains external)"
