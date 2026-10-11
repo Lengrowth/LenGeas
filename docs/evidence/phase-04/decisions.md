@@ -1,6 +1,6 @@
 # Phase 04 implementation decisions
 
-- The accepted Draft 2020-12 contract in `docs/05-game-definition-schema-v0.1.md` and `docs/14-mechanics-packages.md` remains authoritative. No architecture choice or dependency was changed.
+- The accepted Draft 2020-12 contract in `docs/05-game-definition-schema-v0.1.md` and `docs/14-mechanics-packages.md` remains authoritative. No schema technology or architecture choice changed. The review added pinned Ajv 8.20.0 and ajv-formats 3.0.1 dependencies only to execute generated TypeScript structural validators.
 - `packages/schemas/definition/v0.1/bundle.schema.json` is the source schema catalog; per-definition schema files and Python/TypeScript models are generated from it.
 - Authoring YAML is restricted to a deterministic safe subset. Canonical JSON is compact UTF-8 with recursively sorted object keys; package arrays are sorted by stable ID before hashing.
 - Module dependency ranges use the v0.1 subset `*`, exact `M.m.p`, `^M.m.p`, and `~M.m.p`; installed module versions must satisfy the range. Unsupported range syntax is rejected.

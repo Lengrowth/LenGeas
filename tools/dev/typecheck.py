@@ -59,6 +59,13 @@ def main() -> int:
     )
     if result.returncode:
         return result.returncode
+    result = subprocess.run(
+        ["node", "--experimental-strip-types", "tests/unit/definitions/typescript_validator.mts"],
+        cwd=ROOT,
+        check=False,
+    )
+    if result.returncode:
+        return result.returncode
     print("PASS typecheck: strict Python and TypeScript")
     return 0
 

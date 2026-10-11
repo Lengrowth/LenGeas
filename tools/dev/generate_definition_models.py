@@ -104,6 +104,8 @@ def generate() -> None:
     ]
     ts: list[str] = [
         "// Generated from packages/schemas/definition/v0.1/bundle.schema.json. Do not edit.",
+        'import Ajv2020 from "ajv/dist/2020.js";',
+        'import addFormats from "ajv-formats";',
         "",
     ]
     rows = [
@@ -148,18 +150,113 @@ def generate() -> None:
         rows.append(
             f"| `{name}` | {', '.join(f'`{field}`' for field in sorted(required)) or '—'} |"
         )
+    rows.extend(
+        [
+            "",
+            "## TypeScript validation",
+            "",
+            "`validateDefinitionSchema` validates generated definitions by stable schema name.",
+            "`validateDefinitionBundle` is the typed convenience wrapper for the bundle schema.",
+            "It returns JSON Pointer errors with the stable `schema_validation` code.",
+            "The Python CLI additionally performs YAML parsing, package-size, reference, graph,",
+            "semantic, and safety checks.",
+        ]
+    )
     py.append('SCHEMA_VERSION = "0.1.0"')
+    serialized_schema = json.dumps(root, ensure_ascii=False, separators=(",", ":"))
+    schema_id = root["$id"]
+    ts.extend(
+        [
+            "export interface DefinitionTypeMap {",
+            *[f"  {json.dumps(name)}: {name};" for name in defs],
+            "}",
+            "",
+            "export const definitionSchemaNames = [",
+            *[f"  {json.dumps(name)}," for name in defs],
+            "] as const satisfies readonly (keyof DefinitionTypeMap)[];",
+            "",
+            "export type DefinitionSchemaName = (typeof definitionSchemaNames)[number];",
+            "",
+            "export interface DefinitionValidationError {",
+            "  pointer: string;",
+            '  code: "schema_validation";',
+            '  severity: "error";',
+            "}",
+            "",
+            "export type DefinitionValidationResult<T = unknown> =",
+            "  | { valid: true; value: T; errors: [] }",
+            "  | { valid: false; errors: DefinitionValidationError[] };",
+            "",
+            "const DEFINITION_SCHEMA_V0_1 = JSON.parse(",
+            f"  {json.dumps(serialized_schema, ensure_ascii=False)},",
+            ") as object;",
+            "",
+            f"const DEFINITION_SCHEMA_ID_V0_1 = {json.dumps(schema_id)};",
+            "const definitionAjv = new Ajv2020({",
+            "  allErrors: true,",
+            "  ownProperties: true,",
+            "  strict: true,",
+            "  validateFormats: true,",
+            "});",
+            "addFormats(definitionAjv);",
+            "definitionAjv.addSchema(DEFINITION_SCHEMA_V0_1);",
+            "",
+            "/**",
+            " * Validate a generated Draft 2020-12 definition schema.",
+            " * Select it by its stable definition name.",
+            " */",
+            "export function validateDefinitionSchema<Name extends DefinitionSchemaName>(",
+            "  name: Name,",
+            "  value: unknown,",
+            "): DefinitionValidationResult<DefinitionTypeMap[Name]> {",
+            "  const validator = definitionAjv.getSchema(",
+            "    `${DEFINITION_SCHEMA_ID_V0_1}#/$defs/${name}`",
+            "  );",
+            "  if (!validator) {",
+            "    throw new Error(`Generated definition schema not found: ${name}`);",
+            "  }",
+            "  if (validator(value)) {",
+            "    return { valid: true, value: value as DefinitionTypeMap[Name], errors: [] };",
+            "  }",
+            "  const errors = (validator.errors ?? []).map((error) => ({",
+            "    pointer: error.instancePath,",
+            '    code: "schema_validation" as const,',
+            '    severity: "error" as const,',
+            "  }));",
+            "  errors.sort((left, right) => {",
+            "    if (left.pointer < right.pointer) return -1;",
+            "    if (left.pointer > right.pointer) return 1;",
+            "    return 0;",
+            "  });",
+            "  return { valid: false, errors };",
+            "}",
+            "",
+            "/**",
+            " * Validate Draft 2020-12 bundle structure; semantic checks remain in the Python CLI.",
+            " */",
+            "export function validateDefinitionBundle(",
+            "  value: unknown,",
+            "): DefinitionValidationResult<DefinitionBundle> {",
+            '  return validateDefinitionSchema("DefinitionBundle", value);',
+            "}",
+            "",
+        ]
+    )
     DOC_OUT.parent.mkdir(parents=True, exist_ok=True)
-    PYTHON_OUT.write_text("\n".join(py) + "\n", encoding="utf-8")
-    TS_OUT.write_text("\n".join(ts), encoding="utf-8")
-    DOC_OUT.write_text("\n".join(rows) + "\n", encoding="utf-8")
+    PYTHON_OUT.write_text("\n".join(py) + "\n", encoding="utf-8", newline="\n")
+    TS_OUT.write_text("\n".join(ts), encoding="utf-8", newline="\n")
+    DOC_OUT.write_text("\n".join(rows) + "\n", encoding="utf-8", newline="\n")
     subprocess.run(
         ["uv", "run", "--frozen", "ruff", "format", str(PYTHON_OUT)],
         cwd=ROOT,
         check=True,
     )
     node = "pnpm.cmd" if sys.platform == "win32" else "pnpm"
-    subprocess.run([node, "exec", "prettier", "--write", str(TS_OUT)], cwd=ROOT, check=True)
+    subprocess.run(
+        [node, "exec", "prettier", "--write", str(TS_OUT), str(DOC_OUT)],
+        cwd=ROOT,
+        check=True,
+    )
 
 
 if __name__ == "__main__":

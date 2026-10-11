@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "scripts": {"typecheck": "tsc --noEmit"}
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  }
 }
-

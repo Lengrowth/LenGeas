@@ -9,7 +9,6 @@ Review risks that remain open (they do not change the phase status or claim acce
 - The signed release's public key is included with the signature and is not anchored independently. The signature detects drift but cannot establish signer identity. Registry publication requires an owner-managed signing key and trusted-key policy.
 - No registry endpoint or secret-managed publication credential is configured, so publication was not attempted.
 - Runtime execution and balance simulation are not implemented in this schema phase. Validation marks those levels `conformance_only` and explicitly returns `staging_eligible: false`.
-- Generated TypeScript runtime validation is not present even though P04-T07 requests generated types/validators; the checked-in TypeScript artifact is type-only.
 - Negative-balance approval metadata is self-asserted. Publication must independently verify the referenced security review before admitting negative-balance resources.
 - The workflow defines an Ubuntu/Windows digest matrix, but current checked-in evidence and GitHub status lookup do not confirm a completed run. Only the Windows digest has local evidence.
 

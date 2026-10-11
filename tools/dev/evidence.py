@@ -92,6 +92,9 @@ PHASE04_ARTIFACT_PATHS = (
     "tools/dev/generate.py",
     "packages/sdk-python/definition_v0_1.py",
     "packages/sdk-typescript/src/definition-v0_1.ts",
+    "packages/sdk-typescript/package.json",
+    "packages/sdk-typescript/README.md",
+    "pnpm-lock.yaml",
     "tests/unit/definitions",
     "tests/security/definitions",
     "tests/conformance/fixtures/definitions",
@@ -108,6 +111,7 @@ PHASE04_ARTIFACT_PATHS = (
     "tools/dev/task_runner.py",
     "tools/dev/evidence.py",
     "tools/dev/phase_gate.py",
+    "tools/dev/typecheck.py",
     "docs/evidence/phase-04/blockers.md",
     "docs/evidence/phase-04/decisions.md",
     "docs/evidence/phase-04/handoff.md",
@@ -356,6 +360,8 @@ def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
             "python": "3.13.5 via uv 0.11.29",
             "node": "22.16.0",
             "pnpm": "11.20.0",
+            "ajv": "8.20.0",
+            "ajv-formats": "3.0.1",
             "terraform": "1.15.8",
             "task": "3.53.1",
             "git": "2.49.0.windows.1",
@@ -622,6 +628,10 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
                 "is configured, but a completed hosted cross-platform result is not present"
             ),
             "generated Python and TypeScript model compilation",
+            (
+                "Generated TypeScript validators were executed for every $defs name and valid/"
+                "invalid bundle and Item fixtures"
+            ),
             "documentation generation and validation",
             "task phase:gate PHASE=04 (review gate; owner acceptance remains external)",
         ],
@@ -637,10 +647,6 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
             (
                 "Runtime execution and full game-balance simulation remain conformance_only; "
                 "staging eligibility stays false until later-phase consumers exist."
-            ),
-            (
-                "P04-T07 calls for generated TypeScript validators, but the generated TypeScript "
-                "artifact contains structural types only."
             ),
             (
                 "Negative-balance approval metadata is self-asserted; publication must verify "
