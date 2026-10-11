@@ -2,7 +2,7 @@
 
 ## Status
 
-`in_review` — implementation is complete for P03-T01 through P03-T08 and is awaiting repository-owner review. Phase 03 is not accepted and the pull request must remain open and unmerged.
+`accepted` — the repository owner explicitly directed that PR #22 be merged after the review findings and required checks were resolved. The PR was squash-merged to `main` on 2026-10-11 as commit `4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd`.
 
 ## Actor and scope types
 

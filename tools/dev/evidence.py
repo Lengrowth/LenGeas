@@ -218,8 +218,8 @@ def verify_phase03_completeness(manifest: dict[str, object]) -> None:
     missing = sorted(required - present)
     if missing:
         raise SystemExit("Phase 03 evidence is incomplete: " + ", ".join(missing))
-    if manifest.get("status") != "in_review" or manifest.get("blockers") != []:
-        raise SystemExit("Phase 03 evidence must be in_review with no blockers")
+    if manifest.get("status") not in {"in_review", "accepted"} or manifest.get("blockers") != []:
+        raise SystemExit("Phase 03 evidence must be in_review or accepted with no blockers")
     if manifest.get("completed_task_ids") != [f"P03-T0{number}" for number in range(1, 9)]:
         raise SystemExit("Phase 03 evidence must list P03-T01 through P03-T08")
     import xml.etree.ElementTree as ET
@@ -412,6 +412,9 @@ def build_phase02_manifest(existing: dict[str, object] | None) -> dict[str, obje
 
 def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, object]:
     existing = existing or {}
+    status = existing.get("status", "in_review")
+    if status not in {"in_review", "accepted"}:
+        status = "in_review"
     artifacts = []
     for value in PHASE03_ARTIFACT_PATHS:
         path = ROOT / value
@@ -421,7 +424,7 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
     return {
         "schema_version": "1.0.0",
         "phase": "03",
-        "status": "in_review",
+        "status": status,
         "start_utc": existing.get(
             "start_utc", datetime.now(UTC).isoformat().replace("+00:00", "Z")
         ),
@@ -483,10 +486,14 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "apps/api/app/e2e.py; production provider credentials remain external.",
             "Development remains synthetic-data-only on the accepted Phase 02 host.",
         ],
-        "next_phase_prerequisites": [
-            "Repository-owner review and explicit acceptance",
-            "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md",
-        ],
+        "next_phase_prerequisites": (
+            []
+            if status == "accepted"
+            else [
+                "Repository-owner review and explicit acceptance",
+                "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md",
+            ]
+        ),
         "blockers": [],
     }
 

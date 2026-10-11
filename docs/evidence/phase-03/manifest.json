@@ -127,7 +127,7 @@
     },
     {
       "path": "docs/evidence/phase-03/handoff.md",
-      "sha256": "c276c23b124cd6daf8bea66330e7ccb28a74b26e304c8d052700f07988ea00ac"
+      "sha256": "85e4b9e21c6d180010f60978dd3a80914b182d707a887a497e586da94f2423af"
     },
     {
       "path": "docs/evidence/phase-03/blockers.md",
@@ -166,12 +166,9 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-10-11T19:37:23.043675Z",
-  "final_commit": "9d4e3600596cfab4ef2b69ed4d345cd881fd350c",
-  "next_phase_prerequisites": [
-    "Repository-owner review and explicit acceptance",
-    "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"
-  ],
+  "end_utc": "2026-10-11T19:44:34.200099Z",
+  "final_commit": "4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd",
+  "next_phase_prerequisites": [],
   "open_risks": [
     "Docker is unavailable on the Windows workstation; MongoDB Compose execution is delegated to hosted CI.",
     "Supabase and Turnstile production projects are intentionally not activated under ADR-0011; provider-faithful adapters and test boundaries are present.",
@@ -189,7 +186,7 @@
   ],
   "schema_version": "1.0.0",
   "start_utc": "2026-09-14T00:00:00Z",
-  "status": "in_review",
+  "status": "accepted",
   "tests": [
     "Phase 02 accepted gate and read-only manifest verification",
     "task bootstrap",
