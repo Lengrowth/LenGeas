@@ -11,7 +11,7 @@
     },
     {
       "path": "packages/schemas/definition_validation.py",
-      "sha256": "f5e164b6f02395a941223e6fc662063182f1bae9c2b962cf287b47ebfd4e065f"
+      "sha256": "35b264e754e462c5f4440b6a4e05d73eb9de83e5ad5d99f8cd75823d77528f0a"
     },
     {
       "path": "tools/dev/definition_schemas.py",
@@ -43,7 +43,7 @@
     },
     {
       "path": "tests/unit/definitions",
-      "sha256": "a94e160452c9675124948f8032de73287fb3dfbabe460c7566fbc7e1cd3b1f94"
+      "sha256": "5079c5cc5d5a1dac15f3f259ebe8df3784b8ad745b497fb594c4210967e4d767"
     },
     {
       "path": "tests/security/definitions",
@@ -119,19 +119,19 @@
     },
     {
       "path": "docs/evidence/phase-04/commands.ndjson",
-      "sha256": "7eb4141c21f4ea78503d52f022fddae18dfd77d0dfc02ee0390033d4a3be5f8f"
+      "sha256": "0001e775937d53ac3def182ba820725f7f726a168eb3ec9674199a75414148d4"
     },
     {
       "path": "docs/evidence/phase-04/test-report.xml",
-      "sha256": "f3ab359b6c6d0e716f7a1a16a3f08b231d1def589c69bc8abcafec30fd489fc0"
+      "sha256": "45e0af53561055b0d765547e0c51349d987d7330e5be4f04877adfee4da10548"
     },
     {
       "path": "docs/evidence/phase-04/coverage.json",
-      "sha256": "45c5e16820bfd0c5d9b4d3c8e2138acaf9b5f7e327ff8b55ca2eeebce47cef44"
+      "sha256": "eafaac2757bd9f3c0d6439e211601baed54236a3b9055e9d50a0076e67673ece"
     },
     {
       "path": "docs/evidence/phase-04/tasks",
-      "sha256": "f02331b22db3f66db729529c09b938a2ba21173ac4b8451b6d691e9cebaf618a"
+      "sha256": "d790d5f356c3d8756b5ce56064d798702e3a29fc9b4baa18b7cc8d1d6d56a873"
     },
     {
       "path": "docs/evidence/phase-04/security",
@@ -139,7 +139,7 @@
     },
     {
       "path": "docs/evidence/phase-04/performance",
-      "sha256": "7f90ce6fb102c835655b32faed61b150224c75467269c3359c17770a4215f7f9"
+      "sha256": "6feae4dd211d55528371d56788e154cde4fa96d0097f6a444952159af8070dde"
     },
     {
       "path": "docs/evidence/phase-04/operations",
@@ -158,8 +158,8 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-11T20:25:30.091378Z",
-  "final_commit": "177b2a0278f6899efdff812d516f2449371aa229",
+  "end_utc": "2026-10-11T20:27:49.601357Z",
+  "final_commit": "cf1222329bc29904766e24df5d2c7474461b63b4",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit Phase 04 acceptance",
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
