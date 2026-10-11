@@ -401,8 +401,14 @@ def create_app(
                 tenant_id=tenant,
                 fingerprint=fingerprint,
             )
-        except ValueError as error:
-            return JSONResponse(status_code=409, content=error_body(str(error), str(error)))
+        except ValueError:
+            return JSONResponse(
+                status_code=409,
+                content=error_body(
+                    "idempotency_conflict",
+                    "Idempotency key conflicts with an existing request.",
+                ),
+            )
         if existing is not None:
             if existing.status_code is None:
                 return JSONResponse(

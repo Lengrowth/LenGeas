@@ -20,6 +20,7 @@ from packages.domain.authorization.policy import (
     PolicyRequest,
     Resource,
 )
+from packages.domain.coordination import IdempotencyRecord
 from packages.domain.coordination_memory import InMemoryRevocationStore
 from packages.domain.identity.merge import MergeService
 from packages.domain.identity.privacy import PrivacyOperation, PrivacyService
@@ -45,7 +46,46 @@ class FakeProvider:
         return proof == "provider-proof"
 
 
+class FailingIdempotencyStore:
+    async def reserve(
+        self,
+        *,
+        key: str,
+        operation: str,
+        actor_id: str,
+        tenant_id: str | None,
+        fingerprint: str,
+    ) -> IdempotencyRecord | None:
+        raise ValueError("sensitive internal storage detail")
+
+    async def complete(self, key: str, *, status_code: int, body: object) -> None:
+        return None
+
+
 class IdentitySecurityTests(unittest.TestCase):
+    def test_idempotency_conflict_response_does_not_expose_exception_text(self) -> None:
+        client = TestClient(
+            create_app(
+                test_mode=True,
+                turnstile=FakeTurnstile(),
+                jwt_verifier=FakeJwt(),
+                idempotency_store=FailingIdempotencyStore(),
+            )
+        )
+        response = client.post(
+            "/api/v1/auth/guests",
+            json={},
+            headers={"Idempotency-Key": "guest-sensitive-error-0001"},
+        )
+
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(response.json()["error"]["code"], "idempotency_conflict")
+        self.assertEqual(
+            response.json()["error"]["message"],
+            "Idempotency key conflicts with an existing request.",
+        )
+        self.assertNotIn("sensitive internal storage detail", response.text)
+
     def test_forged_tenant_scope_is_denied(self) -> None:
         actor = Actor(
             "a", ActorKind.ACCOUNT, "studio-a", frozenset({MembershipRole.ADMIN}), mfa_verified=True
