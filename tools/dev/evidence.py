@@ -656,6 +656,10 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
                 "The checked-in evidence does not contain a completed Ubuntu/Windows digest "
                 "matrix result; only the Windows digest is verified locally."
             ),
+            (
+                "The recorded broader task verify run could not complete local integration and "
+                "deployed E2E selectors because Docker and LENGEAS_E2E_* values were unavailable."
+            ),
         ],
         "next_phase_prerequisites": [
             "Repository-owner review and explicit Phase 04 acceptance",

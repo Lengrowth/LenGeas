@@ -11,6 +11,7 @@ Review risks that remain open (they do not change the phase status or claim acce
 - Runtime execution and balance simulation are not implemented in this schema phase. Validation marks those levels `conformance_only` and explicitly returns `staging_eligible: false`.
 - Negative-balance approval metadata is self-asserted. Publication must independently verify the referenced security review before admitting negative-balance resources.
 - The workflow defines an Ubuntu/Windows digest matrix, but current checked-in evidence and GitHub status lookup do not confirm a completed run. Only the Windows digest has local evidence.
+- The broader `task verify` run recorded in `commands.ndjson` could not complete integration/deployed E2E locally because Docker and the required `LENGEAS_E2E_*` values were unavailable. The focused Phase 04 checks pass; hosted verification remains necessary for those broader selectors.
 
 - Phase 03 was accepted by the repository owner after the required PR checks passed. PR #22 was squash-merged to `main` as `4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd`.
 - The Phase 03 manifest is `accepted`, its handoff records the owner decision, and read-only evidence verification plus `phase-gate 03` pass.
