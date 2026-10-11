@@ -111,7 +111,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "fda496a95511bd2e50e9ae621e6288210a1f5ea819d96895e2b87679b356af59"
+      "sha256": "32d65d1ac9868ee61c3a8a216a9d8075569787bbb5c0756236d2bb50d522a501"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -123,7 +123,7 @@
     },
     {
       "path": "docs/evidence/phase-04/blockers.md",
-      "sha256": "e17fb6666f45a1e7c33a34b3851288122fa041928dc98c5f7370f13c1ec29b3d"
+      "sha256": "ef598e1ccc86b9145b2ffadee84df2d3f397e35e10095335f1c4652acb1cb4f2"
     },
     {
       "path": "docs/evidence/phase-04/decisions.md",
@@ -135,7 +135,7 @@
     },
     {
       "path": "docs/evidence/phase-04/commands.ndjson",
-      "sha256": "8bc93efa0d67d78652caaef5123468bb80e314d44f272fef2f9d7f1db4166328"
+      "sha256": "2134108268fbb3df0a890bfa51060694f3a308a15fc7ea8af6c2319811bf651a"
     },
     {
       "path": "docs/evidence/phase-04/test-report.xml",
@@ -174,8 +174,8 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-11T22:17:51.139305Z",
-  "final_commit": "595aeee3e77013980f556aa3cdaa0511a17f9ba5",
+  "end_utc": "2026-10-11T22:19:12.168039Z",
+  "final_commit": "3d532cff97f9ce1fc85985b9069515d60c14bacb",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit Phase 04 acceptance",
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
@@ -185,7 +185,8 @@
     "The Phase 04 release public key is self-supplied and has no independent trust anchor; the signature verifies artifact integrity but not signer identity.",
     "Runtime execution and full game-balance simulation remain conformance_only; staging eligibility stays false until later-phase consumers exist.",
     "Negative-balance approval metadata is self-asserted; publication must verify the referenced security review through an authorized review system.",
-    "The checked-in evidence does not contain a completed Ubuntu/Windows digest matrix result; only the Windows digest is verified locally."
+    "The checked-in evidence does not contain a completed Ubuntu/Windows digest matrix result; only the Windows digest is verified locally.",
+    "The recorded broader task verify run could not complete local integration and deployed E2E selectors because Docker and LENGEAS_E2E_* values were unavailable."
   ],
   "phase": "04",
   "requirement_ids": [
