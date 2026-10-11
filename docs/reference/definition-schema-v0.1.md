@@ -1,0 +1,43 @@
+# Definition schema v0.1 reference
+
+Generated from `packages/schemas/definition/v0.1/bundle.schema.json`.
+
+| Definition | Required fields |
+|---|---|
+| `Header` | `enabled`, `extensions`, `id`, `metadata`, `schema_version`, `tags` |
+| `Reference` | `id`, `kind` |
+| `StatePath` | `namespace_id`, `segments` |
+| `Dependency` | `module_id`, `version_range` |
+| `ReleaseLock` | `digest`, `module_id`, `version` |
+| `Blueprint` | `allowed_modules`, `features`, `id`, `name`, `network_modes`, `required_modules`, `resource_budget`, `schema_version`, `studio_id` |
+| `ResourceBudget` | `max_ast_depth`, `max_condition_nodes`, `max_events_per_action`, `max_formula_operations` |
+| `ExtensionRegistration` | `digest`, `schema`, `schema_id` |
+| `ExtensionManifest` | `extensions`, `schema_version` |
+| `PackageManifest` | `blueprint`, `documents`, `extension_manifest`, `game`, `modules`, `schema_version` |
+| `Entity` | `enabled`, `entity_type`, `extensions`, `id`, `initial_state`, `metadata`, `properties`, `relationships`, `schema_version`, `tags` |
+| `Resource` | `enabled`, `extensions`, `id`, `initial_amount`, `maximum`, `metadata`, `minimum`, `numeric_model`, `overflow_policy`, `resource_type`, `schema_version`, `tags`, `transfer_policy`, `visibility` |
+| `Condition` | `enabled`, `expression`, `extensions`, `id`, `metadata`, `schema_version`, `tags` |
+| `Formula` | `enabled`, `expression`, `extensions`, `id`, `metadata`, `schema_version`, `tags`, `variables` |
+| `Action` | `analytics`, `authority`, `conditions`, `cooldown`, `costs`, `effects`, `emitted_events`, `enabled`, `extensions`, `id`, `idempotency`, `input_schema`, `metadata`, `rate_limit_class`, `rewards`, `schema_version`, `tags` |
+| `Cost` | `enabled`, `extensions`, `id`, `insufficiency`, `ledger_reason`, `metadata`, `owner`, `quantity`, `schema_version`, `tags`, `target` |
+| `Effect` | `enabled`, `extensions`, `id`, `metadata`, `operation`, `path`, `schema_version`, `tags`, `target`, `value` |
+| `Reward` | `enabled`, `entries`, `extensions`, `id`, `metadata`, `schema_version`, `tags` |
+| `Event` | `allowed_consumers`, `analytics_mapping`, `contains_pii`, `enabled`, `extensions`, `id`, `major_version`, `metadata`, `payload_schema`, `producer`, `retention_class`, `schema_version`, `tags`, `type` |
+| `Timer` | `authority`, `duration_formula`, `enabled`, `extensions`, `id`, `max_catch_up`, `metadata`, `offline_policy`, `on_due_action`, `pause_policy`, `schedule`, `schema_version`, `stacking_policy`, `tags`, `timer_type` |
+| `Relationship` | `enabled`, `extensions`, `id`, `metadata`, `relationship_type`, `schema_version`, `tags`, `target_id`, `target_type` |
+| `ProgressionNode` | `children`, `costs`, `dependencies`, `effects`, `enabled`, `exclusive_group`, `extensions`, `graph_id`, `id`, `metadata`, `node_type`, `repeat_policy`, `requirements`, `rewards`, `schema_version`, `tags` |
+| `Game` | `blueprint`, `default_locale`, `definition_schema_version`, `engine_range`, `features`, `genre_labels`, `id`, `modules`, `name`, `network_mode`, `state_schema_version`, `studio_id`, `supported_locales` |
+| `Module` | `configuration`, `conflicts`, `digest`, `emitted_events`, `engine_range`, `id`, `migrations`, `registered_actions`, `registered_conditions`, `registered_effects`, `registered_timers`, `requires`, `resource_budget`, `state_namespaces`, `subscribed_events`, `version` |
+| `Item` | `enabled`, `extensions`, `id`, `item_type`, `metadata`, `properties`, `schema_version`, `stack_limit`, `tags` |
+| `Inventory` | `accepted_items`, `enabled`, `extensions`, `id`, `metadata`, `owner_type`, `schema_version`, `slot_limit`, `tags` |
+| `Quest` | `enabled`, `extensions`, `id`, `metadata`, `objectives`, `requirements`, `rewards`, `schema_version`, `tags` |
+| `Achievement` | `enabled`, `extensions`, `id`, `metadata`, `repeatable`, `requirements`, `rewards`, `schema_version`, `tags` |
+| `Entitlement` | `enabled`, `extensions`, `grant_type`, `id`, `metadata`, `revocable`, `schema_version`, `scope`, `tags` |
+| `Localization` | `enabled`, `entries`, `extensions`, `id`, `locale`, `metadata`, `schema_version`, `tags` |
+| `LiveOps` | `actions`, `configuration`, `enabled`, `ends_at`, `extensions`, `id`, `metadata`, `schema_version`, `starts_at`, `tags` |
+| `Experiment` | `allocation`, `enabled`, `extensions`, `id`, `metadata`, `metrics`, `schema_version`, `tags`, `variants` |
+| `Analytics` | `contains_pii`, `enabled`, `event_id`, `extensions`, `fields`, `id`, `metadata`, `schema_version`, `tags` |
+| `Save` | `enabled`, `extensions`, `id`, `metadata`, `migrations`, `namespaces`, `schema_version`, `tags`, `version` |
+| `Match` | `authority`, `enabled`, `extensions`, `id`, `metadata`, `mode`, `participants`, `rules`, `schema_version`, `tags` |
+| `CrossGameContract` | `allowed_rewards`, `contract_version`, `enabled`, `extensions`, `id`, `metadata`, `schema_version`, `source_game`, `tags`, `target_game` |
+| `DefinitionBundle` | `blueprint`, `documents`, `extension_manifest`, `game`, `modules`, `schema_version` |

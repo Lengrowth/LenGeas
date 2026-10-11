@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 
 from canonical_json import canonical_text
+from definition_schemas import main as generate_definition_schemas
+from generate_definition_models import generate as generate_definition_models
 from typegen import generate_types
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -17,6 +19,8 @@ GENERATED = ROOT / "packages" / "shared-types" / "generated"
 
 
 def generate() -> None:
+    generate_definition_schemas()
+    generate_definition_models()
     GENERATED.mkdir(parents=True, exist_ok=True)
     vectors = sorted((SCHEMA / "canonical" / "vectors").glob("fixture_*.json"))
     index = {
