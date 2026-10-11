@@ -7,11 +7,11 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "26ec0f448ed19e1cc1ca231fdc405477a9921e1a928cdbb92ed4f2a38d6aa0d5"
+      "sha256": "50847b0ee7adf025896fb536e3ead08077fe7c826ef728727dea00c3a2a9c96c"
     },
     {
       "path": "uv.lock",
-      "sha256": "bb7642823efd18c08a8ec64d28c1bc47a10eb4cde0d5a45630216d440fae20f5"
+      "sha256": "647fe44b1a0572dc5db4062ef8c690e783d8b53ec8bdf8d0672a22b1b810ff19"
     },
     {
       "path": "packages/domain/identity",
@@ -107,11 +107,11 @@
     },
     {
       "path": "docs/evidence/phase-03/tasks",
-      "sha256": "7d17dec633d50bf6bfb4813da6cde5710ba0f31c0aa1cbc0f2db42641dc02100"
+      "sha256": "ac205b3010cd8f5ba66ce0a03e710f807a048ca3dab4af9f238519f2d1b3ae52"
     },
     {
       "path": "docs/evidence/phase-03/security",
-      "sha256": "4e9fee66c20c9ae4554bfbed2126000330545ef7ad9faec88f28ca5468749248"
+      "sha256": "634d292d6d8b83bba279e6eb4c5d2675e40ea20a8eb1322408d3c0107fd05d47"
     },
     {
       "path": "docs/evidence/phase-03/performance",
@@ -139,15 +139,15 @@
     },
     {
       "path": "docs/evidence/phase-03/commands.ndjson",
-      "sha256": "2a9a6aa70a346f234d1c775b9112ad029c1dd589518562973e00c5c68db41a5d"
+      "sha256": "3b942c7f7d5170e4f8a874b2aa6a6e3ad0ed2271126794727b51c7b9193e24a5"
     },
     {
       "path": "docs/evidence/phase-03/test-report.xml",
-      "sha256": "150bfab9de06bd0ce17f891436a782ee7ffe6e7425fdec7867eddf9a1909dbd4"
+      "sha256": "fecb158399a95e36f8c2eb14160122b55e80a3861aca71eb937a743ba629543f"
     },
     {
       "path": "docs/evidence/phase-03/coverage.json",
-      "sha256": "6c3c9b69d387940247fba04c0cf1de86629c8302cb94f9b77be96baf9b64e971"
+      "sha256": "f24a8bfda5525f9d81ea9eaa7a8c5485bc278c620668fa8d6063067ed18a17f0"
     },
     {
       "path": ".env.example",
@@ -166,8 +166,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-10-11T19:27:00.121453Z",
-  "final_commit": "25a6c984441bf6490bde15804e47a62f71057b54",
+  "end_utc": "2026-10-11T19:30:23.102182Z",
+  "final_commit": "cbf8ecb941abf51f96d0c5ea3b08bc84c7b757d2",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit acceptance",
     "Phase 04 must use the actor/scope and definition-ownership rules in handoff.md"

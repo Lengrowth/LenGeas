@@ -33,3 +33,15 @@
 {"command":"uv run --frozen python tools/dev/evidence.py 03 --regenerate","exit_code":0,"result":"PASS Phase 03 manifest regenerated and verified against the working tree"}
 {"command":"uv run --frozen python tools/dev/task_runner.py evidence 03","exit_code":0,"result":"PASS evidence manifest verified read-only"}
 {"command":"uv run --frozen python tools/dev/task_runner.py phase-gate 03","exit_code":0,"result":"PASS Phase 03 in_review with no blockers; acceptance remains external"}
+{"command":"GitHub dependency-review job on PR head cbf8ecb941abf51f96d0c5ea3b08bc84c7b757d2 (run 38168090225)","exit_code":1,"result":"FAIL: PyMongo 4.14.1 flagged high for GHSA-vp6j-j7w5-5xjj and GHSA-v4x9-3549-crwv"}
+{"command":"uv lock --upgrade-package pymongo","exit_code":0,"result":"PASS updated pymongo 4.14.1 to 4.18.3"}
+{"command":"uv sync --frozen","exit_code":0,"result":"PASS installed locked pymongo 4.18.3"}
+{"command":"uv run --frozen pytest -q tests/unit/identity tests/property/identity tests/contract/identity tests/integration/identity tests/e2e/identity tests/security/identity --cov=apps --cov=packages --cov-report=json:docs/evidence/phase-03/coverage.json --junitxml=docs/evidence/phase-03/test-report.xml (PyMongo 4.18.3)","exit_code":0,"result":"25 passed, 3 skipped; 2 dependency deprecation warnings; coverage and JUnit evidence regenerated"}
+{"command":"uv run --frozen python tools/dev/task_runner.py lint (PyMongo 4.18.3)","exit_code":0,"result":"PASS Python, JSON, and repository policy checks"}
+{"command":"uv run --frozen python tools/dev/task_runner.py typecheck (PyMongo 4.18.3)","exit_code":0,"result":"PASS strict Python and TypeScript checks; 67 source files"}
+{"command":"uv run --frozen python tools/dev/task_runner.py generate; repeat generation with generated-artifact SHA-256 comparison (PyMongo 4.18.3)","exit_code":0,"result":"PASS; repeat run produced byte-identical generated outputs"}
+{"command":"uv run --frozen python tools/dev/task_runner.py test security tenancy,authorization (PyMongo 4.18.3)","exit_code":0,"result":"PASS security: 15 synthetic fixture checks"}
+{"command":"uv lock --check","exit_code":0,"result":"PASS lockfile is consistent with pyproject.toml"}
+{"command":"uv run --frozen python tools/dev/evidence.py 03 --regenerate (PyMongo 4.18.3)","exit_code":0,"result":"PASS Phase 03 manifest regenerated and verified with the security dependency update"}
+{"command":"uv run --frozen python tools/dev/task_runner.py evidence 03 (PyMongo 4.18.3)","exit_code":0,"result":"PASS evidence manifest verified read-only"}
+{"command":"uv run --frozen python tools/dev/task_runner.py phase-gate 03 (PyMongo 4.18.3)","exit_code":0,"result":"PASS Phase 03 in_review with no blockers; acceptance remains external"}
