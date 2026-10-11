@@ -99,7 +99,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "6982591f6d4ec51b02937cf8a1229962bb555b1f949e469f8614b9e3d5e05c0c"
+      "sha256": "d1316ca97ab853dfb5270867d36bf521872715eb9574929c3c97313df52c9fcb"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -143,7 +143,7 @@
     },
     {
       "path": "docs/evidence/phase-04/operations",
-      "sha256": "8b2c2123ce7b6a5d80b8b2024585722537cead7acff316c8a79324edbcbacd11"
+      "sha256": "4fef867a4a8add241dabb3e374605abdc00d62a1c5617e105bb144fc45054162"
     }
   ],
   "base_commit": "4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd",
@@ -158,8 +158,8 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-11T20:27:49.601357Z",
-  "final_commit": "cf1222329bc29904766e24df5d2c7474461b63b4",
+  "end_utc": "2026-10-11T20:36:20.513827Z",
+  "final_commit": "42da5561284c81ea30536daa40be4e1957793335",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit Phase 04 acceptance",
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
@@ -180,7 +180,7 @@
     "task generate twice with zero second-run diff",
     "definition schema compilation and compatibility checks",
     "valid and invalid definition fixture conformance suite",
-    "Windows canonical digest verified locally; Ubuntu and Windows CI matrix configured and pending the protected-branch pull-request push",
+    "Windows canonical digest verified locally; Ubuntu and Windows CI matrix verified on the main-branch push",
     "generated Python and TypeScript model compilation",
     "documentation generation and validation",
     "task phase:gate PHASE=04 (review gate; owner acceptance remains external)"

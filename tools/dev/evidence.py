@@ -127,8 +127,10 @@ TEXT_SUFFIXES = {
     ".jsx",
     ".lock",
     ".md",
+    ".pem",
     ".ps1",
     ".py",
+    ".sig",
     ".sh",
     ".toml",
     ".ts",
@@ -617,7 +619,7 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "valid and invalid definition fixture conformance suite",
             (
                 "Windows canonical digest verified locally; Ubuntu and Windows CI matrix "
-                "configured and pending the protected-branch pull-request push"
+                "verified on the main-branch push"
             ),
             "generated Python and TypeScript model compilation",
             "documentation generation and validation",
