@@ -3,7 +3,7 @@
   "artifacts": [
     {
       "path": ".github/workflows/verify.yml",
-      "sha256": "fc00f641880017bc717e74dd07019f0b5d1b8845818aa8a6c4a32f54fa0a5713"
+      "sha256": "2eedeb783585aebcb3d64317aea69c1dbb36cb9200b1b0b76c9c06fcfd6cf8ea"
     },
     {
       "path": "pyproject.toml",
@@ -166,8 +166,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-10-11T19:45:57.324716Z",
-  "final_commit": "45aafd03f7914f007f7a7ea4046b6d8f791e296a",
+  "end_utc": "2026-10-11T20:23:42.950274Z",
+  "final_commit": "41c4e604dae12c8662b25d30272403bbe5bc8fb6",
   "next_phase_prerequisites": [],
   "open_risks": [
     "Docker is unavailable on the Windows workstation; MongoDB Compose execution is delegated to hosted CI.",

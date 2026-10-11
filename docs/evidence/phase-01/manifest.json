@@ -7,7 +7,7 @@
     },
     {
       "path": "Taskfile.yml",
-      "sha256": "cdf31fd8c581ab2aeba6659cec5e340cee773a8cfc68a98432d6eec5c200c8ad"
+      "sha256": "f1c9022a548e2f12fbdf63bb3eedc35ecabd3f1dd7a004c4797cb366ee44df2e"
     },
     {
       "path": "package.json",
@@ -31,7 +31,7 @@
     },
     {
       "path": ".github",
-      "sha256": "fa14e8ad8e69b86810952be22e4910cae19a96e39bdd9b7bc9cd63ac4acc4111"
+      "sha256": "802790769a4777731c3d47d71eda308d7a5ff97df3e860af109373bdcaebf007"
     },
     {
       "path": "infrastructure/docker",
@@ -51,11 +51,11 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "e885ce7da23c1c7de24923f873715050bd5c84c76450ba80e7fda8393b972b9c"
+      "sha256": "c4bea1b3a32154029f2d2e9a92703d7322aedfe8a9cc0f29e075430c54b9ea84"
     },
     {
       "path": "tests",
-      "sha256": "9ec9cee77bc9d5cbcc36c36cbc2f808856a5d9fae31149e8cd06cf5729b7a7fc"
+      "sha256": "9a23699a96c3c7119aff02134c23a3194419d62fada286d265865dfb18d57761"
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
@@ -78,7 +78,7 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-10-11T19:44:39.297308Z",
+  "end_utc": "2026-10-11T20:23:41.636335Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [],
   "open_risks": [

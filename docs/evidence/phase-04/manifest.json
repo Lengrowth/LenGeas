@@ -1,0 +1,197 @@
+{
+  "agent_identity": "Codex root phase agent",
+  "artifacts": [
+    {
+      "path": "packages/schemas/definition/v0.1",
+      "sha256": "1ca4ccbebd44b2ec70ee7d49b54ba9c7b4101e9c0b6dd2533d2486b0e2c7d2ba"
+    },
+    {
+      "path": "packages/schemas/definition_runtime.py",
+      "sha256": "21e751c83ae3847d395643199a4ddf629dbf25f25d7301dfe010a66f9ef75dab"
+    },
+    {
+      "path": "packages/schemas/definition_validation.py",
+      "sha256": "f5e164b6f02395a941223e6fc662063182f1bae9c2b962cf287b47ebfd4e065f"
+    },
+    {
+      "path": "tools/dev/definition_schemas.py",
+      "sha256": "24a5dc4592107274efb6894666976a570812f8a1e4c552902a15d74e974ba270"
+    },
+    {
+      "path": "tools/dev/definition_cli.py",
+      "sha256": "4c27eb539dd8d603463fcef8e57a8c280ec9cde0abcd674fbe1bc9276e4b3b29"
+    },
+    {
+      "path": "tools/dev/sign_definition_release.py",
+      "sha256": "bbda1b36b59b967ad0288d4d38fd80bc2edfe377d9d467925c00eff24f3d90f4"
+    },
+    {
+      "path": "tools/dev/generate_definition_models.py",
+      "sha256": "7815acbf03104ced74529c5b1b1a535440dd2d3ad7a455de74d67b174f03a8a3"
+    },
+    {
+      "path": "tools/dev/generate.py",
+      "sha256": "2845a86600da75b2e42b261f90ec3ba96d84550a732db3a1978304c69321a082"
+    },
+    {
+      "path": "packages/sdk-python/definition_v0_1.py",
+      "sha256": "611296606c527799e8c02d7815c23d9f9afa676c47206b139c81d49abcc2107d"
+    },
+    {
+      "path": "packages/sdk-typescript/src/definition-v0_1.ts",
+      "sha256": "8092fc622c872dd032c028ae7f0ff6dcc26683eee802ffb3ba98dcf2e07b1a1c"
+    },
+    {
+      "path": "tests/unit/definitions",
+      "sha256": "a94e160452c9675124948f8032de73287fb3dfbabe460c7566fbc7e1cd3b1f94"
+    },
+    {
+      "path": "tests/security/definitions",
+      "sha256": "7e1c416b9311c6f48731338b4d254e6f07aa786bbc00a8c4966672a517ce81c6"
+    },
+    {
+      "path": "tests/conformance/fixtures/definitions",
+      "sha256": "df28bbc6928e82c7033108956bf934da7d4c381ec4bb58653b62e5af99b77c05"
+    },
+    {
+      "path": "docs/phases/04-definition-schema.md",
+      "sha256": "d6b7d310bad086d74d0df06335d1bc5225ccd0f1d1c0d2a761b019850f095318"
+    },
+    {
+      "path": "docs/05-game-definition-schema-v0.1.md",
+      "sha256": "fb89518951273662e57b93ce30f8bb825054e27db140cd705bd30187cf13d7dd"
+    },
+    {
+      "path": "docs/14-mechanics-packages.md",
+      "sha256": "f2cb99cba3dd4496305810e0156c0c5242dc7da4e047ebc78c61baa5532530d5"
+    },
+    {
+      "path": "docs/23-traceability-matrix.md",
+      "sha256": "4894bc3c889b31f5c0063fd5fba9aab1fda2e65501554882f1237b2f902fff8b"
+    },
+    {
+      "path": "docs/governance/requirement-register.yaml",
+      "sha256": "e0c32738ee348430087954961161e8951bcdf0400d8932456b457c8b08d085e2"
+    },
+    {
+      "path": "docs/governance/requirements.yaml",
+      "sha256": "ebbf36325e51e9a2e051264747938308262047e991f638bfbf25b366738860e8"
+    },
+    {
+      "path": "docs/governance/traceability-matrix.generated.md",
+      "sha256": "ee9c992ebc01450b08e71074ba16716bd9123fa84c76b80e4dc64b82a012d834"
+    },
+    {
+      "path": "docs/reference/definition-schema-v0.1.md",
+      "sha256": "144ade603d756ee51a90e28770e60ff2bb70f8683a6c68f09351619d0f1886b9"
+    },
+    {
+      "path": "docs/reference/definition-schema-compatibility.md",
+      "sha256": "1af17185669e1954b60c3772566cc05fe97597ecb62018d4ab66694dc9fe1549"
+    },
+    {
+      "path": "Taskfile.yml",
+      "sha256": "f1c9022a548e2f12fbdf63bb3eedc35ecabd3f1dd7a004c4797cb366ee44df2e"
+    },
+    {
+      "path": "tools/dev/task_runner.py",
+      "sha256": "3ffa792e7af8dba6efa4015434337f3f66b59dea29f95ff7a1f910d3c77477aa"
+    },
+    {
+      "path": "tools/dev/evidence.py",
+      "sha256": "758ec45b47fe3ca33f208ae5fbf24ee94a161c34916299a5caca0e106f969416"
+    },
+    {
+      "path": "tools/dev/phase_gate.py",
+      "sha256": "2322296245b441f8d12dc92f1f9694bf9e2c3683d4c66a9b5a2903eee82e1d04"
+    },
+    {
+      "path": "docs/evidence/phase-04/blockers.md",
+      "sha256": "8b488750965d17653bae329b99e20c4217d9472643eb722213a3d2dcdedf3bce"
+    },
+    {
+      "path": "docs/evidence/phase-04/decisions.md",
+      "sha256": "50b0ba18d0f0cdefd62cb43b96b874f052a3856acb65d9a9cb214da6c2830dc1"
+    },
+    {
+      "path": "docs/evidence/phase-04/handoff.md",
+      "sha256": "e5ab2a48f3a2963283b3256954df924f467e98a503f867684089d3162399e37c"
+    },
+    {
+      "path": "docs/evidence/phase-04/commands.ndjson",
+      "sha256": "ab4770046773a3deb7750fa57de5128c390c906e721f2265ad510c59cb3188ed"
+    },
+    {
+      "path": "docs/evidence/phase-04/test-report.xml",
+      "sha256": "f3ab359b6c6d0e716f7a1a16a3f08b231d1def589c69bc8abcafec30fd489fc0"
+    },
+    {
+      "path": "docs/evidence/phase-04/coverage.json",
+      "sha256": "45c5e16820bfd0c5d9b4d3c8e2138acaf9b5f7e327ff8b55ca2eeebce47cef44"
+    },
+    {
+      "path": "docs/evidence/phase-04/tasks",
+      "sha256": "f02331b22db3f66db729529c09b938a2ba21173ac4b8451b6d691e9cebaf618a"
+    },
+    {
+      "path": "docs/evidence/phase-04/security",
+      "sha256": "00cb5aa557abc8ee1bb143d077ab53698a21ce48ce926ffde5cf27decbe1e399"
+    },
+    {
+      "path": "docs/evidence/phase-04/performance",
+      "sha256": "7f90ce6fb102c835655b32faed61b150224c75467269c3359c17770a4215f7f9"
+    },
+    {
+      "path": "docs/evidence/phase-04/operations",
+      "sha256": "8b2c2123ce7b6a5d80b8b2024585722537cead7acff316c8a79324edbcbacd11"
+    }
+  ],
+  "base_commit": "4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd",
+  "blockers": [],
+  "completed_task_ids": [
+    "P04-T01",
+    "P04-T02",
+    "P04-T03",
+    "P04-T04",
+    "P04-T05",
+    "P04-T06",
+    "P04-T07",
+    "P04-T08"
+  ],
+  "end_utc": "2026-10-11T20:23:40.486570Z",
+  "final_commit": "41c4e604dae12c8662b25d30272403bbe5bc8fb6",
+  "next_phase_prerequisites": [
+    "Repository-owner review and explicit Phase 04 acceptance",
+    "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
+  ],
+  "open_risks": [
+    "Internal registry publication requires owner-managed registry credentials and endpoint; signed artifact is reviewable locally.",
+    "Runtime execution and full game-balance simulation are conformance checks only; phase 05 provides production runtime consumers."
+  ],
+  "phase": "04",
+  "requirement_ids": [
+    "RQ-001",
+    "RQ-002"
+  ],
+  "schema_version": "1.0.0",
+  "start_utc": "2026-10-11T20:21:26.428394Z",
+  "status": "in_review",
+  "tests": [
+    "task generate twice with zero second-run diff",
+    "definition schema compilation and compatibility checks",
+    "valid and invalid definition fixture conformance suite",
+    "cross-platform canonical digest verification",
+    "generated Python and TypeScript model compilation",
+    "documentation generation and validation",
+    "task phase:gate PHASE=04 (review gate; owner acceptance remains external)"
+  ],
+  "toolchain": {
+    "docker": "unavailable and not required for schema validation",
+    "git": "2.49.0.windows.1",
+    "node": "22.16.0",
+    "pnpm": "11.20.0",
+    "powershell": "7.6.5",
+    "python": "3.13.5 via uv 0.11.29",
+    "task": "3.53.1"
+  }
+}
