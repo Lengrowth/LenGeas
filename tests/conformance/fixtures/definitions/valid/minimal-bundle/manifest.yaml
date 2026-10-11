@@ -1,0 +1,6 @@
+schema_version: "0.1.0"
+game: game.yaml
+blueprint: blueprint.yaml
+modules: []
+extension_manifest: extensions/manifest.yaml
+documents: []

@@ -1,0 +1,13 @@
+id: game_main
+studio_id: studio_main
+name: Synthetic
+genre_labels: []
+default_locale: en
+supported_locales: [en]
+blueprint: blueprint_base
+network_mode: offline
+engine_range: 1.0.0
+modules: []
+features: []
+state_schema_version: "1"
+definition_schema_version: "0.1.0"
