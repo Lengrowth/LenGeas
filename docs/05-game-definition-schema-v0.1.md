@@ -4,6 +4,8 @@
 
 JSON Schema Draft 2020-12 files under `packages/schemas/definition/v0.1/` are the source of truth. YAML is the authoring format and canonical JSON is the validation, hashing, storage, and transport format. A package contains a manifest plus referenced documents. Publication resolves all documents into one canonical bundle.
 
+The package root `manifest.yaml` names the relative game, module, extension-manifest, and document YAML paths. Paths must stay inside the package root. `task definition:canonicalize` validates the resolved bundle, orders modules and documents by stable ID, emits UTF-8 canonical JSON, calculates SHA-256 over the canonical JSON bytes (without the file's trailing newline), and verifies the written JSON by reading it back.
+
 ```text
 manifest.yaml
 game.yaml
@@ -35,7 +37,11 @@ Every definition object contains:
 | `metadata` | object | Studio-only labels; forbidden in runtime decisions |
 | `extensions` | namespaced object | Each namespace has a registered schema |
 
+The header fields are flat fields on the definition object. Tags are sorted and unique. The YAML parser rejects anchors, aliases, custom tags, duplicate keys, implicit timestamps, non-string object keys, NaN, and infinities before schema validation. Structured errors use JSON Pointer, stable error code, and severity.
+
 ## Game
+
+`Blueprint` is a versioned studio template. It declares allowed network modes, features, module allowlists/requirements, and resource budgets. Every bundle carries the exact blueprint definition used to validate its game.
 
 `Game` defines identity and global contract: `id`, `studio_id`, `name`, `genre_labels`, `default_locale`, `supported_locales`, `blueprint`, `network_mode`, `engine_range`, `modules`, `features`, `state_schema_version`, and `definition_schema_version`.
 
@@ -46,6 +52,8 @@ Every definition object contains:
 `Module` contains `id`, `version`, `digest`, `engine_range`, `requires`, `conflicts`, `configuration`, `state_namespaces`, `registered_actions`, `subscribed_events`, `emitted_events`, `registered_conditions`, `registered_effects`, `registered_timers`, `migrations`, and `resource_budget`.
 
 Published module resolution stores exact versions and digests. Version ranges exist only in drafts.
+
+The bundle includes an `extension_manifest` that registers namespaced extension schemas by schema identifier and pinned digest. Extensions without a registration are rejected.
 
 ## Entity
 
@@ -61,6 +69,8 @@ Entities are definition objects. Player-owned instances use `entity_instance_id`
 - `overflow_policy` is `reject`, `clamp`, or `route_to_resource`.
 - `transfer_policy` is `non_transferable`, `game_internal`, or `cross_game_contract`.
 - Negative balances are forbidden unless `minimum` explicitly permits them and the security review approves the resource.
+
+When `minimum` is negative, the resource carries `negative_balance_approval` with a security-owner review ID and SHA-256 of the resource object with that approval field omitted. Integer resources cannot use fractional amounts. Fixed-decimal resources declare a scale and decimal values are normalized strings. `route_to_resource` requires an explicit `route_to_resource_id`.
 
 ## Condition
 

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.lengeas.internal/definition/v0.1/core/effect.schema.json",
+  "$ref": "../bundle.schema.json#/$defs/Effect"
+}

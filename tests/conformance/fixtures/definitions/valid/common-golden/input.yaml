@@ -1,0 +1,7 @@
+id: hero_main
+schema_version: "0.1.0"
+tags: [combat, starter]
+enabled: true
+metadata:
+  owner: systems
+extensions: {}

@@ -1,0 +1,10 @@
+id: item_coin
+schema_version: 0.1.0
+tags: [currency]
+enabled: true
+metadata: {}
+extensions: {}
+item_type: stackable
+stack_limit: 99
+properties: {}
+unreviewed_execution_hook: true
