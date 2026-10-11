@@ -176,9 +176,7 @@ def validate_document(value: Any, schema: dict[str, Any]) -> list[dict[str, str]
     errors: list[dict[str, str]] = []
     for error in validator.iter_errors(value):
         pointer = "/" + "/".join(
-            str(part)
-            .replace(chr(126), chr(126) + "0")
-            .replace("/", chr(126) + "1")
+            str(part).replace(chr(126), chr(126) + "0").replace("/", chr(126) + "1")
             for part in error.absolute_path
         )
         if pointer == "/":

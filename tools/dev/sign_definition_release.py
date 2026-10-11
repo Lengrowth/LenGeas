@@ -26,7 +26,8 @@ def catalog_digest() -> str:
     digest = hashlib.sha256()
     for path in sorted(SCHEMA_ROOT.rglob("*.json")):
         digest.update(path.relative_to(SCHEMA_ROOT).as_posix().encode("utf-8"))
-        digest.update(bytes.fromhex(hashlib.sha256(path.read_bytes()).hexdigest()))
+        contents = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        digest.update(bytes.fromhex(hashlib.sha256(contents).hexdigest()))
     return digest.hexdigest()
 
 

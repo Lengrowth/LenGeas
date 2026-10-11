@@ -700,9 +700,9 @@ def main() -> int:
             raise SystemExit(f"Phase 04 evidence manifest is missing: {manifest_path}")
         phase04_existing = load_manifest(manifest_path) if manifest_path.exists() else None
         if not args.regenerate:
-            assert existing is not None
-            verify_manifest(existing)
-            verify_phase04_completeness(existing)
+            assert phase04_existing is not None
+            verify_manifest(phase04_existing)
+            verify_phase04_completeness(phase04_existing)
             print(f"PASS evidence manifest verified (read-only): {manifest_path.relative_to(ROOT)}")
             return 0
         manifest = build_phase04_manifest(phase04_existing)
