@@ -64,6 +64,42 @@ tasks:
   phase:gate:
     cmds:
       - '{{.PYTHON}} {{.RUNNER}} phase-gate {{.PHASE | default "01"}}'
+  definition:schemas:
+    desc: Compile all Definition Schema v0.1 JSON Schemas
+    cmds:
+      - 'uv run --frozen python tools/dev/definition_cli.py schemas'
+  definition:fixtures:
+    desc: Validate all valid and invalid Definition Schema fixtures
+    cmds:
+      - 'uv run --frozen python tools/dev/definition_cli.py fixtures'
+  definition:tests:
+    desc: Run Definition Schema unit and security tests
+    cmds:
+      - 'uv run --frozen python tools/dev/definition_cli.py tests'
+  definition:compatibility:
+    desc: Check the schema compatibility policy and required v0.1 catalog
+    cmds:
+      - 'uv run --frozen python tools/dev/definition_cli.py compatibility'
+  definition:determinism:
+    desc: Verify canonical bundle bytes and SHA-256 reproducibility
+    cmds:
+      - 'uv run --frozen python tools/dev/definition_cli.py determinism'
+  definition:validate:
+    desc: Validate a definition bundle YAML document
+    cmds:
+      - 'uv run --frozen python tools/dev/definition_cli.py validate {{.CLI_ARGS}}'
+  definition:canonicalize:
+    desc: Resolve and canonicalize a definition YAML package
+    cmds:
+      - 'uv run --frozen python tools/dev/definition_cli.py canonicalize-package {{.CLI_ARGS}}'
+  definition:sign-release:
+    desc: Create the detached Ed25519 signature for the local schema release
+    cmds:
+      - 'uv run --frozen python tools/dev/sign_definition_release.py sign'
+  definition:verify-release:
+    desc: Verify the detached schema release signature and current digests
+    cmds:
+      - 'uv run --frozen python tools/dev/sign_definition_release.py verify'
   local:up:
     cmds:
       - '{{.PYTHON}} {{.RUNNER}} local-up'

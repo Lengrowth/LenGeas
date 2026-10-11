@@ -81,6 +81,44 @@ PHASE03_ARTIFACT_PATHS = (
     "docs/evidence/phase-03/coverage.json",
     ".env.example",
 )
+PHASE04_ARTIFACT_PATHS = (
+    "packages/schemas/definition/v0.1",
+    "packages/schemas/definition_runtime.py",
+    "packages/schemas/definition_validation.py",
+    "tools/dev/definition_schemas.py",
+    "tools/dev/definition_cli.py",
+    "tools/dev/sign_definition_release.py",
+    "tools/dev/generate_definition_models.py",
+    "tools/dev/generate.py",
+    "packages/sdk-python/definition_v0_1.py",
+    "packages/sdk-typescript/src/definition-v0_1.ts",
+    "tests/unit/definitions",
+    "tests/security/definitions",
+    "tests/conformance/fixtures/definitions",
+    "docs/phases/04-definition-schema.md",
+    "docs/05-game-definition-schema-v0.1.md",
+    "docs/14-mechanics-packages.md",
+    "docs/23-traceability-matrix.md",
+    "docs/governance/requirement-register.yaml",
+    "docs/governance/requirements.yaml",
+    "docs/governance/traceability-matrix.generated.md",
+    "docs/reference/definition-schema-v0.1.md",
+    "docs/reference/definition-schema-compatibility.md",
+    "Taskfile.yml",
+    "tools/dev/task_runner.py",
+    "tools/dev/evidence.py",
+    "tools/dev/phase_gate.py",
+    "docs/evidence/phase-04/blockers.md",
+    "docs/evidence/phase-04/decisions.md",
+    "docs/evidence/phase-04/handoff.md",
+    "docs/evidence/phase-04/commands.ndjson",
+    "docs/evidence/phase-04/test-report.xml",
+    "docs/evidence/phase-04/coverage.json",
+    "docs/evidence/phase-04/tasks",
+    "docs/evidence/phase-04/security",
+    "docs/evidence/phase-04/performance",
+    "docs/evidence/phase-04/operations",
+)
 TEXT_SUFFIXES = {
     ".env",
     ".hcl",
@@ -244,6 +282,50 @@ def verify_phase03_completeness(manifest: dict[str, object]) -> None:
     )
     if exact_pytest not in commands:
         raise SystemExit("Phase 03 evidence does not record the exact identity pytest command")
+
+
+def verify_phase04_completeness(manifest: dict[str, object]) -> None:
+    evidence = ROOT / "docs" / "evidence" / "phase-04"
+    required = {
+        "blockers.md",
+        "decisions.md",
+        "handoff.md",
+        "commands.ndjson",
+        "test-report.xml",
+        "coverage.json",
+        "security/README.md",
+        "performance/README.md",
+        "operations/README.md",
+        *{f"tasks/P04-T0{number}.md" for number in range(1, 9)},
+    }
+    present = {
+        path.relative_to(evidence).as_posix() for path in evidence.rglob("*") if path.is_file()
+    }
+    missing = sorted(required - present)
+    if missing:
+        raise SystemExit("Phase 04 evidence is incomplete: " + ", ".join(missing))
+    if manifest.get("status") != "in_review" or manifest.get("blockers") != []:
+        raise SystemExit("Phase 04 must remain in_review with no entry blockers")
+    expected_tasks = [f"P04-T0{number}" for number in range(1, 9)]
+    if manifest.get("completed_task_ids") != expected_tasks:
+        raise SystemExit("Phase 04 manifest must list P04-T01 through P04-T08")
+    for task_id in expected_tasks:
+        task_text = (evidence / "tasks" / f"{task_id}.md").read_text(encoding="utf-8")
+        if "`in_review`" not in task_text:
+            raise SystemExit(f"{task_id} evidence must remain in_review")
+    import xml.etree.ElementTree as ET
+
+    report = ET.parse(evidence / "test-report.xml").getroot()
+    suites = [report] if report.tag == "testsuite" else list(report)
+    failures = sum(int(suite.attrib.get("failures", "0")) for suite in suites)
+    errors = sum(int(suite.attrib.get("errors", "0")) for suite in suites)
+    tests = sum(int(suite.attrib.get("tests", "0")) for suite in suites)
+    if failures or errors or tests < 30:
+        raise SystemExit("Phase 04 test report must contain at least 30 passing tests")
+    coverage = json.loads((evidence / "coverage.json").read_text(encoding="utf-8"))
+    totals = coverage.get("totals", {})
+    if not isinstance(totals, dict) or not isinstance(totals.get("percent_covered"), (int, float)):
+        raise SystemExit("Phase 04 coverage report has no numeric totals.percent_covered")
 
 
 def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
@@ -498,6 +580,67 @@ def build_phase03_manifest(existing: dict[str, object] | None) -> dict[str, obje
     }
 
 
+def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, object]:
+    existing = existing or {}
+    artifacts = []
+    for value in PHASE04_ARTIFACT_PATHS:
+        path = ROOT / value
+        if not path.exists():
+            raise SystemExit(f"Phase 04 evidence artifact is missing: {value}")
+        artifacts.append({"path": value, "sha256": digest(path)})
+    return {
+        "schema_version": "1.0.0",
+        "phase": "04",
+        "status": "in_review",
+        "start_utc": existing.get(
+            "start_utc", datetime.now(UTC).isoformat().replace("+00:00", "Z")
+        ),
+        "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "base_commit": existing.get("base_commit", "4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd"),
+        "final_commit": git_head(),
+        "agent_identity": "Codex root phase agent",
+        "toolchain": {
+            "powershell": "7.6.5",
+            "python": "3.13.5 via uv 0.11.29",
+            "node": "22.16.0",
+            "pnpm": "11.20.0",
+            "git": "2.49.0.windows.1",
+            "task": "3.53.1",
+            "docker": "unavailable and not required for schema validation",
+        },
+        "completed_task_ids": [f"P04-T0{number}" for number in range(1, 9)],
+        "requirement_ids": ["RQ-001", "RQ-002"],
+        "artifacts": artifacts,
+        "tests": [
+            "task generate twice with zero second-run diff",
+            "definition schema compilation and compatibility checks",
+            "valid and invalid definition fixture conformance suite",
+            "cross-platform canonical digest verification",
+            "generated Python and TypeScript model compilation",
+            "documentation generation and validation",
+            "task phase:gate PHASE=04 (review gate; owner acceptance remains external)",
+        ],
+        "open_risks": [
+            (
+                "Internal registry publication requires owner-managed registry credentials "
+                "and endpoint; signed artifact is reviewable locally."
+            ),
+            (
+                "Runtime execution and full game-balance simulation are conformance checks "
+                "only; phase 05 provides production runtime consumers."
+            ),
+        ],
+        "next_phase_prerequisites": [
+            "Repository-owner review and explicit Phase 04 acceptance",
+            (
+                "Phase 05 must consume the frozen schema digest and generated model imports "
+                "in handoff.md"
+            ),
+        ],
+        "blockers": [],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("phase")
@@ -550,8 +693,30 @@ def main() -> int:
             f"{manifest_path.relative_to(ROOT)}"
         )
         return 0
+    if args.phase == "04":
+        evidence = ROOT / "docs" / "evidence" / "phase-04"
+        manifest_path = evidence / "manifest.json"
+        if not manifest_path.exists() and not args.regenerate:
+            raise SystemExit(f"Phase 04 evidence manifest is missing: {manifest_path}")
+        phase04_existing = load_manifest(manifest_path) if manifest_path.exists() else None
+        if not args.regenerate:
+            assert existing is not None
+            verify_manifest(existing)
+            verify_phase04_completeness(existing)
+            print(f"PASS evidence manifest verified (read-only): {manifest_path.relative_to(ROOT)}")
+            return 0
+        manifest = build_phase04_manifest(phase04_existing)
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        verify_manifest(load_manifest(manifest_path))
+        print(
+            "PASS Phase 04 evidence manifest regenerated and verified: "
+            f"{manifest_path.relative_to(ROOT)}"
+        )
+        return 0
     if args.phase != "01":
-        raise SystemExit("supported evidence phases are 01, 02, and 03")
+        raise SystemExit("supported evidence phases are 01, 02, 03, and 04")
     evidence = ROOT / "docs" / "evidence" / "phase-01"
     manifest_path = evidence / "manifest.json"
     if not args.regenerate:

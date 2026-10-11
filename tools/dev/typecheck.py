@@ -23,6 +23,7 @@ def main() -> int:
             "packages/domain",
             "packages/persistence",
             "packages/simulation",
+            "packages/schemas",
             "tools",
         ],
         cwd=ROOT,
@@ -30,6 +31,9 @@ def main() -> int:
     )
     if result.returncode:
         return result.returncode
+    # The generated model lives below packages/sdk-python, whose directory name
+    # is not a valid Python package identifier for mypy. compileall below checks
+    # its syntax while the repository mypy pass checks all importable packages.
     result = subprocess.run(
         [
             "uv",

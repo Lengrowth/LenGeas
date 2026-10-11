@@ -14,16 +14,16 @@ requirements:
     title: Systems/mechanics/content separation
     owner_role: architecture_owner
     source_anchors: [docs/00-product-charter.md#product-model, docs/01-principles-and-invariants.md#platform-invariants]
-    phase_tasks: [P00-T01, P00-T02, P00-T03, P00-T06, P04-T01, P12-T01, P13-T01]
+    phase_tasks: [P00-T01, P00-T02, P00-T03, P00-T06, P04-T01, P04-T02, P04-T03, P04-T05, P12-T01, P13-T01]
     verification_method: blueprint isolation and module namespace conformance
-    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+    evidence_path: docs/evidence/phase-04/tasks/P04-T05.md
   - id: RQ-002
     title: Data-driven definitions
     owner_role: game_systems_owner
     source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/05-game-definition-schema-v0.1.md#authority-and-packaging]
-    phase_tasks: [P00-T01, P00-T06, P04-T01, P08-T01]
-    verification_method: schema validation and publish reports
-    evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
+    phase_tasks: [P00-T01, P00-T06, P04-T01, P04-T02, P04-T03, P04-T04, P04-T05, P04-T06, P04-T07, P04-T08, P08-T01]
+    verification_method: schema validation, canonical bundle, and publish reports
+    evidence_path: docs/evidence/phase-04/manifest.json
   - id: RQ-003
     title: Deterministic universal runtime
     owner_role: runtime_owner

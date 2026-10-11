@@ -4,8 +4,8 @@ This matrix maps product requirements to authoritative design documents, deliver
 
 | Requirement | Contract | Phase(s) | Final evidence |
 |---|---|---|---|
-| RQ-001 Systems/mechanics/content separation | 00, 01, 05, 14 | 00, 04, 12, 13 | Blueprint isolation suite |
-| RQ-002 Data-driven definitions | 05, 10 | 04, 08 | Schema and publish reports |
+| RQ-001 Systems/mechanics/content separation | 00, 01, 05, 14 | 00, 04, 12, 13 | Blueprint isolation and Phase 04 namespace conformance |
+| RQ-002 Data-driven definitions | 05, 10 | 04, 08 | Phase 04 schema, canonical bundle, and publish reports |
 | RQ-003 Deterministic universal runtime | 01, 06 | 05 | Cross-platform replay report |
 | RQ-004 Economy transaction integrity | 06, 07 | 06 | Billion-action reconciliation |
 | RQ-005 Progression, quests, achievements | 05, 06 | 07 | Graph and event conformance |

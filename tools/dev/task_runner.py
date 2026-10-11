@@ -85,6 +85,11 @@ def verify() -> None:
     ):
         if tool_script("ci_checks", check_name, check=False):
             failures.append(f"ci:{check_name}")
+    for definition_check in ("schemas", "fixtures", "compatibility", "determinism", "tests"):
+        if tool_script("definition_cli", definition_check, check=False):
+            failures.append(f"definition:{definition_check}")
+    if tool_script("sign_definition_release", "verify", check=False):
+        failures.append("definition:release-signature")
     if failures:
         print("FAIL verify: " + ", ".join(failures), file=sys.stderr)
         raise SystemExit(1)

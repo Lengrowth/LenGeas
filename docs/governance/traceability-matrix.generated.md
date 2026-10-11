@@ -8,8 +8,8 @@
 
 | Requirement | Phase task mapping copied from the source register | Traceability state |
 |---|---|---|
-| RQ-001 | `P00-T01`, `P00-T02`, `P00-T03`, `P00-T06`, `P04-T01`, `P12-T01`, `P13-T01` | mapped |
-| RQ-002 | `P00-T01`, `P00-T06`, `P04-T01`, `P08-T01` | mapped |
+| RQ-001 | `P00-T01`, `P00-T02`, `P00-T03`, `P00-T06`, `P04-T01`, `P04-T02`, `P04-T03`, `P04-T05`, `P12-T01`, `P13-T01` | mapped |
+| RQ-002 | `P00-T01`, `P00-T06`, `P04-T01`, `P04-T02`, `P04-T03`, `P04-T04`, `P04-T05`, `P04-T06`, `P04-T07`, `P04-T08`, `P08-T01` | mapped |
 | RQ-003 | `P00-T02`, `P00-T06`, `P05-T01` | mapped |
 | RQ-004 | `P00-T01`, `P00-T02`, `P00-T06`, `P06-T01` | mapped |
 | RQ-005 | `P00-T01`, `P00-T06`, `P07-T01` | mapped |
