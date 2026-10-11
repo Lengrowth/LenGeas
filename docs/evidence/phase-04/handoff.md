@@ -4,7 +4,7 @@
 
 `in_review`; P04-T01 through P04-T08 have review evidence. The repository owner must explicitly accept this phase. No schema has been published to an external registry.
 
-The independent review corrections are committed on `main` as `1db9a84` (`P04: fix definition schema review findings`). The evidence-only manifest refresh follows separately and binds this source commit.
+The independent review corrections are committed on `main` as `1db9a84` (`P04: fix definition schema review findings`), `d383496` (`P04-T07: generate TypeScript definition validators`), and `595aeee` (scope validator toolchain metadata to Phase 04). The evidence-only manifest refresh follows separately and binds the latest source commit.
 
 ## Operational interfaces
 

@@ -27,7 +27,7 @@
     },
     {
       "path": "tools/dev/generate_definition_models.py",
-      "sha256": "7815acbf03104ced74529c5b1b1a535440dd2d3ad7a455de74d67b174f03a8a3"
+      "sha256": "570019215c75b58abee20a610f5f13b4e89f6500c80c02d009938ac030a91cb6"
     },
     {
       "path": "tools/dev/generate.py",
@@ -39,11 +39,23 @@
     },
     {
       "path": "packages/sdk-typescript/src/definition-v0_1.ts",
-      "sha256": "8092fc622c872dd032c028ae7f0ff6dcc26683eee802ffb3ba98dcf2e07b1a1c"
+      "sha256": "334d60d86695495fca3c68f7926bed0a6b6494d8cb2b17010d900e450954b07a"
+    },
+    {
+      "path": "packages/sdk-typescript/package.json",
+      "sha256": "5adf32ab40bbbfa51a6215ee74888cfec6dd0e5e3163628f6dc08446cb71705c"
+    },
+    {
+      "path": "packages/sdk-typescript/README.md",
+      "sha256": "b7da2a5da0fb10fce69620af041861fd24abef5d5add12b370ba9f5e17acc62c"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "c1be0b83a27191be90ebe59c1859ab36e025955cd15a93c7f2506b7d25ab8e9a"
     },
     {
       "path": "tests/unit/definitions",
-      "sha256": "a60da9710fa356c79fdc7e1cb6d1c522d630bf6187d895352b2ee0cdb3fd5959"
+      "sha256": "9cfcb14c4f1a9402b835f2936401693f2705372f3cc8ee0d0b6f4ade23ada2dd"
     },
     {
       "path": "tests/security/definitions",
@@ -83,7 +95,7 @@
     },
     {
       "path": "docs/reference/definition-schema-v0.1.md",
-      "sha256": "144ade603d756ee51a90e28770e60ff2bb70f8683a6c68f09351619d0f1886b9"
+      "sha256": "efdb7c3c1398e25dc0acb7fa850315a6db0fdf4deb30bf4838a0daf050916453"
     },
     {
       "path": "docs/reference/definition-schema-compatibility.md",
@@ -99,39 +111,43 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "7d79dacc849311d9fc741c70a20320dd4b38f3808ebca5c2cf3284c399f15c22"
+      "sha256": "fda496a95511bd2e50e9ae621e6288210a1f5ea819d96895e2b87679b356af59"
     },
     {
       "path": "tools/dev/phase_gate.py",
       "sha256": "2322296245b441f8d12dc92f1f9694bf9e2c3683d4c66a9b5a2903eee82e1d04"
     },
     {
+      "path": "tools/dev/typecheck.py",
+      "sha256": "7f4d02f8fa8a6539ae8e5b585ead823c808878444885ec9e4c7c09e57712f7c6"
+    },
+    {
       "path": "docs/evidence/phase-04/blockers.md",
-      "sha256": "aa7336b9eca8e816c6ad0bdb242e8c8b4a3369864487dddc5d44a1c0f13fa0a7"
+      "sha256": "e17fb6666f45a1e7c33a34b3851288122fa041928dc98c5f7370f13c1ec29b3d"
     },
     {
       "path": "docs/evidence/phase-04/decisions.md",
-      "sha256": "bcc9daddfc4bda8aaccadf96a07da17a916bc4420e7bfd555b2223666dddc6a7"
+      "sha256": "d38a3501567347050dc495e3ef966335702cd718505b027c319e47c6fd122ab6"
     },
     {
       "path": "docs/evidence/phase-04/handoff.md",
-      "sha256": "8e956e0d488e957eb944259b8e9f7184ed3b87b17acbdf766e7d17ddcf7d89b3"
+      "sha256": "6ac58d0ce6605f73499876213c65076d22e7625100d50e0883f2de5382231a93"
     },
     {
       "path": "docs/evidence/phase-04/commands.ndjson",
-      "sha256": "e85bdd81a5f3658c961fdaa8ae33f256f3a5ca9884d8fa0377c27e329ec5ec3a"
+      "sha256": "8bc93efa0d67d78652caaef5123468bb80e314d44f272fef2f9d7f1db4166328"
     },
     {
       "path": "docs/evidence/phase-04/test-report.xml",
-      "sha256": "cf4e9aca45d24b17a1c313749ae92abddc6df9f688bae52bc9067d844d6cf32b"
+      "sha256": "30078d08c3cbf6778b0106ebbf12aff6b7efd549dbb5c89af163235fb009cde5"
     },
     {
       "path": "docs/evidence/phase-04/coverage.json",
-      "sha256": "95c081f36a79a8e0a9d3ed46a9178582bdc1dc4e9d79cfb779c0c7140f05c2a9"
+      "sha256": "0a376c7abbf9da0e535664e599a8b0c54af5cf4224b1bba87ee774d5ef365c3e"
     },
     {
       "path": "docs/evidence/phase-04/tasks",
-      "sha256": "32f4c49ee061d3e63f2cea9e8102524911e33c89e7c1a952fb86b8365430213f"
+      "sha256": "9d7695ce8f09f90594a14b4074d381fe804aa95621655469549412137adf0723"
     },
     {
       "path": "docs/evidence/phase-04/security",
@@ -139,11 +155,11 @@
     },
     {
       "path": "docs/evidence/phase-04/performance",
-      "sha256": "0e8d884db1db27a0b8a395954a2ec11dc0cfee20fc117bd5ff1a6a9281353058"
+      "sha256": "c06d11059a588d7b098ad65abffce85edac90ded7133356592372db77427abbc"
     },
     {
       "path": "docs/evidence/phase-04/operations",
-      "sha256": "72e6d25e3dcbacb7283c59d2ae5ba83b5d850cdaf496a7a83ed903926c7db516"
+      "sha256": "679f57c3f039837f1cb76f4cee32e3fda9777af4978aff38b70a24876aac498e"
     }
   ],
   "base_commit": "4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd",
@@ -158,8 +174,8 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-11T22:03:57.785278Z",
-  "final_commit": "1db9a84330a8902026110d2e5a5dedb739be8438",
+  "end_utc": "2026-10-11T22:17:51.139305Z",
+  "final_commit": "595aeee3e77013980f556aa3cdaa0511a17f9ba5",
   "next_phase_prerequisites": [
     "Repository-owner review and explicit Phase 04 acceptance",
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
@@ -168,7 +184,6 @@
     "Internal registry publication requires owner-managed registry credentials and endpoint; signed artifact is reviewable locally.",
     "The Phase 04 release public key is self-supplied and has no independent trust anchor; the signature verifies artifact integrity but not signer identity.",
     "Runtime execution and full game-balance simulation remain conformance_only; staging eligibility stays false until later-phase consumers exist.",
-    "P04-T07 calls for generated TypeScript validators, but the generated TypeScript artifact contains structural types only.",
     "Negative-balance approval metadata is self-asserted; publication must verify the referenced security review through an authorized review system.",
     "The checked-in evidence does not contain a completed Ubuntu/Windows digest matrix result; only the Windows digest is verified locally."
   ],
@@ -186,10 +201,13 @@
     "valid and invalid definition fixture conformance suite",
     "Windows canonical digest verified locally; Ubuntu and Windows workflow matrix is configured, but a completed hosted cross-platform result is not present",
     "generated Python and TypeScript model compilation",
+    "Generated TypeScript validators were executed for every $defs name and valid/invalid bundle and Item fixtures",
     "documentation generation and validation",
     "task phase:gate PHASE=04 (review gate; owner acceptance remains external)"
   ],
   "toolchain": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
     "docker": "unavailable and not required for schema validation",
     "git": "2.49.0.windows.1",
     "node": "22.16.0",
