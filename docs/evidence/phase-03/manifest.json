@@ -107,11 +107,11 @@
     },
     {
       "path": "docs/evidence/phase-03/tasks",
-      "sha256": "ac205b3010cd8f5ba66ce0a03e710f807a048ca3dab4af9f238519f2d1b3ae52"
+      "sha256": "50f94807b90a6ea074a6b63752ad7e16932ad67ab11871c6a0abfd048dc87f68"
     },
     {
       "path": "docs/evidence/phase-03/security",
-      "sha256": "634d292d6d8b83bba279e6eb4c5d2675e40ea20a8eb1322408d3c0107fd05d47"
+      "sha256": "3e3b6b488bc5f25de5e5bd1cbd67a5e6b61e78fac75f6d58b9353737992b4d19"
     },
     {
       "path": "docs/evidence/phase-03/performance",
@@ -166,8 +166,8 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-10-11T19:44:34.200099Z",
-  "final_commit": "4a2cb0c0076ee2a5f391e4be19dd75cf48e08bbd",
+  "end_utc": "2026-10-11T19:45:57.324716Z",
+  "final_commit": "45aafd03f7914f007f7a7ea4046b6d8f791e296a",
   "next_phase_prerequisites": [],
   "open_risks": [
     "Docker is unavailable on the Windows workstation; MongoDB Compose execution is delegated to hosted CI.",
