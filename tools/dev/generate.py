@@ -28,18 +28,20 @@ def generate() -> None:
         "version": "0.1.0",
         "vectors": [path.name for path in vectors],
     }
-    (GENERATED / "generation-index.json").write_text(canonical_text(index) + "\n", encoding="utf-8")
+    (GENERATED / "generation-index.json").write_text(
+        canonical_text(index) + "\n", encoding="utf-8", newline="\n"
+    )
     for source in vectors:
         data = json.loads(source.read_text(encoding="utf-8"))
         output = GENERATED / f"{source.stem}.canonical.json"
-        output.write_text(data["canonical_utf8"] + "\n", encoding="utf-8")
+        output.write_text(data["canonical_utf8"] + "\n", encoding="utf-8", newline="\n")
     generate_types()
     # The checked-in API contract is generated from the actual FastAPI route graph.
     from apps.api.app.main import create_app
 
     openapi = create_app(test_mode=True).openapi()
     (SCHEMA / "api" / "v1" / "openapi.json").write_text(
-        json.dumps(openapi, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        json.dumps(openapi, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n"
     )
 
 

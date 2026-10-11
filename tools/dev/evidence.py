@@ -618,8 +618,8 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "definition schema compilation and compatibility checks",
             "valid and invalid definition fixture conformance suite",
             (
-                "Windows canonical digest verified locally; Ubuntu and Windows CI matrix "
-                "verified on the main-branch push"
+                "Windows canonical digest verified locally; Ubuntu and Windows workflow matrix "
+                "is configured, but a completed hosted cross-platform result is not present"
             ),
             "generated Python and TypeScript model compilation",
             "documentation generation and validation",
@@ -631,8 +631,24 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
                 "and endpoint; signed artifact is reviewable locally."
             ),
             (
-                "Runtime execution and full game-balance simulation are conformance checks "
-                "only; phase 05 provides production runtime consumers."
+                "The Phase 04 release public key is self-supplied and has no independent "
+                "trust anchor; the signature verifies artifact integrity but not signer identity."
+            ),
+            (
+                "Runtime execution and full game-balance simulation remain conformance_only; "
+                "staging eligibility stays false until later-phase consumers exist."
+            ),
+            (
+                "P04-T07 calls for generated TypeScript validators, but the generated TypeScript "
+                "artifact contains structural types only."
+            ),
+            (
+                "Negative-balance approval metadata is self-asserted; publication must verify "
+                "the referenced security review through an authorized review system."
+            ),
+            (
+                "The checked-in evidence does not contain a completed Ubuntu/Windows digest "
+                "matrix result; only the Windows digest is verified locally."
             ),
         ],
         "next_phase_prerequisites": [

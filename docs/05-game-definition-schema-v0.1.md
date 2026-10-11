@@ -52,6 +52,7 @@ The header fields are flat fields on the definition object. Tags are sorted and 
 `Module` contains `id`, `version`, `digest`, `engine_range`, `requires`, `conflicts`, `configuration`, `state_namespaces`, `registered_actions`, `subscribed_events`, `emitted_events`, `registered_conditions`, `registered_effects`, `registered_timers`, `migrations`, and `resource_budget`.
 
 Published module resolution stores exact versions and digests. Version ranges exist only in drafts.
+The v0.1 draft `requires[].version_range` subset is `*`, exact `M.m.p`, `^M.m.p`, or `~M.m.p`; validation rejects unsupported syntax and requires every installed dependency version to satisfy its range.
 
 The bundle includes an `extension_manifest` that registers namespaced extension schemas by schema identifier and pinned digest. Extensions without a registration are rejected.
 

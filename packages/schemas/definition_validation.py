@@ -7,6 +7,7 @@ import re
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote
 
 from packages.schemas.definition_runtime import (
     DefinitionInputError,
@@ -27,6 +28,83 @@ def _error(pointer: str, code: str) -> dict[str, str]:
     return {"pointer": pointer, "code": code, "severity": "error"}
 
 
+def _extension_schema_is_safe(schema: Any) -> bool:
+    """Accept only valid Draft 2020-12 schemas with local-only references."""
+    from jsonschema import Draft202012Validator, SchemaError  # type: ignore[import-untyped]
+
+    pending = [schema]
+    references: list[str] = []
+    while pending:
+        current = pending.pop()
+        if isinstance(current, dict):
+            for key, child in current.items():
+                if key in {"$ref", "$dynamicRef", "$recursiveRef"}:
+                    if not isinstance(child, str) or not child.startswith("#"):
+                        return False
+                    references.append(child)
+                pending.append(child)
+        elif isinstance(current, list):
+            pending.extend(current)
+    try:
+        Draft202012Validator.check_schema(schema)
+    except SchemaError:
+        return False
+    for reference in references:
+        if reference == "#":
+            continue
+        if not reference.startswith("#/"):
+            return False
+        target = schema
+        for encoded_part in unquote(reference[2:]).split("/"):
+            escape = chr(126)
+            if re.search(escape + r"(?![01])", encoded_part):
+                return False
+            part = encoded_part.replace(escape + "1", "/").replace(escape + "0", escape)
+            if not isinstance(target, dict) or part not in target:
+                return False
+            target = target[part]
+    return True
+
+
+def _version_tuple(version: str) -> tuple[int, int, int] | None:
+    match = re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)", version)
+    return (int(match.group(1)), int(match.group(2)), int(match.group(3))) if match else None
+
+
+def _dependency_range_matches(version: str, version_range: str) -> bool:
+    """Match the v0.1 dependency range subset: *, exact, ^M.m.p, and ~M.m.p."""
+    candidate = _version_tuple(version)
+    if candidate is None:
+        return False
+    if version_range == "*":
+        return True
+    match = re.fullmatch(r"([\^~]?)(.*)", version_range)
+    if match is None:
+        return False
+    operator, requested_text = match.groups()
+    requested = _version_tuple(requested_text)
+    if requested is None:
+        return False
+    if not operator:
+        return candidate == requested
+    if operator == chr(126):
+        upper = (requested[0], requested[1] + 1, 0)
+    elif requested[0] > 0:
+        upper = (requested[0] + 1, 0, 0)
+    elif requested[1] > 0:
+        upper = (0, requested[1] + 1, 0)
+    else:
+        upper = (0, 0, requested[2] + 1)
+    return requested <= candidate < upper
+
+
+def _dependency_range_is_valid(version_range: str) -> bool:
+    if version_range == "*":
+        return True
+    match = re.fullmatch(r"([\^~]?)(.*)", version_range)
+    return bool(match and _version_tuple(match.group(2)) is not None)
+
+
 def _walk(value: Any, pointer: str = "") -> list[tuple[str, Any]]:
     result = [(pointer, value)]
     if isinstance(value, dict):
@@ -42,20 +120,26 @@ def _walk(value: Any, pointer: str = "") -> list[tuple[str, Any]]:
 def _graph_cycle(graph: dict[str, list[str]]) -> bool:
     active: set[str] = set()
     done: set[str] = set()
-
-    def visit(node: str) -> bool:
-        if node in active:
-            return True
-        if node in done:
-            return False
-        active.add(node)
-        if any(visit(target) for target in graph.get(node, [])):
-            return True
-        active.remove(node)
-        done.add(node)
-        return False
-
-    return any(visit(node) for node in graph)
+    for root in graph:
+        if root in done:
+            continue
+        active.add(root)
+        pending: list[tuple[str, Any]] = [(root, iter(graph.get(root, [])))]
+        while pending:
+            node, targets = pending[-1]
+            try:
+                target = next(targets)
+            except StopIteration:
+                pending.pop()
+                active.remove(node)
+                done.add(node)
+                continue
+            if target in active:
+                return True
+            if target not in done:
+                active.add(target)
+                pending.append((target, iter(graph.get(target, []))))
+    return False
 
 
 def validate_bundle(value: Any) -> dict[str, Any]:
@@ -85,6 +169,13 @@ def validate_bundle(value: Any) -> dict[str, Any]:
         "game": {value["game"]["id"]},
         "module": {module["id"] for module in value.get("modules", [])},
     }
+    module_id_values = [module["id"] for module in value.get("modules", [])]
+    if len(module_id_values) != len(set(module_id_values)):
+        seen: set[str] = set()
+        for index, module_id in enumerate(module_id_values):
+            if module_id in seen:
+                errors.append(_error(f"/modules/{index}/id", "duplicate_id"))
+            seen.add(module_id)
     type_markers = {
         "entity": "entity_type",
         "resource": "resource_type",
@@ -145,6 +236,10 @@ def validate_bundle(value: Any) -> dict[str, Any]:
                             f"{pointer}/extensions/{namespace}", "extension_schema_digest_mismatch"
                         )
                     )
+                elif not _extension_schema_is_safe(schema):
+                    errors.append(
+                        _error(f"{pointer}/extensions/{namespace}", "extension_schema_invalid")
+                    )
                 else:
                     extension_errors = validate_document(node["extensions"][namespace], schema)
                     errors.extend(
@@ -198,6 +293,7 @@ def validate_bundle(value: Any) -> dict[str, Any]:
         "localization_key_missing",
         "action_owner_invalid",
         "extension_schema_digest_mismatch",
+        "extension_schema_invalid",
         "schema_validation",
     }
     levels.append(
@@ -207,10 +303,12 @@ def validate_bundle(value: Any) -> dict[str, Any]:
         }
     )
 
-    module_ids = {module["id"] for module in value.get("modules", [])}
-    if not module_ids <= set(blueprint.get("allowed_modules", [])):
+    installed_module_ids = {module["id"] for module in value.get("modules", [])}
+    if not set(blueprint.get("required_modules", [])) <= set(blueprint.get("allowed_modules", [])):
+        errors.append(_error("/blueprint/required_modules", "required_module_not_allowed"))
+    if not installed_module_ids <= set(blueprint.get("allowed_modules", [])):
         errors.append(_error("/modules", "blueprint_module_forbidden"))
-    if not set(blueprint.get("required_modules", [])) <= module_ids:
+    if not set(blueprint.get("required_modules", [])) <= installed_module_ids:
         errors.append(_error("/modules", "blueprint_required_module_missing"))
     module_versions = {
         module["id"]: (module["version"], module["digest"]) for module in value.get("modules", [])
@@ -244,8 +342,21 @@ def validate_bundle(value: Any) -> dict[str, Any]:
         if module_id in module.get("conflicts", []):
             errors.append(_error(f"/modules/{index}/conflicts", "module_self_conflict"))
         for dependency in graph[module_id]:
-            if dependency not in module_ids:
+            if dependency not in installed_module_ids:
                 errors.append(_error(f"/modules/{index}/requires", "dependency_missing"))
+        for dependency_index, dependency in enumerate(module.get("requires", [])):
+            dependency_id = dependency["module_id"]
+            installed = next(
+                (item for item in value.get("modules", []) if item["id"] == dependency_id),
+                None,
+            )
+            range_pointer = f"/modules/{index}/requires/{dependency_index}/version_range"
+            if not _dependency_range_is_valid(dependency["version_range"]):
+                errors.append(_error(range_pointer, "dependency_version_range_invalid"))
+            elif installed is not None and not _dependency_range_matches(
+                installed["version"], dependency["version_range"]
+            ):
+                errors.append(_error(range_pointer, "dependency_version_mismatch"))
     if _graph_cycle(graph):
         errors.append(_error("/modules", "dependency_cycle"))
     progression: dict[str, list[str]] = {}
@@ -312,7 +423,7 @@ def validate_bundle(value: Any) -> dict[str, Any]:
     if _graph_cycle(reward_graph):
         errors.append(_error("/documents", "reward_loop"))
     for left, module in enumerate(value.get("modules", [])):
-        if set(module.get("conflicts", [])) & module_ids:
+        if set(module.get("conflicts", [])) & installed_module_ids:
             errors.append(_error(f"/modules/{left}/conflicts", "module_conflict_installed"))
     for index, document in enumerate(documents):
         if isinstance(document, dict) and "input_schema" in document:
@@ -324,10 +435,9 @@ def validate_bundle(value: Any) -> dict[str, Any]:
                 for module in value["modules"]
                 if document["id"] in module.get("registered_effects", [])
             ]
-            if (
-                len(owners) == 1
-                and document["path"]["namespace_id"] not in owners[0]["state_namespaces"]
-            ):
+            if len(owners) != 1:
+                errors.append(_error(f"/documents/{index}/id", "effect_owner_invalid"))
+            elif document["path"]["namespace_id"] not in owners[0]["state_namespaces"]:
                 errors.append(
                     _error(f"/documents/{index}/path/namespace_id", "namespace_violation")
                 )
@@ -352,8 +462,11 @@ def validate_bundle(value: Any) -> dict[str, Any]:
                 in {
                     "dependency_missing",
                     "dependency_cycle",
+                    "dependency_version_mismatch",
+                    "dependency_version_range_invalid",
                     "module_self_conflict",
                     "module_conflict_installed",
+                    "effect_owner_invalid",
                     "duplicate_namespace",
                     "release_lock_mismatch",
                     "canonical_order",
@@ -471,6 +584,7 @@ def validate_bundle(value: Any) -> dict[str, Any]:
                     "blueprint_feature_forbidden",
                     "blueprint_module_forbidden",
                     "blueprint_required_module_missing",
+                    "required_module_not_allowed",
                     "module_budget_exceeds_blueprint",
                     "initial_amount_out_of_range",
                     "numeric_model_precision_mismatch",
@@ -496,7 +610,11 @@ def validate_bundle(value: Any) -> dict[str, Any]:
                 denominator = node["args"][1]
                 if isinstance(denominator, dict) and denominator.get("operator") == "literal":
                     denominator = denominator.get("value")
-                if denominator in (0, "0", "0.0"):
+                try:
+                    is_zero = Decimal(str(denominator)) == 0
+                except (InvalidOperation, TypeError, ValueError):
+                    is_zero = False
+                if is_zero:
                     errors.append(_error(pointer, "division_by_zero"))
             if "configuration" in node:
                 forbidden = {
@@ -531,46 +649,76 @@ def validate_bundle(value: Any) -> dict[str, Any]:
         ]
     )
 
-    def ast_size(node: Any, depth: int = 0) -> tuple[int, int]:
-        if not isinstance(node, dict):
-            return 1, depth
-        children = node.get("args", [])
-        child_sizes = (
-            [ast_size(child, depth + 1) for child in children] if isinstance(children, list) else []
-        )
-        return 1 + sum(size for size, _ in child_sizes), max(
-            [depth, *(level for _, level in child_sizes)]
+    formula_prefixes: dict[str, set[str]] = {}
+    condition_prefixes: set[str] = set()
+    for pointer, node in _walk(value):
+        if isinstance(node, dict) and "expression" in node:
+            expression_pointer = f"{pointer}/expression"
+            if "variables" in node:
+                formula_prefixes[expression_pointer] = set(node.get("variables", []))
+            else:
+                condition_prefixes.add(expression_pointer)
+
+    def ast_metrics(node: Any) -> tuple[int, int]:
+        """Count every operator in nested AST branches, including piecewise cases."""
+        count = 0
+        max_depth = 0
+        pending: list[tuple[Any, int]] = [(node, 0)]
+        while pending:
+            current, depth = pending.pop()
+            if isinstance(current, dict):
+                if "operator" in current:
+                    count += 1
+                    max_depth = max(max_depth, depth)
+                    child_depth = depth + 1
+                else:
+                    child_depth = depth
+                pending.extend((child, child_depth) for child in current.values())
+            elif isinstance(current, list):
+                pending.extend((child, depth) for child in current)
+        return count, max_depth
+
+    def enclosing_prefix(pointer: str, prefixes: Any) -> str | None:
+        return next(
+            (
+                prefix
+                for prefix in prefixes
+                if pointer == prefix or pointer.startswith(prefix + "/")
+            ),
+            None,
         )
 
-    formula_prefixes = {
-        f"/documents/{index}/expression"
-        for index, document in enumerate(documents)
-        if isinstance(document, dict) and "variables" in document
-    }
-    formula_variable_allowlists = {
-        f"/documents/{index}": set(document.get("variables", []))
-        for index, document in enumerate(documents)
-        if isinstance(document, dict) and "variables" in document
-    }
+    ast_roots = sorted(
+        [(prefix, True) for prefix in formula_prefixes]
+        + [(prefix, False) for prefix in condition_prefixes]
+    )
+    for prefix, is_formula in ast_roots:
+        ast_root: Any = value
+        for part in prefix.strip("/").split("/"):
+            ast_root = ast_root[int(part)] if isinstance(ast_root, list) else ast_root[part]
+        size, depth = ast_metrics(ast_root)
+        budget = operation_budget if is_formula else condition_budget
+        if size > budget or depth > depth_limit:
+            errors.append(
+                _error(
+                    prefix,
+                    "formula_operation_budget_exceeded"
+                    if is_formula
+                    else "condition_budget_exceeded",
+                )
+            )
+
     for pointer, node in _walk(value):
         if isinstance(node, dict) and "operator" in node:
-            size, depth = ast_size(node)
-            is_formula = any(pointer.startswith(prefix) for prefix in formula_prefixes)
-            budget = operation_budget if is_formula else condition_budget
-            if size > budget or depth > depth_limit:
-                errors.append(
-                    _error(
-                        pointer,
-                        "formula_operation_budget_exceeded"
-                        if is_formula
-                        else "condition_budget_exceeded",
-                    )
-                )
-            if node.get("operator") == "variable" and is_formula:
-                prefix = next(prefix for prefix in formula_prefixes if pointer.startswith(prefix))
-                document_pointer = prefix.removesuffix("/expression")
-                if node.get("name") not in formula_variable_allowlists[document_pointer]:
+            formula_prefix = enclosing_prefix(pointer, formula_prefixes)
+            if node.get("operator") == "variable" and formula_prefix is not None:
+                if node.get("name") not in formula_prefixes[formula_prefix]:
                     errors.append(_error(f"{pointer}/name", "formula_variable_not_allowed"))
+            if node.get("operator") == "literal" and isinstance(node.get("value"), str):
+                try:
+                    normalize_decimal(node["value"])
+                except DefinitionInputError as error:
+                    errors.append(_error(f"{pointer}/value", error.code))
             if node.get("operator") == "power_integer":
                 exponent = node.get("args", [None, None])[1]
                 if (
@@ -607,19 +755,22 @@ def validate_bundle(value: Any) -> dict[str, Any]:
     levels.append(
         {
             "level": "runtime",
-            "status": "passed",
-            "evidence": "schema and validator conformance vectors",
+            "status": "conformance_only",
+            "evidence": "schema loading conformance only; runtime execution is not implemented",
         }
     )
     levels.append(
         {
             "level": "simulation",
-            "status": "passed",
-            "evidence": "deterministic invariant fixture suite",
+            "status": "conformance_only",
+            "evidence": "no balance simulator or simulation invariant suite is implemented",
         }
     )
+    if any(error["code"] == "action_owner_invalid" for error in errors):
+        levels[1]["status"] = "failed"
     return {
         "valid": not errors,
+        "staging_eligible": False,
         "levels": levels,
         "errors": sorted(errors, key=lambda e: (e["pointer"], e["code"])),
     }

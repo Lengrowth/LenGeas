@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from packages.schemas.definition_runtime import sha256_hex
-from packages.schemas.definition_validation import validate_bundle
+from packages.schemas.definition_validation import _graph_cycle, validate_bundle
 
 
 def valid_bundle() -> dict[str, Any]:
@@ -162,9 +162,10 @@ def valid_inventory(accepted_items: list[str]) -> dict[str, Any]:
     }
 
 
-def test_valid_bundle_passes_all_seven_validation_levels() -> None:
+def test_valid_bundle_reports_definition_validity_without_claiming_staging_readiness() -> None:
     result = validate_bundle(valid_bundle())
     assert result["valid"] is True
+    assert result["staging_eligible"] is False
     assert [level["level"] for level in result["levels"]] == [
         "syntax",
         "references",
@@ -174,6 +175,21 @@ def test_valid_bundle_passes_all_seven_validation_levels() -> None:
         "runtime",
         "simulation",
     ]
+    assert [level["status"] for level in result["levels"]] == [
+        "passed",
+        "passed",
+        "passed",
+        "passed",
+        "passed",
+        "conformance_only",
+        "conformance_only",
+    ]
+
+
+def test_graph_cycle_check_handles_long_acyclic_graph_without_recursion() -> None:
+    graph = {f"node_{index}": [f"node_{index + 1}"] for index in range(1500)}
+    graph["node_1500"] = []
+    assert _graph_cycle(graph) is False
 
 
 def test_blueprint_constrains_network_mode_and_features() -> None:
@@ -216,6 +232,55 @@ def test_missing_module_dependency_is_rejected() -> None:
     assert "dependency_missing" in {error["code"] for error in result["errors"]}
 
 
+def test_module_dependency_range_must_match_installed_version() -> None:
+    bundle = valid_bundle()
+    first = valid_module("module_alpha")
+    first["requires"] = [{"module_id": "module_beta", "version_range": "^1.2.0"}]
+    second = valid_module("module_beta")
+    second["version"] = "2.0.0"
+    bundle["modules"] = [first, second]
+    bundle["blueprint"]["allowed_modules"] = ["module_alpha", "module_beta"]
+    bundle["game"]["modules"] = [
+        {"module_id": item["id"], "version": item["version"], "digest": item["digest"]}
+        for item in bundle["modules"]
+    ]
+    result = validate_bundle(bundle)
+    assert "dependency_version_mismatch" in {error["code"] for error in result["errors"]}
+
+
+def test_module_dependency_range_grammar_is_bounded() -> None:
+    bundle = valid_bundle()
+    first = valid_module("module_alpha")
+    first["requires"] = [{"module_id": "module_beta", "version_range": ">=1.0.0"}]
+    second = valid_module("module_beta")
+    bundle["modules"] = [first, second]
+    bundle["blueprint"]["allowed_modules"] = ["module_alpha", "module_beta"]
+    bundle["game"]["modules"] = [
+        {"module_id": item["id"], "version": item["version"], "digest": item["digest"]}
+        for item in bundle["modules"]
+    ]
+    result = validate_bundle(bundle)
+    assert "dependency_version_range_invalid" in {error["code"] for error in result["errors"]}
+
+
+def test_duplicate_module_ids_are_rejected() -> None:
+    bundle = valid_bundle()
+    module = valid_module("module_alpha")
+    bundle["modules"] = [module, dict(module)]
+    bundle["blueprint"]["allowed_modules"] = ["module_alpha"]
+    bundle["game"]["modules"] = [
+        {"module_id": module["id"], "version": module["version"], "digest": module["digest"]}
+    ]
+    assert "duplicate_id" in {error["code"] for error in validate_bundle(bundle)["errors"]}
+
+
+def test_required_module_must_be_allowed_by_blueprint() -> None:
+    bundle = valid_bundle()
+    bundle["blueprint"]["required_modules"] = ["module_required"]
+    result = validate_bundle(bundle)
+    assert "required_module_not_allowed" in {error["code"] for error in result["errors"]}
+
+
 def test_module_release_lock_must_pin_exact_version_and_digest() -> None:
     bundle = valid_bundle()
     module = valid_module("module_alpha")
@@ -241,6 +306,35 @@ def test_module_namespaces_have_one_owner() -> None:
     ]
     result = validate_bundle(bundle)
     assert "namespace_owned_by_multiple_modules" in {error["code"] for error in result["errors"]}
+
+
+def test_effect_must_have_exactly_one_declared_owner() -> None:
+    bundle = valid_bundle()
+    effect = {
+        "id": "effect_set_level",
+        "schema_version": "0.1.0",
+        "tags": [],
+        "enabled": True,
+        "metadata": {},
+        "extensions": {},
+        "operation": "set",
+        "path": {"namespace_id": "state_main", "segments": ["level"]},
+        "target": {"kind": "resource", "id": "resource_coin"},
+        "value": 1,
+    }
+    bundle["documents"] = [effect, valid_resource()]
+    result = validate_bundle(bundle)
+    assert "effect_owner_invalid" in {error["code"] for error in result["errors"]}
+
+    module = valid_module("module_effects")
+    module["state_namespaces"] = ["state_main"]
+    module["registered_effects"] = ["effect_set_level"]
+    bundle["modules"] = [module]
+    bundle["blueprint"]["allowed_modules"] = [module["id"]]
+    bundle["game"]["modules"] = [
+        {"module_id": module["id"], "version": module["version"], "digest": module["digest"]}
+    ]
+    assert validate_bundle(bundle)["valid"] is True
 
 
 def test_installed_module_conflict_is_rejected() -> None:
@@ -287,6 +381,28 @@ def test_registered_extension_schema_is_digest_pinned_and_validated() -> None:
     assert validate_bundle(bundle)["valid"] is True
 
 
+def test_extension_schema_accepts_resolvable_local_json_pointer_reference() -> None:
+    bundle = valid_bundle()
+    schema = {
+        "$defs": {"setting": {"type": "string", "const": "on"}},
+        "type": "object",
+        "properties": {"setting": {"$ref": "#/$defs/setting"}},
+        "required": ["setting"],
+        "additionalProperties": False,
+    }
+    bundle["extension_manifest"]["extensions"] = {
+        "vendor.example": {
+            "schema_id": "https://example.invalid/vendor.schema.json",
+            "digest": f"sha256:{sha256_hex(schema)}",
+            "schema": schema,
+        }
+    }
+    resource = valid_resource()
+    resource["extensions"] = {"vendor.example": {"setting": "on"}}
+    bundle["documents"] = [resource]
+    assert validate_bundle(bundle)["valid"] is True
+
+
 def test_registered_extension_schema_digest_mismatch_is_rejected() -> None:
     bundle = valid_bundle()
     bundle["extension_manifest"]["extensions"] = {
@@ -301,6 +417,57 @@ def test_registered_extension_schema_digest_mismatch_is_rejected() -> None:
     bundle["documents"] = [resource]
     result = validate_bundle(bundle)
     assert "extension_schema_digest_mismatch" in {error["code"] for error in result["errors"]}
+
+
+def test_invalid_extension_schema_is_reported_without_running_it() -> None:
+    bundle = valid_bundle()
+    schema = {"type": "not-a-json-schema-type"}
+    bundle["extension_manifest"]["extensions"] = {
+        "vendor.example": {
+            "schema_id": "https://example.invalid/vendor.schema.json",
+            "digest": f"sha256:{sha256_hex(schema)}",
+            "schema": schema,
+        }
+    }
+    resource = valid_resource()
+    resource["extensions"] = {"vendor.example": {}}
+    bundle["documents"] = [resource]
+    result = validate_bundle(bundle)
+    assert "extension_schema_invalid" in {error["code"] for error in result["errors"]}
+
+
+def test_remote_extension_schema_reference_is_rejected() -> None:
+    bundle = valid_bundle()
+    schema = {"$ref": "https://example.invalid/schema.json"}
+    bundle["extension_manifest"]["extensions"] = {
+        "vendor.example": {
+            "schema_id": "https://example.invalid/vendor.schema.json",
+            "digest": f"sha256:{sha256_hex(schema)}",
+            "schema": schema,
+        }
+    }
+    resource = valid_resource()
+    resource["extensions"] = {"vendor.example": {}}
+    bundle["documents"] = [resource]
+    result = validate_bundle(bundle)
+    assert "extension_schema_invalid" in {error["code"] for error in result["errors"]}
+
+
+def test_extension_schema_with_unresolved_local_reference_is_rejected() -> None:
+    bundle = valid_bundle()
+    schema = {"$ref": "#/$defs/not_present"}
+    bundle["extension_manifest"]["extensions"] = {
+        "vendor.example": {
+            "schema_id": "https://example.invalid/vendor.schema.json",
+            "digest": f"sha256:{sha256_hex(schema)}",
+            "schema": schema,
+        }
+    }
+    resource = valid_resource()
+    resource["extensions"] = {"vendor.example": {}}
+    bundle["documents"] = [resource]
+    result = validate_bundle(bundle)
+    assert "extension_schema_invalid" in {error["code"] for error in result["errors"]}
 
 
 def test_player_visible_resource_requires_supported_locale_keys() -> None:
@@ -395,6 +562,27 @@ def test_formula_variables_are_allowlisted() -> None:
     assert "formula_variable_not_allowed" in {error["code"] for error in result["errors"]}
 
 
+def test_nested_formula_variables_are_allowlisted() -> None:
+    bundle = valid_bundle()
+    quantity = valid_formula({"operator": "variable", "name": "not_allowed"})
+    cost = {
+        "id": "cost_purchase",
+        "schema_version": "0.1.0",
+        "tags": [],
+        "enabled": True,
+        "metadata": {},
+        "extensions": {},
+        "owner": "player_owner",
+        "target": {"kind": "resource", "id": "resource_coin"},
+        "quantity": quantity,
+        "insufficiency": "reject",
+        "ledger_reason": "purchase",
+    }
+    bundle["documents"] = [valid_resource(), cost]
+    result = validate_bundle(bundle)
+    assert "formula_variable_not_allowed" in {error["code"] for error in result["errors"]}
+
+
 def test_blueprint_formula_operation_budget_is_enforced() -> None:
     bundle = valid_bundle()
     bundle["blueprint"]["resource_budget"]["max_formula_operations"] = 2
@@ -411,6 +599,40 @@ def test_blueprint_formula_operation_budget_is_enforced() -> None:
     ]
     result = validate_bundle(bundle)
     assert "formula_operation_budget_exceeded" in {error["code"] for error in result["errors"]}
+
+
+def test_piecewise_formula_branches_are_included_in_operation_budget() -> None:
+    bundle = valid_bundle()
+    bundle["blueprint"]["resource_budget"]["max_formula_operations"] = 3
+    bundle["documents"] = [
+        valid_formula(
+            {
+                "operator": "piecewise",
+                "cases": [
+                    {
+                        "when": {"operator": "eq", "left": 1, "right": 1},
+                        "then": {
+                            "operator": "add",
+                            "args": [
+                                {"operator": "literal", "value": 1},
+                                {"operator": "literal", "value": 2},
+                            ],
+                        },
+                    }
+                ],
+                "fallback": {"operator": "literal", "value": 0},
+            }
+        )
+    ]
+    result = validate_bundle(bundle)
+    assert "formula_operation_budget_exceeded" in {error["code"] for error in result["errors"]}
+
+
+def test_formula_literal_rejects_negative_zero_decimal() -> None:
+    bundle = valid_bundle()
+    bundle["documents"] = [valid_formula({"operator": "literal", "value": "-0"})]
+    result = validate_bundle(bundle)
+    assert "decimal_not_normalized" in {error["code"] for error in result["errors"]}
 
 
 def test_progression_cycle_and_required_unreachable_node_are_rejected() -> None:

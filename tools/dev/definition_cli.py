@@ -18,6 +18,7 @@ SCHEMA_ROOT = json.loads(
 PACKAGE_MANIFEST_SCHEMA = {**SCHEMA_ROOT, "$ref": "#/$defs/PackageManifest"}
 
 from packages.schemas.definition_runtime import (  # noqa: E402, I001
+    DefinitionInputError,
     MAX_BUNDLE_BYTES,
     canonical_bytes,
     parse_yaml,
@@ -89,7 +90,11 @@ def validate_fixtures() -> bool:
 
 def _read_package_yaml(package_root: Path, relative: str) -> Any:
     path = _package_file(package_root, relative)
-    return parse_yaml(path.read_text(encoding="utf-8"))
+    try:
+        source = path.read_bytes().decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise DefinitionInputError("yaml_encoding_invalid", "YAML input must be UTF-8.") from error
+    return parse_yaml(source)
 
 
 def _package_file(package_root: Path, relative: str) -> Path:
@@ -265,10 +270,20 @@ def main() -> int:
         if not validate_bundle(readback)["valid"] or canonical_bytes(readback) != canonical:
             print("FAIL canonical bundle read-back verification")
             return 1
-        (output.parent / "sha256.txt").write_text(sha256_hex(bundle) + "\n", encoding="utf-8")
+        (output.parent / "sha256.txt").write_text(
+            sha256_hex(bundle) + "\n", encoding="utf-8", newline="\n"
+        )
         print(sha256_hex(bundle))
         return 0
-    text = args.path.read_text(encoding="utf-8")
+    try:
+        text = args.path.read_bytes().decode("utf-8")
+    except UnicodeDecodeError:
+        print(
+            json.dumps(
+                {"errors": [{"pointer": "", "code": "yaml_encoding_invalid", "severity": "error"}]}
+            )
+        )
+        return 1
     if args.command == "canonicalize":
         value: Any = parse_yaml(text)
         print(canonical_bytes(value).decode("utf-8"))

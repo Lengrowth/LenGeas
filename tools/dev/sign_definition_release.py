@@ -31,6 +31,11 @@ def catalog_digest() -> str:
     return digest.hexdigest()
 
 
+def normalized_text_digest(path: Path) -> str:
+    contents = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(contents).hexdigest()
+
+
 def build_manifest() -> dict[str, object]:
     fixture_digest = (
         (ROOT / "tests/conformance/fixtures/definitions/valid/minimal-bundle/sha256.txt")
@@ -45,7 +50,7 @@ def build_manifest() -> dict[str, object]:
         "minimal_bundle_sha256": fixture_digest,
         "python_model": "packages/sdk-python/definition_v0_1.py",
         "typescript_model": "packages/sdk-typescript/src/definition-v0_1.ts",
-        "compatibility_policy_sha256": hashlib.sha256(policy.read_bytes()).hexdigest(),
+        "compatibility_policy_sha256": normalized_text_digest(policy),
         "registry_status": "not_published",
     }
 
@@ -61,25 +66,29 @@ def sign(output_root: Path = OUTPUT_ROOT) -> None:
         serialization.Encoding.PEM, serialization.PublicFormat.SubjectPublicKeyInfo
     )
     (output_root / "definition-schema-release.json").write_bytes(payload + b"\n")
-    (output_root / "definition-schema-release.sig").write_text(
-        base64.b64encode(signature).decode("ascii") + "\n", encoding="ascii"
-    )
+    (output_root / "definition-schema-release.sig").write_bytes(base64.b64encode(signature) + b"\n")
     (output_root / "definition-schema-release.pub.pem").write_bytes(pem)
     verify(output_root)
 
 
 def verify(output_root: Path = OUTPUT_ROOT) -> None:
-    payload = (output_root / "definition-schema-release.json").read_bytes().strip()
-    signature = base64.b64decode(
-        (output_root / "definition-schema-release.sig").read_text(encoding="ascii")
-    )
+    release_bytes = (output_root / "definition-schema-release.json").read_bytes()
+    if not release_bytes.endswith(b"\n") or release_bytes.endswith(b"\n\n"):
+        raise ValueError("Release manifest must contain one canonical UTF-8 JSON line ending.")
+    payload = release_bytes[:-1]
+    manifest = json.loads(payload)
+    if canonical_bytes(manifest) != payload:
+        raise ValueError("Release manifest bytes are not canonical JSON.")
+    signature_text = (output_root / "definition-schema-release.sig").read_text(encoding="ascii")
+    if not signature_text.endswith("\n") or signature_text.endswith("\n\n"):
+        raise ValueError("Release signature must contain one base64 line ending.")
+    signature = base64.b64decode(signature_text[:-1], validate=True)
     public_key = serialization.load_pem_public_key(
         (output_root / "definition-schema-release.pub.pem").read_bytes()
     )
     if not isinstance(public_key, Ed25519PublicKey):
         raise ValueError("Release public key is not Ed25519.")
     public_key.verify(signature, payload)
-    manifest = json.loads(payload)
     if manifest != build_manifest():
         raise ValueError("Signed release manifest is stale for the current schema catalog.")
 
