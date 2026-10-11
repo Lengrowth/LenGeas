@@ -43,7 +43,11 @@ SUITES: dict[str, tuple[str, tuple[Dependency, ...]]] = {
     ),
     "e2e": (
         "e2e",
-        (Dependency("e2e-base-url", "LENGEAS_E2E_BASE_URL"),),
+        (
+            Dependency("e2e-base-url", "LENGEAS_E2E_BASE_URL"),
+            Dependency("e2e-guest-proof", "LENGEAS_E2E_GUEST_PROOF"),
+            Dependency("e2e-device-key", "LENGEAS_E2E_DEVICE_PUBLIC_KEY"),
+        ),
     ),
     "performance": ("performance", ()),
     "security": ("security", ()),
@@ -133,6 +137,20 @@ def _dependency_available(dependency: Dependency, project: Path) -> tuple[bool, 
             bool(value),
             "LENGEAS_E2E_BASE_URL is set" if value else "LENGEAS_E2E_BASE_URL is unset",
         )
+    if dependency.name == "e2e-guest-proof":
+        value = os.environ.get("LENGEAS_E2E_GUEST_PROOF", "").strip()
+        return (
+            bool(value),
+            "LENGEAS_E2E_GUEST_PROOF is set" if value else "LENGEAS_E2E_GUEST_PROOF is unset",
+        )
+    if dependency.name == "e2e-device-key":
+        value = os.environ.get("LENGEAS_E2E_DEVICE_PUBLIC_KEY", "").strip()
+        return (
+            bool(value),
+            "LENGEAS_E2E_DEVICE_PUBLIC_KEY is set"
+            if value
+            else "LENGEAS_E2E_DEVICE_PUBLIC_KEY is unset",
+        )
     return False, f"unknown dependency declaration: {dependency.name}"
 
 
@@ -171,20 +189,41 @@ def _validate_fixture_policy() -> None:
         raise RuntimeError(f"fixture policy failed: missing check categories: {', '.join(missing)}")
 
 
-def run_suite(suite: str) -> int:
+def _identity_module(suite: str) -> Path:
+    path = TESTS / SUITES[suite][0] / "identity"
+    modules = sorted(path.glob("test_*.py")) if path.exists() else []
+    if len(modules) != 1:
+        raise RuntimeError(f"identity test policy failed for {suite}: expected one identity module")
+    return modules[0]
+
+
+def _is_identity_selector(selector: str | None) -> bool:
+    if not selector:
+        return False
+    tokens = {token.strip().lower() for token in selector.split(",")}
+    return bool(tokens & {"identity", "auth", "supabase", "mongodb", "tenancy", "authorization"})
+
+
+def run_suite(suite: str, selector: str | None = None) -> int:
     if suite not in SUITES:
         suite_names = ", ".join(SUITES)
         print(f"ERROR unknown suite {suite!r}; expected one of: {suite_names}", file=sys.stderr)
         return 2
     try:
         project, module_path = _fixture_module(suite)
-        module = _load_module(module_path)
+        paths = [_identity_module(suite)] if _is_identity_selector(selector) else [module_path]
+        modules = [_load_module(path) for path in paths]
         _validate_fixture_policy()
     except (OSError, RuntimeError, ImportError, SyntaxError) as exc:
         print(f"ERROR {suite}: {exc}", file=sys.stderr)
         return 2
 
-    dependencies = SUITES[suite][1]
+    # Integration and E2E selectors retain their real-system prerequisites.
+    dependencies = (
+        SUITES[suite][1]
+        if suite in {"integration", "e2e"}
+        else (() if _is_identity_selector(selector) else SUITES[suite][1])
+    )
     unavailable = []
     for dependency in dependencies:
         available, detail = _dependency_available(dependency, project)
@@ -200,11 +239,15 @@ def run_suite(suite: str) -> int:
         return 2
 
     loader = unittest.defaultTestLoader
-    tests = loader.loadTestsFromModule(module)
+    tests = unittest.TestSuite(loader.loadTestsFromModule(module) for module in modules)
     stream = io.StringIO()
     result = unittest.TextTestRunner(stream=stream, verbosity=0, buffer=True).run(tests)
     if result.wasSuccessful():
-        print(f"PASS {suite}: {result.testsRun} synthetic fixture checks")
+        label = {
+            "integration": "backend integration checks",
+            "e2e": "deployed API boundary checks",
+        }.get(suite, "synthetic fixture checks")
+        print(f"PASS {suite}: {result.testsRun} {label}")
         return 0
     print(stream.getvalue().rstrip(), file=sys.stderr)
     print(
@@ -218,6 +261,7 @@ def run_suite(suite: str) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("suite", choices=[*SUITES, "all"], help="test project to execute")
+    parser.add_argument("selector", nargs="?", help="optional identity selector")
     args = parser.parse_args()
     if args.suite == "all":
         try:
@@ -226,7 +270,7 @@ def main() -> int:
             print(f"ERROR fixture policy: {exc}", file=sys.stderr)
             return 2
         return max(run_suite(suite) for suite in SUITES)
-    return run_suite(args.suite)
+    return run_suite(args.suite, args.selector)
 
 
 if __name__ == "__main__":

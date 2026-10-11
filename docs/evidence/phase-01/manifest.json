@@ -7,7 +7,7 @@
     },
     {
       "path": "Taskfile.yml",
-      "sha256": "2ac103c55e806dcbbc000d70ed253ba3d001be34e5a26171214296b3e199c421"
+      "sha256": "cdf31fd8c581ab2aeba6659cec5e340cee773a8cfc68a98432d6eec5c200c8ad"
     },
     {
       "path": "package.json",
@@ -19,19 +19,19 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "83304120b6efb371ebe6b0cc4cfbe98c21f8a895ee68fe6c7397cf9ca0e21b6b"
+      "sha256": "50847b0ee7adf025896fb536e3ead08077fe7c826ef728727dea00c3a2a9c96c"
     },
     {
       "path": "uv.lock",
-      "sha256": "7784adecabe92b53f9bdba608999d8a6e689dff11992c79bd434e5a5a3326ab4"
+      "sha256": "647fe44b1a0572dc5db4062ef8c690e783d8b53ec8bdf8d0672a22b1b810ff19"
     },
     {
       "path": "compose.yaml",
-      "sha256": "7d24bf85e441285f353cff2cf688a2d9bc50e8069d858b101c872f7125e03b6f"
+      "sha256": "7bad9b2ab4791294757d76b62e54697d28f0a0e949d7f3d4a8086aa47fb0b6af"
     },
     {
       "path": ".github",
-      "sha256": "8dbd3382a5c5421247171ece169767f10387986f1216bfabc13d2d7b6d544477"
+      "sha256": "fa14e8ad8e69b86810952be22e4910cae19a96e39bdd9b7bc9cd63ac4acc4111"
     },
     {
       "path": "infrastructure/docker",
@@ -51,15 +51,15 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "81907a02a93950d258767bb4fadc5a102b1e3e9d3fa76595f1b8e0876aecf374"
+      "sha256": "20dcf3eff796de0d7db346ccf6de7edd01cb8c07eca90520345634faa8c20292"
     },
     {
       "path": "tests",
-      "sha256": "e5f7c73131961acb32c88d1b7e4b6a2a618e1b010100978f7235cf4d8844407f"
+      "sha256": "9ec9cee77bc9d5cbcc36c36cbc2f808856a5d9fae31149e8cd06cf5729b7a7fc"
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
-      "sha256": "9688709c75c9865ea322c19d9f14797bb8f9d2f88677b3ad37abe4de4adb4839"
+      "sha256": "c35d7dadb1dcc332feb99aef8622651f0d5e3238ae09df4e334a521279fd3e07"
     },
     {
       "path": "docs/evidence/phase-01/operations/server-runtime.json",
@@ -78,7 +78,7 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-09-13T20:14:48.739527Z",
+  "end_utc": "2026-10-11T19:36:53.149416Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [],
   "open_risks": [

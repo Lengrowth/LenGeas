@@ -9,7 +9,7 @@ from urllib.request import Request, urlopen
 from tests.fixture_test_support import load_fixture
 
 SUITE = "e2e"
-REQUIRED_DEPENDENCIES = ("e2e-base-url",)
+REQUIRED_DEPENDENCIES = ("e2e-base-url", "e2e-guest-proof", "e2e-device-key")
 FIXTURE = load_fixture(Path(__file__).parent, "fixture_e2e_publish_flow.json")
 
 

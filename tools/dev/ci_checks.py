@@ -143,6 +143,7 @@ def docs_links() -> int:
             ".git" in document.parts
             or "node_modules" in document.parts
             or ".venv" in document.parts
+            or ".terraform" in document.parts
         ):
             continue
         for match in LOCAL_LINK.finditer(document.read_text(encoding="utf-8")):
