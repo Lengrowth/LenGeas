@@ -111,7 +111,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "32d65d1ac9868ee61c3a8a216a9d8075569787bbb5c0756236d2bb50d522a501"
+      "sha256": "ea019657ac00897335233ce6db2f33b59ea885aac8b607d8e35bbff489dcbd3d"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -123,19 +123,19 @@
     },
     {
       "path": "docs/evidence/phase-04/blockers.md",
-      "sha256": "ef598e1ccc86b9145b2ffadee84df2d3f397e35e10095335f1c4652acb1cb4f2"
+      "sha256": "b965854449509fc08a976ec562da7d0ab31d8d3ae66561466a7e69d37dac1787"
     },
     {
       "path": "docs/evidence/phase-04/decisions.md",
-      "sha256": "d38a3501567347050dc495e3ef966335702cd718505b027c319e47c6fd122ab6"
+      "sha256": "ca886765f41bff78fa911f1f0897a2018f85d31049122498f0aba2e728eec78a"
     },
     {
       "path": "docs/evidence/phase-04/handoff.md",
-      "sha256": "6ac58d0ce6605f73499876213c65076d22e7625100d50e0883f2de5382231a93"
+      "sha256": "93f638eb65be31eda0c28712fc5c5ac0ecde934ce18c1ec8b7307a5b9f49beca"
     },
     {
       "path": "docs/evidence/phase-04/commands.ndjson",
-      "sha256": "2134108268fbb3df0a890bfa51060694f3a308a15fc7ea8af6c2319811bf651a"
+      "sha256": "d5ae68bf47dbf3645d6f7744a5566a2ca4c9eb63f8a684a8138260d9db45a882"
     },
     {
       "path": "docs/evidence/phase-04/test-report.xml",
@@ -147,7 +147,7 @@
     },
     {
       "path": "docs/evidence/phase-04/tasks",
-      "sha256": "9d7695ce8f09f90594a14b4074d381fe804aa95621655469549412137adf0723"
+      "sha256": "481d2509455e04db241b4720afe33b6e15a8b8f0f1c1ae41d4f287ac784402f8"
     },
     {
       "path": "docs/evidence/phase-04/security",
@@ -174,19 +174,16 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-11T22:19:12.168039Z",
-  "final_commit": "3d532cff97f9ce1fc85985b9069515d60c14bacb",
+  "end_utc": "2026-10-12T09:00:46.427614Z",
+  "final_commit": "9899be42b8eede4304f0812f9a2d27164eb8d954",
   "next_phase_prerequisites": [
-    "Repository-owner review and explicit Phase 04 acceptance",
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
   ],
   "open_risks": [
     "Internal registry publication requires owner-managed registry credentials and endpoint; signed artifact is reviewable locally.",
     "The Phase 04 release public key is self-supplied and has no independent trust anchor; the signature verifies artifact integrity but not signer identity.",
     "Runtime execution and full game-balance simulation remain conformance_only; staging eligibility stays false until later-phase consumers exist.",
-    "Negative-balance approval metadata is self-asserted; publication must verify the referenced security review through an authorized review system.",
-    "The checked-in evidence does not contain a completed Ubuntu/Windows digest matrix result; only the Windows digest is verified locally.",
-    "The recorded broader task verify run could not complete local integration and deployed E2E selectors because Docker and LENGEAS_E2E_* values were unavailable."
+    "Negative-balance approval metadata is self-asserted; publication must verify the referenced security review through an authorized review system."
   ],
   "phase": "04",
   "requirement_ids": [
@@ -195,16 +192,16 @@
   ],
   "schema_version": "1.0.0",
   "start_utc": "2026-10-11T20:21:26.428394Z",
-  "status": "in_review",
+  "status": "accepted",
   "tests": [
     "task generate twice with zero second-run diff",
     "definition schema compilation and compatibility checks",
     "valid and invalid definition fixture conformance suite",
-    "Windows canonical digest verified locally; Ubuntu and Windows workflow matrix is configured, but a completed hosted cross-platform result is not present",
+    "GitHub Actions verify run 38180050416 on commit 9899be42b8eede4304f0812f9a2d27164eb8d954: full verify and definition-cross-platform passed on ubuntu-24.04 and windows-2025",
     "generated Python and TypeScript model compilation",
     "Generated TypeScript validators were executed for every $defs name and valid/invalid bundle and Item fixtures",
     "documentation generation and validation",
-    "task phase:gate PHASE=04 (review gate; owner acceptance remains external)"
+    "task phase:gate PHASE=04 (review gate; phase acceptance is recorded by the repository owner in decisions.md)"
   ],
   "toolchain": {
     "ajv": "8.20.0",

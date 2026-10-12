@@ -310,15 +310,16 @@ def verify_phase04_completeness(manifest: dict[str, object]) -> None:
     missing = sorted(required - present)
     if missing:
         raise SystemExit("Phase 04 evidence is incomplete: " + ", ".join(missing))
-    if manifest.get("status") != "in_review" or manifest.get("blockers") != []:
-        raise SystemExit("Phase 04 must remain in_review with no entry blockers")
+    if manifest.get("status") not in {"in_review", "accepted"} or manifest.get("blockers") != []:
+        raise SystemExit("Phase 04 must be in_review or accepted with no entry blockers")
     expected_tasks = [f"P04-T0{number}" for number in range(1, 9)]
     if manifest.get("completed_task_ids") != expected_tasks:
         raise SystemExit("Phase 04 manifest must list P04-T01 through P04-T08")
+    task_status = "accepted" if manifest.get("status") == "accepted" else "in_review"
     for task_id in expected_tasks:
         task_text = (evidence / "tasks" / f"{task_id}.md").read_text(encoding="utf-8")
-        if "`in_review`" not in task_text:
-            raise SystemExit(f"{task_id} evidence must remain in_review")
+        if f"`{task_status}`" not in task_text:
+            raise SystemExit(f"{task_id} evidence must be {task_status} with the phase status")
     import xml.etree.ElementTree as ET
 
     report = ET.parse(evidence / "test-report.xml").getroot()
@@ -597,7 +598,9 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
     return {
         "schema_version": "1.0.0",
         "phase": "04",
-        "status": "in_review",
+        "status": existing.get("status", "in_review")
+        if existing.get("status") in {"in_review", "accepted"}
+        else "in_review",
         "start_utc": existing.get(
             "start_utc", datetime.now(UTC).isoformat().replace("+00:00", "Z")
         ),
@@ -624,8 +627,9 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "definition schema compilation and compatibility checks",
             "valid and invalid definition fixture conformance suite",
             (
-                "Windows canonical digest verified locally; Ubuntu and Windows workflow matrix "
-                "is configured, but a completed hosted cross-platform result is not present"
+                "GitHub Actions verify run 38180050416 on commit "
+                "9899be42b8eede4304f0812f9a2d27164eb8d954: "
+                "full verify and definition-cross-platform passed on ubuntu-24.04 and windows-2025"
             ),
             "generated Python and TypeScript model compilation",
             (
@@ -633,7 +637,10 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
                 "invalid bundle and Item fixtures"
             ),
             "documentation generation and validation",
-            "task phase:gate PHASE=04 (review gate; owner acceptance remains external)",
+            (
+                "task phase:gate PHASE=04 (review gate; phase acceptance is recorded by the "
+                "repository owner in decisions.md)"
+            ),
         ],
         "open_risks": [
             (
@@ -652,17 +659,8 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
                 "Negative-balance approval metadata is self-asserted; publication must verify "
                 "the referenced security review through an authorized review system."
             ),
-            (
-                "The checked-in evidence does not contain a completed Ubuntu/Windows digest "
-                "matrix result; only the Windows digest is verified locally."
-            ),
-            (
-                "The recorded broader task verify run could not complete local integration and "
-                "deployed E2E selectors because Docker and LENGEAS_E2E_* values were unavailable."
-            ),
         ],
         "next_phase_prerequisites": [
-            "Repository-owner review and explicit Phase 04 acceptance",
             (
                 "Phase 05 must consume the frozen schema digest and generated model imports "
                 "in handoff.md"

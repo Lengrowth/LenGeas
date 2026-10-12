@@ -2,9 +2,9 @@
 
 ## Status and scope
 
-`in_review`; P04-T01 through P04-T08 have review evidence. The repository owner must explicitly accept this phase. No schema has been published to an external registry.
+`accepted`; the repository owner explicitly accepted Phase 04 on 2026-10-12 after reviewing its implementation and evidence. P04-T01 through P04-T08 are accepted. The full GitHub verify workflow and the Ubuntu/Windows digest matrix passed on reviewed source commit `9899be42b8eede4304f0812f9a2d27164eb8d954` ([run 38180050416](https://github.com/Lengrowth/LenGeas/actions/runs/38180050416)). No schema has been published to an external registry; no registry endpoint or secret-managed credential is configured.
 
-The independent review corrections are committed on `main` as `1db9a84` (`P04: fix definition schema review findings`), `d383496` (`P04-T07: generate TypeScript definition validators`), and `595aeee` (scope validator toolchain metadata to Phase 04). The evidence-only manifest refresh follows separately and binds the latest source commit.
+The independent review corrections are on `main`, including `1db9a84` (`P04: fix definition schema review findings`), `d383496` (`P04-T07: generate TypeScript definition validators`), and `595aeee` (scope validator toolchain metadata to Phase 04). The accepted manifest's `final_commit` identifies the verified Phase 04 source candidate; this acceptance update records the owner's decision and the final evidence hashes.
 
 ## Operational interfaces
 
@@ -27,7 +27,7 @@ No database migration, runtime rollout, or feature flag was applied. Schema/mode
 
 ## Operations and risk
 
-No dashboards or alerts are introduced by the schema-only phase. Validation failures include JSON Pointer, stable code, and severity. No production data is used. Medium risk: internal registry publication awaits a configured registry endpoint and secret-managed credentials; owner: `game_systems_owner`. The checked-in Ed25519 public key verifies the release signature but is not independently trusted, so the current signature does not authenticate a signer. Negative-balance approval metadata is digest-bound but self-asserted; the publishing authority must verify the referenced security review in an authorized system. Runtime loading and full balance simulation begin in Phase 05 and later simulation phases.
+No dashboards or alerts are introduced by the schema-only phase. Validation failures include JSON Pointer, stable code, and severity. No production data is used. Accepted follow-up risks: internal registry publication awaits a configured registry endpoint and secret-managed credentials; the checked-in Ed25519 public key has no independent trust anchor; negative-balance approval metadata is self-asserted and must be independently verified by a publishing authority; runtime loading and full balance simulation remain outside Phase 04 and are reported as `conformance_only`. Phase 05 consumes the frozen checked-in schema digest; it must not assume an external registry already contains schema `0.1.0`.
 
 ## External setup
 
