@@ -1,0 +1,919 @@
+{
+  "aggregate_digest_sha256": "aac64adb8ee4f278057f4b39e14662e94b126979ff8a8bd201672053b58cefd1",
+  "asset_total": 0,
+  "completed_at_utc": "2026-10-12T12:57:11Z",
+  "operation_count": 1000000000,
+  "operations_per_partition": 10000000,
+  "partition_count": 100,
+  "partitions": [
+    {
+      "digest_sha256": "8c7d1b93f20ec20e34d3ac20ea269e945bebc6bde2c4cbe028e8fe91d0849c5f",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 10000000,
+      "operation_start": 0,
+      "partition": 0,
+      "seed_end": 17964660590961460451,
+      "seed_start": 11400714819323198485
+    },
+    {
+      "digest_sha256": "428817fd95b85a8985dc9c241a8034f41e894c5b9762d605ca2bf78b1cfe7134",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 20000000,
+      "operation_start": 10000000,
+      "partition": 1,
+      "seed_end": 6729116756181693670,
+      "seed_start": 11400714815037172373
+    },
+    {
+      "digest_sha256": "f289802e02a92043e7f4513a1ef7246ead842cb90d48788d5c956f020547066a",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 30000000,
+      "operation_start": 20000000,
+      "partition": 2,
+      "seed_end": 14193649866201650735,
+      "seed_start": 11400714827899556117
+    },
+    {
+      "digest_sha256": "6480df681198f129d27dcf6a432a2f17a9f3701f54ae3d7a98293760d877c640",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 40000000,
+      "operation_start": 30000000,
+      "partition": 3,
+      "seed_end": 16115678670945293387,
+      "seed_start": 11400714823605141397
+    },
+    {
+      "digest_sha256": "50516741cb4f2ca9bde43463eb41908ff678a0c4e00f798ab2a558533590f2be",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 50000000,
+      "operation_start": 40000000,
+      "partition": 4,
+      "seed_end": 13124387806010793170,
+      "seed_start": 11400714836467262997
+    },
+    {
+      "digest_sha256": "83434e4f85cf8fc2325089801f4ef45132991875a85c33ca3ffa45fcfdd5dfd8",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 60000000,
+      "operation_start": 50000000,
+      "partition": 5,
+      "seed_end": 43260253158939040,
+      "seed_start": 11400714832181234837
+    },
+    {
+      "digest_sha256": "8978413484c6979e41acba67522ad28bb696266908eb49508fb2e523464d3cf7",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 70000000,
+      "operation_start": 60000000,
+      "partition": 6,
+      "seed_end": 12609125875431965381,
+      "seed_start": 11400714845052074773
+    },
+    {
+      "digest_sha256": "ee93cfc970577ba82fdb8000772baf219cea03b32f467cfa1e0fd325d2a5eb04",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 80000000,
+      "operation_start": 70000000,
+      "partition": 7,
+      "seed_end": 5230365486131273168,
+      "seed_start": 11400714840732754325
+    },
+    {
+      "digest_sha256": "c5698e6904ce7055fc64ef4e5f9215d617429d2cfa15ad24e149ddf9c9c3039e",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 90000000,
+      "operation_start": 80000000,
+      "partition": 8,
+      "seed_end": 14724956928979041285,
+      "seed_start": 11400714784900827157
+    },
+    {
+      "digest_sha256": "11266947418589fe5d8df0471bfd4d1dc20eaf5a335ab220e16d98d51eb503df",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 100000000,
+      "operation_start": 90000000,
+      "partition": 9,
+      "seed_end": 17943451346559831717,
+      "seed_start": 11400714780581246613
+    },
+    {
+      "digest_sha256": "f5402d485db0f14b1caf047fc10dd7d5da46023570a928dd0e61763a86700b99",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 110000000,
+      "operation_start": 100000000,
+      "partition": 10,
+      "seed_end": 11452491323732528054,
+      "seed_start": 11400714793477184789
+    },
+    {
+      "digest_sha256": "d8198097f335784e22896456b0707571cdefbe10f220850cc7e776e59f4d549f",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 120000000,
+      "operation_start": 110000000,
+      "partition": 11,
+      "seed_end": 16368334842669498461,
+      "seed_start": 11400714789165730709
+    },
+    {
+      "digest_sha256": "836bf33c23721084fbf5db940d42afc3f36534245af4866981a1ecf2a4eeff76",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 130000000,
+      "operation_start": 120000000,
+      "partition": 12,
+      "seed_end": 2330475459340564117,
+      "seed_start": 11400714802028179989
+    },
+    {
+      "digest_sha256": "1bed0807dd7aded82787e0b40eaf674a486eeb8f6b5e78ab4be0dee6b74c8a2a",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 140000000,
+      "operation_start": 130000000,
+      "partition": 13,
+      "seed_end": 10875351706578793447,
+      "seed_start": 11400714797742151829
+    },
+    {
+      "digest_sha256": "b3877492f7558df3dde5353d23f240d16b611bbf7b2b3f8248914cf17c42d531",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 150000000,
+      "operation_start": 140000000,
+      "partition": 14,
+      "seed_end": 9112058262028322088,
+      "seed_start": 11400714810595362581
+    },
+    {
+      "digest_sha256": "a15b3c9b0f3d91f147c3287f9271b862d5c6e4020192b4a49bd824b859e331cd",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 160000000,
+      "operation_start": 150000000,
+      "partition": 15,
+      "seed_end": 17319123544560456013,
+      "seed_start": 11400714806311431573
+    },
+    {
+      "digest_sha256": "284244bf583a9f1b769676cc7a5b2aefd78d42f459f38b29a7517af4641f2be5",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 170000000,
+      "operation_start": 160000000,
+      "partition": 16,
+      "seed_end": 10752703654010012176,
+      "seed_start": 11400714750460630037
+    },
+    {
+      "digest_sha256": "75249db42eed7ad624b132ee816f571ff80a65d8fbb608c8763544b8f5c8b920",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 180000000,
+      "operation_start": 170000000,
+      "partition": 17,
+      "seed_end": 17822247706060398237,
+      "seed_start": 11400714746143146645
+    },
+    {
+      "digest_sha256": "a55473afb3a5a464d1f5c54e1fbd6deb044c779b77dbac8aaaa399c1946c41c1",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 190000000,
+      "operation_start": 180000000,
+      "partition": 18,
+      "seed_end": 17667987067206818993,
+      "seed_start": 11400714759036791061
+    },
+    {
+      "digest_sha256": "3bcbcbb33eb2b7925e605b3922299c4f9656438bcd359dae556b99dfaafb277c",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 200000000,
+      "operation_start": 190000000,
+      "partition": 19,
+      "seed_end": 9259529235547653798,
+      "seed_start": 11400714754710919061
+    },
+    {
+      "digest_sha256": "af66b50b1bd0c04463098b99054c6c5fbc46a0ffb3224587da380dbc788dceef",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 210000000,
+      "operation_start": 200000000,
+      "partition": 20,
+      "seed_end": 7840159313022384790,
+      "seed_start": 11400714767604760085
+    },
+    {
+      "digest_sha256": "731f10dd41742ed97fcaa2e40ff0d646b87cac30384b1e4103b9a001b4e989df",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 220000000,
+      "operation_start": 210000000,
+      "partition": 21,
+      "seed_end": 10910385253160367137,
+      "seed_start": 11400714763295925397
+    },
+    {
+      "digest_sha256": "5262dff4a7d7b70478cb6ed24687147fcbc595dcf23e7d3aeec8670bb5316165",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 230000000,
+      "operation_start": 220000000,
+      "partition": 22,
+      "seed_end": 7718603161042907341,
+      "seed_start": 11400714776156214037
+    },
+    {
+      "digest_sha256": "814ed6e194f9f1f23330d6c165092f2c5d6af8326a1e9c14222db670b83ca362",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 240000000,
+      "operation_start": 230000000,
+      "partition": 23,
+      "seed_end": 2037634433530037850,
+      "seed_start": 11400714771872348565
+    },
+    {
+      "digest_sha256": "feb0bc41dbb4d32b77d9f2cd847ca9321ac18a51b4b1eb010d1b5affdcfb7536",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 250000000,
+      "operation_start": 240000000,
+      "partition": 24,
+      "seed_end": 281192568879223105,
+      "seed_start": 11400714716004507669
+    },
+    {
+      "digest_sha256": "ed4b8f357db77728d1d0a0893b4981bef2138bd73509bd9a4db8e4d18c69122b",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 260000000,
+      "operation_start": 250000000,
+      "partition": 25,
+      "seed_end": 17319910046304048428,
+      "seed_start": 11400714711720578709
+    },
+    {
+      "digest_sha256": "bc43ffaee96b5b7880bab4029dbfa1598903b6085d51c1408c8c6680e2cb4f31",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 270000000,
+      "operation_start": 260000000,
+      "partition": 26,
+      "seed_end": 5859215306415433458,
+      "seed_start": 11400714724580865301
+    },
+    {
+      "digest_sha256": "d0d1457ac9232ea203d4619d1ef2e8da7f5a1ae731c1ece0dfec2e0436ce0aa4",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 280000000,
+      "operation_start": 270000000,
+      "partition": 27,
+      "seed_end": 11765660411929005772,
+      "seed_start": 11400714720271770517
+    },
+    {
+      "digest_sha256": "a73b4a22e7172d34794bd8acb71a1cf225a2aaff728afc350daadba1e2301ae9",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 290000000,
+      "operation_start": 280000000,
+      "partition": 28,
+      "seed_end": 2887615769112399479,
+      "seed_start": 11400714733166922261
+    },
+    {
+      "digest_sha256": "801f4233b665195ab04ec9810d24d658890a434c1505c266c42412e096ab5c07",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 300000000,
+      "operation_start": 290000000,
+      "partition": 29,
+      "seed_end": 17397748911351638346,
+      "seed_start": 11400714728839016597
+    },
+    {
+      "digest_sha256": "3f55942977626aaa76301e009eacee288789c6cf4813714fcdb64f825e341f79",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 310000000,
+      "operation_start": 300000000,
+      "partition": 30,
+      "seed_end": 17703585116767256118,
+      "seed_start": 11400714741734956821
+    },
+    {
+      "digest_sha256": "2a5ce2a9771d532bab92762dc2db5530a4dfd0ba66c11f5e138928b05e355fe3",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 320000000,
+      "operation_start": 310000000,
+      "partition": 31,
+      "seed_end": 6216324383308673092,
+      "seed_start": 11400714737415112085
+    },
+    {
+      "digest_sha256": "1a2b78f780cf12cd9526ebddd32bc2faec4f83cb8f4e31a9988d61e7a2f9c842",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 330000000,
+      "operation_start": 320000000,
+      "partition": 32,
+      "seed_end": 2481223331553752265,
+      "seed_start": 11400714681566407701
+    },
+    {
+      "digest_sha256": "91276cd25f62857d3f5632d1d64ebd50ba414ffbdc19a6294a67dd4c951e98a1",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 340000000,
+      "operation_start": 330000000,
+      "partition": 33,
+      "seed_end": 2250985034759553917,
+      "seed_start": 11400714677280381589
+    },
+    {
+      "digest_sha256": "4b05afea5c24df9fc258b3c5b71ba632f59c5b7e557d19fd267ee3a130a1d1b3",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 350000000,
+      "operation_start": 340000000,
+      "partition": 34,
+      "seed_end": 10220061911625591854,
+      "seed_start": 11400714690134376725
+    },
+    {
+      "digest_sha256": "4384d9aeff0b28e157ddc634e36fde211cd1a10ff3fef8022bfc095b4a5d61be",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 360000000,
+      "operation_start": 350000000,
+      "partition": 35,
+      "seed_end": 7792393719459253889,
+      "seed_start": 11400714685848678293
+    },
+    {
+      "digest_sha256": "27a6c77103e11ccf9e7424573055ff5ee836a18e4bc258d55d596ccbe63685f9",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 370000000,
+      "operation_start": 360000000,
+      "partition": 36,
+      "seed_end": 17187744098162830018,
+      "seed_start": 11400714698711062037
+    },
+    {
+      "digest_sha256": "2fa562073f971e3650d64b3c42161051bb049b7c0f249b5ce8e538a24d1e3bb6",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 380000000,
+      "operation_start": 370000000,
+      "partition": 37,
+      "seed_end": 11318897504939856125,
+      "seed_start": 11400714694399868053
+    },
+    {
+      "digest_sha256": "24da0b860148cbdcdaeb7f296690674122774c94f928b43d9e5263946eaaf735",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 390000000,
+      "operation_start": 380000000,
+      "partition": 38,
+      "seed_end": 16864161471104149085,
+      "seed_start": 11400714707295546133
+    },
+    {
+      "digest_sha256": "25a79d50a417ed52914907c99dd94152e6508177a45aea7dc367e06dabd24a54",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 400000000,
+      "operation_start": 390000000,
+      "partition": 39,
+      "seed_end": 345270615085184747,
+      "seed_start": 11400714702975963541
+    },
+    {
+      "digest_sha256": "f26944bd03291781e82e94537c47aa73e56c9b6868cd142cd8fc1d8a9d8ea3fa",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 410000000,
+      "operation_start": 400000000,
+      "partition": 40,
+      "seed_end": 7481669762707093419,
+      "seed_start": 11400714647144101909
+    },
+    {
+      "digest_sha256": "10610119229bdd39de1d69cfde85b718a2599565c2b7f2580b0ab7da921e7c69",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 420000000,
+      "operation_start": 410000000,
+      "partition": 41,
+      "seed_end": 24120165646838741,
+      "seed_start": 11400714642825832085
+    },
+    {
+      "digest_sha256": "7bab926673d890f3c8718563956136476ffd264eafd49ecc00268ba6681f6c6d",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 430000000,
+      "operation_start": 420000000,
+      "partition": 42,
+      "seed_end": 4771037589505082253,
+      "seed_start": 11400714655694507285
+    },
+    {
+      "digest_sha256": "2c954507a2fc3eec04943cf35d55b621b74ec8ad91840fe28a8f68484f41380b",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 440000000,
+      "operation_start": 430000000,
+      "partition": 43,
+      "seed_end": 17293058496826149776,
+      "seed_start": 11400714651410578325
+    },
+    {
+      "digest_sha256": "08f93b81f5f0628403c402f4b42a76dd7d5b1d7da3086e51dce00debeff2cf9e",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 450000000,
+      "operation_start": 440000000,
+      "partition": 44,
+      "seed_end": 11685749083936528061,
+      "seed_start": 11400714664270864917
+    },
+    {
+      "digest_sha256": "75bf216ce5f6ae2882e7d2aa7dcf0edd83ad2456cfbe7b9ec5d7627bfb939c93",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 460000000,
+      "operation_start": 450000000,
+      "partition": 45,
+      "seed_end": 5241679859758710747,
+      "seed_start": 11400714659978283157
+    },
+    {
+      "digest_sha256": "0a8deb690fb189a52886448e28328ed86f3d9d695640f1a1f0c226e517bf9526",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 470000000,
+      "operation_start": 460000000,
+      "partition": 46,
+      "seed_end": 9076924166648258616,
+      "seed_start": 11400714672838637333
+    },
+    {
+      "digest_sha256": "41422855811956743d5ff2ec7b48ba7d9421bf95e0c3375590ab548d5f48bee4",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 480000000,
+      "operation_start": 470000000,
+      "partition": 47,
+      "seed_end": 338827916289358730,
+      "seed_start": 11400714668529540501
+    },
+    {
+      "digest_sha256": "8671c2bd7b0a3a7d41bd447e9c7f474fc8c263b5da71a64b8c55c44c3c4bcd8d",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 490000000,
+      "operation_start": 480000000,
+      "partition": 48,
+      "seed_end": 2790832710856071386,
+      "seed_start": 11400714612704166933
+    },
+    {
+      "digest_sha256": "cdde520d4e121e2293a6b4de4bb2f687a0a003dc6bfbe22e7d42e86e59fd9bf8",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 500000000,
+      "operation_start": 490000000,
+      "partition": 49,
+      "seed_end": 1530314789819670064,
+      "seed_start": 11400714608386683541
+    },
+    {
+      "digest_sha256": "c915feecfc6010d745855cdb01517d0e04ce66a42a53a3a64d3aeb10f866703a",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 510000000,
+      "operation_start": 500000000,
+      "partition": 50,
+      "seed_end": 2494614035557330259,
+      "seed_start": 11400714621272135957
+    },
+    {
+      "digest_sha256": "13f4d01dc4f884befa28955d6ed576f25a1af633f174f53ebaca261944d0ade3",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 520000000,
+      "operation_start": 510000000,
+      "partition": 51,
+      "seed_end": 14272983744583050490,
+      "seed_start": 11400714616954652565
+    },
+    {
+      "digest_sha256": "d0c12102ec564ddb579cde6958d23f7082af611ceaeb9b437640731d0f5029b1",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 530000000,
+      "operation_start": 520000000,
+      "partition": 52,
+      "seed_end": 16091246894394204252,
+      "seed_start": 11400714629848296981
+    },
+    {
+      "digest_sha256": "45fb6f7d8960484e17807248bae3ff9a1dd533fef57238ce15e5bae2b2ff0a92",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 540000000,
+      "operation_start": 530000000,
+      "partition": 53,
+      "seed_end": 2468420469660761576,
+      "seed_start": 11400714625539200149
+    },
+    {
+      "digest_sha256": "654886d7bae5a4d02457b8285585395fa5a0e1d2915d6ca6b88e6a4d35517492",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 550000000,
+      "operation_start": 540000000,
+      "partition": 54,
+      "seed_end": 9255709340013050458,
+      "seed_start": 11400714638399488789
+    },
+    {
+      "digest_sha256": "1ac9d4de07c0505097adfb666385e5ab9dac2afe74f199b85bc8a4e157222b17",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 560000000,
+      "operation_start": 550000000,
+      "partition": 55,
+      "seed_end": 9344190867872552125,
+      "seed_start": 11400714634106382741
+    },
+    {
+      "digest_sha256": "4b81aa4916e3c39237f6780203c047fb4b2a8f8db246d606810a59bcf502e5f4",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 570000000,
+      "operation_start": 560000000,
+      "partition": 56,
+      "seed_end": 2694366214493591820,
+      "seed_start": 11400714578249289749
+    },
+    {
+      "digest_sha256": "033920904c9433bc45971a35acc1c0411fc4d0d3fdb515248153f17efe3c10ad",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 580000000,
+      "operation_start": 570000000,
+      "partition": 57,
+      "seed_end": 1674848968884842116,
+      "seed_start": 11400714573963329173
+    },
+    {
+      "digest_sha256": "af49abcfd2766f7e20d7a2cb2c0ffb54b74a22d1d2b4ab90d28bccd1bff3912b",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 590000000,
+      "operation_start": 580000000,
+      "partition": 58,
+      "seed_end": 17758463753098251515,
+      "seed_start": 11400714586833839381
+    },
+    {
+      "digest_sha256": "9981b527700595ae59f90af0944ae585ccad35f4c70a5eda5a9195184329d7e5",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 600000000,
+      "operation_start": 590000000,
+      "partition": 59,
+      "seed_end": 6155329852383344056,
+      "seed_start": 11400714582514258837
+    },
+    {
+      "digest_sha256": "5fac52c264214bdfb00a33f735d89a0f64640139b4f576f8ee30aaa9c26b6364",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 610000000,
+      "operation_start": 600000000,
+      "partition": 60,
+      "seed_end": 16820736464071245816,
+      "seed_start": 11400714595401808405
+    },
+    {
+      "digest_sha256": "24e799d6b28f8cce5cf01ad6fedaacfdd70590c8724b1bdd23086bec86eb32b2",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 620000000,
+      "operation_start": 610000000,
+      "partition": 61,
+      "seed_end": 15180541173383850346,
+      "seed_start": 11400714591082225813
+    },
+    {
+      "digest_sha256": "e6dae6a7d00ce529d7aabdceea9d41168123730103640d12cfdf0aa467c01082",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 630000000,
+      "operation_start": 620000000,
+      "partition": 62,
+      "seed_end": 11805716988251265327,
+      "seed_start": 11400714603978428181
+    },
+    {
+      "digest_sha256": "3c231919774696193efe93c2ab97cefd7834db0e3162bac007b409f20b0b2fd4",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 640000000,
+      "operation_start": 630000000,
+      "partition": 63,
+      "seed_end": 10464373033985076190,
+      "seed_start": 11400714599667299733
+    },
+    {
+      "digest_sha256": "c2097cb7983476cfa5cf2885f081bd4164c457d11c1c84ca13baf4e395404dc7",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 650000000,
+      "operation_start": 640000000,
+      "partition": 64,
+      "seed_end": 6386322948256613164,
+      "seed_start": 11400715093566020629
+    },
+    {
+      "digest_sha256": "05117ccbbf22ab6fdd06a4fccbbfd9b9988b6c157b23f02dc9d33d73821cfc24",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 660000000,
+      "operation_start": 650000000,
+      "partition": 65,
+      "seed_end": 18368949469110908397,
+      "seed_start": 11400715089279732373
+    },
+    {
+      "digest_sha256": "6980b0a2afc04051b4000da630c847ad5f2a443bb7649e4d84a3614bcab2d6e2",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 670000000,
+      "operation_start": 660000000,
+      "partition": 66,
+      "seed_end": 12080721655119240957,
+      "seed_start": 11400715102133727509
+    },
+    {
+      "digest_sha256": "394284fb6349e4fa5d9cfdf1b6a6cab9dfcc77580e2a7e76fb27da7bb02c7b9e",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 680000000,
+      "operation_start": 670000000,
+      "partition": 67,
+      "seed_end": 8948470405906732352,
+      "seed_start": 11400715097847701397
+    },
+    {
+      "digest_sha256": "8c1985d2670888e24d9eafc0f5d9d200ae3a0c09b42ef1ba0aef44d0365e7c38",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 690000000,
+      "operation_start": 680000000,
+      "partition": 68,
+      "seed_end": 17347777603961151876,
+      "seed_start": 11400715110718473749
+    },
+    {
+      "digest_sha256": "7b87c03a7911df99ca28f08bcce9572fb9d8d80e4f992cf1117c52ededad159c",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 700000000,
+      "operation_start": 690000000,
+      "partition": 69,
+      "seed_end": 17160896584421628614,
+      "seed_start": 11400715106400267413
+    },
+    {
+      "digest_sha256": "0c5f9e150f6dd6085ebc537aa2fb73ec67eb495037ee2633496aeb7655c8d1d6",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 710000000,
+      "operation_start": 700000000,
+      "partition": 70,
+      "seed_end": 10097052101295018205,
+      "seed_start": 11400715119294110485
+    },
+    {
+      "digest_sha256": "3027cbd3ca9f995856b2024ba3cdb40fe063cb43f36200b8a964b7d53fb7891f",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 720000000,
+      "operation_start": 710000000,
+      "partition": 71,
+      "seed_end": 8348642996530148027,
+      "seed_start": 11400715114968236437
+    },
+    {
+      "digest_sha256": "6c386d386a53ae110afe9fc9e39a8d636cbf7c414c17b50b1d654203fb25a6af",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 730000000,
+      "operation_start": 720000000,
+      "partition": 72,
+      "seed_end": 2131146356694176675,
+      "seed_start": 11400715059142338581
+    },
+    {
+      "digest_sha256": "83b21d89364fe63997e6b04206f94ff301484a5173ec9811a139d61f2d20dd4e",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 740000000,
+      "operation_start": 730000000,
+      "partition": 73,
+      "seed_end": 2711539336649666150,
+      "seed_start": 11400715054833243797
+    },
+    {
+      "digest_sha256": "6f29fb624c29894932870de328c214f2534f020dc8aa87713dc09792051e2816",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 750000000,
+      "operation_start": 740000000,
+      "partition": 74,
+      "seed_end": 17982912776279636300,
+      "seed_start": 11400715067693595925
+    },
+    {
+      "digest_sha256": "05d90e4a078d8dec6b384e0c94349695109cc7698ed9328e4963349d16db7a54",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 760000000,
+      "operation_start": 750000000,
+      "partition": 75,
+      "seed_end": 1021136080268393728,
+      "seed_start": 11400715063409929109
+    },
+    {
+      "digest_sha256": "791bbc47524c4eb806dd9df185648381695f55cbab5eefa7457750ab657d1136",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 770000000,
+      "operation_start": 760000000,
+      "partition": 76,
+      "seed_end": 15908462008113786675,
+      "seed_start": 11400715076261827093
+    },
+    {
+      "digest_sha256": "e8304487ac77c3c51e8d9e709c59aa104d985a0b0992d9d2c85d4162b527bda6",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 780000000,
+      "operation_start": 770000000,
+      "partition": 77,
+      "seed_end": 17646571504524626248,
+      "seed_start": 11400715071977896085
+    },
+    {
+      "digest_sha256": "5b73d0b43d8e9fd04920b86ee1e21e5308c140753204256db881dcfa91af666b",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 790000000,
+      "operation_start": 780000000,
+      "partition": 78,
+      "seed_end": 13924670979828138112,
+      "seed_start": 11400715084838184725
+    },
+    {
+      "digest_sha256": "de0ebe7df0189d5cadf194572f306ad3dc4300af49b479455d98e8c87e464909",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 800000000,
+      "operation_start": 790000000,
+      "partition": 79,
+      "seed_end": 17898407556573429955,
+      "seed_start": 11400715080528825749
+    },
+    {
+      "digest_sha256": "f6365f290b22a7d70cac27d0ed324d31d10f9fd486d83f885f7648c9eb317f9b",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 810000000,
+      "operation_start": 800000000,
+      "partition": 80,
+      "seed_end": 8605531201522749840,
+      "seed_start": 11400715024703255573
+    },
+    {
+      "digest_sha256": "a29e76470f0fe73036c2b48d9cc44c17fce40981982c85e3e72f06dee1b9d547",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 820000000,
+      "operation_start": 810000000,
+      "partition": 81,
+      "seed_end": 7996629406566116450,
+      "seed_start": 11400715020377383573
+    },
+    {
+      "digest_sha256": "9aae526b162b6d6974158226848026d9035bd66874bac0030f48f37398bb90fa",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 830000000,
+      "operation_start": 820000000,
+      "partition": 82,
+      "seed_end": 18346320509790988883,
+      "seed_start": 11400715033272535317
+    },
+    {
+      "digest_sha256": "f8042db8884a5ba4199604d5ac89543d8055aa41d6f2b802368ee6a7c6b47dde",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 840000000,
+      "operation_start": 830000000,
+      "partition": 83,
+      "seed_end": 7912595709796084461,
+      "seed_start": 11400715028952954773
+    },
+    {
+      "digest_sha256": "5754f66f4a2544666d53191c3a03a767532eda845bf4a8f10f0cf23b71af8b7b",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 850000000,
+      "operation_start": 840000000,
+      "partition": 84,
+      "seed_end": 14165855119421065470,
+      "seed_start": 11400715041823727125
+    },
+    {
+      "digest_sha256": "1a1d3c85a592ce53954006a22e25df91467d9952c7be07e5476576d2c36a7359",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 860000000,
+      "operation_start": 850000000,
+      "partition": 85,
+      "seed_end": 3271687679700472078,
+      "seed_start": 11400715037537698965
+    },
+    {
+      "digest_sha256": "1bf59842723d321a8a8502e3f1ba2973a63731b863bfe5a92d4e9355d25c023a",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 870000000,
+      "operation_start": 860000000,
+      "partition": 86,
+      "seed_end": 14765034495562197885,
+      "seed_start": 11400715050391499541
+    },
+    {
+      "digest_sha256": "cea40bcbca41a4264599112399b518888c8ba059b5791927ea29162f00aa47a7",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 880000000,
+      "operation_start": 870000000,
+      "partition": 87,
+      "seed_end": 15876060035774864401,
+      "seed_start": 11400715046105471381
+    },
+    {
+      "digest_sha256": "958bfaa41282ac23b51679b9f3dedf2bf84992ef618ddf68933f402cb53c7767",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 890000000,
+      "operation_start": 880000000,
+      "partition": 88,
+      "seed_end": 12509337984556619652,
+      "seed_start": 11400714990248378389
+    },
+    {
+      "digest_sha256": "46d1055ef5ea9a2ae4391b9da05faec4b33a13c7b5c9737b427d8d7f4bbfb393",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 900000000,
+      "operation_start": 890000000,
+      "partition": 89,
+      "seed_end": 1202086969157229564,
+      "seed_start": 11400714985937448597
+    },
+    {
+      "digest_sha256": "63d25c0416ea776bbad41f3622422b8dff1ab75c438ee96a18f57684c46b8757",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 910000000,
+      "operation_start": 900000000,
+      "partition": 90,
+      "seed_end": 1691480118642636738,
+      "seed_start": 11400714998833386773
+    },
+    {
+      "digest_sha256": "c9d1a91c28a8e1764fc67d22ee8f1512ad8ff67a16f1e812fa66685f6865ee96",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 920000000,
+      "operation_start": 910000000,
+      "partition": 91,
+      "seed_end": 17665809425734699553,
+      "seed_start": 11400714994513806229
+    },
+    {
+      "digest_sha256": "6a2bb5830b1416b4bfb587e006605823171d8730ddccf93a23e6b1d1e010a2e2",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 930000000,
+      "operation_start": 920000000,
+      "partition": 92,
+      "seed_end": 12843079249451934807,
+      "seed_start": 11400715007401159189
+    },
+    {
+      "digest_sha256": "d82fca34bc600a6b37843bd97aacbe993198ed130989b4d65eb65cb94ae8d8b1",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 940000000,
+      "operation_start": 930000000,
+      "partition": 93,
+      "seed_end": 17651418151516215903,
+      "seed_start": 11400715003081576597
+    },
+    {
+      "digest_sha256": "47497e8f69d964616234985d74b45fc67ba322186345082e92295a7a1ac0e8a4",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 950000000,
+      "operation_start": 940000000,
+      "partition": 94,
+      "seed_end": 5729696236365412411,
+      "seed_start": 11400715015952350997
+    },
+    {
+      "digest_sha256": "cacb6d84402944007a9ef00ae0f511d529932917c752856be44d65cdaff456fb",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 960000000,
+      "operation_start": 950000000,
+      "partition": 95,
+      "seed_end": 1044016408929652597,
+      "seed_start": 11400715011666322837
+    },
+    {
+      "digest_sha256": "dbab6f50e5655c35b4f74a09d782bcd6e071ccf126f4479e2af4f1e0b512541a",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 970000000,
+      "operation_start": 960000000,
+      "partition": 96,
+      "seed_end": 39513389494314705,
+      "seed_start": 11400714955808443413
+    },
+    {
+      "digest_sha256": "3a1e59d4eb2474afac18276a9a87c58172e84e4c370229c2a21664611c5ad350",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 980000000,
+      "operation_start": 970000000,
+      "partition": 97,
+      "seed_end": 9962660849964877696,
+      "seed_start": 11400714951516191381
+    },
+    {
+      "digest_sha256": "e95acaad5cf4a9dfb50f50caa888c884ee9552c9bcc41940bec68e69a326e3f3",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 990000000,
+      "operation_start": 980000000,
+      "partition": 98,
+      "seed_end": 8405397585877987993,
+      "seed_start": 11400714964376477973
+    },
+    {
+      "digest_sha256": "6c45ea89cbe3e4e5cc2e86410e86bdf2941da86e5d5c28e9301fb797e5e11d5e",
+      "operation_count": 10000000,
+      "operation_end_exclusive": 1000000000,
+      "operation_start": 990000000,
+      "partition": 99,
+      "seed_end": 3371557125232418997,
+      "seed_start": 11400714960067121045
+    }
+  ],
+  "qualification": "one_billion_value_operations",
+  "raw_operations_retained": false,
+  "run_id": 38252037777,
+  "run_result": "success",
+  "run_url": "https://github.com/Lengrowth/LenGeas/actions/runs/38252037777",
+  "schema_version": 1,
+  "started_at_utc": "2026-10-12T12:54:38Z",
+  "workflow": "phase-06-qualification.yml",
+  "workflow_head_sha": "a34f47b32961e351843d9755eeeeefe852c0f6ca"
+}

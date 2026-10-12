@@ -19,7 +19,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "67e0ec966861c55124ca98784e87c4a869d0b41823956aca7e150c22770c6f4d"
+      "sha256": "caecfc5142165b8ce224d7951c26aa433d42bee5bfa1d21bf3c09b5ddda35835"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -195,11 +195,15 @@
     },
     {
       "path": "docs/evidence/phase-06/performance/README.md",
-      "sha256": "9573d4ee38ecf0c34378ef47d792633b9b5cbc074bd9c49dafd2bc18a040f23e"
+      "sha256": "8c56381d12f239a12d5019c4819f1e5440d6dd0cbade6bc87075c4170b5aceea"
     },
     {
       "path": "docs/evidence/phase-06/performance/local-smoke.json",
       "sha256": "b0038a2678ea810abe187e51aa7c3e8d804731f0c4e40260e8874f2a66b64c54"
+    },
+    {
+      "path": "docs/evidence/phase-06/performance/hosted-qualification.json",
+      "sha256": "769e3eee1d28539425e8b942b5f3e89b5614f510e7b6b4d001a9ed9ee0b21b38"
     },
     {
       "path": "docs/evidence/phase-06/performance/partitions",
@@ -211,7 +215,7 @@
     },
     {
       "path": "docs/evidence/phase-06/blockers.md",
-      "sha256": "cb0e1164dba70b3150e980b3d8ae8adfeb2c07130d899fda60d54bfee45b422e"
+      "sha256": "71f6efd2662e97d39890472af61362a9d41b93d410f35860afe30755958e0a35"
     },
     {
       "path": "docs/evidence/phase-06/decisions.md",
@@ -219,11 +223,11 @@
     },
     {
       "path": "docs/evidence/phase-06/handoff.md",
-      "sha256": "256d2a0737703a54aeb91fa918b131e2c767ad1418acd6bbbdd4abf41690f437"
+      "sha256": "4ed25e46e4357e26004d32b4dc7a79a9a313ad046c303ef64d56bc5ad877d891"
     },
     {
       "path": "docs/evidence/phase-06/commands.ndjson",
-      "sha256": "321fe38cbfdab64dfd06ffc83bbdfafb685d582bba17cad83e2ddb1f408b23da"
+      "sha256": "6db94a0eb99b81395481daa94fb7f27f901e67c219be5cbd348226fd4cb92f95"
     },
     {
       "path": "docs/evidence/phase-06/test-report.xml",
@@ -246,15 +250,14 @@
     "P06-T07",
     "P06-T08"
   ],
-  "end_utc": "2026-10-12T12:01:40.228972Z",
-  "final_commit": "053a73ed80e1615f93555216d93967c55b3a460a",
+  "end_utc": "2026-10-12T13:00:53.470178Z",
+  "final_commit": "35996c61094f722c236c2e065a1bbb2c2063e2de",
   "next_phase_prerequisites": [
     "Phase 07 consumes the namespace state repository API, ledger transaction schema, item and entitlement handlers, provider configuration names, reconciliation task, and cross-game delivery contract documented in the Phase 06 handoff."
   ],
   "open_risks": [
     "MongoDB replica-set transaction, index, race, and process-failure tests were unavailable: Docker and MONGODB_URI are not configured.",
     "Live Apple and Google sandbox verification, webhook delivery, refunds, and chargebacks were unavailable; only fixture-based provider contracts ran.",
-    "The configured 100-partition one-billion-operation workflow was not dispatched; the exit qualification remains unverified.",
     "Production API principal/repository composition and Celery/RabbitMQ retry behavior were not exercised on this workstation."
   ],
   "phase": "06",
@@ -277,11 +280,12 @@
     "task lint",
     "task typecheck",
     "task phase:gate PHASE=06",
-    "task evidence PHASE=06"
+    "task evidence PHASE=06",
+    "GitHub Actions hosted qualification https://github.com/Lengrowth/LenGeas/actions/runs/38252037777: success on a34f47b32961e351843d9755eeeeefe852c0f6ca"
   ],
   "toolchain": {
     "celery": "5.6.0",
-    "hosted_qualification": "100 partitions configured; run not observed",
+    "hosted_qualification": "passed; https://github.com/Lengrowth/LenGeas/actions/runs/38252037777 on a34f47b32961e351843d9755eeeeefe852c0f6ca",
     "mongodb": "unavailable on workstation",
     "mypy": "1.18.2",
     "pytest": "8.4.2",

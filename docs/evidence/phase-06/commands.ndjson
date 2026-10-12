@@ -20,3 +20,9 @@
 {"command":"task generate","result":"PASS","observed":"Generated artifacts updated; one generated file reformatted"}
 {"command":"task phase:gate PHASE=05","result":"PASS","observed":"Phase 05 is accepted with no blockers"}
 {"command":"task evidence PHASE=05","result":"PASS","observed":"Read-only Phase 05 evidence manifest verified"}
+{"command":"gh workflow run phase-06-qualification.yml --ref main","result":"PASS","observed":"Dispatched GitHub Actions run 38252037777 on commit a34f47b32961e351843d9755eeeeefe852c0f6ca; https://github.com/Lengrowth/LenGeas/actions/runs/38252037777"}
+{"command":"gh run view 38252037777 --json url,status,conclusion,headSha,createdAt,updatedAt","result":"PASS","observed":"Completed successfully at 2026-10-12T12:57:11Z on the intended Phase 06 commit; aggregate report verified 100 partitions and 1,000,000,000 operations with zero asset imbalance"}
+{"command":"task lint","result":"PASS","observed":"All checks passed after recording hosted qualification evidence"}
+{"command":"task typecheck","result":"PASS","observed":"Mypy clean for 120 source files; TypeScript definition and bundle validator fixtures passed"}
+{"command":"task phase:gate PHASE=06","result":"PASS","observed":"Phase 06 remains in_review with no blockers"}
+{"command":"task evidence PHASE=06","result":"PASS","observed":"Read-only Phase 06 evidence manifest verified"}

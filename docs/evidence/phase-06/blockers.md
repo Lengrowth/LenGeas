@@ -14,9 +14,6 @@ checks. Phase status remains `in_review`; no owner acceptance is recorded.
   accounts are not available. Only mocked HTTP/JWS/JWT adapter contract cases
   ran; pending/delayed provider events and real refund/chargeback calls remain
   unverified.
-- **One-billion-operation hosted qualification:** the 100-partition workflow
-  is configured but was not dispatched or observed. The local 2,000-operation
-  smoke is not billion-operation evidence.
 - **Production router composition:** the Phase 06 router requires the trusted
   Phase 03 identity and a Mongo repository from production composition. This
   workstation has no production deployment or Mongo configuration to exercise
@@ -27,5 +24,7 @@ checks. Phase status remains `in_review`; no owner acceptance is recorded.
   queue, but `CELERY_BROKER_URL` is unset and worker retry/ack behavior was not
   exercised.
 
-These are evidence and hosted-infrastructure gaps, not passing results. They
-must be resolved before treating the Phase 06 exit gate as qualified.
+The one-billion-operation hosted qualification passed in GitHub Actions run
+38252037777; its URL and digest-only partition evidence are recorded in
+`performance/hosted-qualification.json`. The infrastructure checks above remain
+open and were not covered by that synthetic qualification.

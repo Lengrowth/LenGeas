@@ -55,7 +55,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "67e0ec966861c55124ca98784e87c4a869d0b41823956aca7e150c22770c6f4d"
+      "sha256": "caecfc5142165b8ce224d7951c26aa433d42bee5bfa1d21bf3c09b5ddda35835"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -178,8 +178,8 @@
     "P05-T07",
     "P05-T08"
   ],
-  "end_utc": "2026-10-12T11:58:40.397902Z",
-  "final_commit": "1d6303370d7dfc45090bf6e0608828a9f7702003",
+  "end_utc": "2026-10-12T13:00:12.459965Z",
+  "final_commit": "35996c61094f722c236c2e065a1bbb2c2063e2de",
   "next_phase_prerequisites": [
     "Phase 06 consumes the runtime plan interface and supplies economy/inventory transaction handlers for typed reward grants."
   ],

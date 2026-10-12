@@ -218,6 +218,7 @@ PHASE06_ARTIFACT_PATHS = (
     "docs/evidence/phase-06/security/README.md",
     "docs/evidence/phase-06/performance/README.md",
     "docs/evidence/phase-06/performance/local-smoke.json",
+    "docs/evidence/phase-06/performance/hosted-qualification.json",
     "docs/evidence/phase-06/performance/partitions",
     "docs/evidence/phase-06/operations/README.md",
     "docs/evidence/phase-06/blockers.md",
@@ -512,6 +513,7 @@ def verify_phase06_completeness(manifest: dict[str, object]) -> None:
         "coverage.json",
         "security/README.md",
         "performance/README.md",
+        "performance/hosted-qualification.json",
         "operations/README.md",
         *{f"tasks/P06-T0{number}.md" for number in range(1, 9)},
     }
@@ -545,6 +547,33 @@ def verify_phase06_completeness(manifest: dict[str, object]) -> None:
     totals = coverage.get("totals", {})
     if not isinstance(totals, dict) or not isinstance(totals.get("percent_covered"), (int, float)):
         raise SystemExit("Phase 06 coverage report has no numeric totals.percent_covered")
+    qualification = json.loads(
+        (evidence / "performance" / "hosted-qualification.json").read_text(encoding="utf-8")
+    )
+    partitions = qualification.get("partitions", [])
+    if (
+        qualification.get("run_result") != "success"
+        or qualification.get("operation_count") != 1_000_000_000
+        or qualification.get("partition_count") != 100
+        or qualification.get("operations_per_partition") != 10_000_000
+        or qualification.get("asset_total") != 0
+        or qualification.get("raw_operations_retained") is not False
+        or len(partitions) != 100
+    ):
+        raise SystemExit("Phase 06 hosted qualification evidence does not meet the run contract")
+    cursor = 0
+    for index, partition in enumerate(partitions):
+        if (
+            partition.get("partition") != index
+            or partition.get("operation_start") != cursor
+            or partition.get("operation_end_exclusive") - cursor != 10_000_000
+            or partition.get("operation_count") != 10_000_000
+            or len(partition.get("digest_sha256", "")) != 64
+        ):
+            raise SystemExit("Phase 06 hosted qualification partition evidence is incomplete")
+        cursor = partition["operation_end_exclusive"]
+    if cursor != 1_000_000_000:
+        raise SystemExit("Phase 06 hosted qualification ranges do not cover one billion operations")
     commands = (evidence / "commands.ndjson").read_text(encoding="utf-8")
     for command in (
         "task phase:gate PHASE=06",
@@ -565,6 +594,16 @@ def verify_phase06_completeness(manifest: dict[str, object]) -> None:
 
 def build_phase06_manifest(existing: dict[str, object] | None) -> dict[str, object]:
     existing = existing or {}
+    qualification = json.loads(
+        (
+            ROOT
+            / "docs"
+            / "evidence"
+            / "phase-06"
+            / "performance"
+            / "hosted-qualification.json"
+        ).read_text(encoding="utf-8")
+    )
     expected_tasks = [f"P06-T0{number}" for number in range(1, 9)]
     artifacts: list[dict[str, str]] = []
     for value in PHASE06_ARTIFACT_PATHS:
@@ -591,7 +630,10 @@ def build_phase06_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "mypy": "1.18.2",
             "celery": "5.6.0",
             "mongodb": "unavailable on workstation",
-            "hosted_qualification": "100 partitions configured; run not observed",
+            "hosted_qualification": (
+                "passed; "
+                f"{qualification['run_url']} on {qualification['workflow_head_sha']}"
+            ),
         },
         "completed_task_ids": expected_tasks,
         "requirement_ids": ["RQ-004", "RQ-020"],
@@ -612,6 +654,10 @@ def build_phase06_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "task typecheck",
             "task phase:gate PHASE=06",
             "task evidence PHASE=06",
+            (
+                f"GitHub Actions hosted qualification {qualification['run_url']}: "
+                f"{qualification['run_result']} on {qualification['workflow_head_sha']}"
+            ),
         ],
         "open_risks": [
             (
@@ -621,10 +667,6 @@ def build_phase06_manifest(existing: dict[str, object] | None) -> dict[str, obje
             (
                 "Live Apple and Google sandbox verification, webhook delivery, refunds, and "
                 "chargebacks were unavailable; only fixture-based provider contracts ran."
-            ),
-            (
-                "The configured 100-partition one-billion-operation workflow was not "
-                "dispatched; the exit qualification remains unverified."
             ),
             (
                 "Production API principal/repository composition and Celery/RabbitMQ retry "

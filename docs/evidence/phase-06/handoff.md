@@ -4,9 +4,12 @@
 
 Phase 06 is `in_review`. No owner acceptance is recorded. Local domain,
 adapter-contract, API boundary, security, and bounded qualification checks are
-documented in this evidence bundle. The billion-operation hosted run, MongoDB
-transaction integration, real provider sandboxes, and Celery broker check are
-still open risks. See `blockers.md`.
+documented in this evidence bundle. The one-billion-operation hosted
+qualification passed in [GitHub Actions run 38252037777](https://github.com/Lengrowth/LenGeas/actions/runs/38252037777)
+on commit `a34f47b32961e351843d9755eeeeefe852c0f6ca`; partition ranges, counts,
+and digests are in `performance/hosted-qualification.json`. MongoDB transaction
+integration, live Apple/Google sandbox checks, and Celery broker behavior remain
+open risks. See `blockers.md`.
 
 ## Phase 07 interfaces
 

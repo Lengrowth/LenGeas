@@ -111,7 +111,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "67e0ec966861c55124ca98784e87c4a869d0b41823956aca7e150c22770c6f4d"
+      "sha256": "caecfc5142165b8ce224d7951c26aa433d42bee5bfa1d21bf3c09b5ddda35835"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -155,7 +155,7 @@
     },
     {
       "path": "docs/evidence/phase-04/performance",
-      "sha256": "eb802e51bf63c628db2c3817565439f6ca30a0892d5a67f2e0380a28e5db942b"
+      "sha256": "4c0686963cc057deda1e63956d5a9acdcb77f9a27dc2cf78402e7cc51980d2da"
     },
     {
       "path": "docs/evidence/phase-04/operations",
@@ -174,8 +174,8 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-12T12:55:59.662419Z",
-  "final_commit": "a34f47b32961e351843d9755eeeeefe852c0f6ca",
+  "end_utc": "2026-10-12T13:00:11.339110Z",
+  "final_commit": "35996c61094f722c236c2e065a1bbb2c2063e2de",
   "next_phase_prerequisites": [
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
   ],
