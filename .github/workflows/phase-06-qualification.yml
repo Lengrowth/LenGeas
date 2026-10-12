@@ -23,7 +23,7 @@ jobs:
       - run: uv sync --frozen --python 3.13.5
       - name: Generate partition summary
         run: uv run --frozen python tools/dev/value_qualification.py run --partition ${{ matrix.partition }} --output qualification/partition-${{ matrix.partition }}.json
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: phase-06-partition-${{ matrix.partition }}
           path: qualification/partition-${{ matrix.partition }}.json
@@ -46,7 +46,7 @@ jobs:
         run: |
           uv run --frozen python tools/dev/value_qualification.py aggregate --reports qualification/partitions --output qualification/one-billion-summary.json
           cat qualification/one-billion-summary.json
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: phase-06-one-billion-summary
           path: qualification/one-billion-summary.json
