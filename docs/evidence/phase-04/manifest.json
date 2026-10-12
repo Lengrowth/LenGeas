@@ -79,19 +79,19 @@
     },
     {
       "path": "docs/23-traceability-matrix.md",
-      "sha256": "95b34b6b1209fd7fdd109c7a0b7d74072d27d2960512b5880248460f3d36983b"
+      "sha256": "1c0c67697c99da5ec88f40baa87a1385ac33b56c4085f92b3baebbc8ec4a769b"
     },
     {
       "path": "docs/governance/requirement-register.yaml",
-      "sha256": "e0c32738ee348430087954961161e8951bcdf0400d8932456b457c8b08d085e2"
+      "sha256": "0ebc7479f94a3c49a747b8ef488171cf92f507c04e651b5912542922272ee7ef"
     },
     {
       "path": "docs/governance/requirements.yaml",
-      "sha256": "ebbf36325e51e9a2e051264747938308262047e991f638bfbf25b366738860e8"
+      "sha256": "3f64ae5a9dc32cf3eaf1b8f089f6715751b0e55fa42c89e01a1ed0188b2e5552"
     },
     {
       "path": "docs/governance/traceability-matrix.generated.md",
-      "sha256": "ee9c992ebc01450b08e71074ba16716bd9123fa84c76b80e4dc64b82a012d834"
+      "sha256": "d5cfb7e7c3b0ad45bf0ed2adf9a55f094fc4d7c5b8513e462983ff26e32a6af8"
     },
     {
       "path": "docs/reference/definition-schema-v0.1.md",
@@ -111,11 +111,11 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "b0d47f3ed4aadb8e942bd1c1c856fc6cccc6aec728ef0d9c08478455cffebbf1"
+      "sha256": "67e0ec966861c55124ca98784e87c4a869d0b41823956aca7e150c22770c6f4d"
     },
     {
       "path": "tools/dev/phase_gate.py",
-      "sha256": "57375b5bdbef0fa0cc77dbe3562b9e45eae4abf3ba8b3cc280ed95d82e5be88c"
+      "sha256": "70536ae4179c9de253535d4d75529f6d6b544885806fffecfc17a8ed2474882f"
     },
     {
       "path": "tools/dev/typecheck.py",
@@ -174,7 +174,7 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-12T10:21:28.544578Z",
+  "end_utc": "2026-10-12T11:58:39.123470Z",
   "final_commit": "186431fc3444d00f89df206a7ad1fc53448307af",
   "next_phase_prerequisites": [
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"

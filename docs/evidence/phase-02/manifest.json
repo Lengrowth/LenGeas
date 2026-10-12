@@ -15,7 +15,7 @@
     },
     {
       "path": "docs/runbooks",
-      "sha256": "483478494c97247715e25cffcc2696f9a52a0a308411c2ee753d3b29c75fb680"
+      "sha256": "b65309f6f4cb9b63c64bde2b21be462004bb2eb2f2a743465daf0732ae293b55"
     },
     {
       "path": "docs/evidence/phase-02/tasks",
@@ -51,7 +51,7 @@
     "P02-T08",
     "P02-T09"
   ],
-  "end_utc": "2026-09-13T20:30:42.906746Z",
+  "end_utc": "2026-10-12T11:58:35.813228Z",
   "final_commit": "3bdac2a8e6c7b6d76391c73a3fe941121f7bc615",
   "next_phase_prerequisites": [],
   "open_risks": [

@@ -3,15 +3,15 @@
   "artifacts": [
     {
       "path": ".github/workflows/verify.yml",
-      "sha256": "2eedeb783585aebcb3d64317aea69c1dbb36cb9200b1b0b76c9c06fcfd6cf8ea"
+      "sha256": "c13b193581ee9426e5d856bae45c059ba162a6ea710d181032552b0cea08f08d"
     },
     {
       "path": "pyproject.toml",
-      "sha256": "50847b0ee7adf025896fb536e3ead08077fe7c826ef728727dea00c3a2a9c96c"
+      "sha256": "2aa1334ff0c715f455586cc63e9e3aa50d496fa646999639f16a5d951ea611a6"
     },
     {
       "path": "uv.lock",
-      "sha256": "647fe44b1a0572dc5db4062ef8c690e783d8b53ec8bdf8d0672a22b1b810ff19"
+      "sha256": "765a58674cf4ea1eceb17359d10866c45f39c6b77e6980696901f473173fe66d"
     },
     {
       "path": "packages/domain/identity",
@@ -39,7 +39,7 @@
     },
     {
       "path": "packages/persistence/mongodb",
-      "sha256": "95272b20017ec906c2a11d5105381cffab80c5e1b00ddd76c1168a6a732524bb"
+      "sha256": "a0bc23659ac68ee81d1b0d933eb1ca1a8ca184e2540240ded019e7744ce8ed58"
     },
     {
       "path": "apps/api/app/composition.py",
@@ -166,7 +166,7 @@
     "P03-T07",
     "P03-T08"
   ],
-  "end_utc": "2026-10-11T20:27:48.419630Z",
+  "end_utc": "2026-10-12T11:58:37.422465Z",
   "final_commit": "cf1222329bc29904766e24df5d2c7474461b63b4",
   "next_phase_prerequisites": [],
   "open_risks": [

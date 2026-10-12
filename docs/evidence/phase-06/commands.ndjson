@@ -14,7 +14,9 @@
 {"command":"uv run --frozen python tools/dev/value_qualification.py run --partition 0 --partitions 2 --operations 1000 --output docs/evidence/phase-06/performance/partitions/partition-0.json","result":"PASS","observed":"1,000 operations; aggregate and digest-only partition report"}
 {"command":"uv run --frozen python tools/dev/value_qualification.py run --partition 1 --partitions 2 --operations 1000 --output docs/evidence/phase-06/performance/partitions/partition-1.json","result":"PASS","observed":"1,000 operations; aggregate and digest-only partition report"}
 {"command":"uv run --frozen python tools/dev/value_qualification.py aggregate --reports docs/evidence/phase-06/performance/partitions --partitions 2 --expected-total 2000 --output docs/evidence/phase-06/performance/local-smoke.json","result":"PASS","observed":"2,000 operations across 2 partitions; conserved aggregate total is zero; digest-only"}
-{"command":"task phase:gate PHASE=06","result":"PENDING","observed":"Will run after manifest regeneration"}
-{"command":"task evidence PHASE=06","result":"PENDING","observed":"Will run after manifest regeneration"}
+{"command":"task phase:gate PHASE=06","result":"PASS","observed":"Phase 06 is in_review with no blockers"}
+{"command":"task evidence PHASE=06","result":"PASS","observed":"Read-only Phase 06 manifest verified"}
 {"command":"task format","result":"PASS","observed":"170 files left unchanged; deterministic Python formatting applied"}
 {"command":"task generate","result":"PASS","observed":"Generated artifacts updated; one generated file reformatted"}
+{"command":"task phase:gate PHASE=05","result":"PASS","observed":"Phase 05 is accepted with no blockers"}
+{"command":"task evidence PHASE=05","result":"PASS","observed":"Read-only Phase 05 evidence manifest verified"}

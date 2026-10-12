@@ -60,3 +60,7 @@ Only the documented collections are used: `player_profiles`, `player_states`,
 `entitlements`, `outbox_events`, `game_blueprints`, and `audit_logs`. No new
 collection is introduced. Explicit repository index definitions are named in
 the Mongo adapters and use permanent provider transaction uniqueness.
+
+## Commit reference
+
+The Phase 06 implementation candidate is committed on main as `053a73e`. The evidence-manifest refresh is recorded separately so the manifest can hash the committed implementation and evidence artifacts.

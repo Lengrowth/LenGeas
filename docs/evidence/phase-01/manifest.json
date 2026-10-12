@@ -7,7 +7,7 @@
     },
     {
       "path": "Taskfile.yml",
-      "sha256": "f1c9022a548e2f12fbdf63bb3eedc35ecabd3f1dd7a004c4797cb366ee44df2e"
+      "sha256": "2fbf18cc7f9b785234fc9a3552231c2d353dfed3c79f7906ee373e618812cdba"
     },
     {
       "path": "package.json",
@@ -15,15 +15,19 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "096d07803ea46d9234b067cd7143d81399b63d96a86d61074d5c7cf0b98ee5e7"
+      "sha256": "c1be0b83a27191be90ebe59c1859ab36e025955cd15a93c7f2506b7d25ab8e9a"
     },
     {
       "path": "pyproject.toml",
-      "sha256": "50847b0ee7adf025896fb536e3ead08077fe7c826ef728727dea00c3a2a9c96c"
+      "sha256": "2aa1334ff0c715f455586cc63e9e3aa50d496fa646999639f16a5d951ea611a6"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "f6c2a943fcd630c6d7333bebc47b8dd1a7a98b421775ed11d4670350c8eb8f3a"
     },
     {
       "path": "uv.lock",
-      "sha256": "647fe44b1a0572dc5db4062ef8c690e783d8b53ec8bdf8d0672a22b1b810ff19"
+      "sha256": "765a58674cf4ea1eceb17359d10866c45f39c6b77e6980696901f473173fe66d"
     },
     {
       "path": "compose.yaml",
@@ -31,7 +35,7 @@
     },
     {
       "path": ".github",
-      "sha256": "802790769a4777731c3d47d71eda308d7a5ff97df3e860af109373bdcaebf007"
+      "sha256": "bccb6b832711cf4f7c39f8176b5371f308772a7af8dafb5d8de81f26eba13b28"
     },
     {
       "path": "infrastructure/docker",
@@ -51,11 +55,11 @@
     },
     {
       "path": "tools/dev",
-      "sha256": "364422e0c72c7ea154bd57a3df1fc7fca980c9119ca22c08bbd87f5c62336239"
+      "sha256": "ea2dfaed28f5fe331ea57d508367aa5c7763bf661e95d4313f99eaf7a4929aa7"
     },
     {
       "path": "tests",
-      "sha256": "12c3fb77233933541e58cd8b4d795d5119e14879138ef54e5736cbdaafb0f889"
+      "sha256": "77142e346fd90f35e32bdbc5cdd9d5b967571ea5c9b3978e86d3ce076cecc79a"
     },
     {
       "path": "docs/evidence/phase-01/operations/server-bundle-manifest.json",
@@ -78,7 +82,7 @@
     "P01-T07",
     "P01-T08"
   ],
-  "end_utc": "2026-10-11T20:27:47.051644Z",
+  "end_utc": "2026-10-12T11:58:34.786876Z",
   "final_commit": "31235eaa904c1cd45102e7c35fe702cbb5a10565",
   "next_phase_prerequisites": [],
   "open_risks": [

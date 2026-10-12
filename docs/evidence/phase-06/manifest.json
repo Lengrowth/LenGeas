@@ -1,0 +1,292 @@
+{
+  "agent_identity": "Codex root phase agent",
+  "artifacts": [
+    {
+      "path": "pyproject.toml",
+      "sha256": "2aa1334ff0c715f455586cc63e9e3aa50d496fa646999639f16a5d951ea611a6"
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "765a58674cf4ea1eceb17359d10866c45f39c6b77e6980696901f473173fe66d"
+    },
+    {
+      "path": "Taskfile.yml",
+      "sha256": "2fbf18cc7f9b785234fc9a3552231c2d353dfed3c79f7906ee373e618812cdba"
+    },
+    {
+      "path": "tools/dev/test_harness.py",
+      "sha256": "dd55ba584be376f0023116b90371ef0a32378fc2b24a0f2f709028d14b6305a8"
+    },
+    {
+      "path": "tools/dev/evidence.py",
+      "sha256": "67e0ec966861c55124ca98784e87c4a869d0b41823956aca7e150c22770c6f4d"
+    },
+    {
+      "path": "tools/dev/phase_gate.py",
+      "sha256": "70536ae4179c9de253535d4d75529f6d6b544885806fffecfc17a8ed2474882f"
+    },
+    {
+      "path": "tools/dev/value_qualification.py",
+      "sha256": "7308c87ae385f670801cba40000d9a4e1b9ce9165ebc4b33f86123db8338bd71"
+    },
+    {
+      "path": "apps/api/app/state_economy_api.py",
+      "sha256": "3f11ae4fd79bed5cb14bcf98c5a4f4d1cf3648cdb6d74a6a56b148239c40dcde"
+    },
+    {
+      "path": "apps/workers/reconciliation.py",
+      "sha256": "845f07878e0bd9c8044a35838c34547970329e304a851c63d3aa9b965893f2be"
+    },
+    {
+      "path": "packages/domain/player_state.py",
+      "sha256": "208ca77511d885511f847b6dfe5c2d0665d2a64ad4639dd4d63875b817283a4f"
+    },
+    {
+      "path": "packages/domain/economy.py",
+      "sha256": "86548d85f6d2f9d7da33bc762ca7f0189eb3d13fe2d752195db3e6a1f109b35c"
+    },
+    {
+      "path": "packages/domain/economy_runtime.py",
+      "sha256": "760d92e3762b163749f28356b09abb0661bc10aa7965c9a1ded769bea1ad44fb"
+    },
+    {
+      "path": "packages/domain/inventory.py",
+      "sha256": "5658649b979885e6be2f7bb3b3dcb1507e2d203fe201545934f0f87a3d4fa5b1"
+    },
+    {
+      "path": "packages/domain/entitlements.py",
+      "sha256": "1d74f9ad983f6baf4330db4e78566eb43336dd29d151638d13c6c303c9e27bd7"
+    },
+    {
+      "path": "packages/domain/cross_game.py",
+      "sha256": "e121ecba0cec6d2f7e4f7c37008646e2ef7518e28ac374c5500b15505cd36bca"
+    },
+    {
+      "path": "packages/domain/reconciliation.py",
+      "sha256": "0140668ca4bf5f41f84a8bcc0ca5c34754246d6984168bc0d7656f49c996576d"
+    },
+    {
+      "path": "packages/domain/providers",
+      "sha256": "a1c50b94b1f8441ddccb150685350c07cbfacf46d4fbd2694f118d040d0b627d"
+    },
+    {
+      "path": "packages/persistence/mongodb/player_state.py",
+      "sha256": "7ead3245a1fe84db45c899ba81745477bcae13ce9b3c07dccbb0e045435e4eca"
+    },
+    {
+      "path": "packages/persistence/mongodb/state_economy.py",
+      "sha256": "7cc48102f55083b10038668c2960dccc3140320507d14511acc3db8768b5f398"
+    },
+    {
+      "path": "packages/persistence/mongodb/inventory.py",
+      "sha256": "8e221a211e3f0dd523996e1d78279293e1e63dd6092d11d19b4337398e2e6cf8"
+    },
+    {
+      "path": "packages/persistence/mongodb/cross_game.py",
+      "sha256": "b898a1285557d68ea9cf5f6342c0da5beacd32b34726aa7353b9cf0a1b40d367"
+    },
+    {
+      "path": "packages/persistence/mongodb/reconciliation.py",
+      "sha256": "da2000d5cf61e2f8309ac521758801dadde8352c186ea49fd260724a243ec46a"
+    },
+    {
+      "path": "packages/schemas/domain",
+      "sha256": "2683a49641753d17b440f8aec338b35090b079aa1271262fb93526df1c8789b0"
+    },
+    {
+      "path": "tests/unit/phase06",
+      "sha256": "120d980dcbddf102240356c393b37af12d6ea9cba75234737ce7b240ca131850"
+    },
+    {
+      "path": "tests/property/phase06",
+      "sha256": "312643aa20648dac16d1ebe6921d218971c80f49adfc38f89f88554d874e79c9"
+    },
+    {
+      "path": "tests/contract/phase06",
+      "sha256": "0da4f529e757c35b19715b31df268176ae25bfa58e578da643b738a25552e2bd"
+    },
+    {
+      "path": "tests/integration/phase06",
+      "sha256": "38095bc7b0e600fa098dc2c12c920d847ca771c49596fc3f160d684eccbb081b"
+    },
+    {
+      "path": "tests/e2e/phase06",
+      "sha256": "1cdf727547ed450cc8f4b8ec788c34d90e703dd976c912b7c34ac29e1d3e6ebd"
+    },
+    {
+      "path": "tests/security/phase06",
+      "sha256": "067c452409b1a45971cbbbbb9ede9b0eb41cb38f3ca08464b22f05f78f83ea12"
+    },
+    {
+      "path": "tests/performance/phase06",
+      "sha256": "ade6312a73b538a48b55a00e14fe67e4b9353c712e916d39a020e1775ea98e33"
+    },
+    {
+      "path": ".github/workflows/phase-06-qualification.yml",
+      "sha256": "8f15d18d10a8c76a21ed8c9e1ad6cb538fe77574ae1179706d64f0302998ef10"
+    },
+    {
+      "path": "docs/phases/06-state-economy-inventory.md",
+      "sha256": "83099631127ec48acc1316c44f967906af9c17bc36f7d3dacaa7581aae7ad20d"
+    },
+    {
+      "path": "docs/07-data-and-persistence.md",
+      "sha256": "02f93ef0a12ce82c74f19e634bb77fcca9d0c524b909a498357f7bfe916825dd"
+    },
+    {
+      "path": "docs/23-traceability-matrix.md",
+      "sha256": "1c0c67697c99da5ec88f40baa87a1385ac33b56c4085f92b3baebbc8ec4a769b"
+    },
+    {
+      "path": "docs/governance/requirement-register.yaml",
+      "sha256": "0ebc7479f94a3c49a747b8ef488171cf92f507c04e651b5912542922272ee7ef"
+    },
+    {
+      "path": "docs/governance/requirements.yaml",
+      "sha256": "3f64ae5a9dc32cf3eaf1b8f089f6715751b0e55fa42c89e01a1ed0188b2e5552"
+    },
+    {
+      "path": "docs/governance/traceability-matrix.generated.md",
+      "sha256": "d5cfb7e7c3b0ad45bf0ed2adf9a55f094fc4d7c5b8513e462983ff26e32a6af8"
+    },
+    {
+      "path": "docs/reference/state-economy-inventory-v1.md",
+      "sha256": "bcf997fdfc63d3095eed76182f29495e3257382284faeb1c769f7693100dca51"
+    },
+    {
+      "path": "docs/runbooks/economy-inventory-support.md",
+      "sha256": "e1ec3845eb04507ddb1cf99c746fb1abb0de56d1bafcbf82b5dfa9a791e779a4"
+    },
+    {
+      "path": "docs/evidence/phase-06/tasks/P06-T01.md",
+      "sha256": "bb27acf24b1ac386919919b20cbcc585ce3534d9f46c89d6bd9e56bb588153c8"
+    },
+    {
+      "path": "docs/evidence/phase-06/tasks/P06-T02.md",
+      "sha256": "ac9b98cd835408a8db569328c6e7467b2e69db4ed5cb186a23e990e6ded3c912"
+    },
+    {
+      "path": "docs/evidence/phase-06/tasks/P06-T03.md",
+      "sha256": "90861ca4173d3d48c867436becdb007c132a298f72deec551d868904fbe217a7"
+    },
+    {
+      "path": "docs/evidence/phase-06/tasks/P06-T04.md",
+      "sha256": "baa4d8e4d1ba0b3a556c918eb808cad49cc64b113be274f841b44f712257cae7"
+    },
+    {
+      "path": "docs/evidence/phase-06/tasks/P06-T05.md",
+      "sha256": "da4bbbc560645b33a1e4b319237a50f8ada8bb5dd4820ebadd9e144be9117329"
+    },
+    {
+      "path": "docs/evidence/phase-06/tasks/P06-T06.md",
+      "sha256": "75b18f6b97c215ba8eeb985bc5901f7b0f56f0c775fa6a1be316edaf0dd21e0e"
+    },
+    {
+      "path": "docs/evidence/phase-06/tasks/P06-T07.md",
+      "sha256": "810a52f8baa543d62ae3c03b853902302166ca18185449ce1cf864dbca48e5db"
+    },
+    {
+      "path": "docs/evidence/phase-06/tasks/P06-T08.md",
+      "sha256": "b11fbacf4c4b46082c1d35855a99ef60089375341edfe6fa719fc4bd514f014b"
+    },
+    {
+      "path": "docs/evidence/phase-06/security/README.md",
+      "sha256": "3067ff8a190fc1f5eb55d229a38cbf3479f698241ae54f4d2e552e6a30fb40ce"
+    },
+    {
+      "path": "docs/evidence/phase-06/performance/README.md",
+      "sha256": "9573d4ee38ecf0c34378ef47d792633b9b5cbc074bd9c49dafd2bc18a040f23e"
+    },
+    {
+      "path": "docs/evidence/phase-06/performance/local-smoke.json",
+      "sha256": "b0038a2678ea810abe187e51aa7c3e8d804731f0c4e40260e8874f2a66b64c54"
+    },
+    {
+      "path": "docs/evidence/phase-06/performance/partitions",
+      "sha256": "9b5177a1fa5f038249cc898889a7acb029dbe6ab60551cc72075326657a5cf08"
+    },
+    {
+      "path": "docs/evidence/phase-06/operations/README.md",
+      "sha256": "c1b72029da4ec121bc8afd610c8ed1d75cf1ad924acda939e5bb3da44178d6bc"
+    },
+    {
+      "path": "docs/evidence/phase-06/blockers.md",
+      "sha256": "cb0e1164dba70b3150e980b3d8ae8adfeb2c07130d899fda60d54bfee45b422e"
+    },
+    {
+      "path": "docs/evidence/phase-06/decisions.md",
+      "sha256": "432f521827abac7bb41192ea6231e1e343a2ac7fd7eb4136566efe83cfb2b296"
+    },
+    {
+      "path": "docs/evidence/phase-06/handoff.md",
+      "sha256": "256d2a0737703a54aeb91fa918b131e2c767ad1418acd6bbbdd4abf41690f437"
+    },
+    {
+      "path": "docs/evidence/phase-06/commands.ndjson",
+      "sha256": "321fe38cbfdab64dfd06ffc83bbdfafb685d582bba17cad83e2ddb1f408b23da"
+    },
+    {
+      "path": "docs/evidence/phase-06/test-report.xml",
+      "sha256": "9f55bd28b96add4c5a80870a20f3f8b5a38a6325cdb5f3deceee547272e26ebc"
+    },
+    {
+      "path": "docs/evidence/phase-06/coverage.json",
+      "sha256": "bef7aac21df68d7ce4b509df769ea3734f8b921350306494ec460354f92b246e"
+    }
+  ],
+  "base_commit": "053a73ed80e1615f93555216d93967c55b3a460a",
+  "blockers": [],
+  "completed_task_ids": [
+    "P06-T01",
+    "P06-T02",
+    "P06-T03",
+    "P06-T04",
+    "P06-T05",
+    "P06-T06",
+    "P06-T07",
+    "P06-T08"
+  ],
+  "end_utc": "2026-10-12T12:01:40.228972Z",
+  "final_commit": "053a73ed80e1615f93555216d93967c55b3a460a",
+  "next_phase_prerequisites": [
+    "Phase 07 consumes the namespace state repository API, ledger transaction schema, item and entitlement handlers, provider configuration names, reconciliation task, and cross-game delivery contract documented in the Phase 06 handoff."
+  ],
+  "open_risks": [
+    "MongoDB replica-set transaction, index, race, and process-failure tests were unavailable: Docker and MONGODB_URI are not configured.",
+    "Live Apple and Google sandbox verification, webhook delivery, refunds, and chargebacks were unavailable; only fixture-based provider contracts ran.",
+    "The configured 100-partition one-billion-operation workflow was not dispatched; the exit qualification remains unverified.",
+    "Production API principal/repository composition and Celery/RabbitMQ retry behavior were not exercised on this workstation."
+  ],
+  "phase": "06",
+  "requirement_ids": [
+    "RQ-004",
+    "RQ-020"
+  ],
+  "schema_version": "1.0.0",
+  "start_utc": "2026-10-12T11:58:41.613709Z",
+  "status": "in_review",
+  "tests": [
+    "task test:unit -- phase06",
+    "task test:property -- phase06",
+    "task test:contract -- phase06",
+    "task test:integration -- phase06 (in-memory atomicity and concurrency adapters)",
+    "task test:e2e -- phase06 (authenticated state API TestClient)",
+    "task test:security -- phase06",
+    "task test:performance -- phase06",
+    "uv run --frozen python tools/dev/value_qualification.py (2-partition, 2,000-operation smoke)",
+    "task lint",
+    "task typecheck",
+    "task phase:gate PHASE=06",
+    "task evidence PHASE=06"
+  ],
+  "toolchain": {
+    "celery": "5.6.0",
+    "hosted_qualification": "100 partitions configured; run not observed",
+    "mongodb": "unavailable on workstation",
+    "mypy": "1.18.2",
+    "pytest": "8.4.2",
+    "python": "3.13.5 via uv 0.11.29",
+    "ruff": "0.13.1",
+    "task": "3.53.1"
+  }
+}
