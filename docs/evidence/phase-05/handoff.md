@@ -4,6 +4,8 @@
 
 Phase 05 is `in_review`. P05-T01 through P05-T08 have implementation and local evidence, but repository-owner acceptance has not been recorded. Phase 04 was `accepted` before this work began; its entry gate and read-only evidence verification passed. Phase 04's status is unchanged.
 
+The Phase 05 source candidate is commit `186431fc3444d00f89df206a7ad1fc53448307af` (`P05-T01: implement Phase 05 runtime primitives`). The evidence update is committed separately after the final gates.
+
 ## Delivered interfaces
 
 - Pure runtime package: `packages/runtime/src/lengeas_runtime/`.

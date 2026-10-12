@@ -1,0 +1,228 @@
+{
+  "agent_identity": "Codex root phase agent",
+  "artifacts": [
+    {
+      "path": "packages/runtime/src/lengeas_runtime",
+      "sha256": "d9ce35edc516601ee42aa1d6c8c03129b965ffe4c3da50bdc171e61de754dba7"
+    },
+    {
+      "path": "packages/runtime/__init__.py",
+      "sha256": "97dee126222b5b0ab8b437b94f4da9e35f135cbe92c365aa3c2de0d6644ae7d0"
+    },
+    {
+      "path": "packages/runtime/README.md",
+      "sha256": "ba7a4d4ab319a81df3273156dfa8ff789900974535da55067631fb271f9dd9d6"
+    },
+    {
+      "path": "packages/domain/actions.py",
+      "sha256": "e55a9a8c7c925faf78c88a9d8b3000eb450047172d166ef3272aa58e84b7cbf0"
+    },
+    {
+      "path": "packages/domain/event_delivery.py",
+      "sha256": "45166eefa44245623dff00850620150ab9d62b6b820022f3d1f2a0a617c4c980"
+    },
+    {
+      "path": "packages/persistence/mongodb/actions.py",
+      "sha256": "bbf4f49fca2a24633cd5657e8e96d5dca6fea69d07775ec493531fa1c0e6ca2a"
+    },
+    {
+      "path": "packages/persistence/mongodb/event_inbox.py",
+      "sha256": "ad3b220586629ebd9b35c2db34b4244bb98aa791235da88578a5a293fae01027"
+    },
+    {
+      "path": "apps/api/app/runtime_api.py",
+      "sha256": "b6b2c8730d68f638c31fad1c3a760eb5ccfe9c6c6d4cee10b068fb28ef9c4c4b"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "bd0dd2a073f31f41431e8f5ebdc80a213ac8358607b0c32a93b8a8c359f80927"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "f6c2a943fcd630c6d7333bebc47b8dd1a7a98b421775ed11d4670350c8eb8f3a"
+    },
+    {
+      "path": "Taskfile.yml",
+      "sha256": "2fbf18cc7f9b785234fc9a3552231c2d353dfed3c79f7906ee373e618812cdba"
+    },
+    {
+      "path": ".github/workflows/verify.yml",
+      "sha256": "c13b193581ee9426e5d856bae45c059ba162a6ea710d181032552b0cea08f08d"
+    },
+    {
+      "path": "tools/dev/test_harness.py",
+      "sha256": "39ec15a795775900790027dae292a9ffab5decdc52791524dd7a7547c20167f8"
+    },
+    {
+      "path": "tools/dev/evidence.py",
+      "sha256": "b0d47f3ed4aadb8e942bd1c1c856fc6cccc6aec728ef0d9c08478455cffebbf1"
+    },
+    {
+      "path": "tools/dev/phase_gate.py",
+      "sha256": "57375b5bdbef0fa0cc77dbe3562b9e45eae4abf3ba8b3cc280ed95d82e5be88c"
+    },
+    {
+      "path": "tools/dev/generate.py",
+      "sha256": "d7f3e456a3ebbb7b049bac064477770dad902e95138babced0341c4c74c2805f"
+    },
+    {
+      "path": "tools/dev/runtime_benchmark.py",
+      "sha256": "001015b746ab1b521c120c85bb5adc7955bc2c992ee7cf0c9a97fe1943a0d975"
+    },
+    {
+      "path": "tools/dev/runtime_replay.py",
+      "sha256": "119728c7bf987e72ab8f617e164e4f28875458223332819c4290867c9c0665f8"
+    },
+    {
+      "path": "tools/dev/runtime_reference.py",
+      "sha256": "7ae993df4f8b35e77ab9cc8cfb11d0e850a70658862073f19a5281afe2f93352"
+    },
+    {
+      "path": "docs/06-runtime-and-rules.md",
+      "sha256": "071a4a7cb39d1aea4f17d232cd7e3d019d1eac627dc4849941427f57b878ca4f"
+    },
+    {
+      "path": "docs/reference/runtime-v1.md",
+      "sha256": "145c1358232b948f38d476fcefa01b8d634bb7c310d228db043a885b0de64965"
+    },
+    {
+      "path": "docs/phases/05-runtime-primitives.md",
+      "sha256": "be04c9628b615c6247bc18c2583591568ff31d4b81457fa311d9fac2bb2c0201"
+    },
+    {
+      "path": "docs/23-traceability-matrix.md",
+      "sha256": "95b34b6b1209fd7fdd109c7a0b7d74072d27d2960512b5880248460f3d36983b"
+    },
+    {
+      "path": "tests/unit/runtime",
+      "sha256": "f51f8330c66c634433c5e4241492a29313be75e0781b65aa28b49896b6fee5a3"
+    },
+    {
+      "path": "tests/property/runtime",
+      "sha256": "89f3aaf66aa7b4c12aef2cb3d10a6462f2d32ffcb3fa8cbd75ad761d71c06342"
+    },
+    {
+      "path": "tests/contract/runtime",
+      "sha256": "6eaf8fd6892b216e60a1d303286498d274618733e00001a8d6002c15cd7e5ce0"
+    },
+    {
+      "path": "tests/integration/runtime",
+      "sha256": "7bee8280f7e4c53b1575d2fc10ab35c81caca685403be5f676e033304cdea827"
+    },
+    {
+      "path": "tests/e2e/runtime",
+      "sha256": "bb6b0b748d128db25b2053bd79ebd7735284d827be0d0682982c9e3b83488c81"
+    },
+    {
+      "path": "tests/security/runtime",
+      "sha256": "7f3dc0504b88e39d84151b99f26ea0de1e58ce5f9ff312ed41eba9ea17adb9a3"
+    },
+    {
+      "path": "tests/performance/runtime",
+      "sha256": "18ccc78709c10e253edbd76468c5161cacbb79d738d7a9105c628b1024559c97"
+    },
+    {
+      "path": "tests/determinism/runtime",
+      "sha256": "a49c9d903a6c072274dfd593cf5d0f7c417f9fbaff22ffad09f84be5c20b604d"
+    },
+    {
+      "path": "docs/evidence/phase-05/tasks",
+      "sha256": "b3b9dcfc60fdf2f1a3d4a5f73b4d84c3dfa9a4ddf792d9d22ea8e205ec29cf3d"
+    },
+    {
+      "path": "docs/evidence/phase-05/security",
+      "sha256": "3b06bba51340f308195dbb2472743eb386b5045ce98daa94d6a703b5b66e8de4"
+    },
+    {
+      "path": "docs/evidence/phase-05/performance",
+      "sha256": "7f560b2a15722baf65e0d39951e1a7b017711cd132610e7e3129dada13f3ed16"
+    },
+    {
+      "path": "docs/evidence/phase-05/operations",
+      "sha256": "882bc22411d93ff0e045f86d0ad86bf686309e10b243e4b4870dc7737870d452"
+    },
+    {
+      "path": "docs/evidence/phase-05/handoff.md",
+      "sha256": "7a88d305b607f7446f43ceb968bd74faf419ca96e7e0e6f11efc5d2c03c82aa5"
+    },
+    {
+      "path": "docs/evidence/phase-05/blockers.md",
+      "sha256": "8bcb5755a0a9850be5a7e1b72fc3b246110333e70569d2d9dea5b80a2016a230"
+    },
+    {
+      "path": "docs/evidence/phase-05/decisions.md",
+      "sha256": "85a3ea1ca9640188b10c9cb153695641a81f508f600953690b474f303cef296b"
+    },
+    {
+      "path": "docs/evidence/phase-05/commands.ndjson",
+      "sha256": "b15ceadea272b360848f028cb742b0233ba3477c1fa6831919184bcde10e8bbc"
+    },
+    {
+      "path": "docs/evidence/phase-05/test-report.xml",
+      "sha256": "f61ead4acab2780e6086ca2245a480497f5275992b82c8aafa29a7472ed1bf2a"
+    },
+    {
+      "path": "docs/evidence/phase-05/coverage.json",
+      "sha256": "aded51046b09ec892a81ee54dd77fd7669399e4dc86fc18400715d732ce1cc04"
+    }
+  ],
+  "base_commit": "186431fc3444d00f89df206a7ad1fc53448307af",
+  "blockers": [],
+  "completed_task_ids": [
+    "P05-T01",
+    "P05-T02",
+    "P05-T03",
+    "P05-T04",
+    "P05-T05",
+    "P05-T06",
+    "P05-T07",
+    "P05-T08"
+  ],
+  "end_utc": "2026-10-12T10:23:25.408126Z",
+  "final_commit": "186431fc3444d00f89df206a7ad1fc53448307af",
+  "next_phase_prerequisites": [
+    "Repository owner reviews and explicitly accepts Phase 05.",
+    "Phase 06 consumes the runtime plan interface and supplies economy/inventory transaction handlers for typed reward grants."
+  ],
+  "open_risks": [
+    "Docker/MongoDB is unavailable locally; real Mongo transaction failure injection, version races, and before/after-commit process-kill integration remain unverified.",
+    "The hosted ARM64/x86-64 replay workflow is configured but has not run from this local checkout; equality remains unverified until CI reports both jobs.",
+    "Production runtime API composition must inject the Phase 03 trusted principal provider and durable Mongo repository; local E2E uses the in-memory adapter.",
+    "The local replay report is unsigned because no owner-managed signing key is configured; required signed evidence remains pending."
+  ],
+  "phase": "05",
+  "requirement_ids": [
+    "RQ-003",
+    "RQ-007",
+    "RQ-010",
+    "RQ-020"
+  ],
+  "schema_version": "1.0.0",
+  "start_utc": "2026-10-12T10:22:24.983553Z",
+  "status": "in_review",
+  "tests": [
+    "task test:unit -- runtime",
+    "task test:property -- runtime",
+    "task test:contract -- runtime",
+    "task test:integration -- runtime (in-memory atomic adapter contract)",
+    "task test:e2e -- runtime (local API TestClient)",
+    "task test:security -- runtime (dependency boundary)",
+    "task test:performance -- runtime",
+    "task test:determinism -- runtime",
+    "task runtime:replay",
+    "task runtime:benchmark",
+    "uv run --frozen mypy --strict packages/runtime/src/lengeas_runtime apps/api/app/runtime_api.py packages/domain/actions.py packages/persistence/mongodb/actions.py",
+    "task phase:gate PHASE=05",
+    "task evidence PHASE=05"
+  ],
+  "toolchain": {
+    "arm64_runner": "hosted workflow configured; run not available locally",
+    "docker": "unavailable on workstation",
+    "git": "2.49.0.windows.1",
+    "mypy": "1.18.2",
+    "pytest": "8.4.2",
+    "python": "3.13.5 via uv 0.11.29",
+    "ruff": "0.13.1",
+    "task": "3.53.1"
+  }
+}

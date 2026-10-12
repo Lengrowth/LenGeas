@@ -1,0 +1,23 @@
+{"command":"task generate (twice; second run produced no source changes)","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; generated runtime reference and existing schema artifacts"}
+{"command":"task format","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 143 files unchanged"}
+{"command":"task lint","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; Python, JSON, and repository policy checks"}
+{"command":"task typecheck","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; strict Python and TypeScript checks"}
+{"command":"task test:unit -- runtime","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 55 passed"}
+{"command":"task test:property -- runtime","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 4 passed"}
+{"command":"task test:contract -- runtime","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 2 passed"}
+{"command":"task test:integration -- runtime","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 3 in-memory transaction/inbox tests; live MongoDB was not exercised"}
+{"command":"task test:e2e -- runtime","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 3 local API TestClient tests; 2 third-party deprecation warnings"}
+{"command":"task test:security -- runtime","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 1 dependency-boundary test"}
+{"command":"task test:performance -- runtime","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 1 runtime budget test"}
+{"command":"task test:determinism -- runtime","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 2 replay determinism tests"}
+{"command":"uv run --frozen pytest -q tests/unit/runtime tests/property/runtime tests/contract/runtime tests/integration/runtime tests/security/runtime tests/determinism/runtime tests/performance/runtime tests/e2e/runtime --cov=packages.runtime.src.lengeas_runtime --cov-branch --cov-report=json:docs/evidence/phase-05/coverage.json --junitxml=docs/evidence/phase-05/test-report.xml","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 71 passed; runtime statements 97.8%; runtime branches 95.9%"}
+{"command":"task runtime:replay","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 1,000 seeds on AMD64; aggregate SHA-256 03fa606ae4c913f2fcc6d1297e9f59996c2ed20c60f5e4a71cdd02b113669a0f; unsigned"}
+{"command":"task runtime:benchmark","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; 1,000 formula evaluations; max 2,736 µs against 50,000 µs local declared budget"}
+{"command":"task test:integration","exit_code":1,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"BLOCKED; Docker CLI missing, so Compose/MongoDB integration suite failed closed"}
+{"command":"task test:e2e","exit_code":1,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"BLOCKED; LENGEAS_E2E_BASE_URL, LENGEAS_E2E_GUEST_PROOF, and LENGEAS_E2E_DEVICE_PUBLIC_KEY are unset"}
+{"command":"uv run --frozen python tools/dev/evidence.py 04 --regenerate","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; refreshed Phase 04 shared-artifact hashes and preserved status accepted"}
+{"command":"uv run --frozen python tools/dev/task_runner.py phase-gate 04","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; Phase 04 is accepted with no blockers"}
+{"command":"task evidence PHASE=04","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; read-only manifest verification"}
+{"command":"task phase:gate PHASE=05","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; Phase 05 remains in_review with no gate blockers; run after manifest generation"}
+{"command":"task evidence PHASE=05","exit_code":0,"commit":"186431fc3444d00f89df206a7ad1fc53448307af","result":"PASS; read-only manifest verification; run after manifest generation"}
+{"tool_versions":{"git":"2.49.0.windows.1","uv":"0.11.29","python":"3.13.5","task":"3.53.1","pytest":"8.4.2","ruff":"0.13.1","mypy":"1.18.2"}}
