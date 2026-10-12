@@ -627,8 +627,8 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
             "definition schema compilation and compatibility checks",
             "valid and invalid definition fixture conformance suite",
             (
-                "GitHub Actions verify run 38180050416 on commit "
-                "9899be42b8eede4304f0812f9a2d27164eb8d954: "
+                "GitHub Actions verify run 38227181466 attempt 2 on commit "
+                "efb7ddc7c07eff27fc18d3663c29743c4b1f9405: "
                 "full verify and definition-cross-platform passed on ubuntu-24.04 and windows-2025"
             ),
             "generated Python and TypeScript model compilation",

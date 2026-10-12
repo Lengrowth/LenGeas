@@ -111,7 +111,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "ea019657ac00897335233ce6db2f33b59ea885aac8b607d8e35bbff489dcbd3d"
+      "sha256": "b39ff66374b6e0af31acb5093656ad86be1269ae443111195afe53713dbac7fa"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -123,19 +123,19 @@
     },
     {
       "path": "docs/evidence/phase-04/blockers.md",
-      "sha256": "b965854449509fc08a976ec562da7d0ab31d8d3ae66561466a7e69d37dac1787"
+      "sha256": "8400f313dfb40cfb96705e9467e4f15e338e68ef22dd4bb67e72d86e51aba23c"
     },
     {
       "path": "docs/evidence/phase-04/decisions.md",
-      "sha256": "ca886765f41bff78fa911f1f0897a2018f85d31049122498f0aba2e728eec78a"
+      "sha256": "b3628cbe7db9b52fec257c6f02dff77d799a005ac04add39d1bdc7021d16e65b"
     },
     {
       "path": "docs/evidence/phase-04/handoff.md",
-      "sha256": "93f638eb65be31eda0c28712fc5c5ac0ecde934ce18c1ec8b7307a5b9f49beca"
+      "sha256": "069b216be3d220a089523b1bd217cf892216d5062812a9c4487bec55359b467e"
     },
     {
       "path": "docs/evidence/phase-04/commands.ndjson",
-      "sha256": "d5ae68bf47dbf3645d6f7744a5566a2ca4c9eb63f8a684a8138260d9db45a882"
+      "sha256": "3c2f17e52406d3e7d0db6b9d5b7dd8f4d8f40bcecbbf2dd7aaff0cba24c0ddd1"
     },
     {
       "path": "docs/evidence/phase-04/test-report.xml",
@@ -147,7 +147,7 @@
     },
     {
       "path": "docs/evidence/phase-04/tasks",
-      "sha256": "481d2509455e04db241b4720afe33b6e15a8b8f0f1c1ae41d4f287ac784402f8"
+      "sha256": "437ab2baf4b7f0467fe2fbe3a1a2747bc51720770a28aa41ba2526cbf3e694a8"
     },
     {
       "path": "docs/evidence/phase-04/security",
@@ -174,8 +174,8 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-12T09:00:46.427614Z",
-  "final_commit": "9899be42b8eede4304f0812f9a2d27164eb8d954",
+  "end_utc": "2026-10-12T09:10:02.749001Z",
+  "final_commit": "efb7ddc7c07eff27fc18d3663c29743c4b1f9405",
   "next_phase_prerequisites": [
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
   ],
@@ -197,7 +197,7 @@
     "task generate twice with zero second-run diff",
     "definition schema compilation and compatibility checks",
     "valid and invalid definition fixture conformance suite",
-    "GitHub Actions verify run 38180050416 on commit 9899be42b8eede4304f0812f9a2d27164eb8d954: full verify and definition-cross-platform passed on ubuntu-24.04 and windows-2025",
+    "GitHub Actions verify run 38227181466 attempt 2 on commit efb7ddc7c07eff27fc18d3663c29743c4b1f9405: full verify and definition-cross-platform passed on ubuntu-24.04 and windows-2025",
     "generated Python and TypeScript model compilation",
     "Generated TypeScript validators were executed for every $defs name and valid/invalid bundle and Item fixtures",
     "documentation generation and validation",

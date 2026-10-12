@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-`accepted`; the repository owner explicitly accepted Phase 04 on 2026-10-12 after reviewing its implementation and evidence. P04-T01 through P04-T08 are accepted. The full GitHub verify workflow and the Ubuntu/Windows digest matrix passed on reviewed source commit `9899be42b8eede4304f0812f9a2d27164eb8d954` ([run 38180050416](https://github.com/Lengrowth/LenGeas/actions/runs/38180050416)). No schema has been published to an external registry; no registry endpoint or secret-managed credential is configured.
+`accepted`; the repository owner explicitly accepted Phase 04 on 2026-10-12 after reviewing its implementation and evidence. P04-T01 through P04-T08 are accepted. The full GitHub verify workflow and Ubuntu/Windows digest matrix passed on accepted commit `efb7ddc7c07eff27fc18d3663c29743c4b1f9405` ([run 38227181466, attempt 2](https://github.com/Lengrowth/LenGeas/actions/runs/38227181466/attempts/2)). Attempt 1 hit a transient local API health startup failure and was rerun successfully. No schema has been published to an external registry; no registry endpoint or secret-managed credential is configured.
 
 The independent review corrections are on `main`, including `1db9a84` (`P04: fix definition schema review findings`), `d383496` (`P04-T07: generate TypeScript definition validators`), and `595aeee` (scope validator toolchain metadata to Phase 04). The accepted manifest's `final_commit` identifies the verified Phase 04 source candidate; this acceptance update records the owner's decision and the final evidence hashes.
 

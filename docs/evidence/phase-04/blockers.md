@@ -18,6 +18,6 @@ Accepted follow-up risks:
 
 ## Verified evidence
 
-- The full hosted `verify` workflow passed on commit `9899be42b8eede4304f0812f9a2d27164eb8d954`; both `definition-cross-platform (ubuntu-24.04)` and `definition-cross-platform (windows-2025)` passed in run 38180050416. Hosted integration and E2E selectors also passed in that run.
+- The full hosted `verify` workflow and both `definition-cross-platform` jobs passed on accepted commit `efb7ddc7c07eff27fc18d3663c29743c4b1f9405` in run 38227181466 attempt 2. Attempt 1 failed during shared API health startup and was rerun successfully; hosted integration and E2E selectors passed on the successful attempt.
 
 Implementation scope is limited to P04-T01 through P04-T08. Registry publication has no configured endpoint or credentials in this repository; the signed, reviewable release is checked in and registry publication remains an accepted operational follow-up. No production data was used, and no cloud resources were created or modified.
