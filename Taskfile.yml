@@ -48,13 +48,21 @@ tasks:
       - '{{.PYTHON}} {{.RUNNER}} test security {{.CLI_ARGS}}'
   test:performance:
     cmds:
-      - '{{.PYTHON}} {{.RUNNER}} test performance'
+      - '{{.PYTHON}} {{.RUNNER}} test performance {{.CLI_ARGS}}'
   test:determinism:
     cmds:
-      - '{{.PYTHON}} {{.RUNNER}} test determinism'
+      - '{{.PYTHON}} {{.RUNNER}} test determinism {{.CLI_ARGS}}'
   test:dr:
     cmds:
       - '{{.PYTHON}} {{.RUNNER}} test disaster-recovery'
+  runtime:replay:
+    desc: Generate a 1,000-seed deterministic runtime replay report
+    cmds:
+      - 'uv run --frozen python tools/dev/runtime_replay.py {{.CLI_ARGS}}'
+  runtime:benchmark:
+    desc: Record local runtime evaluator performance
+    cmds:
+      - 'uv run --frozen python tools/dev/runtime_benchmark.py {{.CLI_ARGS}}'
   verify:
     cmds:
       - '{{.PYTHON}} {{.RUNNER}} verify'

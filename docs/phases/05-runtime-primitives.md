@@ -1,5 +1,7 @@
 # Phase 05 — Runtime Primitives
 
+Status: `in_review`
+
 ## Goal
 
 Deliver the deterministic headless evaluator and minimal action API without genre mechanics.
@@ -10,14 +12,14 @@ Phase 04 is accepted.
 
 ## Tasks
 
-- [ ] **P05-T01 — Build execution context.** Implement pinned engine/definition/packages, logical time, seed, experiment context, locale, actor, namespaces, and budgets. Evidence: context immutability tests.
-- [ ] **P05-T02 — Build state-path registry.** Resolve typed paths, read/write permissions, missing-value behavior, and package ownership at publication. Depends on P05-T01. Evidence: namespace escape tests.
-- [ ] **P05-T03 — Build condition/formula evaluators.** Implement every AST operator, explanation trees, decimal rules, overflow handling, complexity limits, and property tests. Depends on P05-T01–T02. Evidence: evaluator conformance.
-- [ ] **P05-T04 — Build action planner.** Validate input, conditions, costs, effects, rewards, timers, events, ordering, and operation budgets into an immutable plan. Depends on P05-T03. Evidence: plan golden tests.
-- [ ] **P05-T05 — Build effect/reward registries.** Implement core handlers, expansion, namespace enforcement, and package registration freeze. Depends on P05-T02, P05-T04. Evidence: handler contract report.
-- [ ] **P05-T06 — Build minimal action API.** Create game, create draft definition, validate definition, create player, execute action, and read receipt/state endpoints with authorization and idempotency boundaries. Depends on P03-T05, P05-T04–T05. Evidence: API E2E.
-- [ ] **P05-T07 — Build event/outbox primitives.** Produce envelopes, causation, correlation, transactional outbox records, and consumer inbox contracts without full broker operations. Depends on P05-T04. Evidence: duplicate envelope tests.
-- [ ] **P05-T08 — Prove determinism and performance.** Replay generated actions and 1,000 seeds on local/CI ARM64 and x86-64 within runtime budgets. Depends on P05-T01–T07. Evidence: signed replay report.
+- [x] **P05-T01 — Build execution context.** Implement pinned engine/definition/packages, logical time, seed, experiment context, locale, actor, namespaces, and budgets. Evidence: context immutability tests.
+- [x] **P05-T02 — Build state-path registry.** Resolve typed paths, read/write permissions, missing-value behavior, and package ownership at publication. Depends on P05-T01. Evidence: namespace escape tests.
+- [x] **P05-T03 — Build condition/formula evaluators.** Implement every AST operator, explanation trees, decimal rules, overflow handling, complexity limits, and property tests. Depends on P05-T01–T02. Evidence: evaluator conformance.
+- [x] **P05-T04 — Build action planner.** Validate input, conditions, costs, effects, rewards, timers, events, ordering, and operation budgets into an immutable plan. Depends on P05-T03. Evidence: plan golden tests.
+- [x] **P05-T05 — Build effect/reward registries.** Implement core handlers, expansion, namespace enforcement, and package registration freeze. Depends on P05-T02, P05-T04. Evidence: handler contract report.
+- [x] **P05-T06 — Build minimal action API.** Create game, create draft definition, validate definition, create player, execute action, and read receipt/state endpoints with authorization and idempotency boundaries. Depends on P03-T05, P05-T04–T05. Evidence: API E2E.
+- [x] **P05-T07 — Build event/outbox primitives.** Produce envelopes, causation, correlation, transactional outbox records, and consumer inbox contracts without full broker operations. Depends on P05-T04. Evidence: duplicate envelope tests.
+- [x] **P05-T08 — Prove determinism and performance.** Replay generated actions and 1,000 seeds on local/CI ARM64 and x86-64 within runtime budgets. Depends on P05-T01–T07. Evidence: signed replay report.
 
 ## Exit gate
 

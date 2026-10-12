@@ -1,0 +1,13 @@
+{
+  "architecture": "AMD64",
+  "benchmark": "1000 evaluations of bounded add/multiply formula",
+  "budget_micros_per_evaluation": 50000,
+  "evaluations": 1000,
+  "limitations": "Local developer CPU; reference CPU threshold is not established on this host.",
+  "max_micros": 2736.0,
+  "p50_micros": 29.3,
+  "p95_micros": 36.2,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.5",
+  "status": "passed"
+}

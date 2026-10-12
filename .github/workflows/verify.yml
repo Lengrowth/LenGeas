@@ -176,3 +176,28 @@ jobs:
           version: 0.11.29
       - run: uv sync --frozen --python 3.13.5
       - run: uv run --frozen python tools/dev/definition_cli.py determinism
+
+  runtime-cross-architecture:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: astral-sh/setup-uv@v6.7.0
+        with:
+          version: 0.11.29
+      - run: uv sync --frozen --python 3.13.5
+      - name: Replay 1,000 deterministic runtime seeds
+        run: uv run --frozen python tools/dev/runtime_replay.py --output "$RUNNER_TEMP/runtime-replay.json"
+      - name: Verify runtime performance budget
+        run: uv run --frozen python tools/dev/runtime_benchmark.py --output "$RUNNER_TEMP/runtime-benchmark.json"
+      - uses: actions/upload-artifact@v4.6.2
+        with:
+          name: phase-05-runtime-${{ matrix.os }}
+          path: |
+            ${{ runner.temp }}/runtime-replay.json
+            ${{ runner.temp }}/runtime-benchmark.json
+          if-no-files-found: error

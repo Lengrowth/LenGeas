@@ -204,11 +204,42 @@ def _is_identity_selector(selector: str | None) -> bool:
     return bool(tokens & {"identity", "auth", "supabase", "mongodb", "tenancy", "authorization"})
 
 
+def _is_runtime_selector(selector: str | None) -> bool:
+    if not selector:
+        return False
+    tokens = {token.strip().lower() for token in selector.split(",")}
+    return bool(tokens & {"runtime", "phase05", "p05"})
+
+
 def run_suite(suite: str, selector: str | None = None) -> int:
     if suite not in SUITES:
         suite_names = ", ".join(SUITES)
         print(f"ERROR unknown suite {suite!r}; expected one of: {suite_names}", file=sys.stderr)
         return 2
+    if _is_runtime_selector(selector):
+        runtime_dir = TESTS / SUITES[suite][0] / "runtime"
+        if not runtime_dir.is_dir():
+            print(f"ERROR {suite}: no Phase 05 runtime suite at {runtime_dir}", file=sys.stderr)
+            return 2
+        test_files = sorted(runtime_dir.glob("test_*.py"))
+        if not test_files:
+            print(f"ERROR {suite}: Phase 05 runtime suite is empty", file=sys.stderr)
+            return 2
+        return subprocess.run(
+            [
+                "uv",
+                "run",
+                "--frozen",
+                "python",
+                "-m",
+                "pytest",
+                "-q",
+                *(str(path.relative_to(ROOT)) for path in test_files),
+            ],
+            cwd=ROOT,
+            check=False,
+        ).returncode
+
     try:
         project, module_path = _fixture_module(suite)
         paths = [_identity_module(suite)] if _is_identity_selector(selector) else [module_path]

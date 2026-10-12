@@ -74,3 +74,33 @@ An action receipt records `action_receipt_id`, actor, game, player, input digest
 ## Extension interface
 
 A new mechanic integrates by registering schemas, pure handlers, state namespace, migrations, actions, effects, events, timers, analytics mappings, and contract tests. It cannot modify the core evaluator dispatch loop. The registry discovers handlers from signed package manifests.
+
+## Phase 05 implementation contract
+
+The executable source is `packages/runtime/src/lengeas_runtime/`. Its frozen `ExecutionContext`
+pins the engine, definition and package digests, state version, action, logical UTC time, 128-bit
+seed and algorithm version, experiment assignments, locale, actor and tenant scope, namespace
+permissions, and operation budgets. A caller supplies logical time and seed; the evaluator cannot
+read the system clock or use an unseeded random source.
+
+`StatePathRegistry` resolves schema `StatePath` values to typed tokens. Each registration declares
+the owning package, readers, writers, and missing-value behavior. Writes require both write
+permission and package ownership. Registration freezes before execution. Conditions accept only the
+Phase 04 Condition AST and return ordered explanation trees. Formulas accept only the Phase 04
+Formula AST and use Decimal with signed 64-bit bounds, maximum scale 9, depth 32, and 512 operations.
+
+The action planner validates input and produces an immutable ordered plan: costs, effects, rewards,
+timers, and event drafts. It checks namespace ownership and context budgets, does not mutate state,
+and expands rewards through frozen package handlers. Reward grants remain typed transaction
+operations for the economy/inventory transaction extension; they are not applied as arbitrary state
+patches by the runtime.
+
+The minimal runtime API is exposed by `apps/api/app/runtime_api.py`. It requires an injected trusted
+Phase 03 principal provider; authorization decisions go through `PolicyDecisionService`. The
+application boundary selects server-side action definitions, derives logical time and a deterministic
+seed, and requires an idempotency key for execution. `MongoActionRepository` commits state, receipt,
+idempotency record, and outbox records in one Mongo transaction. Consumer inbox keys are unique by
+consumer and event id. Broker delivery remains outside this phase.
+
+The runtime dependency boundary is tested under `tests/security/runtime/`. Operator details and
+default budgets are generated at `docs/reference/runtime-v1.md`.

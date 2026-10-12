@@ -36,6 +36,9 @@ def generate() -> None:
         output = GENERATED / f"{source.stem}.canonical.json"
         output.write_text(data["canonical_utf8"] + "\n", encoding="utf-8", newline="\n")
     generate_types()
+    from runtime_reference import generate as generate_runtime_reference
+
+    generate_runtime_reference()
     # The checked-in API contract is generated from the actual FastAPI route graph.
     from apps.api.app.main import create_app
 

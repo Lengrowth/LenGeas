@@ -18,6 +18,7 @@ ARTIFACT_PATHS = (
     "package.json",
     "pnpm-lock.yaml",
     "pyproject.toml",
+    ".gitignore",
     "uv.lock",
     "compose.yaml",
     ".github",
@@ -122,6 +123,49 @@ PHASE04_ARTIFACT_PATHS = (
     "docs/evidence/phase-04/security",
     "docs/evidence/phase-04/performance",
     "docs/evidence/phase-04/operations",
+)
+PHASE05_ARTIFACT_PATHS = (
+    "packages/runtime/src/lengeas_runtime",
+    "packages/runtime/__init__.py",
+    "packages/runtime/README.md",
+    "packages/domain/actions.py",
+    "packages/domain/event_delivery.py",
+    "packages/persistence/mongodb/actions.py",
+    "packages/persistence/mongodb/event_inbox.py",
+    "apps/api/app/runtime_api.py",
+    "pyproject.toml",
+    ".gitignore",
+    "Taskfile.yml",
+    ".github/workflows/verify.yml",
+    "tools/dev/test_harness.py",
+    "tools/dev/evidence.py",
+    "tools/dev/phase_gate.py",
+    "tools/dev/generate.py",
+    "tools/dev/runtime_benchmark.py",
+    "tools/dev/runtime_replay.py",
+    "tools/dev/runtime_reference.py",
+    "docs/06-runtime-and-rules.md",
+    "docs/reference/runtime-v1.md",
+    "docs/phases/05-runtime-primitives.md",
+    "docs/23-traceability-matrix.md",
+    "tests/unit/runtime",
+    "tests/property/runtime",
+    "tests/contract/runtime",
+    "tests/integration/runtime",
+    "tests/e2e/runtime",
+    "tests/security/runtime",
+    "tests/performance/runtime",
+    "tests/determinism/runtime",
+    "docs/evidence/phase-05/tasks",
+    "docs/evidence/phase-05/security",
+    "docs/evidence/phase-05/performance",
+    "docs/evidence/phase-05/operations",
+    "docs/evidence/phase-05/handoff.md",
+    "docs/evidence/phase-05/blockers.md",
+    "docs/evidence/phase-05/decisions.md",
+    "docs/evidence/phase-05/commands.ndjson",
+    "docs/evidence/phase-05/test-report.xml",
+    "docs/evidence/phase-05/coverage.json",
 )
 TEXT_SUFFIXES = {
     ".env",
@@ -333,6 +377,65 @@ def verify_phase04_completeness(manifest: dict[str, object]) -> None:
     totals = coverage.get("totals", {})
     if not isinstance(totals, dict) or not isinstance(totals.get("percent_covered"), (int, float)):
         raise SystemExit("Phase 04 coverage report has no numeric totals.percent_covered")
+
+
+def verify_phase05_completeness(manifest: dict[str, object]) -> None:
+    evidence = ROOT / "docs" / "evidence" / "phase-05"
+    required = {
+        "manifest.json",
+        "handoff.md",
+        "blockers.md",
+        "decisions.md",
+        "commands.ndjson",
+        "test-report.xml",
+        "coverage.json",
+        "security/README.md",
+        "performance/README.md",
+        "operations/README.md",
+        *{f"tasks/P05-T0{number}.md" for number in range(1, 9)},
+    }
+    present = {
+        path.relative_to(evidence).as_posix() for path in evidence.rglob("*") if path.is_file()
+    }
+    missing = sorted(required - present)
+    if missing:
+        raise SystemExit("Phase 05 evidence is incomplete: " + ", ".join(missing))
+    if manifest.get("status") != "in_review":
+        raise SystemExit("Phase 05 evidence must remain in_review until owner acceptance")
+    if manifest.get("completed_task_ids") != [f"P05-T0{number}" for number in range(1, 9)]:
+        raise SystemExit("Phase 05 manifest must list P05-T01 through P05-T08")
+    for number in range(1, 9):
+        task_text = (evidence / "tasks" / f"P05-T0{number}.md").read_text(encoding="utf-8")
+        if "`in_review`" not in task_text:
+            raise SystemExit(f"P05-T0{number} evidence must remain in_review")
+    import xml.etree.ElementTree as ET
+
+    report = ET.parse(evidence / "test-report.xml").getroot()
+    suites = [report] if report.tag == "testsuite" else list(report)
+    failures = sum(int(suite.attrib.get("failures", "0")) for suite in suites)
+    errors = sum(int(suite.attrib.get("errors", "0")) for suite in suites)
+    tests = sum(int(suite.attrib.get("tests", "0")) for suite in suites)
+    if failures or errors or tests < 30:
+        raise SystemExit("Phase 05 report must contain at least 30 passing behavioral tests")
+    coverage = json.loads((evidence / "coverage.json").read_text(encoding="utf-8"))
+    totals = coverage.get("totals", {})
+    if not isinstance(totals, dict) or not isinstance(totals.get("percent_covered"), (int, float)):
+        raise SystemExit("Phase 05 coverage report has no numeric totals.percent_covered")
+    runtime_files = [
+        detail.get("summary", {})
+        for path, detail in coverage.get("files", {}).items()
+        if "packages/runtime/src/lengeas_runtime/" in path.replace("\\", "/")
+    ]
+    statements = sum(int(item.get("num_statements", 0)) for item in runtime_files)
+    covered = sum(int(item.get("covered_lines", 0)) for item in runtime_files)
+    runtime_percent = 100 * covered / statements if statements else 0
+    if runtime_percent < 95:
+        raise SystemExit("Phase 05 core runtime coverage is below the 95% contract")
+    branches = sum(int(item.get("num_branches", 0)) for item in runtime_files)
+    covered_branches = sum(int(item.get("covered_branches", 0)) for item in runtime_files)
+    branch_percent = 100 * covered_branches / branches if branches else 100
+    if branch_percent < 95:
+        raise SystemExit("Phase 05 core runtime branch coverage is below the 95% contract")
 
 
 def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
@@ -670,6 +773,86 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
     }
 
 
+def build_phase05_manifest(existing: dict[str, object] | None) -> dict[str, object]:
+    existing = existing or {}
+    artifacts = []
+    for value in PHASE05_ARTIFACT_PATHS:
+        path = ROOT / value
+        if not path.exists():
+            raise SystemExit(f"Phase 05 evidence artifact is missing: {value}")
+        artifacts.append({"path": value, "sha256": digest(path)})
+    return {
+        "schema_version": "1.0.0",
+        "phase": "05",
+        "status": "in_review",
+        "start_utc": existing.get(
+            "start_utc", datetime.now(UTC).isoformat().replace("+00:00", "Z")
+        ),
+        "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "base_commit": existing.get("base_commit", git_head()),
+        "final_commit": git_head(),
+        "agent_identity": "Codex root phase agent",
+        "toolchain": {
+            "git": "2.49.0.windows.1",
+            "python": "3.13.5 via uv 0.11.29",
+            "task": "3.53.1",
+            "pytest": "8.4.2",
+            "ruff": "0.13.1",
+            "mypy": "1.18.2",
+            "docker": "unavailable on workstation",
+            "arm64_runner": "hosted workflow configured; run not available locally",
+        },
+        "completed_task_ids": [f"P05-T0{number}" for number in range(1, 9)],
+        "requirement_ids": ["RQ-003", "RQ-007", "RQ-010", "RQ-020"],
+        "artifacts": artifacts,
+        "tests": [
+            "task test:unit -- runtime",
+            "task test:property -- runtime",
+            "task test:contract -- runtime",
+            "task test:integration -- runtime (in-memory atomic adapter contract)",
+            "task test:e2e -- runtime (local API TestClient)",
+            "task test:security -- runtime (dependency boundary)",
+            "task test:performance -- runtime",
+            "task test:determinism -- runtime",
+            "task runtime:replay",
+            "task runtime:benchmark",
+            (
+                "uv run --frozen mypy --strict packages/runtime/src/lengeas_runtime "
+                "apps/api/app/runtime_api.py packages/domain/actions.py "
+                "packages/persistence/mongodb/actions.py"
+            ),
+            "task phase:gate PHASE=05",
+            "task evidence PHASE=05",
+        ],
+        "open_risks": [
+            (
+                "Docker/MongoDB is unavailable locally; real Mongo transaction failure injection, "
+                "version races, and before/after-commit process-kill integration remain unverified."
+            ),
+            (
+                "The hosted ARM64/x86-64 replay workflow is configured but has not run from this "
+                "local checkout; equality remains unverified until CI reports both jobs."
+            ),
+            (
+                "Production runtime API composition must inject the Phase 03 trusted principal "
+                "provider and durable Mongo repository; local E2E uses the in-memory adapter."
+            ),
+            (
+                "The local replay report is unsigned because no owner-managed signing key is "
+                "configured; required signed evidence remains pending."
+            ),
+        ],
+        "next_phase_prerequisites": [
+            "Repository owner reviews and explicitly accepts Phase 05.",
+            (
+                "Phase 06 consumes the runtime plan interface and supplies economy/inventory "
+                "transaction handlers for typed reward grants."
+            ),
+        ],
+        "blockers": [],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("phase")
@@ -744,8 +927,30 @@ def main() -> int:
             f"{manifest_path.relative_to(ROOT)}"
         )
         return 0
+    if args.phase == "05":
+        evidence = ROOT / "docs" / "evidence" / "phase-05"
+        manifest_path = evidence / "manifest.json"
+        if not manifest_path.exists() and not args.regenerate:
+            raise SystemExit(f"Phase 05 evidence manifest is missing: {manifest_path}")
+        phase05_existing = load_manifest(manifest_path) if manifest_path.exists() else None
+        if not args.regenerate:
+            assert phase05_existing is not None
+            verify_manifest(phase05_existing)
+            verify_phase05_completeness(phase05_existing)
+            print(f"PASS evidence manifest verified (read-only): {manifest_path.relative_to(ROOT)}")
+            return 0
+        manifest = build_phase05_manifest(phase05_existing)
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        verify_manifest(load_manifest(manifest_path))
+        print(
+            "PASS Phase 05 evidence manifest regenerated and verified: "
+            f"{manifest_path.relative_to(ROOT)}"
+        )
+        return 0
     if args.phase != "01":
-        raise SystemExit("supported evidence phases are 01, 02, 03, and 04")
+        raise SystemExit("supported evidence phases are 01, 02, 03, 04, and 05")
     evidence = ROOT / "docs" / "evidence" / "phase-01"
     manifest_path = evidence / "manifest.json"
     if not args.regenerate:

@@ -31,7 +31,7 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["."]
+pythonpath = ["packages/runtime/src", "."]
 markers = [
   "unit: pure deterministic tests",
   "property: invariant and generated-input tests",
