@@ -7,7 +7,7 @@ This matrix maps product requirements to authoritative design documents, deliver
 | RQ-001 Systems/mechanics/content separation | 00, 01, 05, 14 | 00, 04, 12, 13 | Blueprint isolation and Phase 04 namespace conformance |
 | RQ-002 Data-driven definitions | 05, 10 | 04, 08 | Phase 04 schema, canonical bundle, and publish reports |
 | RQ-003 Deterministic universal runtime | 01, 06 | 05 | Phase 05 evaluator, 1,000-seed replay report, and runtime budget evidence |
-| RQ-004 Economy transaction integrity | 06, 07 | 06 | Billion-action reconciliation |
+| RQ-004 Economy transaction integrity | 06, 07 | 06 | Phase 06 ledger conservation, partitioned billion-operation qualification, and reconciliation evidence |
 | RQ-005 Progression, quests, achievements | 05, 06 | 07 | Graph and event conformance |
 | RQ-006 Universal identity and guests | 08 | 03 | Identity/merge E2E report |
 | RQ-007 Tenant/game isolation | 01, 07, 08, 17 | 03, 05, 17 | Tenant escape report; Phase 05 namespace and scoped-action checks |

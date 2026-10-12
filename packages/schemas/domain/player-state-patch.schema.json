@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.lengeas.com/domain/player-state-patch.schema.json",
+  "title": "Player state namespace patch",
+  "type": "object",
+  "maxProperties": 512,
+  "additionalProperties": true
+}

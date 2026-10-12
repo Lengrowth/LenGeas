@@ -167,6 +167,66 @@ PHASE05_ARTIFACT_PATHS = (
     "docs/evidence/phase-05/test-report.xml",
     "docs/evidence/phase-05/coverage.json",
 )
+PHASE06_ARTIFACT_PATHS = (
+    "pyproject.toml",
+    "uv.lock",
+    "Taskfile.yml",
+    "tools/dev/test_harness.py",
+    "tools/dev/evidence.py",
+    "tools/dev/phase_gate.py",
+    "tools/dev/value_qualification.py",
+    "apps/api/app/state_economy_api.py",
+    "apps/workers/reconciliation.py",
+    "packages/domain/player_state.py",
+    "packages/domain/economy.py",
+    "packages/domain/economy_runtime.py",
+    "packages/domain/inventory.py",
+    "packages/domain/entitlements.py",
+    "packages/domain/cross_game.py",
+    "packages/domain/reconciliation.py",
+    "packages/domain/providers",
+    "packages/persistence/mongodb/player_state.py",
+    "packages/persistence/mongodb/state_economy.py",
+    "packages/persistence/mongodb/inventory.py",
+    "packages/persistence/mongodb/cross_game.py",
+    "packages/persistence/mongodb/reconciliation.py",
+    "packages/schemas/domain",
+    "tests/unit/phase06",
+    "tests/property/phase06",
+    "tests/contract/phase06",
+    "tests/integration/phase06",
+    "tests/e2e/phase06",
+    "tests/security/phase06",
+    "tests/performance/phase06",
+    ".github/workflows/phase-06-qualification.yml",
+    "docs/phases/06-state-economy-inventory.md",
+    "docs/07-data-and-persistence.md",
+    "docs/23-traceability-matrix.md",
+    "docs/governance/requirement-register.yaml",
+    "docs/governance/requirements.yaml",
+    "docs/governance/traceability-matrix.generated.md",
+    "docs/reference/state-economy-inventory-v1.md",
+    "docs/runbooks/economy-inventory-support.md",
+    "docs/evidence/phase-06/tasks/P06-T01.md",
+    "docs/evidence/phase-06/tasks/P06-T02.md",
+    "docs/evidence/phase-06/tasks/P06-T03.md",
+    "docs/evidence/phase-06/tasks/P06-T04.md",
+    "docs/evidence/phase-06/tasks/P06-T05.md",
+    "docs/evidence/phase-06/tasks/P06-T06.md",
+    "docs/evidence/phase-06/tasks/P06-T07.md",
+    "docs/evidence/phase-06/tasks/P06-T08.md",
+    "docs/evidence/phase-06/security/README.md",
+    "docs/evidence/phase-06/performance/README.md",
+    "docs/evidence/phase-06/performance/local-smoke.json",
+    "docs/evidence/phase-06/performance/partitions",
+    "docs/evidence/phase-06/operations/README.md",
+    "docs/evidence/phase-06/blockers.md",
+    "docs/evidence/phase-06/decisions.md",
+    "docs/evidence/phase-06/handoff.md",
+    "docs/evidence/phase-06/commands.ndjson",
+    "docs/evidence/phase-06/test-report.xml",
+    "docs/evidence/phase-06/coverage.json",
+)
 TEXT_SUFFIXES = {
     ".env",
     ".hcl",
@@ -345,6 +405,7 @@ def verify_phase04_completeness(manifest: dict[str, object]) -> None:
         "coverage.json",
         "security/README.md",
         "performance/README.md",
+        "performance/local-smoke.json",
         "operations/README.md",
         *{f"tasks/P04-T0{number}.md" for number in range(1, 9)},
     }
@@ -438,6 +499,148 @@ def verify_phase05_completeness(manifest: dict[str, object]) -> None:
     branch_percent = 100 * covered_branches / branches if branches else 100
     if branch_percent < 95:
         raise SystemExit("Phase 05 core runtime branch coverage is below the 95% contract")
+
+
+def verify_phase06_completeness(manifest: dict[str, object]) -> None:
+    evidence = ROOT / "docs" / "evidence" / "phase-06"
+    required = {
+        "blockers.md",
+        "decisions.md",
+        "handoff.md",
+        "commands.ndjson",
+        "test-report.xml",
+        "coverage.json",
+        "security/README.md",
+        "performance/README.md",
+        "operations/README.md",
+        *{f"tasks/P06-T0{number}.md" for number in range(1, 9)},
+    }
+    present = {
+        path.relative_to(evidence).as_posix() for path in evidence.rglob("*") if path.is_file()
+    }
+    missing = sorted(required - present)
+    if missing:
+        raise SystemExit("Phase 06 evidence is incomplete: " + ", ".join(missing))
+    if manifest.get("status") != "in_review" or manifest.get("blockers") != []:
+        raise SystemExit("Phase 06 evidence must remain in_review with no implementation blockers")
+    expected_tasks = [f"P06-T0{number}" for number in range(1, 9)]
+    if manifest.get("completed_task_ids") != expected_tasks:
+        raise SystemExit("Phase 06 manifest must list P06-T01 through P06-T08")
+    for task_id in expected_tasks:
+        task_text = (evidence / "tasks" / f"{task_id}.md").read_text(encoding="utf-8")
+        if "**Status:** `in_review`" not in task_text:
+            raise SystemExit(f"{task_id} evidence must remain in_review")
+    import xml.etree.ElementTree as ET
+
+    report = ET.parse(evidence / "test-report.xml").getroot()
+    suites = [report] if report.tag == "testsuite" else list(report)
+    failures = sum(int(suite.attrib.get("failures", "0")) for suite in suites)
+    errors = sum(int(suite.attrib.get("errors", "0")) for suite in suites)
+    tests = sum(int(suite.attrib.get("tests", "0")) for suite in suites)
+    if failures or errors or tests < 30:
+        raise SystemExit(
+            "Phase 06 test report is failing or lacks required local behavior coverage"
+        )
+    coverage = json.loads((evidence / "coverage.json").read_text(encoding="utf-8"))
+    totals = coverage.get("totals", {})
+    if not isinstance(totals, dict) or not isinstance(totals.get("percent_covered"), (int, float)):
+        raise SystemExit("Phase 06 coverage report has no numeric totals.percent_covered")
+    commands = (evidence / "commands.ndjson").read_text(encoding="utf-8")
+    for command in (
+        "task phase:gate PHASE=06",
+        "task evidence PHASE=06",
+        "task test:unit -- phase06",
+        "task test:property -- phase06",
+        "task test:contract -- phase06",
+        "task test:integration -- phase06",
+        "task test:e2e -- phase06",
+        "task test:security -- phase06",
+        "task test:performance -- phase06",
+        "task lint",
+        "task typecheck",
+    ):
+        if command not in commands:
+            raise SystemExit(f"Phase 06 evidence does not record: {command}")
+
+
+def build_phase06_manifest(existing: dict[str, object] | None) -> dict[str, object]:
+    existing = existing or {}
+    expected_tasks = [f"P06-T0{number}" for number in range(1, 9)]
+    artifacts: list[dict[str, str]] = []
+    for value in PHASE06_ARTIFACT_PATHS:
+        path = ROOT / value
+        if not path.exists():
+            raise SystemExit(f"Phase 06 evidence artifact is missing: {value}")
+        artifacts.append({"path": value, "sha256": digest(path)})
+    return {
+        "schema_version": "1.0.0",
+        "phase": "06",
+        "status": "in_review",
+        "start_utc": existing.get(
+            "start_utc", datetime.now(UTC).isoformat().replace("+00:00", "Z")
+        ),
+        "end_utc": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "base_commit": existing.get("base_commit", git_head()),
+        "final_commit": git_head(),
+        "agent_identity": "Codex root phase agent",
+        "toolchain": {
+            "python": "3.13.5 via uv 0.11.29",
+            "task": "3.53.1",
+            "pytest": "8.4.2",
+            "ruff": "0.13.1",
+            "mypy": "1.18.2",
+            "celery": "5.6.0",
+            "mongodb": "unavailable on workstation",
+            "hosted_qualification": "100 partitions configured; run not observed",
+        },
+        "completed_task_ids": expected_tasks,
+        "requirement_ids": ["RQ-004", "RQ-020"],
+        "artifacts": artifacts,
+        "tests": [
+            "task test:unit -- phase06",
+            "task test:property -- phase06",
+            "task test:contract -- phase06",
+            "task test:integration -- phase06 (in-memory atomicity and concurrency adapters)",
+            "task test:e2e -- phase06 (authenticated state API TestClient)",
+            "task test:security -- phase06",
+            "task test:performance -- phase06",
+            (
+                "uv run --frozen python tools/dev/value_qualification.py "
+                "(2-partition, 2,000-operation smoke)"
+            ),
+            "task lint",
+            "task typecheck",
+            "task phase:gate PHASE=06",
+            "task evidence PHASE=06",
+        ],
+        "open_risks": [
+            (
+                "MongoDB replica-set transaction, index, race, and process-failure tests were "
+                "unavailable: Docker and MONGODB_URI are not configured."
+            ),
+            (
+                "Live Apple and Google sandbox verification, webhook delivery, refunds, and "
+                "chargebacks were unavailable; only fixture-based provider contracts ran."
+            ),
+            (
+                "The configured 100-partition one-billion-operation workflow was not "
+                "dispatched; the exit qualification remains unverified."
+            ),
+            (
+                "Production API principal/repository composition and Celery/RabbitMQ retry "
+                "behavior were not exercised on this workstation."
+            ),
+        ],
+        "next_phase_prerequisites": [
+            (
+                "Phase 07 consumes the namespace state repository API, ledger transaction "
+                "schema, item and entitlement handlers, provider configuration names, "
+                "reconciliation task, and cross-game delivery contract documented in the "
+                "Phase 06 handoff."
+            )
+        ],
+        "blockers": [],
+    }
 
 
 def build_manifest(existing: dict[str, object] | None) -> dict[str, object]:
@@ -960,8 +1163,29 @@ def main() -> int:
             f"{manifest_path.relative_to(ROOT)}"
         )
         return 0
+    if args.phase == "06":
+        evidence = ROOT / "docs" / "evidence" / "phase-06"
+        manifest_path = evidence / "manifest.json"
+        phase06_existing = load_manifest(manifest_path) if manifest_path.exists() else None
+        if not args.regenerate:
+            if phase06_existing is None:
+                raise SystemExit(f"Phase 06 evidence manifest is missing: {manifest_path}")
+            verify_manifest(phase06_existing)
+            verify_phase06_completeness(phase06_existing)
+            print(f"PASS evidence manifest verified (read-only): {manifest_path.relative_to(ROOT)}")
+            return 0
+        manifest = build_phase06_manifest(phase06_existing)
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        verify_manifest(load_manifest(manifest_path))
+        print(
+            "PASS Phase 06 evidence manifest regenerated and verified: "
+            f"{manifest_path.relative_to(ROOT)}"
+        )
+        return 0
     if args.phase != "01":
-        raise SystemExit("supported evidence phases are 01, 02, 03, 04, and 05")
+        raise SystemExit("supported evidence phases are 01, 02, 03, 04, 05, and 06")
     evidence = ROOT / "docs" / "evidence" / "phase-01"
     manifest_path = evidence / "manifest.json"
     if not args.regenerate:

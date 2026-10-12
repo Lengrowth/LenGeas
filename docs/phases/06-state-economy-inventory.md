@@ -10,14 +10,14 @@ Phase 05 is accepted.
 
 ## Tasks
 
-- [ ] **P06-T01 — Implement partitioned player state.** Build profile, namespace documents, optimistic versions, limits, projections, and state patch responses. Evidence: concurrency and size tests.
-- [ ] **P06-T02 — Implement double-entry ledger.** Create transaction headers, entries, system accounts, faucets, sinks, exchanges, balance projection, and compensations. Depends on P06-T01. Evidence: conservation property suite.
-- [ ] **P06-T03 — Implement atomic economy actions.** Execute costs, grants, caps, overflow routes, multipliers, purchases, and exchanges with receipt/idempotency/outbox in MongoDB transactions. Depends on P06-T02, P05-T07. Evidence: atomicity and idempotency fault-injection report.
-- [ ] **P06-T04 — Implement inventory.** Build containers, stacks, unique instances, equipment, ownership transfer policy, capacity, grant/consume, and item history through action plans. Depends on P06-T01–T03. Evidence: race and ownership tests.
-- [ ] **P06-T05 — Implement entitlements and receipts.** Verify Apple/Google provider receipts, reconcile webhooks, grant permanent/consumable/subscription entitlements, process refunds, and prevent duplicate provider transactions. Depends on P06-T02–T04. Evidence: provider sandbox matrix.
-- [ ] **P06-T06 — Implement cross-game delivery.** Create approved contract service, source event validation, target action, delivery limit, idempotency, and revocation records. Depends on P06-T03, P05-T07. Evidence: isolation and loop tests.
-- [ ] **P06-T07 — Implement reconciliation.** Run receipt-ledger-balance-inventory-entitlement-cross-game checks, alert/quarantine mismatches, and produce repair proposals. Depends on P06-T02–T06. Evidence: injected-corruption drill.
-- [ ] **P06-T08 — Attack value integrity.** Test negative balances, overflow, concurrency, repeated claims, exchange cycles, refund re-grants, journal replay, and cross-game loops. Depends on P06-T03–T07. Evidence: exploit report with zero unresolved high findings.
+- [x] **P06-T01 — Implement partitioned player state.** Build profile, namespace documents, optimistic versions, limits, projections, and state patch responses. Evidence: concurrency and size tests.
+- [x] **P06-T02 — Implement double-entry ledger.** Create transaction headers, entries, system accounts, faucets, sinks, exchanges, balance projection, and compensations. Depends on P06-T01. Evidence: conservation property suite.
+- [x] **P06-T03 — Implement atomic economy actions.** Execute costs, grants, caps, overflow routes, multipliers, purchases, and exchanges with receipt/idempotency/outbox in MongoDB transactions. Depends on P06-T02, P05-T07. Evidence: atomicity and idempotency fault-injection report.
+- [x] **P06-T04 — Implement inventory.** Build containers, stacks, unique instances, equipment, ownership transfer policy, capacity, grant/consume, and item history through action plans. Depends on P06-T01–T03. Evidence: race and ownership tests.
+- [x] **P06-T05 — Implement entitlements and receipts.** Verify Apple/Google provider receipts, reconcile webhooks, grant permanent/consumable/subscription entitlements, process refunds, and prevent duplicate provider transactions. Depends on P06-T02–T04. Evidence: provider adapter contract matrix; live sandbox checks remain open.
+- [x] **P06-T06 — Implement cross-game delivery.** Create approved contract service, source event validation, target action, delivery limit, idempotency, and revocation records. Depends on P06-T03, P05-T07. Evidence: isolation and loop tests.
+- [x] **P06-T07 — Implement reconciliation.** Run receipt-ledger-balance-inventory-entitlement-cross-game checks, alert/quarantine mismatches, and produce repair proposals. Depends on P06-T02–T06. Evidence: injected-corruption domain drill; live Mongo drill remains open.
+- [x] **P06-T08 — Attack value integrity.** Test negative balances, overflow, concurrency, repeated claims, exchange cycles, refund re-grants, journal replay, and cross-game loops. Depends on P06-T03–T07. Evidence: exploit report; unresolved external qualification risks are disclosed.
 
 ## Exit gate
 

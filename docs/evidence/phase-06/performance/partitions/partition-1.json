@@ -1,0 +1,24 @@
+{
+  "account_totals": {
+    "player": 1473573,
+    "system_faucet": -135634903,
+    "system_sink": 2358776,
+    "system_treasury": 131802554
+  },
+  "asset_total": 0,
+  "digest_sha256": "0e6ff71fd330869ba77cb166eeafd4e21602b076a3b99eb1659d136986c203d5",
+  "operation_count": 1000,
+  "operation_counts": {
+    "exchange": 258,
+    "grant": 266,
+    "refund": 237,
+    "spend": 239
+  },
+  "operation_end_exclusive": 2000,
+  "operation_start": 1000,
+  "partition": 1,
+  "partitions": 2,
+  "schema_version": 1,
+  "seed_end": 6750076746623254140,
+  "seed_start": 11400714815028232189
+}

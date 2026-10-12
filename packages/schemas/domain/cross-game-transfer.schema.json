@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.lengeas.com/domain/cross-game-transfer.schema.json",
+  "title": "Cross-game reward delivery receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["delivery_id", "contract_id", "source_event_id", "source_game_id", "target_game_id", "source_player_id", "target_player_id", "target_action_id", "idempotency_key", "status"],
+  "properties": {
+    "delivery_id": {"type": "string", "minLength": 1},
+    "contract_id": {"type": "string", "minLength": 1},
+    "source_event_id": {"type": "string", "minLength": 1},
+    "source_game_id": {"type": "string", "minLength": 1},
+    "target_game_id": {"type": "string", "minLength": 1},
+    "source_player_id": {"type": "string", "minLength": 1},
+    "target_player_id": {"type": "string", "minLength": 1},
+    "target_action_id": {"type": "string", "minLength": 1},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "status": {"enum": ["delivered", "revoked", "quarantined"]}
+  }
+}

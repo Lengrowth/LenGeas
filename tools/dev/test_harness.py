@@ -211,11 +211,41 @@ def _is_runtime_selector(selector: str | None) -> bool:
     return bool(tokens & {"runtime", "phase05", "p05"})
 
 
+def _is_phase06_selector(selector: str | None) -> bool:
+    if not selector:
+        return False
+    tokens = {token.strip().lower() for token in selector.split(",")}
+    return bool(tokens & {"phase06", "p06", "state-economy-inventory"})
+
+
 def run_suite(suite: str, selector: str | None = None) -> int:
     if suite not in SUITES:
         suite_names = ", ".join(SUITES)
         print(f"ERROR unknown suite {suite!r}; expected one of: {suite_names}", file=sys.stderr)
         return 2
+    if _is_phase06_selector(selector):
+        phase06_dir = TESTS / SUITES[suite][0] / "phase06"
+        if not phase06_dir.is_dir():
+            print(f"ERROR {suite}: no Phase 06 suite at {phase06_dir}", file=sys.stderr)
+            return 2
+        test_files = sorted(phase06_dir.glob("test_*.py"))
+        if not test_files:
+            print(f"ERROR {suite}: Phase 06 suite is empty", file=sys.stderr)
+            return 2
+        return subprocess.run(
+            [
+                "uv",
+                "run",
+                "--frozen",
+                "python",
+                "-m",
+                "pytest",
+                "-q",
+                *(str(path.relative_to(ROOT)) for path in test_files),
+            ],
+            cwd=ROOT,
+            check=False,
+        ).returncode
     if _is_runtime_selector(selector):
         runtime_dir = TESTS / SUITES[suite][0] / "runtime"
         if not runtime_dir.is_dir():

@@ -14,7 +14,13 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKFLOW_DIR = ROOT / ".github" / "workflows"
-EXPECTED_WORKFLOWS = {"verify.yml", "release.yml", "dependency-review.yml", "codeql.yml"}
+EXPECTED_WORKFLOWS = {
+    "verify.yml",
+    "release.yml",
+    "dependency-review.yml",
+    "codeql.yml",
+    "phase-06-qualification.yml",
+}
 ACTION_REF = re.compile(r"uses:\s*[^\s#]+@(?P<ref>v?\d+\.\d+\.\d+(?:\.\d+)?)\s*(?:#.*)?$")
 LOCAL_LINK = re.compile(r"(?<!!)\[[^]]*\]\(([^)]+)\)")
 EXACT_VERSION = re.compile(r"^\d+\.\d+\.\d+$")

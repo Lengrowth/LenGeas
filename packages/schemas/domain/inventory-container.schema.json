@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.lengeas.com/domain/inventory-container.schema.json",
+  "title": "Partitioned player inventory container",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["studio_id", "game_id", "player_id", "game_profile_id", "container_id", "state_version", "capacity_slots", "stacks", "instances", "equipment"],
+  "properties": {
+    "studio_id": {"type": "string", "minLength": 1},
+    "game_id": {"type": "string", "minLength": 1},
+    "player_id": {"type": "string", "minLength": 1},
+    "game_profile_id": {"type": "string", "minLength": 1},
+    "container_id": {"type": "string", "minLength": 1},
+    "state_version": {"type": "integer", "minimum": 0},
+    "capacity_slots": {"type": "integer", "minimum": 0, "maximum": 100000},
+    "stacks": {"type": "array", "items": {"type": "object", "required": ["stack_id", "item_id", "quantity"], "properties": {"stack_id": {"type": "string"}, "item_id": {"type": "string"}, "quantity": {"type": "integer", "minimum": 1}, "attributes": {"type": "object"}}, "additionalProperties": false}},
+    "instances": {"type": "array", "items": {"type": "object", "required": ["instance_id", "item_id"], "properties": {"instance_id": {"type": "string"}, "item_id": {"type": "string"}, "attributes": {"type": "object"}}, "additionalProperties": false}},
+    "equipment": {"type": "object", "additionalProperties": {"type": "string"}}
+  }
+}

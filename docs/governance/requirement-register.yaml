@@ -35,7 +35,7 @@ requirements:
     title: Economy transaction integrity
     owner_role: economy_owner
     source_anchors: [docs/00-product-charter.md#v1-completion-boundary, docs/07-data-and-persistence.md#economy-ledger]
-    phase_tasks: [P00-T01, P00-T02, P00-T06, P06-T01]
+    phase_tasks: [P00-T01, P00-T02, P00-T06, P06-T01, P06-T02, P06-T03, P06-T07]
     verification_method: ledger reconciliation and idempotency suite
     evidence_path: docs/evidence/phase-00/tasks/P00-T06.md
   - id: RQ-005

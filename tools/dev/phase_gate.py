@@ -49,7 +49,7 @@ def main() -> int:
             file=sys.stderr,
         )
         return 1
-    if phase in {"03", "04"}:
+    if phase in {"03", "04", "06"}:
         evidence_path = ROOT / "tools" / "dev" / "evidence.py"
         import importlib.util
 
@@ -63,8 +63,10 @@ def main() -> int:
             module.verify_manifest(manifest)
             if phase == "03":
                 module.verify_phase03_completeness(manifest)
-            else:
+            elif phase == "04":
                 module.verify_phase04_completeness(manifest)
+            else:
+                module.verify_phase06_completeness(manifest)
         except SystemExit as error:
             print(f"FAIL phase gate: {error}", file=sys.stderr)
             return 1

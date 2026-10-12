@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.lengeas.com/domain/purchase-receipt.schema.json",
+  "title": "Verified provider purchase receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["receipt_id", "provider", "provider_transaction_id", "product_id", "status", "occurred_at"],
+  "properties": {
+    "receipt_id": {"type": "string", "minLength": 1},
+    "provider": {"enum": ["apple", "google"]},
+    "provider_transaction_id": {"type": "string", "minLength": 1},
+    "product_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["fulfilled", "refunded", "chargeback"]},
+    "occurred_at": {"type": "string", "format": "date-time"}
+  }
+}

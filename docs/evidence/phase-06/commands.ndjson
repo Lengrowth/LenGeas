@@ -1,0 +1,20 @@
+{"command":"task test:unit -- phase06","result":"PASS","observed":"20 passed; one Celery Django-settings warning"}
+{"command":"task test:property -- phase06","result":"PASS","observed":"2 passed"}
+{"command":"task test:contract -- phase06","result":"PASS","observed":"3 passed"}
+{"command":"task test:integration -- phase06","result":"PASS","observed":"3 passed; in-memory concurrency/fault-injection only"}
+{"command":"task test:e2e -- phase06","result":"PASS","observed":"3 passed; Starlette/httpx and anyio deprecation warnings"}
+{"command":"task test:security -- phase06","result":"PASS","observed":"4 passed"}
+{"command":"task test:performance -- phase06","result":"PASS","observed":"3 passed"}
+{"command":"uv run --frozen python -m pytest -q --junitxml=docs/evidence/phase-06/test-report.xml --cov=apps.api.app.state_economy_api --cov=apps.workers.reconciliation --cov=packages.domain.player_state --cov=packages.domain.economy --cov=packages.domain.economy_runtime --cov=packages.domain.inventory --cov=packages.domain.entitlements --cov=packages.domain.cross_game --cov=packages.domain.reconciliation --cov=packages.domain.providers.store_receipts --cov=packages.persistence.mongodb.player_state --cov=packages.persistence.mongodb.state_economy --cov=packages.persistence.mongodb.inventory --cov=packages.persistence.mongodb.cross_game --cov=packages.persistence.mongodb.reconciliation --cov-report=json:docs/evidence/phase-06/coverage.json tests/unit/phase06 tests/property/phase06 tests/contract/phase06 tests/integration/phase06 tests/e2e/phase06 tests/security/phase06 tests/performance/phase06","result":"PASS","observed":"38 passed, 3 warnings; JUnit XML and coverage JSON refreshed; five Mongo repository modules not imported in tests"}
+{"command":"task lint","result":"PASS","observed":"All checks passed; Python, JSON, and repository policy checks"}
+{"command":"task typecheck","result":"PASS","observed":"Mypy clean for 120 source files; TypeScript definition and bundle validator fixtures passed"}
+{"command":"uv run --frozen python tools/dev/ci_checks.py workflow-policy","result":"PASS","observed":"5 workflows, exact action refs, fail-closed gates"}
+{"command":"uv run --frozen python tools/dev/ci_checks.py schema","result":"PASS","observed":"Draft 2020-12 evidence schema and canonical vectors validate"}
+{"command":"uv run --frozen python tools/dev/ci_checks.py docs-links","result":"PASS","observed":"All repository-relative Markdown links resolve"}
+{"command":"uv run --frozen python tools/dev/value_qualification.py run --partition 0 --partitions 2 --operations 1000 --output docs/evidence/phase-06/performance/partitions/partition-0.json","result":"PASS","observed":"1,000 operations; aggregate and digest-only partition report"}
+{"command":"uv run --frozen python tools/dev/value_qualification.py run --partition 1 --partitions 2 --operations 1000 --output docs/evidence/phase-06/performance/partitions/partition-1.json","result":"PASS","observed":"1,000 operations; aggregate and digest-only partition report"}
+{"command":"uv run --frozen python tools/dev/value_qualification.py aggregate --reports docs/evidence/phase-06/performance/partitions --partitions 2 --expected-total 2000 --output docs/evidence/phase-06/performance/local-smoke.json","result":"PASS","observed":"2,000 operations across 2 partitions; conserved aggregate total is zero; digest-only"}
+{"command":"task phase:gate PHASE=06","result":"PENDING","observed":"Will run after manifest regeneration"}
+{"command":"task evidence PHASE=06","result":"PENDING","observed":"Will run after manifest regeneration"}
+{"command":"task format","result":"PASS","observed":"170 files left unchanged; deterministic Python formatting applied"}
+{"command":"task generate","result":"PASS","observed":"Generated artifacts updated; one generated file reformatted"}

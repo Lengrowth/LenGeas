@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.lengeas.com/domain/entitlement.schema.json",
+  "title": "Server-side player entitlement",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["entitlement_id", "studio_id", "game_id", "player_id", "product_id", "kind", "status", "provider", "provider_transaction_id", "granted_at", "expires_at"],
+  "properties": {
+    "entitlement_id": {"type": "string", "minLength": 1},
+    "studio_id": {"type": "string", "minLength": 1},
+    "game_id": {"type": "string", "minLength": 1},
+    "player_id": {"type": "string", "minLength": 1},
+    "product_id": {"type": "string", "minLength": 1},
+    "kind": {"enum": ["permanent", "consumable", "subscription"]},
+    "status": {"enum": ["active", "revoked", "expired", "consumed"]},
+    "provider": {"enum": ["apple", "google"]},
+    "provider_transaction_id": {"type": "string", "minLength": 1},
+    "quantity_remaining": {"type": "integer", "minimum": 0},
+    "granted_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "revoked_at": {"type": ["string", "null"], "format": "date-time"},
+    "revocation_reason": {"type": ["string", "null"]}
+  }
+}
