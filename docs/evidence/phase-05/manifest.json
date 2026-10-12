@@ -55,7 +55,7 @@
     },
     {
       "path": "tools/dev/evidence.py",
-      "sha256": "b0d47f3ed4aadb8e942bd1c1c856fc6cccc6aec728ef0d9c08478455cffebbf1"
+      "sha256": "4d50fee20ddf75763fe76fc342f35aa19bebacc55aaf52332dcf3984219e03a2"
     },
     {
       "path": "tools/dev/phase_gate.py",
@@ -127,7 +127,7 @@
     },
     {
       "path": "docs/evidence/phase-05/tasks",
-      "sha256": "b3b9dcfc60fdf2f1a3d4a5f73b4d84c3dfa9a4ddf792d9d22ea8e205ec29cf3d"
+      "sha256": "fac73a783e1b72c0c74d40bc2d161577b24e68a03c0e6f2512aabeccf5d4bded"
     },
     {
       "path": "docs/evidence/phase-05/security",
@@ -143,15 +143,15 @@
     },
     {
       "path": "docs/evidence/phase-05/handoff.md",
-      "sha256": "7a88d305b607f7446f43ceb968bd74faf419ca96e7e0e6f11efc5d2c03c82aa5"
+      "sha256": "d8d72586a1c966c56bf057cc9457c41543eac8abba2b71905dc50b92e0cf48b5"
     },
     {
       "path": "docs/evidence/phase-05/blockers.md",
-      "sha256": "8bcb5755a0a9850be5a7e1b72fc3b246110333e70569d2d9dea5b80a2016a230"
+      "sha256": "90333cca4cf4c6c88a2a9669f0b14e6321c8ed0ce7f0fb7f658f1c4564d9e6e7"
     },
     {
       "path": "docs/evidence/phase-05/decisions.md",
-      "sha256": "85a3ea1ca9640188b10c9cb153695641a81f508f600953690b474f303cef296b"
+      "sha256": "83a6e141882cb653f7b4ea6babf1f633b596521b85661c6ce7a36e50204cc20c"
     },
     {
       "path": "docs/evidence/phase-05/commands.ndjson",
@@ -178,17 +178,17 @@
     "P05-T07",
     "P05-T08"
   ],
-  "end_utc": "2026-10-12T10:23:25.408126Z",
-  "final_commit": "186431fc3444d00f89df206a7ad1fc53448307af",
+  "end_utc": "2026-10-12T10:43:50.470083Z",
+  "final_commit": "1d6303370d7dfc45090bf6e0608828a9f7702003",
   "next_phase_prerequisites": [
-    "Repository owner reviews and explicitly accepts Phase 05.",
     "Phase 06 consumes the runtime plan interface and supplies economy/inventory transaction handlers for typed reward grants."
   ],
   "open_risks": [
     "Docker/MongoDB is unavailable locally; real Mongo transaction failure injection, version races, and before/after-commit process-kill integration remain unverified.",
     "The hosted ARM64/x86-64 replay workflow is configured but has not run from this local checkout; equality remains unverified until CI reports both jobs.",
     "Production runtime API composition must inject the Phase 03 trusted principal provider and durable Mongo repository; local E2E uses the in-memory adapter.",
-    "The local replay report is unsigned because no owner-managed signing key is configured; required signed evidence remains pending."
+    "The local replay report is unsigned because no owner-managed signing key is configured; required signed evidence remains pending.",
+    "The benchmark's reference CPU threshold still needs confirmation on the designated runner."
   ],
   "phase": "05",
   "requirement_ids": [
@@ -199,7 +199,7 @@
   ],
   "schema_version": "1.0.0",
   "start_utc": "2026-10-12T10:22:24.983553Z",
-  "status": "in_review",
+  "status": "accepted",
   "tests": [
     "task test:unit -- runtime",
     "task test:property -- runtime",

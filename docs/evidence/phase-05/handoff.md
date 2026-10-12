@@ -2,7 +2,7 @@
 
 ## Status and decision
 
-Phase 05 is `in_review`. P05-T01 through P05-T08 have implementation and local evidence, but repository-owner acceptance has not been recorded. Phase 04 was `accepted` before this work began; its entry gate and read-only evidence verification passed. Phase 04's status is unchanged.
+Phase 05 is `accepted`. On 2026-10-12 the repository owner explicitly accepted P05-T01 through P05-T08 and directed work to proceed to Phase 06, with the open evidence gaps in `blockers.md` disclosed. This acceptance does not claim unavailable external checks were completed. Phase 04 was `accepted` before this work began; its entry gate and read-only evidence verification passed. Phase 04's status is unchanged.
 
 The Phase 05 source candidate is commit `186431fc3444d00f89df206a7ad1fc53448307af` (`P05-T01: implement Phase 05 runtime primitives`). The evidence update is committed separately after the final gates.
 
@@ -30,6 +30,10 @@ Exact commands, exit codes, and results are in `commands.ndjson`; detailed test 
 
 ## Risks and prerequisites
 
-See `blockers.md` and the manifest `open_risks`. Before Phase 05 acceptance, run Mongo transaction failure injection and deployed E2E with configured credentials, execute the hosted ARM64/x86-64 matrix, and supply the required signed replay evidence. The benchmark's reference CPU threshold also needs confirmation on the designated runner.
+See `blockers.md` and the manifest `open_risks` for the MongoDB transaction, deployed E2E, hosted ARM64/x86-64 replay, signing, and benchmark-threshold gaps accepted by the repository owner. These are disclosed limitations, not claims of completed verification.
 
 Phase 06 can consume the plan and registration contracts. It must supply domain handlers for economy/inventory grants and should retain the transaction boundary that commits state, receipt, idempotency, and outbox together.
+
+## Exact first command for Phase 06
+
+`task phase:gate PHASE=05`

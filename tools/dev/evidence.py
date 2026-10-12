@@ -400,14 +400,16 @@ def verify_phase05_completeness(manifest: dict[str, object]) -> None:
     missing = sorted(required - present)
     if missing:
         raise SystemExit("Phase 05 evidence is incomplete: " + ", ".join(missing))
-    if manifest.get("status") != "in_review":
-        raise SystemExit("Phase 05 evidence must remain in_review until owner acceptance")
+    status = manifest.get("status")
+    if status not in {"in_review", "accepted"}:
+        raise SystemExit("Phase 05 evidence must be in_review or accepted")
     if manifest.get("completed_task_ids") != [f"P05-T0{number}" for number in range(1, 9)]:
         raise SystemExit("Phase 05 manifest must list P05-T01 through P05-T08")
+    task_status = "accepted" if status == "accepted" else "in_review"
     for number in range(1, 9):
         task_text = (evidence / "tasks" / f"P05-T0{number}.md").read_text(encoding="utf-8")
-        if "`in_review`" not in task_text:
-            raise SystemExit(f"P05-T0{number} evidence must remain in_review")
+        if f"`{task_status}`" not in task_text:
+            raise SystemExit(f"P05-T0{number} evidence must be {task_status}")
     import xml.etree.ElementTree as ET
 
     report = ET.parse(evidence / "test-report.xml").getroot()
@@ -775,6 +777,9 @@ def build_phase04_manifest(existing: dict[str, object] | None) -> dict[str, obje
 
 def build_phase05_manifest(existing: dict[str, object] | None) -> dict[str, object]:
     existing = existing or {}
+    status = existing.get("status", "in_review")
+    if status not in {"in_review", "accepted"}:
+        status = "in_review"
     artifacts = []
     for value in PHASE05_ARTIFACT_PATHS:
         path = ROOT / value
@@ -784,7 +789,7 @@ def build_phase05_manifest(existing: dict[str, object] | None) -> dict[str, obje
     return {
         "schema_version": "1.0.0",
         "phase": "05",
-        "status": "in_review",
+        "status": status,
         "start_utc": existing.get(
             "start_utc", datetime.now(UTC).isoformat().replace("+00:00", "Z")
         ),
@@ -841,13 +846,19 @@ def build_phase05_manifest(existing: dict[str, object] | None) -> dict[str, obje
                 "The local replay report is unsigned because no owner-managed signing key is "
                 "configured; required signed evidence remains pending."
             ),
+            (
+                "The benchmark's reference CPU threshold still needs confirmation on the "
+                "designated runner."
+            ),
         ],
         "next_phase_prerequisites": [
-            "Repository owner reviews and explicitly accepts Phase 05.",
-            (
-                "Phase 06 consumes the runtime plan interface and supplies economy/inventory "
-                "transaction handlers for typed reward grants."
+            *(
+                []
+                if status == "accepted"
+                else ["Repository owner reviews and explicitly accepts Phase 05."]
             ),
+            "Phase 06 consumes the runtime plan interface and supplies economy/inventory "
+            "transaction handlers for typed reward grants.",
         ],
         "blockers": [],
     }
