@@ -26,3 +26,12 @@
 {"command":"task typecheck","result":"PASS","observed":"Mypy clean for 120 source files; TypeScript definition and bundle validator fixtures passed"}
 {"command":"task phase:gate PHASE=06","result":"PASS","observed":"Phase 06 remains in_review with no blockers"}
 {"command":"task evidence PHASE=06","result":"PASS","observed":"Read-only Phase 06 evidence manifest verified"}
+{"command":"task phase:gate PHASE=05","result":"PASS","observed":"Phase 05 is accepted with no blockers"}
+{"command":"task evidence PHASE=05","result":"PASS","observed":"Read-only Phase 05 evidence manifest verified"}
+{"command":"task phase:gate PHASE=06","result":"PASS","observed":"Phase 06 remains in_review with no blockers"}
+{"command":"task evidence PHASE=06","result":"PASS","observed":"Read-only Phase 06 evidence manifest verified"}
+{"command":"task lint","result":"PASS","observed":"All checks passed; Python, JSON, and repository policy checks"}
+{"command":"task typecheck","result":"PASS","observed":"No issues in 120 Python source files; TypeScript definition and bundle validator fixtures passed"}
+{"command":"Check local integration configuration (Docker, process/.env configuration names, and localhost service ports)","result":"UNAVAILABLE","observed":"docker and mongosh executables absent; MONGODB_URI and CELERY_BROKER_URL absent from process environment and .env; localhost TCP ports 27017, 5672, and 15672 closed"}
+{"command":"Check configured Apple and Google sandbox inputs (process/.env configuration names)","result":"UNAVAILABLE","observed":"Documented Apple server API and Google Play/PubSub configuration variables absent from process environment and .env; no live sandbox calls run"}
+{"command":"uv run --frozen python tools/dev/evidence.py 06 --regenerate","result":"PASS","observed":"Phase 06 evidence manifest regenerated and verified after recording current gate, evidence, lint, typecheck, and infrastructure observations"}

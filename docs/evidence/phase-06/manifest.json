@@ -215,7 +215,7 @@
     },
     {
       "path": "docs/evidence/phase-06/blockers.md",
-      "sha256": "71f6efd2662e97d39890472af61362a9d41b93d410f35860afe30755958e0a35"
+      "sha256": "92ad2cdbbbda1e17fd150bd86d6ed11f61eb92a41643ad846094404cf39fe8ab"
     },
     {
       "path": "docs/evidence/phase-06/decisions.md",
@@ -223,11 +223,11 @@
     },
     {
       "path": "docs/evidence/phase-06/handoff.md",
-      "sha256": "4ed25e46e4357e26004d32b4dc7a79a9a313ad046c303ef64d56bc5ad877d891"
+      "sha256": "f29a095303fc96e46e1011ee7a18d2cb522dd399eef6e5e45ccc2093db79625e"
     },
     {
       "path": "docs/evidence/phase-06/commands.ndjson",
-      "sha256": "6db94a0eb99b81395481daa94fb7f27f901e67c219be5cbd348226fd4cb92f95"
+      "sha256": "a7946d7b1ac5793d4465f8397982e4ffb62a509be852ba498cbf3000000b20b6"
     },
     {
       "path": "docs/evidence/phase-06/test-report.xml",
@@ -250,8 +250,8 @@
     "P06-T07",
     "P06-T08"
   ],
-  "end_utc": "2026-10-12T13:00:53.470178Z",
-  "final_commit": "35996c61094f722c236c2e065a1bbb2c2063e2de",
+  "end_utc": "2026-10-12T13:05:57.344240Z",
+  "final_commit": "780488ccc7145b3196e1fbab0765a8556304ab32",
   "next_phase_prerequisites": [
     "Phase 07 consumes the namespace state repository API, ledger transaction schema, item and entitlement handlers, provider configuration names, reconciliation task, and cross-game delivery contract documented in the Phase 06 handoff."
   ],

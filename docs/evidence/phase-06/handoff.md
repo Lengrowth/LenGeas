@@ -9,7 +9,13 @@ qualification passed in [GitHub Actions run 38252037777](https://github.com/Leng
 on commit `a34f47b32961e351843d9755eeeeefe852c0f6ca`; partition ranges, counts,
 and digests are in `performance/hosted-qualification.json`. MongoDB transaction
 integration, live Apple/Google sandbox checks, and Celery broker behavior remain
-open risks. See `blockers.md`.
+open risks. The current workstation check found no Docker or `mongosh`, no
+`MONGODB_URI` or `CELERY_BROKER_URL` in the process environment or `.env`,
+closed local MongoDB/RabbitMQ ports, and no documented Apple/Google sandbox
+configuration variables. Therefore, no live database, broker, or provider
+checks were run. The required Phase 05/06 gates and evidence checks, lint, and
+typecheck passed; exact observations are in `commands.ndjson`. See
+`blockers.md`.
 
 ## Phase 07 interfaces
 
