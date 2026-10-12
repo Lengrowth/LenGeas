@@ -1,0 +1,18 @@
+{
+  "command": "uv run --frozen pytest -q --cov=packages.schemas.definition_runtime --cov=packages.schemas.definition_validation --cov-report=json:docs/evidence/phase-04/coverage.json --junitxml=docs/evidence/phase-04/test-report.xml tests/unit/definitions tests/security/definitions",
+  "coverage": {
+    "line_percent": 85.97972972972973
+  },
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.5"
+  },
+  "generated_at_utc": "2026-10-12T12:55:55.457093Z",
+  "schema_version": 1,
+  "scope": "Phase 04 bounded parser conformance smoke; no production throughput claim",
+  "tests": {
+    "elapsed_seconds": 33.13,
+    "failed": 0,
+    "passed": 74
+  }
+}

@@ -139,11 +139,11 @@
     },
     {
       "path": "docs/evidence/phase-04/test-report.xml",
-      "sha256": "30078d08c3cbf6778b0106ebbf12aff6b7efd549dbb5c89af163235fb009cde5"
+      "sha256": "4c794b350901baae5f51045137c36fa3c26df3317d4e0de2547cd70b8455e817"
     },
     {
       "path": "docs/evidence/phase-04/coverage.json",
-      "sha256": "0a376c7abbf9da0e535664e599a8b0c54af5cf4224b1bba87ee774d5ef365c3e"
+      "sha256": "d594027747fb83dd18b16fdc35a7886d961b2d91dc4d193c0f3f3cea79ca1799"
     },
     {
       "path": "docs/evidence/phase-04/tasks",
@@ -155,7 +155,7 @@
     },
     {
       "path": "docs/evidence/phase-04/performance",
-      "sha256": "c06d11059a588d7b098ad65abffce85edac90ded7133356592372db77427abbc"
+      "sha256": "eb802e51bf63c628db2c3817565439f6ca30a0892d5a67f2e0380a28e5db942b"
     },
     {
       "path": "docs/evidence/phase-04/operations",
@@ -174,8 +174,8 @@
     "P04-T07",
     "P04-T08"
   ],
-  "end_utc": "2026-10-12T11:58:39.123470Z",
-  "final_commit": "186431fc3444d00f89df206a7ad1fc53448307af",
+  "end_utc": "2026-10-12T12:55:59.662419Z",
+  "final_commit": "a34f47b32961e351843d9755eeeeefe852c0f6ca",
   "next_phase_prerequisites": [
     "Phase 05 must consume the frozen schema digest and generated model imports in handoff.md"
   ],
