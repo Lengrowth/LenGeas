@@ -93,7 +93,7 @@ jobs:
             terraform -chdir="infrastructure/terraform/environments/${root}" init -backend=false -input=false
             terraform -chdir="infrastructure/terraform/environments/${root}" validate
           done
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: phase-02-evidence-${{ github.event.pull_request.head.sha || github.sha }}
           path: docs/evidence/phase-02/
@@ -115,12 +115,12 @@ jobs:
           task definition:compatibility
           task definition:determinism
           task phase:gate PHASE=04
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: phase-03-evidence-${{ github.event.pull_request.head.sha || github.sha }}
           path: docs/evidence/phase-03/
           if-no-files-found: error
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: phase-04-evidence-${{ github.event.pull_request.head.sha || github.sha }}
           path: docs/evidence/phase-04/
@@ -194,7 +194,7 @@ jobs:
         run: uv run --frozen python tools/dev/runtime_replay.py --output "$RUNNER_TEMP/runtime-replay.json"
       - name: Verify runtime performance budget
         run: uv run --frozen python tools/dev/runtime_benchmark.py --output "$RUNNER_TEMP/runtime-benchmark.json"
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v7.0.2
         with:
           name: phase-05-runtime-${{ matrix.os }}
           path: |
